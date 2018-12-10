@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Implementing a finite state machine in Cycle.js | Michael Jae-Yoon Chung</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Implementing a finite state machine in Cycle.js" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Originally published on Medium" />
+<meta property="og:description" content="Originally published on Medium" />
+<link rel="canonical" href="/2018/11/08/implementing.html" />
+<meta property="og:url" content="/2018/11/08/implementing.html" />
+<meta property="og:site_name" content="Michael Jae-Yoon Chung" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-08T08:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Implementing a finite state machine in Cycle.js" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2018-11-08T08:00:00+00:00","datePublished":"2018-11-08T08:00:00+00:00","description":"Originally published on Medium","headline":"Implementing a finite state machine in Cycle.js","mainEntityOfPage":{"@type":"WebPage","@id":"/2018/11/08/implementing.html"},"url":"/2018/11/08/implementing.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-142528997-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" />
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael Jae-Yoon Chung</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research/">research</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Implementing a finite state machine in Cycle.js</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-11-08T08:00:00+00:00" itemprop="datePublished">Nov 8, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>Originally published on <a href="https://medium.com/@chungjy9/implementing-a-finite-state-machine-in-cycle-js-c498b6cfb231">Medium</a></em></p>
+
+<blockquote>
+  <p><em><strong>Note:</strong> Check out other posts on programming a social robot using Cycle.js too:</em>
+<em>1. <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a></em>
+<em>2. <a href="/2018/11/08/implementing.html">Implementing a finite state machine in Cycle.js</a></em></p>
+</blockquote>
+
+<p>In this post, I’ll show you how to implement a reactive social robot program as a <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine</a>. We’ll continue from where we left off in the previous post <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a>–so check it out if you haven’t already! If you are in a hurry, here is the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">demo and complete code</a> of what we are building in this post.</p>
+
+<h2 id="making-existing-travel-personality-quiz-program-more-complex">Making existing “travel personality quiz” program more complex</h2>
+
+<p><a href="/2018/11/01/programming.html">Previously</a>, we programmed a <a href="https://github.com/mjyc/tablet-robot-face">tablet-face robot</a> to test your travel personality. Concretely, we implemented a tablet-face robot program that</p>
+
+<ol>
+  <li>looks at a person when it sees one and</li>
+  <li>asks travel personality quiz questions as shown in <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">this flowchart</a></li>
+</ol>
+
+<p>as a <a href="https://cycle.js.org/">Cycle.js</a> application. Here are the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-01-personality-quiz">demo</a> at Stackbliz and <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz">complete code</a> in GitHub from the previous post.</p>
+
+<p><strong>IMPORTANT!!</strong> The main package we use in the demo and in this post, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/run">cycle-robot-drivers/run</a>, only works on Chrome browsers  (&gt;= 65.0.3325.181) for now.</p>
+
+<p>Now, what if we want the robot to</p>
+
+<ol>
+  <li>look at a person only when the robot is waiting for a person’s response,</li>
+  <li>stop asking a question if the robot cannot see a person and resume asking the question if it sees a person again, and</li>
+  <li>stop asking questions completely if a person abandons the robot, i.e., the robot does not see a person for more than 10 seconds.</li>
+</ol>
+
+<p>How difficult would it be to update the existing program to have these additional behaviors? Try implementing the new behaviors on top of the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">travel personality quiz program</a>.
+What kind of challenges do you face?</p>
+
+<p>From my experience, it was difficult to implement, or even just express the “stateful” behaviors in reactive programming. For example, to implement 1., I needed to know whether the robot is in the “waiting for a person’s response” state but it wasn’t clear how to represent such state in a scalable manner; I tried keeping all states in drivers (e.g., <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> emitting <code class="language-plaintext highlighter-rouge">status</code> events), as proxies (e.g., <code class="language-plaintext highlighter-rouge">$lastQuestion</code> in <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js#L58">the previous code</a>), or in higher-order streams, but none of them felt simple nor scalable. This was very concerning since <a href="http://wiki.ros.org/smach/Tutorials/Getting%20Started#Why_learn_Smach.3F">many</a> <a href="https://www.researchgate.net/figure/A-behavioral-state-machine-for-robot-soccer_fig10_238086654">robot</a> <a href="https://www.youtube.com/watch?v=4XEK7OU2gIw">behaviors</a> are expressed and implemented as stateful behaviors.</p>
+
+<p>To address this problem, I propose using finite state machines to clearly express the desired robot behaviors. In the following, I first present a pattern for implementing a finite state machine in a reactive programming framework (Cycle.js) without scarifying maintainability. Then I demonstrate a use case of the FSM pattern via implementing the first additional behavior.</p>
+
+<h2 id="what-is-a-finite-state-machine">What is a finite state machine?</h2>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine (FSM)</a> is a computational model that can be used to represent and control execution flow. Due to their simplicity, FSMs have been frequently used by <a href="http://wiki.ros.org/smach">roboticists</a>, <a href="https://sketch.systems/">UI developers</a> and many others for a <a href="https://www.mtholyoke.edu/courses/pdobosh/cs100/handouts/genghis.pdf">long</a> <a href="http://www.inf.ed.ac.uk/teaching/courses/seoc/2005_2006/resources/statecharts.pdf">time</a>. An FSM we are using in this post is comprised of five parts:</p>
+
+<ol>
+  <li>A set of states, e.g., <code class="language-plaintext highlighter-rouge">'SAY_SENTENCE'</code>, <code class="language-plaintext highlighter-rouge">'WAIT_FOR_RESPONSE'</code>, etc.</li>
+  <li>A set of variables, e.g., <code class="language-plaintext highlighter-rouge">currentSentence = 'Can you see yourself working online?'</code></li>
+  <li>A set of inputs: e.g., <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, etc.</li>
+  <li>A set of outputs: e.g., <code class="language-plaintext highlighter-rouge">speechSynthesisAction = 'Can you see yourself working online?'</code></li>
+  <li>A transition function that takes a state, variable, and input and returns a state, variable, and output.</li>
+</ol>
+
+<p>If you are familiar with FSMs, the FSM we are using is a <a href="https://en.wikipedia.org/wiki/Mealy_machine">mealy machine</a> extended with “variables”.
+Like a mealy machine, it has the following constraints:</p>
+
+<ul>
+  <li>the state set is a <a href="https://en.wikipedia.org/wiki/Finite_set">finite set</a></li>
+  <li>the FSM can only be in one state at a time in the state set</li>
+  <li>the transition function is deterministic; given a state, variable, and input the function always returns the same new state, new variable, and new output.</li>
+</ul>
+
+<h2 id="representing-the-travel-personality-quiz-program-as-an-fsm">Representing the “travel personality quiz” program as an FSM</h2>
+
+<p>We’ll start from representing the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">“travel personality test” program</a> we implemented in the previous post as an FSM:</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/et73xk1bvd20kbyrt69c.png" alt="travel_personality_quiz_fsm" /></p>
+
+<p>Here we have three states, <code class="language-plaintext highlighter-rouge">PEND</code>, <code class="language-plaintext highlighter-rouge">SAY</code>, <code class="language-plaintext highlighter-rouge">LISTEN</code>, and five input types, <code class="language-plaintext highlighter-rouge">START</code>, <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, and <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>. We omitted variables associated with each state and outputs associated with each transition for visual clarity.</p>
+
+<p>Notice that we use verbs as state names (as a popular robotics FSM library <a href="http://wiki.ros.org/smach">SMACH</a> does). This is because we define the states based on distinct actions each state is performing, where the distinct actions are triggered by outputs emitted from transitions. You may have wondered why we did not create each state in the <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">travel quiz flowchart</a> as an individual state, e.g., <code class="language-plaintext highlighter-rouge">ASK_CAREER_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_WORKING_ABROAD_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_FAMILY_QUESTION</code>, etc. This is because representing the states that behave the same except the sentence the robot says with a single <code class="language-plaintext highlighter-rouge">SAY</code> state with a variable <code class="language-plaintext highlighter-rouge">currentSentence</code> (not shown in the diagram) yields the simpler, more maintainable FSM.</p>
+
+<p>The inputs can be considered as the events that could occur in each state and  are originated from actions, e.g., <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, sensors, e.g., <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>, or external systems, e.g. <code class="language-plaintext highlighter-rouge">START</code>. We represent an input as a type-value pair. For example, the <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code> type input is paired with a value “yes” or “no”, which is used to determine the transition between <code class="language-plaintext highlighter-rouge">LISTEN</code> to <code class="language-plaintext highlighter-rouge">SAY</code> (input values are not shown in the graph).</p>
+
+<p>Now, let’s update the FSM to express the first additional behavior mentioned above: looking at a person only when the robot is waiting for a person’s response.</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/7z09n6fz5z1s8zjlb9ii.png" alt="travel_personality_quiz_fsm_updated" /></p>
+
+<p>All we did here is remove the two self-loop transitions from the <code class="language-plaintext highlighter-rouge">PEND</code> and <code class="language-plaintext highlighter-rouge">SAY</code> states to stop the robot from looking at a person while the FSM is in those states.</p>
+
+<h2 id="implementing-the-travel-personality-test-fsm-using-cyclejs">Implementing the “travel personality test” FSM using Cycle.js</h2>
+
+<p>Let’s now implement the “travel personality test” FSM we defined above using Cycle.js.</p>
+
+<p>First, we’ll try to define the FSM in javascript as follows:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">PEND</span><span class="p">:</span> <span class="dl">'</span><span class="s1">PEND</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">SAY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SAY</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_SENTENCE</span>
+  <span class="na">LISTEN</span><span class="p">:</span> <span class="dl">'</span><span class="s1">LISTEN</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_FOR_RESPONSE</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">START</span><span class="p">:</span> <span class="s2">`START`</span><span class="p">,</span>
+  <span class="na">SAY_DONE</span><span class="p">:</span> <span class="s2">`SAY_DONE`</span><span class="p">,</span>
+  <span class="c1">// QUIZ_DONE: is not an input type but a transition</span>
+  <span class="na">VALID_RESPONSE</span><span class="p">:</span> <span class="s2">`VALID_RESPONSE`</span><span class="p">,</span>
+  <span class="na">INVALID_RESPONSE</span><span class="p">:</span> <span class="s2">`INVALID_RESPONSE`</span><span class="p">,</span>
+  <span class="na">DETECTED_FACE</span><span class="p">:</span> <span class="s2">`DETECTED_FACE`</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
+  <span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">newVariables</span> <span class="o">=</span> <span class="nx">variables</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">newOutputs</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">state</span><span class="p">:</span> <span class="nx">newState</span><span class="p">,</span>
+    <span class="na">variables</span><span class="p">:</span> <span class="nx">newVariables</span><span class="p">,</span>
+    <span class="na">outputs</span><span class="p">:</span> <span class="nx">newOutputs</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * // Example state, variables, input, and outputs
+ * const state = State.PEND;
+ * const variables = {
+ *   sentence: 'You are a vacationer!',
+ * };
+ * const input = {
+ *   type: InputType.START,
+ *   value: null,
+ * };
+ * const outputs = {
+ *   SpeechSynthesisAction: {
+ *     goal: 'You are a vacationer!'
+ *   },
+ *   SpeechRecognitionAction: {
+ *     goal: {}
+ *   },
+ *   TabletFace: {
+ *     goal: {
+ *       type: 'SET_STATE',
+ *       value: {
+ *         leftEye: {x: 0.5, y: 0.5},
+ *         rightEye: {x: 0.5, y: 0.5},
+ *       },
+ *     }},
+ *   },
+ * }
+ */</span>
+</code></pre></div></div>
+
+<p>Here we define the set of states <code class="language-plaintext highlighter-rouge">State</code>, the set of input types <code class="language-plaintext highlighter-rouge">InputType</code>, and the transition function <code class="language-plaintext highlighter-rouge">transition</code>. The sets for the variables and outputs of the FSM are not explicitly defined, but I provided example values that the variables and outputs can take in the comment.</p>
+
+<h3 id="setting-up-fsm-in-cyclejs">Setting up FSM in Cycle.js</h3>
+
+<p>We’ll now setup the FSM as a Cycle.js application. You can fork <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">the Stackblitz demo code</a> and start coding or set up a Cycle.js application.
+For the latter, create a folder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir my-second-robot-program
+cd my-second-robot-program
+</code></pre></div></div>
+
+<p>Download <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/.babelrc"><code class="language-plaintext highlighter-rouge">.babelrc</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/index.html"><code class="language-plaintext highlighter-rouge">index.html</code></a>, create an empty <code class="language-plaintext highlighter-rouge">index.js</code> file in the folder, and run <code class="language-plaintext highlighter-rouge">npm install</code> to install the required npm packages. After installing, you can run <code class="language-plaintext highlighter-rouge">npm start</code> to build and start the web application–that does nothing at this point.</p>
+
+<p>Now add the following code in <code class="language-plaintext highlighter-rouge">index.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">xs</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">runRobotProgram</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@cycle-robot-drivers/run</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
+<span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>  <span class="c1">// a dummy input function</span>
+  <span class="nx">start$</span><span class="p">,</span>
+  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
+  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
+  <span class="nx">poses$</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">defaultMachine</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
+    <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">sentence</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">machine$</span> <span class="o">=</span> <span class="nx">input$</span><span class="p">.</span><span class="nf">fold</span><span class="p">((</span><span class="nx">machine</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">transition</span><span class="p">(</span>
+    <span class="nx">machine</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span>
+  <span class="p">),</span> <span class="nx">defaultMachine</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">runRobotProgram</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>If you run the application, it should load a robot face that still does nothing on your browser.</p>
+
+<p>The most important thing to notice here is that we divide the <code class="language-plaintext highlighter-rouge">main</code> function into three functions; <code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, and <code class="language-plaintext highlighter-rouge">output</code>. The <code class="language-plaintext highlighter-rouge">input</code> function takes incoming streams in <code class="language-plaintext highlighter-rouge">sources</code> and returns a stream that emits the FSM’s input values. We then use the <a href="https://github.com/staltz/xstream#fold"><code class="language-plaintext highlighter-rouge">fold</code></a> xstream operator on the returned stream (<code class="language-plaintext highlighter-rouge">$input</code>) to trigger the FSM’s <code class="language-plaintext highlighter-rouge">transition</code> function. Note that the <code class="language-plaintext highlighter-rouge">fold</code> operator is like <code class="language-plaintext highlighter-rouge">Array.prototype.reduce</code> for streams; it takes</p>
+
+<ol>
+  <li>an accumulator function that takes an emitted value (e.g., an FSM input value, <code class="language-plaintext highlighter-rouge">input</code>) and a previous output of the accumulator function (e.g., the latest FSM status, <code class="language-plaintext highlighter-rouge">machine</code>) or a seed value and</li>
+  <li>an initial output of the accumulator function (e.g., the initial FSM status, <code class="language-plaintext highlighter-rouge">defaultMachine</code>).</li>
+</ol>
+
+<p>Finally, the <code class="language-plaintext highlighter-rouge">output</code> function takes the stream that emits FSM status (<code class="language-plaintext highlighter-rouge">$machine</code>) and returns outgoing streams.</p>
+
+<h3 id="input-transition-and-output">Input, transition, and output</h3>
+
+<p>Let’s implement the three functions.
+First, update the dummy <code class="language-plaintext highlighter-rouge">input</code> function to:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">YES</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">NO</span><span class="p">:</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
+  <span class="nx">start$</span><span class="p">,</span>
+  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
+  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
+  <span class="nx">poses$</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
+    <span class="nx">start$</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">}),</span>
+    <span class="nx">speechRecognitionActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
+        <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">||</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+      <span class="p">})),</span>
+    <span class="nx">speechSynthesisActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">}),</span>
+    <span class="nx">speechRecognitionActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
+        <span class="o">||</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">&amp;&amp;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
+      <span class="p">).</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">}),</span>
+    <span class="nx">poses$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+        <span class="nx">poses</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+        <span class="o">&amp;&amp;</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">nose</span> <span class="o">=</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">,</span>
+          <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">/</span> <span class="mi">640</span><span class="p">,</span>  <span class="c1">// max value of position.x is 640</span>
+            <span class="na">y</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">/</span> <span class="mi">480</span><span class="p">,</span>  <span class="c1">// max value of position.y is 480</span>
+          <span class="p">},</span>
+        <span class="p">};</span>
+      <span class="p">}),</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Try testing whether the <code class="language-plaintext highlighter-rouge">input</code> function is behaving properly. For example, you can attach the <a href="https://github.com/staltz/xstream#addListener"><code class="language-plaintext highlighter-rouge">addListener</code></a> xstream operator to the returned <code class="language-plaintext highlighter-rouge">$input</code> stream and return some outgoing streams from the <code class="language-plaintext highlighter-rouge">output</code> function.
+Like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="k">import</span> <span class="nx">delay</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream/extra/delay</span><span class="dl">'</span>
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello world!</span><span class="dl">'</span><span class="p">).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">({}).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="nx">input$</span><span class="p">.</span><span class="nf">addListener</span><span class="p">({</span><span class="na">next</span><span class="p">:</span> <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span><span class="p">)})</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Do you see the expected outputs on your browser console? You should see many inputs with the <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code> type if the robot is detecting a person.</p>
+
+<p>Let’s now remove the dummy <code class="language-plaintext highlighter-rouge">transition</code> function and create a new one:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="c1">// // Remove the dummy transition function</span>
+<span class="c1">// function transition(state, variables, input) {  // a dummy transition function</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
+<span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">createTransition</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">Sentence</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">CAREER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Is it important that you reach your full career potential?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">ONLINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Can you see yourself working online?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">FAMILY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you have to be near my family/friends/pets?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">TRIPS</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think short trips are awesome?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">HOME</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you want to have a home and nice things?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">ROUTINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think a routine gives your life structure?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">JOB</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you need a secure job and a stable income?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">VACATIONER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a vacationer!</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">EXPAT</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are an expat!</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">NOMAD</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a nomad!</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="kd">const</span> <span class="nx">flowchart</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+
+  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
+  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
+  <span class="c1">//   FSM status; {state, variable, outputs}</span>
+  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
+  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
+  <span class="c1">//   FSM status; {state, variable, outputs}</span>
+  <span class="kd">const</span> <span class="nx">transitionTable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">},</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">}},</span>
+      <span class="p">}),</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span>
+          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span>
+          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span>
+        <span class="p">)</span> <span class="p">?</span> <span class="p">{</span>  <span class="c1">// SAY_DONE</span>
+          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
+        <span class="p">}</span> <span class="p">:</span> <span class="p">{</span>  <span class="c1">// QUIZ_DONE</span>
+          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
+          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">done</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">]},</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">goal</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">],</span>
+          <span class="p">},</span>
+          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">leftEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+              <span class="na">rightEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+            <span class="p">},</span>
+          <span class="p">}},</span>
+        <span class="p">},</span>
+      <span class="p">}),</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
+      <span class="p">}),</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">leftEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
+              <span class="na">rightEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">}},</span>
+        <span class="p">}</span>
+      <span class="p">}),</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">);</span>
+    <span class="c1">// excuse me for abusing ternary</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">]</span>
+      <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
+      <span class="p">:</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span>
+        <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
+        <span class="p">:</span> <span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">](</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we define and return the FSM’s transition function inside the <code class="language-plaintext highlighter-rouge">createTransition</code> function.</p>
+
+<p>Finally update the dummy <code class="language-plaintext highlighter-rouge">output</code> function to:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">outputs$</span> <span class="o">=</span> <span class="nx">machine$</span>
+    <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Try running the application and test whether it behaves as we defined in the FSM.</p>
+
+<p>You just implemented a social robot program as an FSM!</p>
+
+<h4 id="relation-to-the-model-view-intent-pattern">Relation to the Model-View-Intent pattern</h4>
+
+<p>The FSM pattern is an application of the <a href="https://cycle.js.org/model-view-intent.html">Model-View-Intent (MVI) pattern</a>, an <a href="https://cycle.js.org/model-view-intent.html#model-view-intent-what-mvc-is-really-about">adaptation of Model-View-Controller in reactive programming</a>, where “intent” is <code class="language-plaintext highlighter-rouge">input</code>, “model” is <code class="language-plaintext highlighter-rouge">FSM status</code>, and “view” is <code class="language-plaintext highlighter-rouge">output</code>. In addition to the MVI pattern, the FSM pattern additionally requires a specific structure for the “model”/<code class="language-plaintext highlighter-rouge">FSM status</code> and the “update”/<code class="language-plaintext highlighter-rouge">transition</code>.</p>
+
+<h2 id="updating-the-travel-personality-quiz-fsm">Updating the “travel personality quiz” FSM</h2>
+
+<p>The true power of the FSM pattern is its maintainability. The crux of the FSM pattern is dividing the <code class="language-plaintext highlighter-rouge">main</code> function into the three functions that have separate concerns:</p>
+
+<ul>
+  <li>the <code class="language-plaintext highlighter-rouge">input</code> function that focuses on turning incoming streams into “input” that the FSM can work with and</li>
+  <li>the <code class="language-plaintext highlighter-rouge">transition</code> function implements the FSM’s transition function.</li>
+  <li>the <code class="language-plaintext highlighter-rouge">output</code> function that maps the outputs returned from <code class="language-plaintext highlighter-rouge">transition</code> into the outgoing streams (<code class="language-plaintext highlighter-rouge">sinks</code> in Cycle.js) to make side effects, e.g., trigger actions.</li>
+</ul>
+
+<p>This separation allows programmers to only update the portion of code in the two functions when they need to make the program more complex.</p>
+
+<p>For example, if we were to implement the rest of additional behaviors mentioned in the <a href="making-travel-personality-quiz-program-more-complex">Making “travel personality quiz” program more complex</a> section, we’ll need to first update the FSM to reflect the new desired behavior, e.g.:</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/st5hzvob4hq22pbrsb78.png" alt="travel_personality_quiz_fsm_final" /></p>
+
+<p>and update the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions accordingly. Checkout the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">complete code</a> to see how I updated the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions to implement the remaining additional behaviors.</p>
+
+<p>The biggest challenge for using FSM is defining FSM. If you are using the FSM pattern and having problems with it, double check the current definition of your state machine. For example, look for the redundant states or input types that make updating the transition function cumbersome (merge them into one state with variables), or look for state or input type that is not being used as intended for (add new necessary states or input types). Another point to check is, making sure your FSM is taking reactive programming approach, e.g., make sure the three functions (<code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, <code class="language-plaintext highlighter-rouge">output</code>) are as pure as possible. Defining effective FSM is art, but I believe using FSMs in reactive programming greatly helps the programmers to better organize their programs.</p>
+
+<p>Thank you for reading! I hope I got you interested in using FSMs in Cycle.js. Let me know if something isn’t clear, and I’d be happy to chat.</p>
+
+<p><em>My name is Mike Chung. I’m a <a href="https://homes.cs.washington.edu/~mjyc/">graduate student</a> interested in the field of human-robot interaction and machine learning. You can reach me on <a href="https://twitter.com/mjyc_">Twitter</a> and on <a href="https://github.com/mjyc">GitHub</a>.</em></p>
+
+  </div><a class="u-url" href="/2018/11/08/implementing.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+  </body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+    "name": "mywebsite",
+	"image": "ubuntu:22.04",
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {
+			"ppa": true,
+			"version": "os-provided"
+		},
+		"ghcr.io/devcontainers/features/ruby:1": {
+			"version": "latest"
+		},
+		"ghcr.io/guiyomh/features/vim:0": {}
+	},
+	"postCreateCommand": "apt-get update && apt-get -y install --no-install-recommends locales && locale-gen en_US.UTF-8",
+	"containerEnv": {
+		"LC_ALL": "en_US.UTF-8"
+	}
+}

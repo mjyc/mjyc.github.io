@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Please help me building a cloud visual SLAM system for cellphones | Michael Jae-Yoon Chung</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Please help me building a cloud visual SLAM system for cellphones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Originally published on Dev Community" />
+<meta property="og:description" content="Originally published on Dev Community" />
+<link rel="canonical" href="/2019/06/09/please.html" />
+<meta property="og:url" content="/2019/06/09/please.html" />
+<meta property="og:site_name" content="Michael Jae-Yoon Chung" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-06-09T08:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Please help me building a cloud visual SLAM system for cellphones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-06-09T08:00:00+00:00","datePublished":"2019-06-09T08:00:00+00:00","description":"Originally published on Dev Community","headline":"Please help me building a cloud visual SLAM system for cellphones","mainEntityOfPage":{"@type":"WebPage","@id":"/2019/06/09/please.html"},"url":"/2019/06/09/please.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-142528997-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" />
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael Jae-Yoon Chung</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research/">research</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Please help me building a cloud visual SLAM system for cellphones</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-06-09T08:00:00+00:00" itemprop="datePublished">Jun 9, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
+
+<p>Hello hackers, tinkers, webdevs, sysdevs, roboticists, and all coders! I’ve been excited about <a href="https://en.wikipedia.org/wiki/Cloud_robotics">cloud robotics</a>, a field of robotics that utilizes the power of cloud computing, and want to share the excitement with you and suggest a project we can potentially work together. The project that I’m thinking of is “cellphone visual SLAMing”. The idea is to run a visual SLAM system on cloud so mobile devices like a cellphone can build 3D maps by simply uploading camera data to the cloud.</p>
+
+<p>Here are the steps I’m thinking:</p>
+
+<ol>
+  <li>Try creating a 3D map using <a href="https://github.com/raulmur/ORB_SLAM2">ORB_SLAM2</a> and desktop camera images.
+The main goal of this step is to get comfortable with a visual SLAM library and feel out the limitations.</li>
+  <li>Try creating 3D maps using ORB*SLAM2 running on a desktop and cellphone camera images.
+ORB_SLAM2 supports <a href="https://www.ros.org/">ROS</a>. So one can easily capture device camera images using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">HTML5’s <code class="language-plaintext highlighter-rouge">MediaDevices.getUserMedia()</code></a>, turn them into ROS image messages, and publish them using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a> so ORB_SLAM2 can use the images collected from a remote device.
+_Update: *</li>
+  <li>Run the ORB_SLAM2 to cloud.
+I have not tried it, but it seems like it is fairly easy to <a href="https://docs.docker.com/samples/library/ros/">containerize a ROS package and deploy it on cloud</a>.</li>
+</ol>
+
+<p>That’s it! Are you interested in trying this idea out? If you have experiences with visual SLAM and have suggestions? Let me know, I’d love to hear your thoughts.</p>
+
+<h3 id="updates">Updates</h3>
+
+<p><em>2021/01/02</em> I have moved on as I don’t get to spend time on tinkering but still think this is a fun project to try one day.
+<em>2020/11/23</em> <a href="https://fyusion.com/">Fyusion</a> and <a href="https://canvas.io/">CANVAS</a> seem to provide products with related technologies.
+<em>2020/05/02</em> It seems like se2lam github.com/izhengfan/se2lam could be used instead of ORB_SLAM2.</p>
+
+<h2 id="comments">Comments</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Please help me build a cloud visual SLAM system for cellphones <a href="https://t.co/PtRVnC0MFT">https://t.co/PtRVnC0MFT</a> <a href="https://twitter.com/hashtag/robotics?src=hash&amp;ref_src=twsrc%5Etfw">#robotics</a> <a href="https://twitter.com/hashtag/robotics?src=hash&amp;ref_src=twsrc%5Etfw">#robotics</a> <a href="https://twitter.com/hashtag/docker?src=hash&amp;ref_src=twsrc%5Etfw">#docker</a> <a href="https://twitter.com/hashtag/ar?src=hash&amp;ref_src=twsrc%5Etfw">#ar</a> <a href="https://twitter.com/hashtag/slam?src=hash&amp;ref_src=twsrc%5Etfw">#slam</a> <a href="https://twitter.com/hashtag/cloud?src=hash&amp;ref_src=twsrc%5Etfw">#cloud</a> <a href="https://twitter.com/hashtag/C?src=hash&amp;ref_src=twsrc%5Etfw">#C</a>++ <a href="https://twitter.com/hashtag/JavaScript?src=hash&amp;ref_src=twsrc%5Etfw">#JavaScript</a> <a href="https://twitter.com/hashtag/HTML?src=hash&amp;ref_src=twsrc%5Etfw">#HTML</a> <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#opensource</a> <a href="https://twitter.com/hashtag/webdev?src=hash&amp;ref_src=twsrc%5Etfw">#webdev</a> <a href="https://twitter.com/hashtag/sysdev?src=hash&amp;ref_src=twsrc%5Etfw">#sysdev</a></p>&mdash; Mike C. (@mjyc_) <a href="https://twitter.com/mjyc_/status/1137953012926672896?ref_src=twsrc%5Etfw">June 10, 2019</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+  </div><a class="u-url" href="/2019/06/09/please.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+  </body>
+
+</html>

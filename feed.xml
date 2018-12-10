@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-04-15T17:50:33+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
+Here are my strategies.</p>
+
+<h2 id="unit-and-property-based-testing">Unit and property-based testing</h2>
+
+<p>Robotics systems often consist of layers of application programming interfaces (APIs).
+While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
+For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
+The testing approach of algorithmically generating data is interesting because it allows <a href="https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237">property-based testing</a>, i.e., generating test cases^1^2.
+This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in <a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a>.
+The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.</p>
+
+<p>^1 inspired by model-based UI testing frameworks <br />
+^2 Zhoulai Fu and Francisco Martinez Lasaca gave a talk “Experiences with Fuzz Testing ROS Component” that covered a similar approach “fuzz testing” and shared <a href="https://ros2-fuzzer.readthedocs.io/en/latest/">their code</a></p>
+
+<h2 id="sequential-property-based-testing">Sequential property-based testing</h2>
+
+<p>Many robotics algorithms work with sequential data.
+For example, think of state estimation, control, motion planning algorithms.
+Out of the box, property-based testing tools do not provide creating sequential data.
+So the first step to testing time-dependent algorithm is updating property-based testing tools to be able to generate sequential random data.
+Creating a sequential sampler that does not dependent on the outputs of testing algorithms is easy (e.g., inputs for state estimation algorithms) but otherwise, one requires to create reactive environments using existing tools like combinators.
+At this point, basically one requires to build a tiny simulation environment.
+While this sounds daunting, it’s actually not thanks to many existing physics simulation libraries and game programming design patterns (e.g., entity-component systems, etc.).</p>
+
+<p>The second problem is verifying test cases over time.
+For example, one might want to check whether the outputs of a state estimation algorithm ever return <code class="language-plaintext highlighter-rouge">null</code> or test if a motion planning algorithm ever returns an invalid pose.
+I like to use <a href="https://en.wikipedia.org/wiki/Linear_temporal_logic">linear temporal logic (LTL)</a> to verify such temporal properties due to the LTL’s simplicity.
+There are some subtleties of using LTLs with property-based testing tools and I’ll elaborate on those in the future (if I find more time).</p>
+
+<h2 id="physical-integration-testing">Physical integration testing</h2>
+
+<p>Like everything robotics, one must test programs with the real robots in real world at some point.
+One approach is integrating continuous integration testing with real robots.
+There was <a href="https://roscon.ros.org/2016/presentations/PhysicalContinuousIntegrationSlides.pdf">a great talk</a> about this topic from fetch regarding this topic.
+<a href="https://youtu.be/SzHw2PIEIKQ">A more recent talk about AWS Robomaker</a> also touches on this topic, too.</p>
+
+<h2 id="closing-meme">Closing meme</h2>
+
+<p>Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.</p>
+
+<p><img src="https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png" />
+source: https://github.com/dominictarr/push-streams-talk</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Testing robotics systems is hard. Here are my strategies.]]></summary></entry><entry><title type="html">Finishing the Graduate School as a New Dad</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing the Graduate School as a New Dad" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
+As much as I was euphoric about my son’s arrival, reality hit me hard.
+I was not ready.
+It was brutal but I pulled through the graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.</p>
+
+<h2 id="buying-time">Buying time</h2>
+
+<p>Time became one of the scarcest resources.
+The first thing I did to buy more time for research was saying “no” to social activities, meetings with no clear goal, not-so-related review requests, side projects, system upgrades, etc. as most parents do.
+I decided what activities/projects/commitments to say no to based on my gut feeling.
+One big problem with this approach was that I couldn’t tell if I missed interesting and important opportunities that are unforeseeable from the day I said “no”.
+I started to explicitly allocate time for explorations and update my goals/plans frequently to adjust my plans based on findings from the explorations^1.
+Doing this became easier as I became more aware of my own work/research velocity, which I gained slowly by rigorously tracking my time usage and goals for each week/month/year.</p>
+
+<p>I still felt like there wasn’t enough time for work hence the second thing I tried was securing money, e.g., by asking family members and applying for financial aids available via my department or university.
+I did not know about any financial support opportunities but learned about them as time goes on by talking to a few other graduate student parents that I didn’t know the existence of prior to becoming a dad.</p>
+
+<p>The final trick I learned was delaying tasks^2.
+Delaying tasks is a great trick because often delayed tasks disappear completely due to priority changes.
+In the beginning, I delayed tasks that I felt very comfortable delaying, e.g., polishing plots before submitting a paper or renaming variable names in codebase while setting up experiments.
+Gradually, I started delaying seemingly more important tasks such as polishing related work sections or optimizing infrastructure/refactoring codebases (for initial submissions) essentially to verify get feedback on the more important content earlier, e.g., the main research direction.
+In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
+To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare <em>a</em> plan for the worst outcomes.</p>
+
+<p>^1 This trick was somewhat inspired by <a href="https://www.productplan.com/glossary/gist-planning/">GIST Planning</a> and <a href="https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf">Startup Engineering</a>.
+^2 <a href="https://www.google.com/search?q=Eisenhower+Matrix&amp;tbm=isch">The Eisenhower matrix</a> is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.</p>
+
+<h2 id="minimal-viable-product">Minimal viable product</h2>
+
+<p>After trying to buy as much time as possible for about a year or so, I made the following observations:</p>
+
+<ol>
+  <li>achieving the last 10~20% takes as much more effort as achieving the first 80~90%</li>
+  <li>re-visiting/working on something always takes much more time than the initial take</li>
+  <li>there is a huge difference between having something finished vs. not, e.g., at least you get a chance to receive feedback</li>
+</ol>
+
+<p>These observations made me want to always shoot for the minimal viable product (MVP).
+In the past, I tended to overshoot because I didn’t understand the evaluation criteria well and hence wanted to be “safe” by achieving an arbitrary high quality, which was an extremely expensive approach because of 1. and 3. (sometimes I gave up when a task became too big).
+To address this problem, I spent more time on (1) understanding the evaluation metrics well, and (2) prototyping early to feel out the requirements in the context.
+After clearly defining the evaluation metrics for the MVP, I found using them to efficiently execute something to the completion super helpful, esp., towards the end when I’m tired.
+<!-- Another small trick I used was holding my breath and split once without looking back. --></p>
+
+<h2 id="managing-attention">Managing attention</h2>
+
+<p>After having countless sleepless nights and physically demanding days, I’ve realized the most expensive resource was my attention and not the time.
+The quality of my attention was not only dependent on my physiological conditions but also my surrounding environment, e.g., the amount of natural light, my team’s mood, etc.
+With everything going on, I usually only had about 2hrs of the peak attention per day; 4hrs if lucky.</p>
+
+<p>To best use this time, I identified the most likely time of the day that I have the best attention and protect that time slot for the most important tasks.
+Whenever I face a big task, I would start breaking it down and think about different approaches while I’m away from the desk, e.g., while commuting, picking up or dropping off my son, etc.
+Usually, the most important tasks such as core algorithm/system design, initial draft writing, big meeting/presentation, etc. reveal themselves^2.
+These tasks require deeply exploring many ideas with caution to make a big dent towards a knotty problem^3, so I used my protected time to only work on these tasks.
+I used times with a medium level of attention for execution tasks; I used to do execution tasks in the protected hours but with well-thought-out approaches, execution tasks didn’t require as much attention as the core problem-solving tasks.
+Finally, everything else, emailing and scheduling, resolving meeting topics, writing down new problem-solving approaches were done on foot, e.g., while watching my son at the park.</p>
+
+<p>^3 Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.<br />
+^4 I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.</p>
+
+<h2 id="closing-thoughts">Closing thoughts</h2>
+
+<p>Even after trying all the different tricks, I still missed countless deadlines and took countless bullets of consequences.
+When I felt like I hit my limits, the only thing I could do was changing my mentality.
+I accepted my limit, lowered bars for myself, thought about the meaning of what I’m desperately chasing after in the grand skim of things, and try to enjoy the process more.</p>
+
+<p>Time to time, I ask myself–was it all worth it?
+As much as I try rewiring my brain to reply with “yes” to that question, I cannot bring back the times I missed with my family and I’ll always feel the guilt of not being around much (physically or mentally) when my son needed me the most.
+Yet, I’m working on this blog post while watching my son at a playground.</p>
+
+<h3 id="acknowledgments">Acknowledgments</h3>
+
+<p>I consciously and unconsciously picked up the habits of other parents who I closely worked with and had much more responsibility than me like my grad school advisor <a href="https://homes.cs.washington.edu/~mcakmak/">Maya Cakmak</a>, and my past team leader <a href="http://chfritz.github.io/">Christian Fritz</a>.</p>
+
+<p>I decided to write this blog post when I discovered the existence of similar blog posts from authors I respect:</p>
+<ul>
+  <li><a href="https://medium.com/bits-and-behavior/how-i-sometimes-achieve-academic-work-life-balance-4bbfc1769820">“How I (sometimes) achieve academic work life balance”</a> by Amy Ko</li>
+  <li><a href="https://raymondcheng.net/thoughts/time-management.html">“Time Management”</a> by Raymond Cheng</li>
+  <li><a href="https://maxwellforbes.com/posts/appropriate-quality">“Appropriate Quality”</a> by Maxwell Forbes</li>
+</ul>
+
+<p>Last but not least, I have to disclose that I relied a lot on my wife who sacrificed her time for watching our son.
+This note might change the perspective/legitimacy of all tricks I mentioned above.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[I was a graduate student when my son was born. As much as I was euphoric about my son’s arrival, reality hit me hard. I was not ready. It was brutal but I pulled through the graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.]]></summary></entry><entry><title type="html">Job Searching for an Industry Position after Graduate School</title><link href="/2020/11/15/job.html" rel="alternate" type="text/html" title="Job Searching for an Industry Position after Graduate School" /><published>2020-11-15T08:00:00+00:00</published><updated>2020-11-15T08:00:00+00:00</updated><id>/2020/11/15/job</id><content type="html" xml:base="/2020/11/15/job.html"><![CDATA[<p>Earlier this year, I started to look for a job and one of my friends recommended <a href="https://bharathpbhat.github.io/2020/09/19/laid-off-now-what.html">this post</a> written by <a href="https://twitter.com/bharathpbhat">Bharath</a>, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days.
+The blog post was amazing.
+I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school.
+In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.</p>
+
+<h2 id="on-identifying-which-rolecompany-to-apply">On identifying which role/company to apply</h2>
+
+<p>For a fresh-out-of-school, human-robot interaction researcher with some experience in software engineering work in the industry, the biggest challenge was people didn’t know what was I good at or what I wanted to do.
+A part of it was due to the nature of the human-robot interaction or robotics research field that has a wide range of subfields.
+Another part of it was me; I had the roles I wanted to take in mind but I was not sure whether I will be good at it so the companies will hire me for the role.
+One of my mentors recommended <a href="https://medium.com/thrive-global/ikigai-the-japanese-secret-to-a-long-and-happy-life-might-just-help-you-live-a-more-fulfilling-9871d01992b7">ikigai</a> for career-related decision making and it helped me take the first pass on identifying which companies to apply.
+After that, I decided to apply to a wide range of roles (e.g., Software Development Engineer, Applied Researcher, Product Engineer, etc.) across a wide range of companies (e.g., ~5 people startups to BigCos) to find the right role by interacting with companies.</p>
+
+<p>I started by following “The Process” in the “Reach out to everyone” section in Bharath’s blog.
+I made a list of companies, reached out to people related to a target company, iterated those two steps until I had a list of ~20 companies that would talk to me.
+I reached out to over 50 people–seniors, juniors, friends, friends of the family, any who would talk to me about a role similar to the ones I identified earlier.
+The reaching out process was laborious and sometimes humiliating but it was extremely important in retrospect as it turns out some very interesting roles that were not public were found this way.</p>
+
+<p>Sometimes the “speaking with a hiring manager” step naturally happened and I’ve used Bharath’s notes for preparing myself for those meetings.
+Whenever I get to talk to a hiring manager or an employee at the team I want to join, I tried to ask as many questions as possible about the role, e.g., a list of selected questions from related articles like <a href="https://www.indeed.com/career-advice/interviewing/questions-to-ask-a-company">this</a> and <a href="https://angel.co/blog/30-questions-to-ask-before-joining-a-startup">this</a> to really visualize what I would be doing in my 1st year and after.
+I also asked some questions about the interview process and interview tips to tailor my preparation to a particular company, if needed.
+For example, smaller companies’ interviews were less structured while big companies’ interviews’ were highly structured, e.g., for Amazon, see <a href="https://www.amazon.jobs/en/landing_pages/in-person-interview">this</a>.
+After talking to a hiring manager, I was able to gauge 1. how interested the company was in hiring me and 2. what they were looking for (e.g., robotics application building, robotics user interface design, evaluating interactive robot systems, etc).
+I was also able to feel out whether I have the experiences and skills they were looking for.
+This was extremely useful for narrowing down the list because I was able to ask myself how much effort do I want to put in trying to convince a company why they need me or how quickly I can learn the missing skills.
+After this step, the number of companies in my list reduced to ~10.
+I followed up with a recruiter or hiring manager to start the first step of the interview process, which usually was a coding interview.</p>
+
+<h2 id="preparing-for-coding-interviews">Preparing for coding interviews</h2>
+
+<p>Coding interviews always scare me.
+Following Bharath’s process, I started solving a couple of <a href="https://leetcode.com/">leetcode</a> problems every week, was <a href="https://youtu.be/GbyXxUDVeAo?t=105">being very selective with which leetcode problems to work on</a>, and <a href="https://medium.com/hackernoon/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed#9cb9">studied patterns</a> and <a href="https://twitter.com/sunilc_/status/1304722881503395840">categories</a> of coding problems to identify my weakest patterns and categories.
+Even after such preparation, I choked during the first couple of coding interviews but was much more comfortable in later coding interviews.
+For my coding interviews, most companies used a shared coding platform like <a href="https://coderpad.io/">CoderPad</a> and others asked me to share my desktop screen to see how I code in my own environment; some, usually smaller companies, gave me “homework” or a tiny project to work on.
+I liked live-coding interviews with a shared coding platform because it saved my time the most.</p>
+
+<h2 id="preparing-for-system-design-interviews">Preparing for system design interviews</h2>
+
+<p>Bharath said system design interviews were his favorite.
+For me, system design interviews were the most difficult.
+First, the existing system design interview guidelines (like <a href="https://github.com/donnemartin/system-design-primer">this</a> (free) and <a href="https://www.educative.io/courses/grokking-the-system-design-interview">this</a> (paid)) were not tailored to the robotics problems, and second, I’ve learned that system design interview experiences varied a lot across the companies.
+I also had a hard time finding a friend or peer who would act as an interviewer to help me with the preparation.
+I started by <a href="https://docs.google.com/document/d/14ePsRiubmrbnK3Pm2ETaA9PYNDun24l8XgGR44ILyC4/edit?usp=sharing">creating robotics system design questions</a> based on existing <a href="https://github.com/donnemartin/system-design-primer#system-design-interview-questions-with-solutions">example system design questions with solutions</a>.
+Here are other questions I’ve considered:</p>
+
+<ul>
+  <li>Design an object detector for a mobile manipulator robot for pick-up tasks</li>
+  <li>Design a collaborative robot manipulator for an assembly task</li>
+  <li>Design a teleoperation interface for a mobile robot</li>
+</ul>
+
+<p>However, based on my interview experiences, some system design questions I’ve asked required having good intuitions on robotics (or robotics perception or motion planning) algorithms to be able to discuss the trade-offs of using different approaches and practical implications for building robotics systems.
+Or an ability to map the questions that seem not-so-related to a robotics problem to a robotics system design problem and discuss the approaches and trade-offs or related issues the interviewers are looking for.
+Based on post-interview feedback, the interviewers seemed to look for the interviewee’s ability to clearly <em>communicate</em> to gather requirements, identify a problem, propose multiple approaches, discuss trade-offs, and making calculated decisions–ideally while demonstrating experiences in related, industry-standard tools and frameworks.</p>
+
+<!-- TODO: list more example questions -->
+
+<h2 id="preparing-for-core-concept-interviews">Preparing for core concept interviews</h2>
+
+<p>For me, a very few interviews involved asking about core (robotics) concepts; probably because I only made/pursued a very few research positions.
+Here I followed Bharath’s process and created a <a href="https://docs.google.com/document/d/1q3_Vu2BdXFafyGuRM4I1HHtWo-Gd041rvC04FytmG9U/edit?usp=sharing">basic ML &amp; robotics concepts list for myself</a>.
+For each algorithm, I asked the following four questions:</p>
+
+<ul>
+  <li>What is it?</li>
+  <li>How does it work? (time/space complexity?)</li>
+  <li>When do you use it?</li>
+  <li>What are the limitations? Practical considerations?</li>
+  <li>Anything else? (personal experiences and findings, etc.)</li>
+</ul>
+
+<h2 id="preparing-for-behavioral-interviews">Preparing for behavioral interviews</h2>
+
+<p>Bharath’s notes helped prepare behavioral interviews.
+One strategy I like to emphasize is tailoring stories for an interviewer or company.
+Tell stories about technical success stories to engineers, research success stories to researchers, leadership success stories to managers.</p>
+
+<h2 id="closing-notes">Closing notes</h2>
+
+<p>I want to re-emphasize the importance of sourcing many interview opportunities.
+My peers recommended doing this as one may not know whether a role is interesting until talking to people in the team (i.e., reading job descriptions are not enough).
+Another important factor in hindsight is timing.
+I considered job searching in May and June and I could not get any interviews.
+I got lucky and was able to delay the search for about 2 months and there were a day and night difference.
+Timing is something one may not have control over, but if you do, talk to many people (and use other resources) to see how many opportunities are/will be there in your job search time frame.</p>
+
+<h2 id="comments">Comments</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;m starting a new job on Monday! I wrote my job search experience here <a href="https://t.co/Hc5IBWevgn">https://t.co/Hc5IBWevgn</a></p>&mdash; Mike C. (@mjyc_) <a href="https://twitter.com/mjyc_/status/1345906542579617792?ref_src=twsrc%5Etfw">January 4, 2021</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>]]></content><author><name></name></author><summary type="html"><![CDATA[Earlier this year, I started to look for a job and one of my friends recommended this post written by Bharath, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days. The blog post was amazing. I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school. In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.]]></summary></entry><entry><title type="html">Understanding Challenges with Large Robotics System Development</title><link href="/2020/03/07/understanding.html" rel="alternate" type="text/html" title="Understanding Challenges with Large Robotics System Development" /><published>2020-03-07T08:00:00+00:00</published><updated>2020-03-07T08:00:00+00:00</updated><id>/2020/03/07/understanding</id><content type="html" xml:base="/2020/03/07/understanding.html"><![CDATA[<p><em>Originally posted on <a href="https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md">GitLab</a></em></p>
+
+<p>Robotics system development is hard. To understand causes for the robotics system development challenges, I interviewed a few robotics engineers who have been involved in large robotics projects and identified the following themes.</p>
+
+<h2 id="there-arent-many-performant-off-the-shelve-tools">There aren’t many performant off-the-shelve tools</h2>
+
+<p>As the field of robotics is not matured, it is not easy to find performance libraries for perception, manipulation, human-robot interaction that fits your needs. Many existing off-the-shelve code is research code and hence requires expert knowledge, e.g., a user needs to see through undocumented assumptions and limitations. Essentially, identifying whether they will be useful for your problem is an art of itself.</p>
+
+<h2 id="there-arent-many-generalist-robotics-systems-engineers">There aren’t many generalist robotics systems engineers</h2>
+
+<p>Although more robotics educational materials are becoming available, there are not many engineers who can design and implement large robotics systems. Many robotics engineers often focuses on one subfield of robotics engineering such as computer vision or control but does not have much experience with working with the whole system. On the other hands, good systems engineers are often lacks the robotics knowledge and treats robotics libraries as black boxes.</p>
+
+<h2 id="gathering-system-requirements-or-software-specifications-is-not-trivial">Gathering system requirements or software specifications is not trivial</h2>
+
+<p>A robotic system that interact with physical world is complicated and consequences of using such system in real world is hard to predict. This makes the gathering of system requirements or software specifications challenging. Therefore the system specifications are often underspecified which yields brittle or over-prepared systems.</p>
+
+<h2 id="maintenance-and-testing-are-challenging">Maintenance and testing are challenging</h2>
+
+<p>Often existing dev-ops tools are unfit for the robotics system development purposes. For example, robotics data collection, analysis, and visualization are different from those of web services. Testing is especially challenging since setting up a real-world testing environment is not trivial, e.g., a clean “reset” of the real robot testing environment is near impossible or time-consuming. Also, the simulators that are supposed to help with testing do not serve their purpose because of the gap between simulation and reality.</p>
+
+<p>Although the list above is based on a small number of interviews and my personal experience, I hope it to be used as a starting point for brainstorming for solutions. Please let me know if you see missing themes or any comments!</p>
+
+<h3 id="misc">Misc.</h3>
+
+<ul>
+  <li><em>Sep, 2021. <a href="https://www.csc.gov.sg/articles/how-to-build-good-software">“How to Build Good Software”</a> - “Why Bad Software Happens to Good People” section felt relevant.</em></li>
+  <li><em>Apr, 2021. Found more related papers!</em>
+    <ul>
+      <li><em><a href="https://arxiv.org/ftp/arxiv/papers/2010/2010.14537.pdf">“State of the Practice and Guidelines for ROS-based System”</a></em></li>
+      <li><em><a href="https://arxiv.org/pdf/2004.07368.pdf">“A Study on the Challenges of Using Robotics Simulators for Testing”</a></em></li>
+    </ul>
+  </li>
+  <li><em>While I was writing this post, I learned about this excellent paper <a href="https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf">“State of the Practice and Guidelines for ROS-based System”</a> and discussions about the paper in <a href="https://discourse.ros.org/t/guidelines-on-how-to-architect-ros-based-systems/12641">the ROS Discourse</a>. The paper is focused on <a href="https://www.ros.org/">ROS</a> yet the high-level goals of it seem similar.</em></li>
+  <li><em>The study notes this article is based on are available in <a href="https://github.com/mjyc/robosysdev-notes">github</a> and <a href="https://gitlab.com/mjyc/robosysdev-notes">gitlab</a> repos</em></li>
+  <li><em>Thank you! to all those who participated in my interview studies</em></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry><entry><title type="html">Getting started with robotics</title><link href="/2019/12/15/getting.html" rel="alternate" type="text/html" title="Getting started with robotics" /><published>2019-12-15T08:00:00+00:00</published><updated>2019-12-15T08:00:00+00:00</updated><id>/2019/12/15/getting</id><content type="html" xml:base="/2019/12/15/getting.html"><![CDATA[<p>Getting started with robotics is confusing.
+Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it.
+For example, by google searching “getting started with robotics” gives me the following top three results:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=uw-4K9joFL8">How To Start With Robotics? - YouTube</a></li>
+  <li><a href="http://robotsforroboticists.com/getting-started-kids-adults/">Robotics for Kids (and Adults) – Getting Started and How to Progress</a></li>
+  <li><a href="https://robots.ieee.org/learn/getting-started/">Getting Started in Robotics - ROBOTS: Your Guide to the World of Robotics</a></li>
+</ul>
+
+<p>They talk about learning skills related to the fields of mechanical engineering, electrical engineering, and computer science.
+At first, it just felt overwhelming.
+Reading each of them slowly again, they were great tutorials especially because they all shared one great message–“learn by doing projects” (<a href="https://www.amazon.com/Robotics-Project-Based-Approach-Lakshmi-Prayaga-ebook/dp/B00PG922M4">there was even a book named with a similar spirit!</a>).</p>
+
+<p>I 100% agree with the message, I think people should learn robotics by doing projects.
+In fact, I recently shared <a href="https://github.com/mjyc/awesome-robotics-projects">my curated list of opensource (and other) robotics projects</a> for those who are interested in building robots.
+Because I’m a programmer by training, one additional suggestion I like to add is “start by working with a simulator”.
+Working with hardware is fun but it can be extremely time-consuming so by working with a simulator first you can feel out the robot and identify potential problems early.
+Projects like <a href="https://mushr.io/">MuSHR</a> and <a href="https://hackaday.io/project/164992-bobble-bot">bobble-bot</a> are great because they provide robot simulators as well as detailed instructions for building robots.
+<a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a> is another great entry point for learning about robotics algorithms.
+The repository contains provide tiny, simple environments for testing the algorithms which are great for learning purposes.
+Here is a list of <a href="https://www.ros.org/">ROS</a>-based simulators that I’ve curated in <a href="https://rds.theconstructsim.com/r/mchung/">ROS Development studio</a>, <a href="https://www.theconstructsim.com/rds-ros-development-studio/">a cloud service</a> that allows you to work on ROS projects in browser.
+In a similar spirit, I encourage using a single board computer such as <a href="https://www.raspberrypi.org/">Raspberry Pi</a> or <a href="https://developer.nvidia.com/embedded/learn/tutorials">NVIDIA Jetson products</a> instead of using a microcontroller like <a href="https://www.arduino.cc/">Arduino</a>.
+Programming a microcontroller can be fun and it can allow you to develop a solution that is highly tailored to your use case, but for learning purposes, it can become a rabbit hole that prevents you from completing the project you started.
+However, if your goal is learning mechanical or electrical engineering my advice (rather opinions) is not for you.</p>
+
+<p>Finally, I believe getting involved with robotics communities is effective for learning.
+The below list could be good entry points for learning about software-focused robotics</p>
+
+<ul>
+  <li><a href="https://github.com/topics/robotics">github repos with #robotics tag</a></li>
+  <li><a href="https://discourse.ros.org/">ROS discourse</a></li>
+  <li><a href="https://www.balena.io/blog">Balena blog</a> - they provide less robotics and more IoT-centric contents</li>
+</ul>
+
+<p>the list below for learning about electronics-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.sparkfun.com/news">sparkfun news</a></li>
+  <li><a href="https://blog.adafruit.com/">adafruit blog posts</a></li>
+</ul>
+
+<p>and the list below for learning about hardware-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.instructables.com/">instructables</a></li>
+  <li><a href="https://hackaday.com/">hackaday</a></li>
+  <li><a href="https://www.hackster.io/">hackster.io</a></li>
+</ul>
+
+<p>This may be a bit off topic, but since people relate “robotics” with AI/ML computer science research, it might be fun to skim robotics-related papers in open paper review and curated paper list websites:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/">https://arxiv.org/</a></li>
+  <li><a href="https://openreview.net/">https://openreview.net/</a></li>
+  <li><a href="https://paperswithcode.com/">https://paperswithcode.com/</a> - one note: not all researchers are great coders/documenters.</li>
+  <li><a href="http://bohg.cs.stanford.edu/list/">http://bohg.cs.stanford.edu/list/</a></li>
+</ul>
+
+<p>Talking about skimming, it might be inspiring to skim the class materials from <a href="https://courses.cs.washington.edu/courses/cse478/20wi/">CSE 478: Autonomous Robotics</a>.
+Unlike many other class materials, their class slides provide application examples of introduced concepts with an open-source autonomous mobile robot platform <a href="https://mushr.io/">MUSHR</a>.</p>
+
+<p>I believe now is time to learn about robotics and I hope this blurb can be helpful to aspiring roboticists.</p>
+
+<h2 id="comments">Comments</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thought about getting started with <a href="https://twitter.com/hashtag/robotics?src=hash&amp;ref_src=twsrc%5Etfw">#robotics</a>? Here are my thoughts! <a href="https://t.co/6pBHksHtKE">https://t.co/6pBHksHtKE</a></p>&mdash; Mike C. (@mjyc_) <a href="https://twitter.com/mjyc_/status/1330914774801018881?ref_src=twsrc%5Etfw">November 23, 2020</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>]]></content><author><name></name></author><summary type="html"><![CDATA[Getting started with robotics is confusing. Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it. For example, by google searching “getting started with robotics” gives me the following top three results:]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>/2019/06/09/please</id><content type="html" xml:base="/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
+
+<p>Hello hackers, tinkers, webdevs, sysdevs, roboticists, and all coders! I’ve been excited about <a href="https://en.wikipedia.org/wiki/Cloud_robotics">cloud robotics</a>, a field of robotics that utilizes the power of cloud computing, and want to share the excitement with you and suggest a project we can potentially work together. The project that I’m thinking of is “cellphone visual SLAMing”. The idea is to run a visual SLAM system on cloud so mobile devices like a cellphone can build 3D maps by simply uploading camera data to the cloud.</p>
+
+<p>Here are the steps I’m thinking:</p>
+
+<ol>
+  <li>Try creating a 3D map using <a href="https://github.com/raulmur/ORB_SLAM2">ORB_SLAM2</a> and desktop camera images.
+The main goal of this step is to get comfortable with a visual SLAM library and feel out the limitations.</li>
+  <li>Try creating 3D maps using ORB*SLAM2 running on a desktop and cellphone camera images.
+ORB_SLAM2 supports <a href="https://www.ros.org/">ROS</a>. So one can easily capture device camera images using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">HTML5’s <code class="language-plaintext highlighter-rouge">MediaDevices.getUserMedia()</code></a>, turn them into ROS image messages, and publish them using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a> so ORB_SLAM2 can use the images collected from a remote device.
+_Update: *</li>
+  <li>Run the ORB_SLAM2 to cloud.
+I have not tried it, but it seems like it is fairly easy to <a href="https://docs.docker.com/samples/library/ros/">containerize a ROS package and deploy it on cloud</a>.</li>
+</ol>
+
+<p>That’s it! Are you interested in trying this idea out? If you have experiences with visual SLAM and have suggestions? Let me know, I’d love to hear your thoughts.</p>
+
+<h3 id="updates">Updates</h3>
+
+<p><em>2021/01/02</em> I have moved on as I don’t get to spend time on tinkering but still think this is a fun project to try one day.
+<em>2020/11/23</em> <a href="https://fyusion.com/">Fyusion</a> and <a href="https://canvas.io/">CANVAS</a> seem to provide products with related technologies.
+<em>2020/05/02</em> It seems like se2lam github.com/izhengfan/se2lam could be used instead of ORB_SLAM2.</p>
+
+<h2 id="comments">Comments</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Please help me build a cloud visual SLAM system for cellphones <a href="https://t.co/PtRVnC0MFT">https://t.co/PtRVnC0MFT</a> <a href="https://twitter.com/hashtag/robotics?src=hash&amp;ref_src=twsrc%5Etfw">#robotics</a> <a href="https://twitter.com/hashtag/robotics?src=hash&amp;ref_src=twsrc%5Etfw">#robotics</a> <a href="https://twitter.com/hashtag/docker?src=hash&amp;ref_src=twsrc%5Etfw">#docker</a> <a href="https://twitter.com/hashtag/ar?src=hash&amp;ref_src=twsrc%5Etfw">#ar</a> <a href="https://twitter.com/hashtag/slam?src=hash&amp;ref_src=twsrc%5Etfw">#slam</a> <a href="https://twitter.com/hashtag/cloud?src=hash&amp;ref_src=twsrc%5Etfw">#cloud</a> <a href="https://twitter.com/hashtag/C?src=hash&amp;ref_src=twsrc%5Etfw">#C</a>++ <a href="https://twitter.com/hashtag/JavaScript?src=hash&amp;ref_src=twsrc%5Etfw">#JavaScript</a> <a href="https://twitter.com/hashtag/HTML?src=hash&amp;ref_src=twsrc%5Etfw">#HTML</a> <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#opensource</a> <a href="https://twitter.com/hashtag/webdev?src=hash&amp;ref_src=twsrc%5Etfw">#webdev</a> <a href="https://twitter.com/hashtag/sysdev?src=hash&amp;ref_src=twsrc%5Etfw">#sysdev</a></p>&mdash; Mike C. (@mjyc_) <a href="https://twitter.com/mjyc_/status/1137953012926672896?ref_src=twsrc%5Etfw">June 10, 2019</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Dev Community]]></summary></entry><entry><title type="html">Collaborating with Undergraduate Students as a Graduate Student in Research</title><link href="/2019/06/04/collaborating.html" rel="alternate" type="text/html" title="Collaborating with Undergraduate Students as a Graduate Student in Research" /><published>2019-06-04T08:00:00+00:00</published><updated>2019-06-04T08:00:00+00:00</updated><id>/2019/06/04/collaborating</id><content type="html" xml:base="/2019/06/04/collaborating.html"><![CDATA[<p>Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [<a href="https://homes.cs.washington.edu/~mernst/advice/undergrad-research.html">1</a>,<a href="https://www.cs.cornell.edu/~asampson/blog/undergrads.html">2</a>], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.</p>
+
+<h4 id="step-1-identify-your-goal">Step 1: Identify your goal.</h4>
+
+<p>First, you should clearly understand what do <em>you</em> want to get out by working with undergraduate students.
+Do you need some help on finishing up a small portion of your research project?
+Are you excited about your research topic and do you want to have someone else take a look at unexplored ideas?
+Do you want to accelerate the growth of your field by outreaching to undergraduate students?
+Whatever your goal is, you want to be clear about it so you can prepare an appropriate interview and collaboration strategies.</p>
+
+<p>Note that goals can be updated over time.
+Personally, I like to set my initial goal as getting help on a concrete and small subset of my project, then update the goal to help the student to become a researcher–if and only if such goal seems mutually beneficial.</p>
+
+<h4 id="step-15-find-a-student">Step 1.5: Find a student.</h4>
+
+<p>The easiest approach is doing nothing.
+In a University setting, motivated undergraduate students will email your advisor or you to get involved in a research project and you should be wanting to work with those motivated students.
+The obvious pro of this approach is that you don’t need to do anything.
+The downside is that you cannot control the timing and sometimes even the project topic you’ll be collaborating on.
+For example, your advisor may email you to work with a student who comes with their own funding and research topic over the summer.</p>
+
+<p>The second easiest approach is attending “undergraduate research fair” type events hosted by your department or University.
+This approach gives you more control in timing and the collaboration project topic but requires you to put some effort on preparing materials for the fair and more importantly, I found meeting a suitable or talented student hit-or-miss.</p>
+
+<p>The final approach is asking around.
+If you can elaborate kind of students you are looking for clearly, your peers or advisors can be helpful in finding a suitable student for you.
+Compare to the “attending research fairs” approach, this approach can help you find “the student” you are looking but with a low probability of actually finding one.</p>
+
+<p>I tend to take both the first and third approaches.
+The downside of the two approaches are having no control in the timing but if you have multiple projects going at different stages all the time, you always have a project to collaborate with, so timing becomes less of an issue than finding a talented, passion-sharing student.</p>
+
+<p>Finding a student requires you to have an interview strategy.
+For this topic, I highly recommend checking out Michael Ernst’s <a href="https://homes.cs.washington.edu/~mernst/advice/interviewing-undergraduates.html">“Tips for interviewing undergraduates for research”</a>.</p>
+
+<h4 id="step-2-identify-your-students-goal">Step 2: Identify your student’s goal.</h4>
+
+<p>Understanding your student’s goal is as important as understanding your own goal for a healthy collaboration relationship.</p>
+
+<p>From my experience, the most common motivation of the undergraduate students I’ve work with was getting exposed to robotics research.
+For the older students who are closer to graduate, they were also motivated by expanding their skill sets to make themselves more attractive to the companies they want to apply to.
+There were also some students who wanted to publish an academic paper before they apply to a graduate school to strengthen their application.</p>
+
+<p>I found that it is difficult to identify undergraduate students’ internal motivations from interviews alone.
+Most students do not fully understand what their own goals are or interests since they are not fully aware of what they really want or simply because they had not had much experience with robotics research.
+Therefore I like to plan the first collaboration project with a student as a “getting to know each other” project.
+However, if you don’t have time, e.g., working on a short term project, you will need to rely on your intuition on identifying students’ motivations.</p>
+
+<h4 id="step-3-start-collaborating">Step 3: Start collaborating.</h4>
+
+<p>Your collaboration strategies should be dependent on your and your student’s goals and the agreed collaboration duration.</p>
+
+<p>In general, I like to take a goal-driven collaboration strategy.
+For example, I set the goals for students and myself for a certain duration and work towards those goals while helping each other.
+This approach particularly worked well for me because by not giving them step-by-step instructions, the students show their original approaches for achieving the assigned project goals as well as their personality.
+The approach also allows me to see whether they can learn from demonstrations.
+Because we are collaborating, they see what I do to solve complex problems (or the problems that are unfamiliar to them) and give them chance to immediate my approach–if it makes sense.
+I focus on demonstrating high-level problem-solving strategies like clearly identifying underspecified goals, breaking down complex goals, and managing one’s time and attention span.
+Interestingly, over the years of trying out the goal-driven collaboration, I’ve learned a lot from the students as well.
+Many students I met had less experience with the field of robotics, however, some of them were just truly gifted human beings and I could learn a lot from their original way of handling the small research projects give to them.</p>
+
+<p>Sometimes, students are not ready to collaborate at all but you still want to or need to work with them.
+In such a case, I give them a small-scoped, independent project and observe what they do.
+I ask the following questions to myself to decide whether I want to work with the student for a longer-term:</p>
+
+<ul>
+  <li>Can they communicate?</li>
+  <li>Can they learn?</li>
+  <li>Can they apply the technical skill sets they claimed to have?</li>
+  <li>Do they find research interesting?</li>
+</ul>
+
+<p>How do you know your student is making progress?
+Look at what they do.
+They will demonstrate that they have learned the required skill by applying them properly.
+They will demonstrate that they are excited about the project by spending time on it over the weekend and by proactive contacting you to show what they have done.</p>
+
+<p>Regardless of taking the goal-driven collaboration approach or the giving independent project approach and because my goal for collaborating with students is getting them involved into the world of research, i.e., finding future peers, I like to give them a snapshot of the graduate student lifestyle by encouraging to participate in lab meetings, research seminars and discussions with peers.
+I also encourage them to present the potential impact of the collaboration project in their own words and encourage them to present their work as much as possible–at their class, lab meetings, or even at local meetups.
+If they don’t have much time to do research work, I encourage them to use the research project for their graduation requirements, e.g., a project for a project-oriented senior class or senior thesis.</p>
+
+<h4 id="step-4-say-goodbye">Step 4: Say goodbye.</h4>
+
+<p>Most times, students leave the project in less than six months; some graduate, move on to another project, or simply stop working on it.
+What about when things are going well?
+How do you know when to stop collaborating?
+Eventually, when to part away with your student will become obvious.
+They will naturally work more independently and even start identifying their own agendas and work towards them, e.g., by working with your advisor directly.
+That would be time to stop considering them as an “undergraduate” researcher and treat them like a peer researcher.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [1,2], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.]]></summary></entry><entry><title type="html">I hate robots that tell jokes</title><link href="/2019/03/11/hate.html" rel="alternate" type="text/html" title="I hate robots that tell jokes" /><published>2019-03-11T08:00:00+00:00</published><updated>2019-03-11T08:00:00+00:00</updated><id>/2019/03/11/hate</id><content type="html" xml:base="/2019/03/11/hate.html"><![CDATA[<p>I don’t like <a href="https://www.youtube.com/watch?v=kWlL4KjIP4M">robots that tell jokes</a>.
+Humor is a complex concept and I don’t think <a href="https://www.theatlantic.com/magazine/archive/2018/03/funny-how/550910/">even we humans don’t fully understand how it works</a> so trying to make robots say something funny feels like a futile effort.
+I also don’t like <a href="https://www.youtube.com/watch?v=E1DuJQL8spY">robots that dance</a>.
+The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it.</p>
+
+<p>But we make them tell jokes and dance <a href="https://www.youtube.com/watch?v=poh5zSsd1rE&amp;t=3s">again</a>, <a href="https://www.youtube.com/watch?v=am1csALyEzE">again</a>, <a href="https://www.youtube.com/watch?v=r2SDVQCzQoA">again</a>, <a href="https://www.youtube.com/watch?v=LiTGaacQ7Og">again</a>, and <a href="https://www.youtube.com/watch?v=kHBcVlqpvZ8&amp;t=1s">again</a>.
+Why?
+Do we just like them to entertain us?
+I recently read about <a href="https://www.youtube.com/watch?v=gG_pzgfeESs">this portrait drawing robot</a> and I knew people who built <a href="https://www.youtube.com/watch?v=IKx49hjHDGc">a drawing robot</a> but it turns out we humans has been <a href="https://en.wikipedia.org/wiki/Jaquet-Droz_automata#The_draughtsman">building similar robots since since 1768</a>.
+<a href="https://en.wikipedia.org/wiki/Walt_Disney_Imagineering">Disney’s imagineering</a> have been doing robotics research for eventual entertainment purposes.
+Among relatively recent products from robot starts, I found <a href="https://anki.com/en-us/cozmo.html">Anki’s Cozmo robot</a> and <a href="https://www.youtube.com/channel/UC7r_Rty9HwHdUfq869Ss_tQ">contents involving it</a> the most amusing.</p>
+
+<p>As a researcher in academia I never considered entertainment as a serious application.
+But maybe it’s time to pay attention to applications or the potentials of robotics in entertainment.
+And to be honest, I do kind of like <a href="https://www.youtube.com/watch?v=kHBcVlqpvZ8&amp;t=5s">UpTown Spot</a>.</p>
+
+<h2 id="updates">Updates</h2>
+
+<ul>
+  <li><em>2020.01.06</em> There was (yet another) robot dancing video posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.
+Then I found <a href="https://jessicarajko.medium.com/dancing-robots-are-not-about-dance-waiving-goodbye-to-2020-and-popular-exploitations-of-dance-961f57d3ee4c">“These Dancing Robots Are Not About Dance: waiving goodbye to 2020 and popular exploitations”</a> by Jessica Rajko; I still haven’t digested my take on this article but it helped me better understand why I have a certain attitude towards these joking and dancing robots.</li>
+</ul>
+
+<h2 id="comments">Comments</h2>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">🤣 an exception to &quot;I hate robots that tell jokes (and dance)&quot; <a href="https://t.co/56i7uU1lXg">https://t.co/56i7uU1lXg</a> <a href="https://t.co/ednEX9VNOi">https://t.co/ednEX9VNOi</a></p>&mdash; Mike C. (@mjyc_) <a href="https://twitter.com/mjyc_/status/1280562964290891777?ref_src=twsrc%5Etfw">July 7, 2020</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>]]></content><author><name></name></author><summary type="html"><![CDATA[I don’t like robots that tell jokes. Humor is a complex concept and I don’t think even we humans don’t fully understand how it works so trying to make robots say something funny feels like a futile effort. I also don’t like robots that dance. The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it.]]></summary></entry><entry><title type="html">Implementing a finite state machine in Cycle.js</title><link href="/2018/11/08/implementing.html" rel="alternate" type="text/html" title="Implementing a finite state machine in Cycle.js" /><published>2018-11-08T08:00:00+00:00</published><updated>2018-11-08T08:00:00+00:00</updated><id>/2018/11/08/implementing</id><content type="html" xml:base="/2018/11/08/implementing.html"><![CDATA[<p><em>Originally published on <a href="https://medium.com/@chungjy9/implementing-a-finite-state-machine-in-cycle-js-c498b6cfb231">Medium</a></em></p>
+
+<blockquote>
+  <p><em><strong>Note:</strong> Check out other posts on programming a social robot using Cycle.js too:</em>
+<em>1. <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a></em>
+<em>2. <a href="/2018/11/08/implementing.html">Implementing a finite state machine in Cycle.js</a></em></p>
+</blockquote>
+
+<p>In this post, I’ll show you how to implement a reactive social robot program as a <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine</a>. We’ll continue from where we left off in the previous post <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a>–so check it out if you haven’t already! If you are in a hurry, here is the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">demo and complete code</a> of what we are building in this post.</p>
+
+<h2 id="making-existing-travel-personality-quiz-program-more-complex">Making existing “travel personality quiz” program more complex</h2>
+
+<p><a href="/2018/11/01/programming.html">Previously</a>, we programmed a <a href="https://github.com/mjyc/tablet-robot-face">tablet-face robot</a> to test your travel personality. Concretely, we implemented a tablet-face robot program that</p>
+
+<ol>
+  <li>looks at a person when it sees one and</li>
+  <li>asks travel personality quiz questions as shown in <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">this flowchart</a></li>
+</ol>
+
+<p>as a <a href="https://cycle.js.org/">Cycle.js</a> application. Here are the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-01-personality-quiz">demo</a> at Stackbliz and <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz">complete code</a> in GitHub from the previous post.</p>
+
+<p><strong>IMPORTANT!!</strong> The main package we use in the demo and in this post, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/run">cycle-robot-drivers/run</a>, only works on Chrome browsers  (&gt;= 65.0.3325.181) for now.</p>
+
+<p>Now, what if we want the robot to</p>
+
+<ol>
+  <li>look at a person only when the robot is waiting for a person’s response,</li>
+  <li>stop asking a question if the robot cannot see a person and resume asking the question if it sees a person again, and</li>
+  <li>stop asking questions completely if a person abandons the robot, i.e., the robot does not see a person for more than 10 seconds.</li>
+</ol>
+
+<p>How difficult would it be to update the existing program to have these additional behaviors? Try implementing the new behaviors on top of the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">travel personality quiz program</a>.
+What kind of challenges do you face?</p>
+
+<p>From my experience, it was difficult to implement, or even just express the “stateful” behaviors in reactive programming. For example, to implement 1., I needed to know whether the robot is in the “waiting for a person’s response” state but it wasn’t clear how to represent such state in a scalable manner; I tried keeping all states in drivers (e.g., <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> emitting <code class="language-plaintext highlighter-rouge">status</code> events), as proxies (e.g., <code class="language-plaintext highlighter-rouge">$lastQuestion</code> in <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js#L58">the previous code</a>), or in higher-order streams, but none of them felt simple nor scalable. This was very concerning since <a href="http://wiki.ros.org/smach/Tutorials/Getting%20Started#Why_learn_Smach.3F">many</a> <a href="https://www.researchgate.net/figure/A-behavioral-state-machine-for-robot-soccer_fig10_238086654">robot</a> <a href="https://www.youtube.com/watch?v=4XEK7OU2gIw">behaviors</a> are expressed and implemented as stateful behaviors.</p>
+
+<p>To address this problem, I propose using finite state machines to clearly express the desired robot behaviors. In the following, I first present a pattern for implementing a finite state machine in a reactive programming framework (Cycle.js) without scarifying maintainability. Then I demonstrate a use case of the FSM pattern via implementing the first additional behavior.</p>
+
+<h2 id="what-is-a-finite-state-machine">What is a finite state machine?</h2>
+
+<p>A <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine (FSM)</a> is a computational model that can be used to represent and control execution flow. Due to their simplicity, FSMs have been frequently used by <a href="http://wiki.ros.org/smach">roboticists</a>, <a href="https://sketch.systems/">UI developers</a> and many others for a <a href="https://www.mtholyoke.edu/courses/pdobosh/cs100/handouts/genghis.pdf">long</a> <a href="http://www.inf.ed.ac.uk/teaching/courses/seoc/2005_2006/resources/statecharts.pdf">time</a>. An FSM we are using in this post is comprised of five parts:</p>
+
+<ol>
+  <li>A set of states, e.g., <code class="language-plaintext highlighter-rouge">'SAY_SENTENCE'</code>, <code class="language-plaintext highlighter-rouge">'WAIT_FOR_RESPONSE'</code>, etc.</li>
+  <li>A set of variables, e.g., <code class="language-plaintext highlighter-rouge">currentSentence = 'Can you see yourself working online?'</code></li>
+  <li>A set of inputs: e.g., <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, etc.</li>
+  <li>A set of outputs: e.g., <code class="language-plaintext highlighter-rouge">speechSynthesisAction = 'Can you see yourself working online?'</code></li>
+  <li>A transition function that takes a state, variable, and input and returns a state, variable, and output.</li>
+</ol>
+
+<p>If you are familiar with FSMs, the FSM we are using is a <a href="https://en.wikipedia.org/wiki/Mealy_machine">mealy machine</a> extended with “variables”.
+Like a mealy machine, it has the following constraints:</p>
+
+<ul>
+  <li>the state set is a <a href="https://en.wikipedia.org/wiki/Finite_set">finite set</a></li>
+  <li>the FSM can only be in one state at a time in the state set</li>
+  <li>the transition function is deterministic; given a state, variable, and input the function always returns the same new state, new variable, and new output.</li>
+</ul>
+
+<h2 id="representing-the-travel-personality-quiz-program-as-an-fsm">Representing the “travel personality quiz” program as an FSM</h2>
+
+<p>We’ll start from representing the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">“travel personality test” program</a> we implemented in the previous post as an FSM:</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/et73xk1bvd20kbyrt69c.png" alt="travel_personality_quiz_fsm" /></p>
+
+<p>Here we have three states, <code class="language-plaintext highlighter-rouge">PEND</code>, <code class="language-plaintext highlighter-rouge">SAY</code>, <code class="language-plaintext highlighter-rouge">LISTEN</code>, and five input types, <code class="language-plaintext highlighter-rouge">START</code>, <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, and <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>. We omitted variables associated with each state and outputs associated with each transition for visual clarity.</p>
+
+<p>Notice that we use verbs as state names (as a popular robotics FSM library <a href="http://wiki.ros.org/smach">SMACH</a> does). This is because we define the states based on distinct actions each state is performing, where the distinct actions are triggered by outputs emitted from transitions. You may have wondered why we did not create each state in the <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">travel quiz flowchart</a> as an individual state, e.g., <code class="language-plaintext highlighter-rouge">ASK_CAREER_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_WORKING_ABROAD_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_FAMILY_QUESTION</code>, etc. This is because representing the states that behave the same except the sentence the robot says with a single <code class="language-plaintext highlighter-rouge">SAY</code> state with a variable <code class="language-plaintext highlighter-rouge">currentSentence</code> (not shown in the diagram) yields the simpler, more maintainable FSM.</p>
+
+<p>The inputs can be considered as the events that could occur in each state and  are originated from actions, e.g., <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, sensors, e.g., <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>, or external systems, e.g. <code class="language-plaintext highlighter-rouge">START</code>. We represent an input as a type-value pair. For example, the <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code> type input is paired with a value “yes” or “no”, which is used to determine the transition between <code class="language-plaintext highlighter-rouge">LISTEN</code> to <code class="language-plaintext highlighter-rouge">SAY</code> (input values are not shown in the graph).</p>
+
+<p>Now, let’s update the FSM to express the first additional behavior mentioned above: looking at a person only when the robot is waiting for a person’s response.</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/7z09n6fz5z1s8zjlb9ii.png" alt="travel_personality_quiz_fsm_updated" /></p>
+
+<p>All we did here is remove the two self-loop transitions from the <code class="language-plaintext highlighter-rouge">PEND</code> and <code class="language-plaintext highlighter-rouge">SAY</code> states to stop the robot from looking at a person while the FSM is in those states.</p>
+
+<h2 id="implementing-the-travel-personality-test-fsm-using-cyclejs">Implementing the “travel personality test” FSM using Cycle.js</h2>
+
+<p>Let’s now implement the “travel personality test” FSM we defined above using Cycle.js.</p>
+
+<p>First, we’ll try to define the FSM in javascript as follows:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">PEND</span><span class="p">:</span> <span class="dl">'</span><span class="s1">PEND</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">SAY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SAY</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_SENTENCE</span>
+  <span class="na">LISTEN</span><span class="p">:</span> <span class="dl">'</span><span class="s1">LISTEN</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_FOR_RESPONSE</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">START</span><span class="p">:</span> <span class="s2">`START`</span><span class="p">,</span>
+  <span class="na">SAY_DONE</span><span class="p">:</span> <span class="s2">`SAY_DONE`</span><span class="p">,</span>
+  <span class="c1">// QUIZ_DONE: is not an input type but a transition</span>
+  <span class="na">VALID_RESPONSE</span><span class="p">:</span> <span class="s2">`VALID_RESPONSE`</span><span class="p">,</span>
+  <span class="na">INVALID_RESPONSE</span><span class="p">:</span> <span class="s2">`INVALID_RESPONSE`</span><span class="p">,</span>
+  <span class="na">DETECTED_FACE</span><span class="p">:</span> <span class="s2">`DETECTED_FACE`</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
+  <span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">newVariables</span> <span class="o">=</span> <span class="nx">variables</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">newOutputs</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">state</span><span class="p">:</span> <span class="nx">newState</span><span class="p">,</span>
+    <span class="na">variables</span><span class="p">:</span> <span class="nx">newVariables</span><span class="p">,</span>
+    <span class="na">outputs</span><span class="p">:</span> <span class="nx">newOutputs</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * // Example state, variables, input, and outputs
+ * const state = State.PEND;
+ * const variables = {
+ *   sentence: 'You are a vacationer!',
+ * };
+ * const input = {
+ *   type: InputType.START,
+ *   value: null,
+ * };
+ * const outputs = {
+ *   SpeechSynthesisAction: {
+ *     goal: 'You are a vacationer!'
+ *   },
+ *   SpeechRecognitionAction: {
+ *     goal: {}
+ *   },
+ *   TabletFace: {
+ *     goal: {
+ *       type: 'SET_STATE',
+ *       value: {
+ *         leftEye: {x: 0.5, y: 0.5},
+ *         rightEye: {x: 0.5, y: 0.5},
+ *       },
+ *     }},
+ *   },
+ * }
+ */</span>
+</code></pre></div></div>
+
+<p>Here we define the set of states <code class="language-plaintext highlighter-rouge">State</code>, the set of input types <code class="language-plaintext highlighter-rouge">InputType</code>, and the transition function <code class="language-plaintext highlighter-rouge">transition</code>. The sets for the variables and outputs of the FSM are not explicitly defined, but I provided example values that the variables and outputs can take in the comment.</p>
+
+<h3 id="setting-up-fsm-in-cyclejs">Setting up FSM in Cycle.js</h3>
+
+<p>We’ll now setup the FSM as a Cycle.js application. You can fork <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">the Stackblitz demo code</a> and start coding or set up a Cycle.js application.
+For the latter, create a folder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir my-second-robot-program
+cd my-second-robot-program
+</code></pre></div></div>
+
+<p>Download <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/.babelrc"><code class="language-plaintext highlighter-rouge">.babelrc</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/index.html"><code class="language-plaintext highlighter-rouge">index.html</code></a>, create an empty <code class="language-plaintext highlighter-rouge">index.js</code> file in the folder, and run <code class="language-plaintext highlighter-rouge">npm install</code> to install the required npm packages. After installing, you can run <code class="language-plaintext highlighter-rouge">npm start</code> to build and start the web application–that does nothing at this point.</p>
+
+<p>Now add the following code in <code class="language-plaintext highlighter-rouge">index.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">xs</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">runRobotProgram</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@cycle-robot-drivers/run</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
+<span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>  <span class="c1">// a dummy input function</span>
+  <span class="nx">start$</span><span class="p">,</span>
+  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
+  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
+  <span class="nx">poses$</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">defaultMachine</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
+    <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">sentence</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">machine$</span> <span class="o">=</span> <span class="nx">input$</span><span class="p">.</span><span class="nf">fold</span><span class="p">((</span><span class="nx">machine</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">transition</span><span class="p">(</span>
+    <span class="nx">machine</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span>
+  <span class="p">),</span> <span class="nx">defaultMachine</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">runRobotProgram</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>If you run the application, it should load a robot face that still does nothing on your browser.</p>
+
+<p>The most important thing to notice here is that we divide the <code class="language-plaintext highlighter-rouge">main</code> function into three functions; <code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, and <code class="language-plaintext highlighter-rouge">output</code>. The <code class="language-plaintext highlighter-rouge">input</code> function takes incoming streams in <code class="language-plaintext highlighter-rouge">sources</code> and returns a stream that emits the FSM’s input values. We then use the <a href="https://github.com/staltz/xstream#fold"><code class="language-plaintext highlighter-rouge">fold</code></a> xstream operator on the returned stream (<code class="language-plaintext highlighter-rouge">$input</code>) to trigger the FSM’s <code class="language-plaintext highlighter-rouge">transition</code> function. Note that the <code class="language-plaintext highlighter-rouge">fold</code> operator is like <code class="language-plaintext highlighter-rouge">Array.prototype.reduce</code> for streams; it takes</p>
+
+<ol>
+  <li>an accumulator function that takes an emitted value (e.g., an FSM input value, <code class="language-plaintext highlighter-rouge">input</code>) and a previous output of the accumulator function (e.g., the latest FSM status, <code class="language-plaintext highlighter-rouge">machine</code>) or a seed value and</li>
+  <li>an initial output of the accumulator function (e.g., the initial FSM status, <code class="language-plaintext highlighter-rouge">defaultMachine</code>).</li>
+</ol>
+
+<p>Finally, the <code class="language-plaintext highlighter-rouge">output</code> function takes the stream that emits FSM status (<code class="language-plaintext highlighter-rouge">$machine</code>) and returns outgoing streams.</p>
+
+<h3 id="input-transition-and-output">Input, transition, and output</h3>
+
+<p>Let’s implement the three functions.
+First, update the dummy <code class="language-plaintext highlighter-rouge">input</code> function to:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">YES</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">NO</span><span class="p">:</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
+  <span class="nx">start$</span><span class="p">,</span>
+  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
+  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
+  <span class="nx">poses$</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
+    <span class="nx">start$</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">}),</span>
+    <span class="nx">speechRecognitionActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
+        <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">||</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+      <span class="p">})),</span>
+    <span class="nx">speechSynthesisActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">}),</span>
+    <span class="nx">speechRecognitionActionResult$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
+        <span class="o">||</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">&amp;&amp;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
+      <span class="p">).</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">}),</span>
+    <span class="nx">poses$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+        <span class="nx">poses</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+        <span class="o">&amp;&amp;</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">nose</span> <span class="o">=</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">,</span>
+          <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">x</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">/</span> <span class="mi">640</span><span class="p">,</span>  <span class="c1">// max value of position.x is 640</span>
+            <span class="na">y</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">/</span> <span class="mi">480</span><span class="p">,</span>  <span class="c1">// max value of position.y is 480</span>
+          <span class="p">},</span>
+        <span class="p">};</span>
+      <span class="p">}),</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Try testing whether the <code class="language-plaintext highlighter-rouge">input</code> function is behaving properly. For example, you can attach the <a href="https://github.com/staltz/xstream#addListener"><code class="language-plaintext highlighter-rouge">addListener</code></a> xstream operator to the returned <code class="language-plaintext highlighter-rouge">$input</code> stream and return some outgoing streams from the <code class="language-plaintext highlighter-rouge">output</code> function.
+Like this:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="k">import</span> <span class="nx">delay</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream/extra/delay</span><span class="dl">'</span>
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello world!</span><span class="dl">'</span><span class="p">).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">({}).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
+  <span class="p">);</span>
+  <span class="nx">input$</span><span class="p">.</span><span class="nf">addListener</span><span class="p">({</span><span class="na">next</span><span class="p">:</span> <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span><span class="p">)})</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Do you see the expected outputs on your browser console? You should see many inputs with the <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code> type if the robot is detecting a person.</p>
+
+<p>Let’s now remove the dummy <code class="language-plaintext highlighter-rouge">transition</code> function and create a new one:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="c1">// // Remove the dummy transition function</span>
+<span class="c1">// function transition(state, variables, input) {  // a dummy transition function</span>
+<span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
+<span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">createTransition</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">Sentence</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">CAREER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Is it important that you reach your full career potential?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">ONLINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Can you see yourself working online?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">FAMILY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you have to be near my family/friends/pets?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">TRIPS</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think short trips are awesome?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">HOME</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you want to have a home and nice things?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">ROUTINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think a routine gives your life structure?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">JOB</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you need a secure job and a stable income?</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">VACATIONER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a vacationer!</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">EXPAT</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are an expat!</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">NOMAD</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a nomad!</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="kd">const</span> <span class="nx">flowchart</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+
+  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
+  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
+  <span class="c1">//   FSM status; {state, variable, outputs}</span>
+  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
+  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
+  <span class="c1">//   FSM status; {state, variable, outputs}</span>
+  <span class="kd">const</span> <span class="nx">transitionTable</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">},</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">}},</span>
+      <span class="p">}),</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
+          <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span>
+          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span>
+          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span>
+        <span class="p">)</span> <span class="p">?</span> <span class="p">{</span>  <span class="c1">// SAY_DONE</span>
+          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
+        <span class="p">}</span> <span class="p">:</span> <span class="p">{</span>  <span class="c1">// QUIZ_DONE</span>
+          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
+          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">done</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">]:</span> <span class="p">{</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">]},</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">goal</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">],</span>
+          <span class="p">},</span>
+          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">leftEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+              <span class="na">rightEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
+            <span class="p">},</span>
+          <span class="p">}},</span>
+        <span class="p">},</span>
+      <span class="p">}),</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
+      <span class="p">}),</span>
+      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
+        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
+        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+              <span class="na">leftEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
+              <span class="na">rightEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="p">}},</span>
+        <span class="p">}</span>
+      <span class="p">}),</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">);</span>
+    <span class="c1">// excuse me for abusing ternary</span>
+    <span class="k">return</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">]</span>
+      <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
+      <span class="p">:</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span>
+        <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
+        <span class="p">:</span> <span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">](</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we define and return the FSM’s transition function inside the <code class="language-plaintext highlighter-rouge">createTransition</code> function.</p>
+
+<p>Finally update the dummy <code class="language-plaintext highlighter-rouge">output</code> function to:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">outputs$</span> <span class="o">=</span> <span class="nx">machine$</span>
+    <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">outputs$</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Try running the application and test whether it behaves as we defined in the FSM.</p>
+
+<p>You just implemented a social robot program as an FSM!</p>
+
+<h4 id="relation-to-the-model-view-intent-pattern">Relation to the Model-View-Intent pattern</h4>
+
+<p>The FSM pattern is an application of the <a href="https://cycle.js.org/model-view-intent.html">Model-View-Intent (MVI) pattern</a>, an <a href="https://cycle.js.org/model-view-intent.html#model-view-intent-what-mvc-is-really-about">adaptation of Model-View-Controller in reactive programming</a>, where “intent” is <code class="language-plaintext highlighter-rouge">input</code>, “model” is <code class="language-plaintext highlighter-rouge">FSM status</code>, and “view” is <code class="language-plaintext highlighter-rouge">output</code>. In addition to the MVI pattern, the FSM pattern additionally requires a specific structure for the “model”/<code class="language-plaintext highlighter-rouge">FSM status</code> and the “update”/<code class="language-plaintext highlighter-rouge">transition</code>.</p>
+
+<h2 id="updating-the-travel-personality-quiz-fsm">Updating the “travel personality quiz” FSM</h2>
+
+<p>The true power of the FSM pattern is its maintainability. The crux of the FSM pattern is dividing the <code class="language-plaintext highlighter-rouge">main</code> function into the three functions that have separate concerns:</p>
+
+<ul>
+  <li>the <code class="language-plaintext highlighter-rouge">input</code> function that focuses on turning incoming streams into “input” that the FSM can work with and</li>
+  <li>the <code class="language-plaintext highlighter-rouge">transition</code> function implements the FSM’s transition function.</li>
+  <li>the <code class="language-plaintext highlighter-rouge">output</code> function that maps the outputs returned from <code class="language-plaintext highlighter-rouge">transition</code> into the outgoing streams (<code class="language-plaintext highlighter-rouge">sinks</code> in Cycle.js) to make side effects, e.g., trigger actions.</li>
+</ul>
+
+<p>This separation allows programmers to only update the portion of code in the two functions when they need to make the program more complex.</p>
+
+<p>For example, if we were to implement the rest of additional behaviors mentioned in the <a href="making-travel-personality-quiz-program-more-complex">Making “travel personality quiz” program more complex</a> section, we’ll need to first update the FSM to reflect the new desired behavior, e.g.:</p>
+
+<p><img src="https://thepracticaldev.s3.amazonaws.com/i/st5hzvob4hq22pbrsb78.png" alt="travel_personality_quiz_fsm_final" /></p>
+
+<p>and update the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions accordingly. Checkout the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">complete code</a> to see how I updated the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions to implement the remaining additional behaviors.</p>
+
+<p>The biggest challenge for using FSM is defining FSM. If you are using the FSM pattern and having problems with it, double check the current definition of your state machine. For example, look for the redundant states or input types that make updating the transition function cumbersome (merge them into one state with variables), or look for state or input type that is not being used as intended for (add new necessary states or input types). Another point to check is, making sure your FSM is taking reactive programming approach, e.g., make sure the three functions (<code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, <code class="language-plaintext highlighter-rouge">output</code>) are as pure as possible. Defining effective FSM is art, but I believe using FSMs in reactive programming greatly helps the programmers to better organize their programs.</p>
+
+<p>Thank you for reading! I hope I got you interested in using FSMs in Cycle.js. Let me know if something isn’t clear, and I’d be happy to chat.</p>
+
+<p><em>My name is Mike Chung. I’m a <a href="https://homes.cs.washington.edu/~mjyc/">graduate student</a> interested in the field of human-robot interaction and machine learning. You can reach me on <a href="https://twitter.com/mjyc_">Twitter</a> and on <a href="https://github.com/mjyc">GitHub</a>.</em></p>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Medium]]></summary></entry><entry><title type="html">Programming a social robot using Cycle.js</title><link href="/2018/11/01/programming.html" rel="alternate" type="text/html" title="Programming a social robot using Cycle.js" /><published>2018-11-01T08:00:00+00:00</published><updated>2018-11-01T08:00:00+00:00</updated><id>/2018/11/01/programming</id><content type="html" xml:base="/2018/11/01/programming.html"><![CDATA[<p><em>Originally published on <a href="https://medium.com/@chungjy9/programming-a-social-robot-using-cycle-js-95f30a0128ce">Medium</a></em></p>
+
+<blockquote>
+  <p><em><strong>Note:</strong> Check out other posts on programming a social robot using Cycle.js too:</em>
+<em>1. <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a></em>
+<em>2. <a href="/2018/11/08/implementing.html">Implementing a finite state machine in Cycle.js</a></em></p>
+</blockquote>
+
+<p>In this post, I’ll show you how to program a social robot using <a href="https://cycle.js.org/">Cycle.js</a>. I assume you are familiar with reactive programming. If you are not, check out <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive Programming you’ve been missing</a>. If you are eager to get your hands dirty, jump to the <a href="#implementing-travel-personality-test">Implementing “travel personality test”</a> section.</p>
+
+<h2 id="what-is-a-social-robot">What is a social robot?</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Social_robot">Wikipedia</a> introduces it as:</p>
+
+<blockquote>
+  <p>A social robot is an autonomous robot that interacts and communicates with humans or other autonomous physical agents by following social behaviors and rules attached to its role.</p>
+</blockquote>
+
+<p><a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=402dquhxSTQC&amp;oi=fnd&amp;pg=PA1&amp;dq=cynthia+breazeal&amp;ots=oAToxSv8Cf&amp;sig=KAnbgcrcT56kMQVSFobJho7WN8E#v=onepage&amp;q&amp;f=false">Cynthia Breazel</a>, the mother of social robots, once said:</p>
+
+<blockquote>
+  <p>In short, a socialable robot is socially intelligent in a human-like way, and interacting with it is like interacting with another person. At the pinnacle of achievement, they could befriend us, as we could them.</p>
+</blockquote>
+
+<p>I see social robots as embodied agents whose main task is to communicate with humans to help humans. So, interactive robots for <a href="http://robotic.media.mit.edu/portfolio/storytelling-companion/">education</a> or <a href="http://www.cataliahealth.com/">eldercare</a> fit my definition the best.</p>
+
+<p>Programming social robots is similar to programming web applications. In both cases, programmers write code for handling inputs, e.g., a button click or sensor reading, and outputting data accordingly, e.g., displaying information on screen or sending control signals to motors. The major difference is programming social robots involves working with multi-modal inputs and outputs, e.g., speech and motion, to interact with humans instead of solely using a screen interface.</p>
+
+<p>In this post, I’ll use a <a href="https://github.com/mjyc/tablet-robot-face">tablet-face robot</a> for demonstration purposes. The tablet-face robot is just a web application running on a tablet, but we’ll make it speak, listen, and see you to make it more like a “social robot”.</p>
+
+<h2 id="what-is-cyclejs">What is Cycle.js?</h2>
+
+<p><a href="http://cycle.js.org">Cycle.js</a> is a functional and reactive JavaScript framework. It is an abstraction that separates all <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effect</a> producing code into <a href="https://cycle.js.org/drivers.html">drivers</a> so the core application logic code remains <a href="https://en.wikipedia.org/wiki/Pure_function">pure</a> in one “main” function. The author of Cycle.js describes a web application as a <a href="https://cycle.js.org/dialogue.html#dialogue-abstraction">dialogue between a human and a computer</a>. If we assume both are functions, the human as <code class="language-plaintext highlighter-rouge">y = driver(x)</code> and the computer as <code class="language-plaintext highlighter-rouge">x = main(y)</code> where <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are streams in the context of <a href="https://cycle.js.org/streams.html#streams-reactive-programming">reactive programming</a>, then the dialogue is simply two functions that react to each other via their input stream, which is an output of the another function.</p>
+
+<h2 id="why-cyclejs-for-social-robots">Why Cycle.js for social robots?</h2>
+
+<p>To me, Cycle.js essentially enforces functional reactive programming, e.g., using streams, and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adapters architecture</a>, e.g., separating side effects, to make it easy to create and understand complex and concurrent interactive programs–beyond web applications. This is why I chose Cycle.js for programming a social robot. I believe the patterns enforced by Cycle.js will help programmers to battle the concurrency problems originated from supporting multi-modal interactions and stay in control when complexity of the desired robot behavior grows. In fact, you don’t need to use Cycle.js if you can enforce the patterns yourself. For example, you could use <a href="https://wiki.haskell.org/Yampa/reactimate">Yampa with reactimate</a>, <a href="http://www.flapjax-lang.org/">Flapjax</a>, or one of <a href="http://reactivex.io/">ReactiveX</a> stream libraries to do this in a language in which your robot’s API is available.</p>
+
+<h2 id="implementing-travel-personality-test">Implementing “travel personality test”</h2>
+
+<p>Enough backgrounds, we’ll now create a robot program that tests your travel personality. Specifically, we’ll make the robot</p>
+
+<ol>
+  <li>look at you while you are interacting with the robot and</li>
+  <li>ask questions as shown in <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">this flowchart</a>.</li>
+</ol>
+
+<p>If you are curious, check out <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-01-personality-quiz">the complete code and the demo</a> at Stackblitz.</p>
+
+<p><strong>IMPORTANT!!</strong> For now, the <a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/run">cycle-robot-drivers/run</a> package we use in this post and in the Stackblitz demo only work on Chrome browsers (&gt;= 65.0.3325.181).</p>
+
+<p>The code examples in this post assume you are familiar with <a href="https://medium.freecodecamp.org/write-less-do-more-with-javascript-es6-5fd4a8e50ee2">JavaScript ES6</a>. To build code, I use <a href="http://browserify.org/">browserify</a> and <a href="https://babeljs.io/">Babel</a> here, but feel free to use a build tool and a transpiler you prefer. If you are not familiar with them, just fork <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-01-personality-quiz">the Stackblitz demo code</a> and start coding!</p>
+
+<p>Let’s set up a Cycle.js application. Create a folder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir my-robot-program
+cd my-robot-program
+</code></pre></div></div>
+
+<p>Then download <a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/examples/tutorials/01_personality_quiz/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/examples/tutorials/01_personality_quiz/.babelrc"><code class="language-plaintext highlighter-rouge">.babelrc</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/examples/tutorials/01_personality_quiz/index.html"><code class="language-plaintext highlighter-rouge">index.html</code></a> and create an empty <code class="language-plaintext highlighter-rouge">index.js</code> file in the folder. Run <code class="language-plaintext highlighter-rouge">npm install</code> to install the required npm packages. After installing, you can run <code class="language-plaintext highlighter-rouge">npm start</code> to build and start the web application that does nothing.</p>
+
+<p>Now add the following code in <code class="language-plaintext highlighter-rouge">index.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">xs</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">runRobotProgram</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@cycle-robot-drivers/run</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="nf">runRobotProgram</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Then run this application, e.g., by running <code class="language-plaintext highlighter-rouge">npm start</code>. It should load a robot face on your browser.</p>
+
+<p>We just successfully set up and ran a Cycle.js application!</p>
+
+<h3 id="robot-look-at-a-face">Robot, look at a face!</h3>
+
+<p>We’ll now focus on implementing the first feature–looking at a face.</p>
+
+<p>Let’s make the robot just move its eyes by adding the following code in <code class="language-plaintext highlighter-rouge">main</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+
+<span class="c1">// "sources" is a Cycle.js term for the input of "main" / the output of "drivers"</span>
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// "const" (and "let") is a javascript ES6 feature</span>
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">periodic</span><span class="p">(</span><span class="mi">1000</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">x</span><span class="p">:</span> <span class="nx">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">?</span> <span class="mi">0</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1">// horizontal left or right</span>
+        <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span>  <span class="c1">// vertical center</span>
+      <span class="p">})).</span><span class="nf">map</span><span class="p">(</span><span class="nx">position</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">leftEye</span><span class="p">:</span> <span class="nx">position</span><span class="p">,</span>
+          <span class="na">rightEye</span><span class="p">:</span> <span class="nx">position</span>
+        <span class="p">}</span>
+      <span class="p">}))</span>
+  <span class="p">};</span>
+  <span class="c1">// "sinks" is a Cycle.js term for the output of "main" / the input of "drivers"</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we are sending commands to the <code class="language-plaintext highlighter-rouge">TabletFace</code> driver by returning the <code class="language-plaintext highlighter-rouge">sink.TabletFace</code> stream from <code class="language-plaintext highlighter-rouge">main</code>. The <a href="https://github.com/staltz/xstream#periodic"><code class="language-plaintext highlighter-rouge">periodic</code></a> xstream factory creates a stream emitting an incremental number every second and the <a href="https://github.com/staltz/xstream#map"><code class="language-plaintext highlighter-rouge">map</code></a> xstream operator create a new stream that turns the emitted numbers into positions and another new stream that turns the emitted positions into control commands. If you run the updated application, the robot should look left and right repeatedly.</p>
+
+<p>Let’s now work on detecting a face by adding more code in <code class="language-plaintext highlighter-rouge">main</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">.</span><span class="nf">addListener</span><span class="p">({</span>
+    <span class="na">next</span><span class="p">:</span> <span class="p">(</span><span class="nx">poses</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">poses</span><span class="dl">'</span><span class="p">,</span> <span class="nx">poses</span><span class="p">)</span>
+  <span class="p">});</span>
+
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we use the <a href="https://github.com/staltz/xstream#addListener">addListener</a> xstream operator to add a callback function that prints the detected pose data to the <code class="language-plaintext highlighter-rouge">poses</code> stream, the stream returned from the <code class="language-plaintext highlighter-rouge">PoseDetection</code> driver.</p>
+
+<p>When you run the application you should see arrays of objects printed to your browser’s console. If you don’t see them, make sure you are visible to the camera and being detected via the pose visualizer located below the robot face (try scroll down). Each array represents detected poses at current moment, which has the following format:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">poses</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="c1">// the first detected person</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">score</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.32371445304906</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">keypoints</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">part</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nose</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">position</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="mf">253.36747741699</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="mf">76.291801452637</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">score</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.99539834260941</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">part</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">leftEye</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">position</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="mf">253.54365539551</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="mf">71.10383605957</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">score</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.98781454563141</span>
+      <span class="p">},</span>
+      <span class="c1">// ...</span>
+  <span class="p">},</span>
+  <span class="c1">// the second detected person if there is one</span>
+  <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">score</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.22838506316132706</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">keypoints</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">part</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">nose</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">position</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">:</span> <span class="mf">236.58547523373466</span><span class="p">,</span>
+          <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">:</span> <span class="mf">360.03672892252604</span>
+        <span class="p">},</span>
+        <span class="dl">"</span><span class="s2">score</span><span class="dl">"</span><span class="p">:</span> <span class="mf">0.9979155659675598</span>
+      <span class="p">},</span>
+      <span class="c1">// ...</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="c1">// ...</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>While the application is running, try disappearing from the camera.
+You should see one less object in the <code class="language-plaintext highlighter-rouge">poses</code> array. Also try hiding one of your ears by turning your head left or right. You should not see an object that has a string <code class="language-plaintext highlighter-rouge">nose</code> for its <code class="language-plaintext highlighter-rouge">part</code> field in the <code class="language-plaintext highlighter-rouge">keypoints</code> array.</p>
+
+<p>Now that we know how to move the robot’s eyes and retrieve detected face data, let’s put them together to make the robot look at a face. Concretely, we’ll make the robot’s eyes follow a detected person’s nose. Update <code class="language-plaintext highlighter-rouge">main</code> as follows:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+        <span class="c1">// must see one person</span>
+        <span class="nx">poses</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+        <span class="c1">// must see the nose</span>
+        <span class="o">&amp;&amp;</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">nose</span> <span class="o">=</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">return</span> <span class="p">{</span>
+          <span class="na">x</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">/</span> <span class="mi">640</span><span class="p">,</span>  <span class="c1">// max value of position.x is 640</span>
+          <span class="na">y</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">/</span> <span class="mi">480</span>  <span class="c1">// max value of position.y is 480</span>
+        <span class="p">};</span>
+      <span class="p">}).</span><span class="nf">map</span><span class="p">(</span><span class="nx">position</span> <span class="o">=&gt;</span> <span class="p">({</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">leftEye</span><span class="p">:</span> <span class="nx">position</span><span class="p">,</span>
+          <span class="na">rightEye</span><span class="p">:</span> <span class="nx">position</span>
+        <span class="p">}</span>
+      <span class="p">}))</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// ...</span>
+</code></pre></div></div>
+<p>Here we are sending commands to the <code class="language-plaintext highlighter-rouge">TabletDriver</code> by using the stream created from the output stream of the <code class="language-plaintext highlighter-rouge">PoseDetection</code> driver (<code class="language-plaintext highlighter-rouge">sources.PoseDetection.poses</code>).
+To convert pose data into control commands, we use the <a href="https://github.com/staltz/xstream#filter"><code class="language-plaintext highlighter-rouge">filter</code></a> xstream operator to filter pose data to the ones containing only one person whose nose is visible. Then we use the <a href="https://github.com/staltz/xstream#map"><code class="language-plaintext highlighter-rouge">map</code></a> xstream operator twice to convert the detected nose positions into eye positions and turn the eye positions into control commands.</p>
+
+<p>We have made the robot look at a face!</p>
+
+<p><em>Exercise ideas:</em></p>
+
+<ul>
+  <li>Make the robot look at one of <a href="https://vignette.wikia.nocookie.net/juveniles-roleplay/images/e/e9/Louis4.gif/revision/latest?cb=20130825225246">your hands</a> instead of your nose?</li>
+  <li>Make the robot smile (<a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/screen"><code class="language-plaintext highlighter-rouge">happy</code> expression</a>) when you are looking away from the camera?</li>
+</ul>
+
+<h4 id="taking-a-closer-look-at-runrobotprogram">Taking a closer look at <code class="language-plaintext highlighter-rouge">runRobotProgram</code></h4>
+
+<p>While following code examples above, you may have wondered:</p>
+
+<ol>
+  <li>when and where is the <code class="language-plaintext highlighter-rouge">TabletFace</code> driver created</li>
+  <li>how and when a driver produces side effects</li>
+</ol>
+
+<p>Here is the answer to the first question: the two drivers we used in the example code, <code class="language-plaintext highlighter-rouge">TabletFace</code> and <code class="language-plaintext highlighter-rouge">PoseDetection</code>, are created in <code class="language-plaintext highlighter-rouge">runRobotProgram</code>.
+Normally when you program a Cycle.js app, you need to <a href="https://cycle.js.org/getting-started.html#getting-started-coding-create-main-and-drivers">create drivers explicitly</a> and pass them to the <a href="https://cycle.js.org/api/run.html">Cycle.js <code class="language-plaintext highlighter-rouge">run</code></a> function. We skipped this step because we used <code class="language-plaintext highlighter-rouge">runRobotProgram</code> that creates the required drivers for programming a tablet-face robot and calls Cycle.js <code class="language-plaintext highlighter-rouge">run</code> for us. The <code class="language-plaintext highlighter-rouge">runRobotProgram</code> function is <a href="https://github.com/mjyc/cycle-robot-drivers/blob/master/run/src/index.tsx">a wrapper function for Cycle.js <code class="language-plaintext highlighter-rouge">run</code></a> that</p>
+
+<ol>
+  <li>creates five drivers, <code class="language-plaintext highlighter-rouge">AudioPlayer</code>, <code class="language-plaintext highlighter-rouge">SpeechSynthesis</code>, <code class="language-plaintext highlighter-rouge">SpeechRecognition</code>, <code class="language-plaintext highlighter-rouge">TabletFace</code>, <code class="language-plaintext highlighter-rouge">PoseDetection</code></li>
+  <li>creates and sets up five action components <code class="language-plaintext highlighter-rouge">FacialExpressionAction</code>, <code class="language-plaintext highlighter-rouge">AudioPlayerAction</code>, <code class="language-plaintext highlighter-rouge">TwoSpeechbubblesAction</code>, <code class="language-plaintext highlighter-rouge">SpeechSynthesisAction</code>, <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> to allow programmers to use them as drivers, and</li>
+  <li>calls Cycle.js run with the created drivers and actions.</li>
+</ol>
+
+<!-- TODO: Add an example of manually defining a driver here -->
+
+<p>In fact, if you are comfortable with Cycle.js, you could use Cycle.js <code class="language-plaintext highlighter-rouge">run</code> instead of <code class="language-plaintext highlighter-rouge">runRobotProgram</code> to have more control over drivers and actions. You could also create a new <code class="language-plaintext highlighter-rouge">runRobotProgram</code> function that provides drivers for your own robot that is not a tablet-face robot!</p>
+
+<p>Regarding the second question, check out <a href="https://cycle.js.org/drivers.html">this page</a> from the Cycle.js website.</p>
+
+<h3 id="robot-ask-questions">Robot, ask questions!</h3>
+
+<p>We’ll now focus on implementing the second feature–asking the travel personality quiz questions.</p>
+
+<p>First, we’ll represent <a href="http://www.nomadwallet.com/wp-content/uploads/2014/03/travel-quiz-flowchart.jpg">the quiz flowchart</a> as a dictionary of dictionaries for convenience. Add the following code:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">runRobotProgram</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@cycle-robot-drivers/run</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Question</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">CAREER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Is reaching your full career potential important to you?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">ONLINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Can you see yourself working online?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">FAMILY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you have to be near my family/friends/pets?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">TRIPS</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think short trips are awesome?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">HOME</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you want to have a home and nice things?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">ROUTINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think a routine gives your life structure?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">JOB</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you need a secure job and a stable income?</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">VACATIONER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a vacationer!</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">EXPAT</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are an expat!</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">NOMAD</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a nomad!</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">YES</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">NO</span><span class="p">:</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">transitionTable</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">HOME</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">HOME</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">JOB</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">[</span><span class="nx">Question</span><span class="p">.</span><span class="nx">JOB</span><span class="p">]:</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Question</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+<p>Notice that I modified the quiz questions to change all response choices to “yes” and “no”.</p>
+
+<p>Let’s now make the robot ask questions and take your verbal responses.
+First, we’ll make the robot to just say the first question on start, i.e., on loading the robot’s face, and start listening after saying something:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">addListener</span><span class="p">({</span>
+    <span class="na">next</span><span class="p">:</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">result</span><span class="dl">'</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+  <span class="p">});</span>
+  <span class="c1">// ...</span>
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+      <span class="c1">// ...</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">(</span><span class="nx">Question</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({})</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we are sending commands to the <code class="language-plaintext highlighter-rouge">SpeechSynthesisAction</code> driver and the <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> driver by returning the created streams via <code class="language-plaintext highlighter-rouge">sink.SpeechSynthesisAction</code> and <code class="language-plaintext highlighter-rouge">sink.SpeechRecognitionAction</code> from <code class="language-plaintext highlighter-rouge">main</code>.
+The input stream for the <code class="language-plaintext highlighter-rouge">SpeechSynthesisAction</code> driver emits <code class="language-plaintext highlighter-rouge">Question.Career</code> on the tablet-face-loaded event emitted in the <code class="language-plaintext highlighter-rouge">sources.TabletFace.load</code> stream.
+The input stream for the <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> driver emits an empty object (<code class="language-plaintext highlighter-rouge">{}</code>) on finishing the speech synthesis action event emitted in the <code class="language-plaintext highlighter-rouge">sources.SpeechSynthesisAction.result</code> stream.
+Both streams are created using the <a href="https://github.com/staltz/xstream#mapTo"><code class="language-plaintext highlighter-rouge">mapTo</code></a> xstream operator.
+We also print out events emitted in the <code class="language-plaintext highlighter-rouge">sources.SpeechRecognitionAction.result</code> stream using the <a href="https://github.com/staltz/xstream#addListener">addListener</a> xstream operator.</p>
+
+<p>When you run the application, you should hear the robot saying “Is reaching your full career potential important to you?” and see the output of the <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> printed to your browser’s console. The output has the following format:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">result</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">yes</span><span class="dl">"</span><span class="p">,</span>  <span class="c1">// transcribed texts</span>
+  <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">goal_id</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>  <span class="c1">// a unique id for the executed action</span>
+      <span class="dl">"</span><span class="s2">stamp</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mon Oct 01 2018 21:49:00 GMT-0700 (PDT)</span><span class="dl">"</span><span class="p">,</span>  <span class="c1">// "Date" object</span>
+      <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">h0fogq2x0zo-1538455335646</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">status</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SUCCEEDED</span><span class="dl">"</span>  <span class="c1">// "SUCCEEDED", "PREEMPTED", or "ABORTED"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Try saying something and see how well it hears you.</p>
+
+<p>Now we want to improve the program to make the robot ask more than one question. For example, we can try to send questions as commands to the <code class="language-plaintext highlighter-rouge">SpeechSynthesisAction</code> driver whenever the robot hears an appropriate answer, i.e., “yes” or “no”. Let’s try to express this by updating the code above as follows:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+      <span class="c1">// ...</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
+      <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">(</span><span class="nx">Question</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">),</span>
+      <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>  <span class="c1">// must succeed</span>
+        <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span> <span class="o">||</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// only yes or no</span>
+      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Hmm...</span>
+      <span class="p">})</span>
+    <span class="p">),</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({})</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we are merging the commands from the stream that emits the first question (<code class="language-plaintext highlighter-rouge">sources.TabletFace.load.mapTo(Question.CAREER)</code>) and the commands from the stream that emits a subsequent question on hearing “yes” or “no” (<code class="language-plaintext highlighter-rouge">sources.SpeechRecognitionAction.result.filter(// ...</code>) using the <a href="https://github.com/staltz/xstream#merge"><code class="language-plaintext highlighter-rouge">merge</code></a> xstream factory.</p>
+
+<p>There is one problem with this approach. We cannot figure out which question to return in the second stream since the question is dependent on the last question the robot asked, which also is dependent on the last last question and so on. In other words, we need a previous output of the current stream we are creating as a input to the current stream.</p>
+
+<p>To solve this circular dependency problem, we adopt the proxy pattern by updating the <code class="language-plaintext highlighter-rouge">main</code> function as follows:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="kd">const</span> <span class="nx">lastQuestion$</span> <span class="o">=</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">create</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">question$</span> <span class="o">=</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">(</span><span class="nx">Question</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">),</span>
+    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>  <span class="c1">// must succeed</span>
+      <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span> <span class="o">||</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// only yes or no</span>
+    <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">startWith</span><span class="p">(</span><span class="dl">''</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">compose</span><span class="p">(</span><span class="nf">sampleCombine</span><span class="p">(</span>
+      <span class="nx">lastQuestion$</span>
+    <span class="p">)).</span><span class="nf">map</span><span class="p">(([</span><span class="nx">response</span><span class="p">,</span> <span class="nx">question</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">transitionTable</span><span class="p">[</span><span class="nx">question</span><span class="p">][</span><span class="nx">response</span><span class="p">];</span>
+    <span class="p">})</span>
+  <span class="p">);</span>
+  <span class="nx">lastQuestion$</span><span class="p">.</span><span class="nf">imitate</span><span class="p">(</span><span class="nx">question$</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span>
+      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
+      <span class="c1">// ...</span>
+    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">question$</span><span class="p">,</span>
+    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({})</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Here we have moved creating the code for a stream for <code class="language-plaintext highlighter-rouge">sink.SpeechSynthesisAction</code> outside of the <code class="language-plaintext highlighter-rouge">sink</code> object definition. We create an empty proxy stream <code class="language-plaintext highlighter-rouge">lastQuestion$</code> using the <a href="https://github.com/staltz/xstream#create"><code class="language-plaintext highlighter-rouge">create</code></a> xstream factory and use it when creating the <code class="language-plaintext highlighter-rouge">question$</code> stream.
+Then use the <a href="https://github.com/staltz/xstream#imitate"><code class="language-plaintext highlighter-rouge">imitate</code></a> xstream operator to connect the proxy stream, <code class="language-plaintext highlighter-rouge">lastQuestion$</code>, to its source stream, <code class="language-plaintext highlighter-rouge">question$</code>. We also use the <a href="https://github.com/staltz/xstream#compose"><code class="language-plaintext highlighter-rouge">compose</code></a> and <a href="https://github.com/staltz/xstream/blob/master/EXTRA_DOCS.md#sampleCombine"><code class="language-plaintext highlighter-rouge">sampleCombine</code></a> xstream operators to combine events from the stream originated from <code class="language-plaintext highlighter-rouge">sources.SpeechRecognitionAction.result</code> and the <code class="language-plaintext highlighter-rouge">lastQuestion$</code> stream. Note that I add <code class="language-plaintext highlighter-rouge">$</code> at the end of stream variable names to distinguish them from other variables as Cycle.js authors do. Try the updated application and see if the robot asks more than one question if you respond to it with “yes” or “no”.</p>
+
+<p>You may have wondered when did we update the code to send the “start listening” command ({}) after <em>all</em> questions. We didn’t update the code; the code we had before already works as desired since the <code class="language-plaintext highlighter-rouge">sources.SpeechSynthesisAction.result</code> stream emits data on finishing <em>every</em> synthesized speech.</p>
+
+<p>One problem you may have faced is the robot failing to ask a next question when it hears an answer that is not “yes” or “no”, e.g., by mistake. In such case, the robot should start listening again to give the person a chance to correct their answer. Let’s update the code to fix the problem:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+    <span class="nx">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">question$</span><span class="p">,</span>
+    <span class="nx">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
+      <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
+      <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
+        <span class="o">||</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">).</span><span class="nf">mapTo</span><span class="p">({})</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+
+<p>Run the updated application. You should see that the robot will continue to listen and print whatever it hears to the console until it hears “yes” or “no” before asking a next question.</p>
+
+<p>We are done at this point. Try taking the travel personality quiz to find out your travel personality and enjoy!</p>
+
+<p><em>Exercise ideas:</em></p>
+
+<ul>
+  <li>Implement one of <a href="https://www.buzzfeed.com/lukelewis/the-most-important-flowcharts-of-all-time">“The 24 Most Important Flowcharts Of All Time”</a> to make the robot answer one of the biggest questions in life?</li>
+  <li>Make your robot to read Tweets from a certain Twitter user whenever that user post a tweet, e.g., using <a href="https://developer.twitter.com/en/docs/tweets/filter-realtime/overview">a Twitter API</a>?</li>
+  <li>Make your robot alert you whenever a <a href="https://www.youtube.com/watch?v=uS1KcjkWdoU">stock’s price goes below or above a certain threshold</a>?</li>
+</ul>
+
+<p>Please let me know if something isn’t clear, and I’d be happy to chat about your concerns. Thank you for reading!</p>
+
+<h2 id="miscellaneous">Miscellaneous</h2>
+
+<ul>
+  <li>Fun fact: <a href="https://spectrum.ieee.org/automaton/robotics/humanoids/what-people-see-in-157-robot-faces">many social robots today use a screen as a face</a>.</li>
+  <li>Check out <a href="http://rxmarbles.com/#mergeMap">RxJS Marbles</a> for visualizing stream operators with marble diagrams, e.g., <a href="http://rxmarbles.com/#interval">interval</a> (periodic in xstream), <a href="http://rxmarbles.com/#map">map</a>, <a href="http://rxmarbles.com/#filter">filter</a>, <a href="http://rxmarbles.com/#mapTo">mapTo</a>, and <a href="http://rxmarbles.com/#merge">merge</a>.</li>
+  <li>If you are a <a href="http://www.ros.org/">ROS</a> user, check out my <a href="https://github.com/mjyc/cycle-ros-example">experimental Cycle.js driver</a> for communicating with ROS using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a>.</li>
+  <li>Help me improve <a href="./">cycle-robot-drivers</a> library by participating in <a href="https://goo.gl/forms/rdnvgk8rWrUmbtrt1">this brief survey</a>!</li>
+</ul>
+
+<p><em>My name is Mike Chung. I’m a <a href="https://homes.cs.washington.edu/~mjyc/">graduate student</a> interested in the field of human-robot interaction and machine learning. You can reach me on <a href="https://twitter.com/mjyc_">Twitter</a> and on <a href="https://github.com/mjyc">GitHub</a>.</em></p>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Medium]]></summary></entry></feed>
