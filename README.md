@@ -9,3 +9,8 @@ My website.
 3. If everything looks good, run `JEKYLL_ENV=production bundle exec jekyll build` and copy `_site` to my server
 
 Make sure you have Ruby `>=2.3` and [Bundler](http://bundler.io/) installed.
+
+## Notes
+
+See https://stackoverflow.com/a/64901980 for Apple Silicon (M1) machines
+
