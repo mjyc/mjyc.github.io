@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-01T12:16:50-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Finishing the Graduate School as a Parent</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing the Graduate School as a Parent" /><published>2020-11-30T00:00:00-08:00</published><updated>2020-11-30T00:00:00-08:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html">&lt;p&gt;I was a graduate student when my son was born.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-01T16:06:31-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
+Here are my strategies.&lt;/p&gt;
+
+&lt;h2 id=&quot;unit-and-property-based-testing&quot;&gt;Unit and property-based testing&lt;/h2&gt;
+
+&lt;p&gt;Robotics systems often consist of layers of application programming interfaces (APIs).
+While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
+For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
+The testing approach of algorithmically generating data is interesting because it allows &lt;a href=&quot;https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237&quot;&gt;property-based testing&lt;/a&gt;, i.e., generating test cases^1.
+This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in &lt;a href=&quot;https://atsushisakai.github.io/PythonRobotics/&quot;&gt;PythonRobotics&lt;/a&gt;.
+The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.&lt;/p&gt;
+
+&lt;p&gt;^1 inspired by model-based UI testing frameworks&lt;/p&gt;
+
+&lt;h2 id=&quot;sequential-property-based-testing&quot;&gt;Sequential property-based testing&lt;/h2&gt;
+
+&lt;p&gt;Many robotics algorithms work with sequential data.
+For example, think of state estimation, control, motion planning algorithms.
+Out of the box, property-based testing tools do not provide creating sequential data.
+So the first step to testing time-dependent algorithm is updating property-based testing tools to be able to generate sequential random data.
+Creating a sequential sampler that does not dependent on the outputs of testing algorithms is easy (e.g., inputs for state estimation algorithms) but otherwise, one requires to create reactive environments using existing tools like combinators.
+At this point, basically one requires to build a tiny simulation environment.
+While this sounds daunting, it’s actually not thanks to many existing physics simulation libraries and game programming design patterns (e.g., entity-component systems, etc.).&lt;/p&gt;
+
+&lt;p&gt;The second problem is verifying test cases over time.
+For example, one might want to check whether the outputs of a state estimation algorithm ever return &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; or test if a motion planning algorithm ever returns an invalid pose.
+I like to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Linear_temporal_logic&quot;&gt;linear temporal logic (LTL)&lt;/a&gt; to verify such temporal properties due to the LTL’s simplicity.
+There are some subtleties of using LTLs with property-based testing tools and I’ll elaborate on those in the future (if I find more time).&lt;/p&gt;
+
+&lt;h2 id=&quot;physical-integration-testing&quot;&gt;Physical integration testing&lt;/h2&gt;
+
+&lt;p&gt;Like everything robotics, one must test programs with the real robots in real world at some point.
+One approach is integrating continuous integration testing with real robots.
+There was &lt;a href=&quot;https://roscon.ros.org/2016/presentations/PhysicalContinuousIntegrationSlides.pdf&quot;&gt;a great talk&lt;/a&gt; about this topic from fetch regarding this topic.
+&lt;a href=&quot;https://youtu.be/SzHw2PIEIKQ&quot;&gt;A more recent talk about AWS Robomaker&lt;/a&gt; also touches on this topic, too.&lt;/p&gt;
+
+&lt;h2 id=&quot;closing-meme&quot;&gt;Closing meme&lt;/h2&gt;
+
+&lt;p&gt;Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png&quot; /&gt;
+source: https://github.com/dominictarr/push-streams-talk&lt;/p&gt;</content><author><name></name></author><summary type="html">Testing robotics systems is hard. Here are my strategies.</summary></entry><entry><title type="html">Finishing the Graduate School as a Parent</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing the Graduate School as a Parent" /><published>2020-11-30T00:00:00-08:00</published><updated>2020-11-30T00:00:00-08:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html">&lt;p&gt;I was a graduate student when my son was born.
 As much as I was euphoric about my son’s arrival, reality hit me hard.
 I was not ready.
 It was brutal but I pulled through the graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.&lt;/p&gt;
@@ -22,7 +63,7 @@ Gradually, I started delaying seemingly more important tasks such as polishing r
 In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
 To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare &lt;em&gt;a&lt;/em&gt; plan for the worst outcomes.&lt;/p&gt;
 
-&lt;p&gt;^1 This trick was somewhat inspired by &lt;a href=&quot;https://www.productplan.com/glossary/gist-planning/&quot;&gt;GIST Planning&lt;/a&gt; and &lt;a href=&quot;https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf&quot;&gt;Startup Engineering&lt;/a&gt;.
+&lt;p&gt;^1 This trick was somewhat inspired by &lt;a href=&quot;https://www.productplan.com/glossary/gist-planning/&quot;&gt;GIST Planning&lt;/a&gt; and &lt;a href=&quot;https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf&quot;&gt;Startup Engineering&lt;/a&gt;.&lt;br /&gt;
 ^2 &lt;a href=&quot;https://www.google.com/search?q=Eisenhower+Matrix&amp;amp;tbm=isch&quot;&gt;The Eisenhower matrix&lt;/a&gt; is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.&lt;/p&gt;
 
 &lt;h2 id=&quot;minimal-viable-product&quot;&gt;Minimal viable product&lt;/h2&gt;
@@ -49,13 +90,13 @@ With everything going on, I usually only had about 2hrs of the peak attention pe
 
 &lt;p&gt;To best use this time, I identified the most likely time of the day that I have the best attention and protect that time slot for the most important tasks.
 Whenever I face a big task, I would start breaking it down and think about different approaches while I’m away from the desk, e.g., while commuting, picking up or dropping off my son, etc.
-Usually, the most important tasks such as core algorithm/system design, initial draft writing, big meeting/presentation, etc. reveal themselves^2.
-These tasks require deeply exploring many ideas with caution to make a big dent towards a knotty problem^3, so I used my protected time to only work on these tasks.
+Usually, the most important tasks such as core algorithm/system design, initial draft writing, big meeting/presentation, etc. reveal themselves^3.
+These tasks require deeply exploring many ideas with caution to make a big dent towards a knotty problem^4, so I used my protected time to only work on these tasks.
 I used times with a medium level of attention for execution tasks; I used to do execution tasks in the protected hours but with well-thought-out approaches, execution tasks didn’t require as much attention as the core problem-solving tasks.
 Finally, everything else, emailing and scheduling, resolving meeting topics, writing down new problem-solving approaches were done on foot, e.g., while watching my son at the park.&lt;/p&gt;
 
-&lt;p&gt;^2. Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.
-^3. I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.&lt;/p&gt;
+&lt;p&gt;^3. Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.&lt;br /&gt;
+^4. I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.&lt;/p&gt;
 
 &lt;h2 id=&quot;closing-thoughts&quot;&gt;Closing thoughts&lt;/h2&gt;
 
