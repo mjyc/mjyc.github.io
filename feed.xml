@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-01T16:06:31-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-03T17:30:47-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
 Here are my strategies.&lt;/p&gt;
 
 &lt;h2 id=&quot;unit-and-property-based-testing&quot;&gt;Unit and property-based testing&lt;/h2&gt;
@@ -95,8 +95,8 @@ These tasks require deeply exploring many ideas with caution to make a big dent 
 I used times with a medium level of attention for execution tasks; I used to do execution tasks in the protected hours but with well-thought-out approaches, execution tasks didn’t require as much attention as the core problem-solving tasks.
 Finally, everything else, emailing and scheduling, resolving meeting topics, writing down new problem-solving approaches were done on foot, e.g., while watching my son at the park.&lt;/p&gt;
 
-&lt;p&gt;^3. Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.&lt;br /&gt;
-^4. I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.&lt;/p&gt;
+&lt;p&gt;^3 Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.&lt;br /&gt;
+^4 I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.&lt;/p&gt;
 
 &lt;h2 id=&quot;closing-thoughts&quot;&gt;Closing thoughts&lt;/h2&gt;
 
