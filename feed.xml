@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-03T17:36:28-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-10T17:30:53-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
 Here are my strategies.&lt;/p&gt;
 
 &lt;h2 id=&quot;unit-and-property-based-testing&quot;&gt;Unit and property-based testing&lt;/h2&gt;
@@ -432,6 +432,13 @@ Among relatively recent products from robot starts, I found &lt;a href=&quot;htt
 &lt;p&gt;As a researcher in academia I never considered entertainment as a serious application.
 But maybe it’s time to pay attention to applications or the potentials of robotics in entertainment.
 And to be honest, I do kind of like &lt;a href=&quot;https://www.youtube.com/watch?v=kHBcVlqpvZ8&amp;amp;t=5s&quot;&gt;UpTown Spot&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;updates&quot;&gt;Updates&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;2020.01.06&lt;/em&gt; There was (yet another) robot dancing video posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.
+Then I found &lt;a href=&quot;https://jessicarajko.medium.com/dancing-robots-are-not-about-dance-waiving-goodbye-to-2020-and-popular-exploitations-of-dance-961f57d3ee4c&quot;&gt;“These Dancing Robots Are Not About Dance: waiving goodbye to 2020 and popular exploitations”&lt;/a&gt; by Jessica Rajko; I still haven’t digested my take on this article but it helped me better understand why I have a certain attitude towards these joking and dancing robots.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;comments&quot;&gt;Comments&lt;/h2&gt;
 
