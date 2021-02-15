@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-28T19:56:48-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-15T14:17:36-08:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T00:00:00-08:00</published><updated>2020-12-16T00:00:00-08:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html">&lt;p&gt;Testing robotics systems is hard.
 Here are my strategies.&lt;/p&gt;
 
 &lt;h2 id=&quot;unit-and-property-based-testing&quot;&gt;Unit and property-based testing&lt;/h2&gt;
@@ -6,11 +6,12 @@ Here are my strategies.&lt;/p&gt;
 &lt;p&gt;Robotics systems often consist of layers of application programming interfaces (APIs).
 While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
 For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
-The testing approach of algorithmically generating data is interesting because it allows &lt;a href=&quot;https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237&quot;&gt;property-based testing&lt;/a&gt;, i.e., generating test cases^1.
+The testing approach of algorithmically generating data is interesting because it allows &lt;a href=&quot;https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237&quot;&gt;property-based testing&lt;/a&gt;, i.e., generating test cases^1^2.
 This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in &lt;a href=&quot;https://atsushisakai.github.io/PythonRobotics/&quot;&gt;PythonRobotics&lt;/a&gt;.
 The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.&lt;/p&gt;
 
-&lt;p&gt;^1 inspired by model-based UI testing frameworks&lt;/p&gt;
+&lt;p&gt;^1 inspired by model-based UI testing frameworks &lt;br /&gt;
+^2 Zhoulai Fu and Francisco Martinez Lasaca gave a talk “Experiences with Fuzz Testing ROS Component” that covered a similar approach “fuzz testing” and shared &lt;a href=&quot;https://ros2-fuzzer.readthedocs.io/en/latest/&quot;&gt;their code&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;sequential-property-based-testing&quot;&gt;Sequential property-based testing&lt;/h2&gt;
 
@@ -39,7 +40,7 @@ There was &lt;a href=&quot;https://roscon.ros.org/2016/presentations/PhysicalCon
 &lt;p&gt;Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png&quot; /&gt;
-source: https://github.com/dominictarr/push-streams-talk&lt;/p&gt;</content><author><name></name></author><summary type="html">Testing robotics systems is hard. Here are my strategies.</summary></entry><entry><title type="html">Finishing the Graduate School as a Parent</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing the Graduate School as a Parent" /><published>2020-11-30T00:00:00-08:00</published><updated>2020-11-30T00:00:00-08:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html">&lt;p&gt;I was a graduate student when my son was born.
+source: https://github.com/dominictarr/push-streams-talk&lt;/p&gt;</content><author><name></name></author><summary type="html">Testing robotics systems is hard. Here are my strategies.</summary></entry><entry><title type="html">Finishing the Graduate School as a New Dad</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing the Graduate School as a New Dad" /><published>2020-11-30T00:00:00-08:00</published><updated>2020-11-30T00:00:00-08:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html">&lt;p&gt;I was a graduate student when my son was born.
 As much as I was euphoric about my son’s arrival, reality hit me hard.
 I was not ready.
 It was brutal but I pulled through the graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.&lt;/p&gt;
@@ -110,7 +111,7 @@ Yet, I’m working on this blog post while watching my son at a playground.&lt;/
 
 &lt;h3 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h3&gt;
 
-&lt;p&gt;I consciously and unconsciously picked up the habits of the other super parents who I closely worked with and had much more responsibility than me like my grad school advisor &lt;a href=&quot;https://homes.cs.washington.edu/~mcakmak/&quot;&gt;Maya Cakmak&lt;/a&gt;, and my past team leader &lt;a href=&quot;http://chfritz.github.io/&quot;&gt;Christian Fritz&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I consciously and unconsciously picked up the habits of other parents who I closely worked with and had much more responsibility than me like my grad school advisor &lt;a href=&quot;https://homes.cs.washington.edu/~mcakmak/&quot;&gt;Maya Cakmak&lt;/a&gt;, and my past team leader &lt;a href=&quot;http://chfritz.github.io/&quot;&gt;Christian Fritz&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I decided to write this blog post when I discovered the existence of similar blog posts from authors I respect:&lt;/p&gt;
 &lt;ul&gt;

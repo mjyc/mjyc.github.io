@@ -66,11 +66,12 @@ Here are my strategies.</p>
 <p>Robotics systems often consist of layers of application programming interfaces (APIs).
 While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
 For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
-The testing approach of algorithmically generating data is interesting because it allows <a href="https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237">property-based testing</a>, i.e., generating test cases^1.
+The testing approach of algorithmically generating data is interesting because it allows <a href="https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237">property-based testing</a>, i.e., generating test cases^1^2.
 This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in <a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a>.
 The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.</p>
 
-<p>^1 inspired by model-based UI testing frameworks</p>
+<p>^1 inspired by model-based UI testing frameworks <br />
+^2 Zhoulai Fu and Francisco Martinez Lasaca gave a talk “Experiences with Fuzz Testing ROS Component” that covered a similar approach “fuzz testing” and shared <a href="https://ros2-fuzzer.readthedocs.io/en/latest/">their code</a></p>
 
 <h2 id="sequential-property-based-testing">Sequential property-based testing</h2>
 
