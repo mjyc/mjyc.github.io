@@ -1,6 +1,3 @@
----
----
-
 {% if entry.type != "media" %}
   <div class="bib" id="{{ entry.key }}">
     {% capture venue %}{% if entry.booktitle %}{{ entry.booktitle }}{% else if entry.journal %}{{ entry.journal }}{% endif %}{% endcapture %}
