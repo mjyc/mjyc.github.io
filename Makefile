@@ -13,13 +13,19 @@ upgrade:
 	bundle update
 
 s serve:
-	bundle exec jekyll serve --trace --livereload
+	bundle exec jekyll serve --livereload
 
 build:
-	JEKYLL_ENV=production bundle exec jekyll build --trace
+	JEKYLL_ENV=production bundle exec jekyll build
+	rm _site/Makefile
 
-deploy:
-	rsync -Wav --human-readable --progress _site/ docs
+deploy: build
+	git checkout master
+	rsync -Wav --human-readable --progress _site/ .
+	rm -rf _site
+	git add .
+	git commit -m "Publish"
+	git push
 
 clean:
-	rm -rf vendor/bundle
+	rm -rf vendor/bundle _site
