@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Finishing the Graduate School as a New Dad"
+title: "Finishing Graduate School as a New Dad"
 date: 2020-11-30 00:00:00 -0800
 ---
 
 I was a graduate student when my son was born.
 As much as I was euphoric about my son's arrival, reality hit me hard.
 I was not ready.
-It was brutal but I pulled through the graduate school and here is s selected list of tricks I've learned from having been a graduate student parent.
+It was brutal but I pulled through graduate school and here is s selected list of tricks I've learned from having been a graduate student parent.
 
 ## Buying time
 
