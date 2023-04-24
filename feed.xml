@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-04-23T17:21:47+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-04-24T16:07:49+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
 Here are my strategies.</p>
 
 <h2 id="unit-and-property-based-testing">Unit and property-based testing</h2>
@@ -282,6 +282,7 @@ The below list could be good entry points for learning about software-focused ro
   <li><a href="https://developer.nvidia.com/blog/tag/isaac-sim/">Isaac Sim Technical Blog</a></li>
   <li><a href="https://www.duckietown.org/research/ai-driving-olympics">The AI Driving Olympics (AI-DO)</a></li>
   <li><a href="https://www.balena.io/blog">Balena blog</a> - they provide less robotics and more IoT-centric contents</li>
+  <li><a href="https://getcruise.com/news">Cruise news</a></li>
   <li><a href="https://github.com/mjyc/awesome-robotics-system-design">Awesome Robotics System Design</a> - where I keep interesting software-focused robotics stuff</li>
 </ul>
 
@@ -496,10 +497,10 @@ Among relatively recent products from robot starts, I found <a href="https://ank
 But maybe it’s time to pay attention to applications or the potentials of robotics in entertainment.
 And to be honest, I do kind of like <a href="https://www.youtube.com/watch?v=kHBcVlqpvZ8&amp;t=5s">UpTown Spot</a>.</p>
 
-<h3 id="updates">Updates</h3>
+<h2 id="updates">Updates</h2>
 
 <ul>
-  <li><em>2020/01/06</em> There was (yet another) robot dancing video posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.
+  <li><em>2020.01.06</em> There was (yet another) robot dancing video posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.
 Then I found <a href="https://jessicarajko.medium.com/dancing-robots-are-not-about-dance-waiving-goodbye-to-2020-and-popular-exploitations-of-dance-961f57d3ee4c">“These Dancing Robots Are Not About Dance: waiving goodbye to 2020 and popular exploitations”</a> by Jessica Rajko; I still haven’t digested my take on this article but it helped me better understand why I have a certain attitude towards these joking and dancing robots.</li>
 </ul>
 
