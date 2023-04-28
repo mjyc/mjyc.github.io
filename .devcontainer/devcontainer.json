@@ -1,6 +1,6 @@
 {
     "name": "mywebsite",
-	"image": "ubuntu:22.04",
+	"image": "mcr.microsoft.com/vscode/devcontainers/base:0-debian-11",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {
 			"ppa": true,
@@ -13,6 +13,7 @@
 	},
 	"postCreateCommand": "apt-get update && apt-get -y install --no-install-recommends rsync locales && locale-gen en_US.UTF-8",
 	"containerEnv": {
-		"LC_ALL": "en_US.UTF-8"
+		"LC_ALL": "en_US.UTF-8",
+		"USER": "root"
 	}
 }
