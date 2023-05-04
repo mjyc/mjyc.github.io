@@ -4,11 +4,9 @@ title: "Programming a social robot using Cycle.js"
 date: 2018-11-01 00:00:00 -0800
 ---
 
-_Originally published on [Medium](https://medium.com/@chungjy9/programming-a-social-robot-using-cycle-js-95f30a0128ce)_
-
-> _**Note:** Check out other posts on programming a social robot using Cycle.js too:_
-> _1. [Programming a social robot using Cycle.js]({% post_url 2018-11-01-programming %})_
-> _2. [Implementing a finite state machine in Cycle.js]({% post_url 2018-11-08-implementing %})_
+> **Note:** Check out other posts on programming a social robot using Cycle.js too:
+> 1. [Programming a social robot using Cycle.js]({% post_url 2018-11-01-programming %})
+> 2. [Implementing a finite state machine in Cycle.js]({% post_url 2018-11-08-implementing %})
 
 In this post, I'll show you how to program a social robot using [Cycle.js](https://cycle.js.org/). I assume you are familiar with reactive programming. If you are not, check out [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754). If you are eager to get your hands dirty, jump to the [Implementing "travel personality test"](#implementing-travel-personality-test) section.
 

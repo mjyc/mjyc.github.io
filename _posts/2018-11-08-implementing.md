@@ -4,11 +4,9 @@ title: "Implementing a finite state machine in Cycle.js"
 date: 2018-11-08 00:00:00 -0800
 ---
 
-_Originally published on [Medium](https://medium.com/@chungjy9/implementing-a-finite-state-machine-in-cycle-js-c498b6cfb231)_
-
-> _**Note:** Check out other posts on programming a social robot using Cycle.js too:_
-> _1. [Programming a social robot using Cycle.js]({% post_url 2018-11-01-programming %})_
-> _2. [Implementing a finite state machine in Cycle.js]({% post_url 2018-11-08-implementing %})_
+> **Note:** Check out other posts on programming a social robot using Cycle.js too:
+> 1. [Programming a social robot using Cycle.js]({% post_url 2018-11-01-programming %})
+> 2. [Implementing a finite state machine in Cycle.js]({% post_url 2018-11-08-implementing %})
 
 In this post, I'll show you how to implement a reactive social robot program as a [finite state machine](https://en.wikipedia.org/wiki/Finite-state_machine). We'll continue from where we left off in the previous post [Programming a social robot using Cycle.js]({% post_url 2018-11-01-programming %})--so check it out if you haven't already! If you are in a hurry, here is the [demo and complete code](https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm) of what we are building in this post.
 
