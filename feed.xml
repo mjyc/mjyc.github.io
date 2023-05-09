@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-05-04T06:55:05+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-05-09T21:05:13+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
 Here are my strategies.</p>
 
 <h2 id="unit-and-property-based-testing">Unit and property-based testing</h2>
@@ -307,8 +307,9 @@ The below list could be good entry points for learning about software-focused ro
 </ul>
 
 <p>Talking about skimming, it might be inspiring to skim the class materials from <a href="https://courses.cs.washington.edu/courses/cse478/20wi/">CSE 478: Autonomous Robotics</a>.
-Unlike many other class materials, their class slides provide application examples of introduced concepts with an open-source autonomous mobile robot platform <a href="https://mushr.io/">MUSHR</a>.
-<strong>WARNING</strong> Reading papers and learning class materials can become yet another rabbit hole.
+Unlike many other class materials, their class slides provide application examples of introduced concepts with an open-source autonomous mobile robot platform <a href="https://mushr.io/">MUSHR</a>.</p>
+
+<p><strong>WARNING</strong> Reading papers and learning class materials can become yet another rabbit hole.
 There are endless interesting papers (on surface) or concepts (from class slides) and they can distract you from finishing your project.
 What happens is that because you feel achievement/growth and you get temped to keep learning.
 Being able to focus on the track and learn only necessary skills (and taking the project to the finish line–and defining the finish line) is a huge challenge/probably the most important skill to learn.</p>
@@ -335,7 +336,7 @@ For example, I wouldn’t call industrial manipulators that pick things up from 
 
 <p>Okay, so where do we go from here?
 Will we have a “robot” that we can use at home? what will it look like? what will it do?
-Maybe a big tech will build <a href="https://a.co/d/4gg8P7E">something</a> but I think the time is ripe for rolling our sleeves up and building home robots ourselves!
+It’s likely that a big tech company will build something, but I say the time is now for rolling our sleeves up and building home robots ourselves!
 It might be difficult but I think it is possible.
 First, we need hardware.
 We can buy a kit like a TurtleBot or get an open hardware design from one of the Hackaday blog posts or design one from scratch on onshape, if you can.
@@ -345,7 +346,7 @@ I can’t work with microcontrollers but don’t let me stop you.
 Finally, software.
 There are opensource softwares like ROS, Nvidia Isaac, Apex Autoware, etc.</p>
 
-<p>What should we build?
+<p>What should we build?[^3]
 That’s a great question.
 My approach is reviewing my hobbies and asking how can I use robotics capabilities to make them more interesting.
 This usually boils down to adding capabilities like mobility, manipulability, or computer vision to existing things. I tried to build interactive or mobile decorations like interactive lights (e.g., changing ceiling light colors based on locations of detected people) and mobile pots (e.g., moving to different locations at different times).
@@ -355,13 +356,20 @@ This approach usually gets blocked by the current limitations of the robotics te
 <p>Honestly though, it isn’t easy to build homemade robots and making them actually useful is near-impossible for a hobbyist.
 Although robotics technology is advancing quickly, there are limitations that makes them not as reliable for real world use cases and hardware devices (e.g., high-quality motors) are still pretty expensive.
 So why did I suggest to build your own robot?
-I wanted the robot lovers to acknowledge the fact that we are building home robots because we just love doing so[^3] and you shouldn’t be discouraged by recent fallings of the robot companies.
+I wanted the robot lovers to acknowledge the fact that we are building home robots because we just love doing so[^4] and you shouldn’t be discouraged by recent fallings of the robot companies.
 Long live DIY robots!</p>
+
+<h3 id="updates">Updates</h3>
+
+<ul>
+  <li>2023/05/06 Recently, I heard that <a href="https://techcrunch.com/2023/05/01/neato-robotics-is-being-shut-down-after-18-years/">Neato Robotics was shutting down</a>. Unlike other shutdown news (e.g., <a href="https://www.theverge.com/2023/2/24/23613214/everyday-robots-google-alphabet-shut-down">Everyday Robots shutdown</a>), this news was particularly shocking because I thought robot vacuums sell. On the other hand, since the first draft of this post, I saw new consumer/home robots (e.g., <a href="https://labradorsystems.com/">Labrador</a>, <a href="https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other">Amazon Astro</a>, and <a href="https://www.tiktok.com/@arina.bloom/video/7221590486514027818">Matician Matic</a>) and many open-source or DIY autonomous RC car projects (e.g., <a href="https://f1tenth.org/">F1TENTH</a>, <a href="https://www.duckietown.org/">Duckiebot</a>, <a href="https://aws.amazon.com/deepracer/">DeepRacer</a>, <a href="https://mushr.io/">MuSHR</a>, <a href="https://racecar.mit.edu/">MIT Racecar</a>) appearaed.</li>
+</ul>
 
 <p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.<br />
 [^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
 <br />
-[^3] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>/2019/06/09/please</id><content type="html" xml:base="/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
+[^3] Also checkout <a href="https://generalrobots.substack.com/p/how-to-pick-a-problem">How to Pick a Problem</a>
+[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>/2019/06/09/please</id><content type="html" xml:base="/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
 
 <p>Hello hackers, tinkers, webdevs, sysdevs, roboticists, and all coders! I’ve been excited about <a href="https://en.wikipedia.org/wiki/Cloud_robotics">cloud robotics</a>, a field of robotics that utilizes the power of cloud computing, and want to share the excitement with you and suggest a project we can potentially work together. The project that I’m thinking of is “cellphone visual SLAMing”. The idea is to run a visual SLAM system on cloud so mobile devices like a cellphone can build 3D maps by simply uploading camera data to the cloud.</p>
 
@@ -371,8 +379,7 @@ Long live DIY robots!</p>
   <li>Try creating a 3D map using <a href="https://github.com/raulmur/ORB_SLAM2">ORB_SLAM2</a> and desktop camera images.
 The main goal of this step is to get comfortable with a visual SLAM library and feel out the limitations.</li>
   <li>Try creating 3D maps using ORB*SLAM2 running on a desktop and cellphone camera images.
-ORB_SLAM2 supports <a href="https://www.ros.org/">ROS</a>. So one can easily capture device camera images using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">HTML5’s <code class="language-plaintext highlighter-rouge">MediaDevices.getUserMedia()</code></a>, turn them into ROS image messages, and publish them using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a> so ORB_SLAM2 can use the images collected from a remote device.
-_Update: *</li>
+ORB_SLAM2 supports <a href="https://www.ros.org/">ROS</a>. So one can easily capture device camera images using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">HTML5’s <code class="language-plaintext highlighter-rouge">MediaDevices.getUserMedia()</code></a>, turn them into ROS image messages, and publish them using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a> so ORB_SLAM2 can use the images collected from a remote device.</li>
   <li>Run the ORB_SLAM2 to cloud.
 I have not tried it, but it seems like it is fairly easy to <a href="https://docs.docker.com/samples/library/ros/">containerize a ROS package and deploy it on cloud</a>.</li>
 </ol>
