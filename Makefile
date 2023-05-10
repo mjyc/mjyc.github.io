@@ -19,13 +19,14 @@ build:
 	JEKYLL_ENV=production bundle exec jekyll build
 	rm _site/Makefile
 
-deploy: build
+deploy:
 	git checkout master
 	rsync -Wav --human-readable --progress _site/ .
 	rm -rf _site
 	git add .
 	git commit -m "Publish"
 	git push
+	git checkout src
 
 clean:
 	rm -rf vendor/bundle _site
