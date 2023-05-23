@@ -28,8 +28,8 @@ Gradually, I started delaying seemingly more important tasks such as polishing r
 In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
 To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare _a_ plan for the worst outcomes.
 
-[^1] This trick was somewhat inspired by [GIST Planning](https://www.productplan.com/glossary/gist-planning/) and [Startup Engineering](https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf).<br>
-[^2] [The Eisenhower matrix](https://www.google.com/search?q=Eisenhower+Matrix&tbm=isch) is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn't trivial and hence had a similar problem.
+[^1] This trick was somewhat inspired by [GIST Planning](https://www.productplan.com/glossary/gist-planning/) and [Startup Engineering](https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf).
+<br>[^2] [The Eisenhower matrix](https://www.google.com/search?q=Eisenhower+Matrix&tbm=isch) is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn't trivial and hence had a similar problem.
 
 ## Minimal viable product
 

@@ -42,15 +42,45 @@ h1, h2, h3, h4, h5, h6 {
 
   position: relative;
 
-  a,
-  &:visited {
+  .wrapper {
+    max-width: 100%;
+  }
+
+  a {
     color: #424242;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   a.site-title,
   &:hover {
-    color: none;
+    color: #424242;
     text-decoration: none;
+  }
+}
+
+/**
+ * Home
+ */
+.home {
+  .embed-container { 
+    position: relative;
+    padding-bottom: 56.25%;
+    margin-bottom: 15px;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  
+  .embed-container iframe, .embed-container object, .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -67,8 +97,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-h1.post-title.p-name {
-  font-size: 38px;
+.post-title {
+  @include relative-font-size(2.375);
+
+  @include media-query($on-laptop) {
+    @include relative-font-size(2.376);
+  }
 }
 
 /**
