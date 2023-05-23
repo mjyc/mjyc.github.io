@@ -1,4 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-05-15T04:45:59+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-05-23T22:02:59+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">In Search of Grammars of Robot Applications</title><link href="http://localhost:4000/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of Grammars of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>http://localhost:4000/2021/12/29/search</id><content type="html" xml:base="http://localhost:4000/2021/12/29/search.html"><![CDATA[<p style="text-align: center"><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="70%" /></p>
+
+<p>I’ve been thinking about ways to make robot application programming easy[^1].
+Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.</p>
+
+<h2 id="challenges-with-using-existing-robot-behavior-representations">Challenges with using existing robot behavior representations</h2>
+
+<p>In the past, I viewed a robot application as an application program that executes a (high-level) robot behavior.
+The two most popular representations for implementing robot behaviors were (and still are) <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite-state machine</a> (FSM) and <a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)">behavior tree</a> (BT).
+Thus, programming robot applications usually meant programming FSMs or BTs.
+In theory, FSMs or BTs are straightforward to program.
+They have well-defined semantics (e.g., mathematical definitions), which makes them predictable and reasonable, and they natively support composition, enabling the creation of complex behaviors by reusing simpler ones.</p>
+
+<p>Programming robot applications with FSMs or BTs wasn’t so easy in practice.
+The FSM and BT implementations I’ve met in the wild lacked clear semantics or gradually lost them over time, making them difficult to work with.
+Frequently, I came across ill-defined transition functions that made it challenging to determine the triggers and conditions for transitions.
+I often found side-effect-causing code snippets scattered across multiple states, used to force transitions or trigger actions instead of properly extending the transition function.
+As a result, the FSMs became unpredictable and difficult to test.
+Regarding BTs[^2], I encountered subtleties specific to the implementation or programming language, e.g., in how the execution logic handles the “tick,” or misuses of BT features, e.g., abusing blackboard, that invariably led to complications.</p>
+
+<p>Creating complex behaviors wasn’t as easy as it appeared to be.
+The most significant challenge I’ve faced was the maintenance of modules.
+Driven by the composability of FSMs or BTs, developers often created intermediate FSM states or BT nodes (referred to as “modules”) to represent simple skills or patterns.
+While developers intended these modules to be reusable, without proper planning, it was all too easy to end up with numerous modules that hindered the creation of complex behaviors.</p>
+
+<p>In most robotics (software) companies, the abovementioned challenges  weren’t insurmountable.
+Given the utmost importance of maintaining robust robot applications, companies could readily allocate ample resources to ensure the predictability and composability of FSMs and BTs.
+This could be achieved through extensive discussions, refactoring, testing, and more.</p>
+
+<p style="text-align: center"><img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="420px" /></p>
+
+<p>FSMs and BTs have been serving the robotics community well, and likely, they will continue to do so, and yet, I didn’t think using them was the future.
+My primary concern with using FSMs and BTs was that they tend to nudge developers to view the robot as a solitary and central entity when determining the main flow of the application program (see the diagram above).
+In the RaaS companies I worked at, robot applications almost always involved multiple robots, such as fleets of indoor mobile robots or lines of robot manipulators.
+Even when the application focused on the behavior of a single robot, the underlying system was a distributed one comprising robotics services (e.g., perception, control) and external services (e.g., user interface, scheduler).
+Consequently, application developers needed to think in terms of multiple robots or services and their interactions.
+In such a context, it made more sense to regard a robot application as a program that implements the orchestration logic of a distributed system.</p>
+
+<h2 id="inspirations-from-non-robotics-communities">Inspirations from non-robotics communities</h2>
+
+<p>When reactive programming was making a buzz in the WebDev community, I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
+I loved how Cycle.js’ language-agnostic core concepts, like <a href="https://dl.acm.org/doi/pdf/10.1145/258948.258973">functional reactive programming paradigm</a> and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adaptors architecture</a>, seemed to be transferrable to robot application programming.
+I could imagine robot applications with complex interruption signals, e.g., consisting of external and internal signals like user input and system error signals, or more generally complex interaction flows, could be concisely expressed in a functional reactive programming paradigm.
+By following ports and adaptors architecture, Cycle.js enforces a separation of side-effect-making code from the application logic, and it made testing a breeze, especially with <a href="https://rxjs.dev/guide/testing/marble-testing">test tooling</a> that often came with reactive stream libraries like <a href="https://reactivex.io/">ReactiveX</a>.
+It seemed that testing robot applications could benefit from such tooling as well.</p>
+
+<p>Charmed by the initial impressions, I experimented with applying the core concepts from Cycle.js directly to robot application programming.
+There were some initial successes.
+It delivered on simplifying authoring complex interactive programs and testing such programs.
+However, I eventually faced major challenges.
+State management in Cycle.js-like frameworks was awkward, especially when it came to composing finite state machines, e.g., requiring techniques that are hard to get right, like <a href="https://speakerdeck.com/p4checo/reactive-state-machines-using-feedback-loops">creating circular dependencies between streams</a>, which was a showstopper because the creating FSMs must be well-supported for the robotics community.
+Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, long-running/rare process crashes, and subtle performance regressions.
+Given such experiences, I felt the strong need for a higher-level abstraction[^3] that allows developers to work directly in the application space without worrying about system-level problems.</p>
+
+<p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
+The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing on robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>).
+I liked what I found, but it wasn’t immediately apparent how to apply these findings to the domain of robot application programming.
+At the time (2017~2018), DevOps tools were primarily tailored to specific environments (e.g., the cloud) and technologies (e.g., containers) that were foreign to robotics systems.
+Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing.
+I hope to catch up and revisit the adoption in a future post.</p>
+
+<p>Perhaps the biggest inspiration came from the <a href="https://wiki.c2.com/?TheGrammarOfGraphics">grammar of graphics</a>.
+The graphics of grammar offered a concise and structured way to build and explore a large space of data visualization quickly.
+There are three core layers of the graphics of grammar:</p>
+
+<ol>
+  <li><em>Data</em> is a data frame containing one or more variables. Fundamentally, data represents categorizable inputs to a visualization system.</li>
+  <li><em>Aesthetic</em> defines a mapping one or more variables to one or more visual elements. Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
+  <li><em>Geometry</em> decides the type or shape of the visual elements. Fundamentally, Geometry gives precise meanings to the mapped entities.</li>
+</ol>
+
+<p>We can apply the fundamental structure to the robot application programming domain, for example:</p>
+
+<ol>
+  <li><em>Robot layout</em> defines the physical arrangement of robots and other structures, for example, a layout of a manufacturing line and robot cells.</li>
+  <li><em>Task mapping</em> defines how robots and devices map to particular tasks, e.g., insertion, inspection, etc.</li>
+  <li><em>Task detailing</em> defines details of the assigned tasks, possibly even the interaction of multiple robots and devices.</li>
+</ol>
+
+<p>It’s a rudimentary idea, but one can imagine defining a grammar or <a href="https://vega.github.io/vega-lite/">declarative specification</a> that can express the space of particular robot applications, e.g., the space of manufacturing line applications or the space of indoor delivery applications.
+Then, the task of developers or solution engineers would be to write a configuration that precisely describes a particular application in mind.
+Construction of such a grammar will be nontrivial.
+It will require deep understanding and careful organization of the application that will require collaboration with domain experts per application domain.
+However, I believe this is the direction that can accelerate the adoption of intelligent robotics services in the target industry.</p>
+
+<h2 id="closing-note">Closing note</h2>
+
+<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form because I likely won’t have time to work on it.
+But this post wasn’t just about that.
+I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities.
+I hope this post inspired readers to consider taking cross-over approaches to tackle their hard (robotics) problems, if makes sense.</p>
+
+<p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares a series of incomplete projects that didn’t fit.
+<br />[^2] For more insights, checkout <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
+<br />[^3] To this end, I’ve tried <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">creating a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">applying program synthesis</a>.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Testing robotics systems</title><link href="http://localhost:4000/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>http://localhost:4000/2020/12/16/testing</id><content type="html" xml:base="http://localhost:4000/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
 Here are my strategies.</p>
 
 <h2 id="unit-and-property-based-testing">Unit and property-based testing</h2>
@@ -40,7 +134,7 @@ There was <a href="https://roscon.ros.org/2016/presentations/PhysicalContinuousI
 <p>Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.</p>
 
 <p><img src="https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png" />
-source: https://github.com/dominictarr/push-streams-talk</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Testing robotics systems is hard. Here are my strategies.]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
+source: https://github.com/dominictarr/push-streams-talk</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Testing robotics systems is hard. Here are my strategies.]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="http://localhost:4000/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>http://localhost:4000/2020/11/30/finishing</id><content type="html" xml:base="http://localhost:4000/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
 As much as I was euphoric about my son’s arrival, reality hit me hard.
 I was not ready.
 It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.</p>
@@ -64,8 +158,8 @@ Gradually, I started delaying seemingly more important tasks such as polishing r
 In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
 To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare <em>a</em> plan for the worst outcomes.</p>
 
-<p>[^1] This trick was somewhat inspired by <a href="https://www.productplan.com/glossary/gist-planning/">GIST Planning</a> and <a href="https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf">Startup Engineering</a>.<br />
-[^2] <a href="https://www.google.com/search?q=Eisenhower+Matrix&amp;tbm=isch">The Eisenhower matrix</a> is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.</p>
+<p>[^1] This trick was somewhat inspired by <a href="https://www.productplan.com/glossary/gist-planning/">GIST Planning</a> and <a href="https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf">Startup Engineering</a>.
+<br />[^2] <a href="https://www.google.com/search?q=Eisenhower+Matrix&amp;tbm=isch">The Eisenhower matrix</a> is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.</p>
 
 <h2 id="minimal-viable-product">Minimal viable product</h2>
 
@@ -121,7 +215,7 @@ Yet, I’m working on this blog post while watching my son at a playground.</p>
 </ul>
 
 <p>Last but not least, I have to disclose that I relied a lot on my wife who sacrificed her time for watching our son.
-This note might change the perspective/legitimacy of all tricks I mentioned above.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[I was a graduate student when my son was born. As much as I was euphoric about my son’s arrival, reality hit me hard. I was not ready. It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.]]></summary></entry><entry><title type="html">Job Searching for an Industry Position after Graduate School</title><link href="/2020/11/15/job.html" rel="alternate" type="text/html" title="Job Searching for an Industry Position after Graduate School" /><published>2020-11-15T08:00:00+00:00</published><updated>2020-11-15T08:00:00+00:00</updated><id>/2020/11/15/job</id><content type="html" xml:base="/2020/11/15/job.html"><![CDATA[<p>Earlier this year, I started to look for a job and one of my friends recommended <a href="https://bharathpbhat.github.io/2020/09/19/laid-off-now-what.html">this post</a> written by <a href="https://twitter.com/bharathpbhat">Bharath</a>, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days.
+This note might change the perspective/legitimacy of all tricks I mentioned above.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[I was a graduate student when my son was born. As much as I was euphoric about my son’s arrival, reality hit me hard. I was not ready. It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.]]></summary></entry><entry><title type="html">Job Searching for an Industry Position after Graduate School</title><link href="http://localhost:4000/2020/11/15/job.html" rel="alternate" type="text/html" title="Job Searching for an Industry Position after Graduate School" /><published>2020-11-15T08:00:00+00:00</published><updated>2020-11-15T08:00:00+00:00</updated><id>http://localhost:4000/2020/11/15/job</id><content type="html" xml:base="http://localhost:4000/2020/11/15/job.html"><![CDATA[<p>Earlier this year, I started to look for a job and one of my friends recommended <a href="https://bharathpbhat.github.io/2020/09/19/laid-off-now-what.html">this post</a> written by <a href="https://twitter.com/bharathpbhat">Bharath</a>, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days.
 The blog post was amazing.
 I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school.
 In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.</p>
@@ -205,7 +299,7 @@ My peers recommended doing this as one may not know whether a role is interestin
 Another important factor in hindsight is timing.
 I considered job searching in May and June and I could not get any interviews.
 I got lucky and was able to delay the search for about 2 months and there were a day and night difference.
-Timing is something one may not have control over, but if you do, talk to many people (and use other resources) to see how many opportunities are/will be there in your job search time frame.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Earlier this year, I started to look for a job and one of my friends recommended this post written by Bharath, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days. The blog post was amazing. I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school. In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.]]></summary></entry><entry><title type="html">Understanding Challenges with Large Robotics System Development</title><link href="/2020/03/07/understanding.html" rel="alternate" type="text/html" title="Understanding Challenges with Large Robotics System Development" /><published>2020-03-07T08:00:00+00:00</published><updated>2020-03-07T08:00:00+00:00</updated><id>/2020/03/07/understanding</id><content type="html" xml:base="/2020/03/07/understanding.html"><![CDATA[<p><em>Originally posted on <a href="https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md">GitLab</a></em></p>
+Timing is something one may not have control over, but if you do, talk to many people (and use other resources) to see how many opportunities are/will be there in your job search time frame.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Earlier this year, I started to look for a job and one of my friends recommended this post written by Bharath, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days. The blog post was amazing. I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school. In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.]]></summary></entry><entry><title type="html">Understanding Challenges with Large Robotics System Development</title><link href="http://localhost:4000/2020/03/07/understanding.html" rel="alternate" type="text/html" title="Understanding Challenges with Large Robotics System Development" /><published>2020-03-07T08:00:00+00:00</published><updated>2020-03-07T08:00:00+00:00</updated><id>http://localhost:4000/2020/03/07/understanding</id><content type="html" xml:base="http://localhost:4000/2020/03/07/understanding.html"><![CDATA[<p><em>Originally posted on <a href="https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md">GitLab</a></em></p>
 
 <p>Robotics system development is hard. To understand causes for the robotics system development challenges, I interviewed a few robotics engineers who have been involved in large robotics projects and identified the following themes.</p>
 
@@ -240,7 +334,7 @@ Timing is something one may not have control over, but if you do, talk to many p
   <li><em>While I was writing this post, I learned about this excellent paper <a href="https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf">“State of the Practice and Guidelines for ROS-based System”</a> and discussions about the paper in <a href="https://discourse.ros.org/t/guidelines-on-how-to-architect-ros-based-systems/12641">the ROS Discourse</a>. The paper is focused on <a href="https://www.ros.org/">ROS</a> yet the high-level goals of it seem similar.</em></li>
   <li><em>The study notes this article is based on are available in <a href="https://github.com/mjyc/robosysdev-notes">github</a> and <a href="https://gitlab.com/mjyc/robosysdev-notes">gitlab</a> repos</em></li>
   <li><em>Thank you! to all those who participated in my interview studies</em></li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry><entry><title type="html">Getting started with robotics</title><link href="/2019/12/15/getting.html" rel="alternate" type="text/html" title="Getting started with robotics" /><published>2019-12-15T08:00:00+00:00</published><updated>2019-12-15T08:00:00+00:00</updated><id>/2019/12/15/getting</id><content type="html" xml:base="/2019/12/15/getting.html"><![CDATA[<p>Getting started with robotics is confusing.
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry><entry><title type="html">Getting started with robotics</title><link href="http://localhost:4000/2019/12/15/getting.html" rel="alternate" type="text/html" title="Getting started with robotics" /><published>2019-12-15T08:00:00+00:00</published><updated>2019-12-15T08:00:00+00:00</updated><id>http://localhost:4000/2019/12/15/getting</id><content type="html" xml:base="http://localhost:4000/2019/12/15/getting.html"><![CDATA[<p>Getting started with robotics is confusing.
 Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it.
 For example, google searching “getting started with robotics” gives me the following top three results:</p>
 
@@ -315,7 +409,7 @@ What happens is that because you feel achievement/growth and you get temped to k
 Being able to focus on the track and learn only necessary skills (and taking the project to the finish line–and defining the finish line) is a huge challenge/probably the most important skill to learn.</p>
 
 <p>With that said, go explore project ideas, check out robotics communities and start your project!
-I believe now is the time to learn about robotics and I hope this blurb can be helpful to aspiring roboticists.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Getting started with robotics is confusing. Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it. For example, google searching “getting started with robotics” gives me the following top three results:]]></summary></entry><entry><title type="html">Consumer Robots are Dead, Long Live DIY Robots!</title><link href="/2019/06/23/social.html" rel="alternate" type="text/html" title="Consumer Robots are Dead, Long Live DIY Robots!" /><published>2019-06-23T08:00:00+00:00</published><updated>2019-06-23T08:00:00+00:00</updated><id>/2019/06/23/social</id><content type="html" xml:base="/2019/06/23/social.html"><![CDATA[<p>In the span of a year, we have witnessed the death of major consumer robot companies.
+I believe now is the time to learn about robotics and I hope this blurb can be helpful to aspiring roboticists.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Getting started with robotics is confusing. Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it. For example, google searching “getting started with robotics” gives me the following top three results:]]></summary></entry><entry><title type="html">Consumer Robots are Dead, Long Live DIY Robots!</title><link href="http://localhost:4000/2019/06/23/social.html" rel="alternate" type="text/html" title="Consumer Robots are Dead, Long Live DIY Robots!" /><published>2019-06-23T08:00:00+00:00</published><updated>2019-06-23T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/23/social</id><content type="html" xml:base="http://localhost:4000/2019/06/23/social.html"><![CDATA[<p>In the span of a year, we have witnessed the death of major consumer robot companies.
 What went wrong?
 Guy Hoffman, a robotics expert, <a href="https://spectrum.ieee.org/anki-jibo-and-kuri-what-we-can-learn-from-social-robotics-failures">provides a comprehensive summary</a> of possible reasons for the demise of the companies.
 To me, the problem was good old over-promise and under-deliver.
@@ -365,11 +459,10 @@ Long live DIY robots!</p>
   <li>2023/05/06 Recently, I heard that <a href="https://techcrunch.com/2023/05/01/neato-robotics-is-being-shut-down-after-18-years/">Neato Robotics was shutting down</a>. Unlike other shutdown news (e.g., <a href="https://www.theverge.com/2023/2/24/23613214/everyday-robots-google-alphabet-shut-down">Everyday Robots shutdown</a>), this news was particularly shocking because I thought robot vacuums sell. Couple other observations since the first draft of this post: (1) new consumer/home robots were announced, e.g., <a href="https://labradorsystems.com/">Labrador</a>, <a href="https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other">Amazon Astro</a>, and <a href="https://www.tiktok.com/@arina.bloom/video/7221590486514027818">Matician Matic</a>, (2) there are many open-source or DIY autonomous RC car projects (e.g., <a href="https://f1tenth.org/">F1TENTH</a>, <a href="https://www.duckietown.org/">Duckiebot</a>, <a href="https://www.diyrobocars.com/">DIY Robocars</a>, <a href="https://aws.amazon.com/deepracer/">DeepRacer</a>, <a href="https://mushr.io/">MuSHR</a>, <a href="https://racecar.mit.edu/">MIT Racecar</a>) appeared, and (3) humanoid robot companies raised $$$, e.g., <a href="https://agilityrobotics.com/news/2022/future-robotics">Agility Robotics</a> and <a href="https://www.figure.ai/">Figure AI</a>.</li>
 </ul>
 
-<p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.<br />
-[^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
-<br />
-[^3] Also checkout <a href="https://generalrobots.substack.com/p/how-to-pick-a-problem">How to Pick a Problem</a>
-[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>/2019/06/09/please</id><content type="html" xml:base="/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
+<p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.
+<br />[^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
+<br />[^3] Also checkout <a href="https://generalrobots.substack.com/p/how-to-pick-a-problem">How to Pick a Problem</a>
+<br />[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="http://localhost:4000/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/09/please</id><content type="html" xml:base="http://localhost:4000/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
 
 <p>Hello hackers, tinkers, webdevs, sysdevs, roboticists, and all coders! I’ve been excited about <a href="https://en.wikipedia.org/wiki/Cloud_robotics">cloud robotics</a>, a field of robotics that utilizes the power of cloud computing, and want to share the excitement with you and suggest a project we can potentially work together. The project that I’m thinking of is “cellphone visual SLAMing”. The idea is to run a visual SLAM system on cloud so mobile devices like a cellphone can build 3D maps by simply uploading camera data to the cloud.</p>
 
@@ -392,7 +485,7 @@ I have not tried it, but it seems like it is fairly easy to <a href="https://doc
   <li><em>2021/01/02</em> I have moved on as I don’t get to spend time on tinkering but still think this is a fun project to try one day.</li>
   <li><em>2020/11/23</em> <a href="https://fyusion.com/">Fyusion</a> and <a href="https://canvas.io/">CANVAS</a> seem to provide products with related technologies.</li>
   <li><em>2020/05/02</em> It seems like se2lam github.com/izhengfan/se2lam could be used instead of ORB_SLAM2.</li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Dev Community]]></summary></entry><entry><title type="html">Collaborating with Undergraduate Students as a Graduate Student in Research</title><link href="/2019/06/04/collaborating.html" rel="alternate" type="text/html" title="Collaborating with Undergraduate Students as a Graduate Student in Research" /><published>2019-06-04T08:00:00+00:00</published><updated>2019-06-04T08:00:00+00:00</updated><id>/2019/06/04/collaborating</id><content type="html" xml:base="/2019/06/04/collaborating.html"><![CDATA[<p>Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [<a href="https://homes.cs.washington.edu/~mernst/advice/undergrad-research.html">1</a>,<a href="https://www.cs.cornell.edu/~asampson/blog/undergrads.html">2</a>], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.</p>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Dev Community]]></summary></entry><entry><title type="html">Collaborating with Undergraduate Students as a Graduate Student in Research</title><link href="http://localhost:4000/2019/06/04/collaborating.html" rel="alternate" type="text/html" title="Collaborating with Undergraduate Students as a Graduate Student in Research" /><published>2019-06-04T08:00:00+00:00</published><updated>2019-06-04T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/04/collaborating</id><content type="html" xml:base="http://localhost:4000/2019/06/04/collaborating.html"><![CDATA[<p>Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [<a href="https://homes.cs.washington.edu/~mernst/advice/undergrad-research.html">1</a>,<a href="https://www.cs.cornell.edu/~asampson/blog/undergrads.html">2</a>], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.</p>
 
 <h4 id="step-1-identify-your-goal">Step 1: Identify your goal.</h4>
 
@@ -479,7 +572,7 @@ What about when things are going well?
 How do you know when to stop collaborating?
 Eventually, when to part away with your student will become obvious.
 They will naturally work more independently and even start identifying their own agendas and work towards them, e.g., by working with your advisor directly.
-That would be time to stop considering them as an “undergraduate” researcher and treat them like a peer researcher.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [1,2], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.]]></summary></entry><entry><title type="html">I hate robots that tell jokes</title><link href="/2019/03/11/hate.html" rel="alternate" type="text/html" title="I hate robots that tell jokes" /><published>2019-03-11T08:00:00+00:00</published><updated>2019-03-11T08:00:00+00:00</updated><id>/2019/03/11/hate</id><content type="html" xml:base="/2019/03/11/hate.html"><![CDATA[<p>I don’t like <a href="https://www.youtube.com/watch?v=kWlL4KjIP4M">robots that tell jokes</a>.
+That would be time to stop considering them as an “undergraduate” researcher and treat them like a peer researcher.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [1,2], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.]]></summary></entry><entry><title type="html">I hate robots that tell jokes</title><link href="http://localhost:4000/2019/03/11/hate.html" rel="alternate" type="text/html" title="I hate robots that tell jokes" /><published>2019-03-11T08:00:00+00:00</published><updated>2019-03-11T08:00:00+00:00</updated><id>http://localhost:4000/2019/03/11/hate</id><content type="html" xml:base="http://localhost:4000/2019/03/11/hate.html"><![CDATA[<p>I don’t like <a href="https://www.youtube.com/watch?v=kWlL4KjIP4M">robots that tell jokes</a>.
 Humor is a complex concept and I don’t think <a href="https://www.theatlantic.com/magazine/archive/2018/03/funny-how/550910/">humans fully understand how humor works</a>.
 So trying to make robots say something funny feels wrong.
 I don’t like <a href="https://www.youtube.com/watch?v=E1DuJQL8spY">robots that dance</a>.
@@ -494,504 +587,4 @@ But we make them tell jokes or dance <a href="https://www.youtube.com/watch?v=po
   <li><em>2021/01/06</em> I found <a href="https://jessicarajko.medium.com/dancing-robots-are-not-about-dance-waiving-goodbye-to-2020-and-popular-exploitations-of-dance-961f57d3ee4c">“These Dancing Robots Are Not About Dance: waiving goodbye to 2020 and popular exploitations”</a> by Jessica Rajko. It helped me understand where my hatred is coming from.</li>
   <li><em>2021/01/03</em> There was (yet another) robot dancing <a href="https://www.youtube.com/watch?v=fn3KWM1kuAw">video</a> posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.</li>
   <li><em>2019/11/30</em> Then there are portrait drawing robots [<a href="https://www.youtube.com/watch?v=gG_pzgfeESs">1</a><a href="https://www.youtube.com/watch?v=IKx49hjHDGc">2</a>], which we humans have been building since <a href="https://en.wikipedia.org/wiki/">1768</a>.</li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[I don’t like robots that tell jokes. Humor is a complex concept and I don’t think humans fully understand how humor works. So trying to make robots say something funny feels wrong. I don’t like robots that dance. The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it. But we make them tell jokes or dance again, again, again, again, and again.]]></summary></entry><entry><title type="html">Implementing a finite state machine in Cycle.js</title><link href="/2018/11/08/implementing.html" rel="alternate" type="text/html" title="Implementing a finite state machine in Cycle.js" /><published>2018-11-08T08:00:00+00:00</published><updated>2018-11-08T08:00:00+00:00</updated><id>/2018/11/08/implementing</id><content type="html" xml:base="/2018/11/08/implementing.html"><![CDATA[<blockquote>
-  <p><strong>Note:</strong> Check out other posts on programming a social robot using Cycle.js too:</p>
-  <ol>
-    <li><a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a></li>
-    <li><a href="/2018/11/08/implementing.html">Implementing a finite state machine in Cycle.js</a></li>
-  </ol>
-</blockquote>
-
-<p>In this post, I’ll show you how to implement a reactive social robot program as a <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine</a>. We’ll continue from where we left off in the previous post <a href="/2018/11/01/programming.html">Programming a social robot using Cycle.js</a>–so check it out if you haven’t already! If you are in a hurry, here is the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">demo and complete code</a> of what we are building in this post.</p>
-
-<h2 id="making-existing-travel-personality-quiz-program-more-complex">Making existing “travel personality quiz” program more complex</h2>
-
-<p><a href="/2018/11/01/programming.html">Previously</a>, we programmed a <a href="https://github.com/mjyc/tablet-robot-face">tablet-face robot</a> to test your travel personality. Concretely, we implemented a tablet-face robot program that</p>
-
-<ol>
-  <li>looks at a person when it sees one and</li>
-  <li>asks travel personality quiz questions as shown in <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">this flowchart</a></li>
-</ol>
-
-<p>as a <a href="https://cycle.js.org/">Cycle.js</a> application. Here are the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-01-personality-quiz">demo</a> at Stackbliz and <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz">complete code</a> in GitHub from the previous post.</p>
-
-<p><strong>IMPORTANT!!</strong> The main package we use in the demo and in this post, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/run">cycle-robot-drivers/run</a>, only works on Chrome browsers  (&gt;= 65.0.3325.181) for now.</p>
-
-<p>Now, what if we want the robot to</p>
-
-<ol>
-  <li>look at a person only when the robot is waiting for a person’s response,</li>
-  <li>stop asking a question if the robot cannot see a person and resume asking the question if it sees a person again, and</li>
-  <li>stop asking questions completely if a person abandons the robot, i.e., the robot does not see a person for more than 10 seconds.</li>
-</ol>
-
-<p>How difficult would it be to update the existing program to have these additional behaviors? Try implementing the new behaviors on top of the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">travel personality quiz program</a>.
-What kind of challenges do you face?</p>
-
-<p>From my experience, it was difficult to implement, or even just express the “stateful” behaviors in reactive programming. For example, to implement 1., I needed to know whether the robot is in the “waiting for a person’s response” state but it wasn’t clear how to represent such state in a scalable manner; I tried keeping all states in drivers (e.g., <code class="language-plaintext highlighter-rouge">SpeechRecognitionAction</code> emitting <code class="language-plaintext highlighter-rouge">status</code> events), as proxies (e.g., <code class="language-plaintext highlighter-rouge">$lastQuestion</code> in <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js#L58">the previous code</a>), or in higher-order streams, but none of them felt simple nor scalable. This was very concerning since <a href="http://wiki.ros.org/smach/Tutorials/Getting%20Started#Why_learn_Smach.3F">many</a> <a href="https://www.researchgate.net/figure/A-behavioral-state-machine-for-robot-soccer_fig10_238086654">robot</a> <a href="https://www.youtube.com/watch?v=4XEK7OU2gIw">behaviors</a> are expressed and implemented as stateful behaviors.</p>
-
-<p>To address this problem, I propose using finite state machines to clearly express the desired robot behaviors. In the following, I first present a pattern for implementing a finite state machine in a reactive programming framework (Cycle.js) without scarifying maintainability. Then I demonstrate a use case of the FSM pattern via implementing the first additional behavior.</p>
-
-<h2 id="what-is-a-finite-state-machine">What is a finite state machine?</h2>
-
-<p>A <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine (FSM)</a> is a computational model that can be used to represent and control execution flow. Due to their simplicity, FSMs have been frequently used by <a href="http://wiki.ros.org/smach">roboticists</a>, <a href="https://sketch.systems/">UI developers</a> and many others for a <a href="https://www.mtholyoke.edu/courses/pdobosh/cs100/handouts/genghis.pdf">long</a> <a href="http://www.inf.ed.ac.uk/teaching/courses/seoc/2005_2006/resources/statecharts.pdf">time</a>. An FSM we are using in this post is comprised of five parts:</p>
-
-<ol>
-  <li>A set of states, e.g., <code class="language-plaintext highlighter-rouge">'SAY_SENTENCE'</code>, <code class="language-plaintext highlighter-rouge">'WAIT_FOR_RESPONSE'</code>, etc.</li>
-  <li>A set of variables, e.g., <code class="language-plaintext highlighter-rouge">currentSentence = 'Can you see yourself working online?'</code></li>
-  <li>A set of inputs: e.g., <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, etc.</li>
-  <li>A set of outputs: e.g., <code class="language-plaintext highlighter-rouge">speechSynthesisAction = 'Can you see yourself working online?'</code></li>
-  <li>A transition function that takes a state, variable, and input and returns a state, variable, and output.</li>
-</ol>
-
-<p>If you are familiar with FSMs, the FSM we are using is a <a href="https://en.wikipedia.org/wiki/Mealy_machine">mealy machine</a> extended with “variables”.
-Like a mealy machine, it has the following constraints:</p>
-
-<ul>
-  <li>the state set is a <a href="https://en.wikipedia.org/wiki/Finite_set">finite set</a></li>
-  <li>the FSM can only be in one state at a time in the state set</li>
-  <li>the transition function is deterministic; given a state, variable, and input the function always returns the same new state, new variable, and new output.</li>
-</ul>
-
-<h2 id="representing-the-travel-personality-quiz-program-as-an-fsm">Representing the “travel personality quiz” program as an FSM</h2>
-
-<p>We’ll start from representing the <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/01_personality_quiz/index.js">“travel personality test” program</a> we implemented in the previous post as an FSM:</p>
-
-<p><img src="https://thepracticaldev.s3.amazonaws.com/i/et73xk1bvd20kbyrt69c.png" alt="travel_personality_quiz_fsm" /></p>
-
-<p>Here we have three states, <code class="language-plaintext highlighter-rouge">PEND</code>, <code class="language-plaintext highlighter-rouge">SAY</code>, <code class="language-plaintext highlighter-rouge">LISTEN</code>, and five input types, <code class="language-plaintext highlighter-rouge">START</code>, <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code>, <code class="language-plaintext highlighter-rouge">INVALID_RESPONSE</code>, and <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>. We omitted variables associated with each state and outputs associated with each transition for visual clarity.</p>
-
-<p>Notice that we use verbs as state names (as a popular robotics FSM library <a href="http://wiki.ros.org/smach">SMACH</a> does). This is because we define the states based on distinct actions each state is performing, where the distinct actions are triggered by outputs emitted from transitions. You may have wondered why we did not create each state in the <a href="http://www.nomadwallet.com/afford-travel-quiz-personality/">travel quiz flowchart</a> as an individual state, e.g., <code class="language-plaintext highlighter-rouge">ASK_CAREER_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_WORKING_ABROAD_QUESTION</code>, <code class="language-plaintext highlighter-rouge">ASK_FAMILY_QUESTION</code>, etc. This is because representing the states that behave the same except the sentence the robot says with a single <code class="language-plaintext highlighter-rouge">SAY</code> state with a variable <code class="language-plaintext highlighter-rouge">currentSentence</code> (not shown in the diagram) yields the simpler, more maintainable FSM.</p>
-
-<p>The inputs can be considered as the events that could occur in each state and  are originated from actions, e.g., <code class="language-plaintext highlighter-rouge">SAY_DONE</code>, sensors, e.g., <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code>, or external systems, e.g. <code class="language-plaintext highlighter-rouge">START</code>. We represent an input as a type-value pair. For example, the <code class="language-plaintext highlighter-rouge">VALID_RESPONSE</code> type input is paired with a value “yes” or “no”, which is used to determine the transition between <code class="language-plaintext highlighter-rouge">LISTEN</code> to <code class="language-plaintext highlighter-rouge">SAY</code> (input values are not shown in the graph).</p>
-
-<p>Now, let’s update the FSM to express the first additional behavior mentioned above: looking at a person only when the robot is waiting for a person’s response.</p>
-
-<p><img src="https://thepracticaldev.s3.amazonaws.com/i/7z09n6fz5z1s8zjlb9ii.png" alt="travel_personality_quiz_fsm_updated" /></p>
-
-<p>All we did here is remove the two self-loop transitions from the <code class="language-plaintext highlighter-rouge">PEND</code> and <code class="language-plaintext highlighter-rouge">SAY</code> states to stop the robot from looking at a person while the FSM is in those states.</p>
-
-<h2 id="implementing-the-travel-personality-test-fsm-using-cyclejs">Implementing the “travel personality test” FSM using Cycle.js</h2>
-
-<p>Let’s now implement the “travel personality test” FSM we defined above using Cycle.js.</p>
-
-<p>First, we’ll try to define the FSM in javascript as follows:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">PEND</span><span class="p">:</span> <span class="dl">'</span><span class="s1">PEND</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">SAY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SAY</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_SENTENCE</span>
-  <span class="na">LISTEN</span><span class="p">:</span> <span class="dl">'</span><span class="s1">LISTEN</span><span class="dl">'</span><span class="p">,</span>  <span class="c1">//_FOR_RESPONSE</span>
-<span class="p">};</span>
-
-<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">START</span><span class="p">:</span> <span class="s2">`START`</span><span class="p">,</span>
-  <span class="na">SAY_DONE</span><span class="p">:</span> <span class="s2">`SAY_DONE`</span><span class="p">,</span>
-  <span class="c1">// QUIZ_DONE: is not an input type but a transition</span>
-  <span class="na">VALID_RESPONSE</span><span class="p">:</span> <span class="s2">`VALID_RESPONSE`</span><span class="p">,</span>
-  <span class="na">INVALID_RESPONSE</span><span class="p">:</span> <span class="s2">`INVALID_RESPONSE`</span><span class="p">,</span>
-  <span class="na">DETECTED_FACE</span><span class="p">:</span> <span class="s2">`DETECTED_FACE`</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
-  <span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="nx">state</span><span class="p">;</span>
-  <span class="kd">const</span> <span class="nx">newVariables</span> <span class="o">=</span> <span class="nx">variables</span><span class="p">;</span>
-  <span class="kd">const</span> <span class="nx">newOutputs</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">state</span><span class="p">:</span> <span class="nx">newState</span><span class="p">,</span>
-    <span class="na">variables</span><span class="p">:</span> <span class="nx">newVariables</span><span class="p">,</span>
-    <span class="na">outputs</span><span class="p">:</span> <span class="nx">newOutputs</span><span class="p">,</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="cm">/**
- * // Example state, variables, input, and outputs
- * const state = State.PEND;
- * const variables = {
- *   sentence: 'You are a vacationer!',
- * };
- * const input = {
- *   type: InputType.START,
- *   value: null,
- * };
- * const outputs = {
- *   SpeechSynthesisAction: {
- *     goal: 'You are a vacationer!'
- *   },
- *   SpeechRecognitionAction: {
- *     goal: {}
- *   },
- *   TabletFace: {
- *     goal: {
- *       type: 'SET_STATE',
- *       value: {
- *         leftEye: {x: 0.5, y: 0.5},
- *         rightEye: {x: 0.5, y: 0.5},
- *       },
- *     }},
- *   },
- * }
- */</span>
-</code></pre></div></div>
-
-<p>Here we define the set of states <code class="language-plaintext highlighter-rouge">State</code>, the set of input types <code class="language-plaintext highlighter-rouge">InputType</code>, and the transition function <code class="language-plaintext highlighter-rouge">transition</code>. The sets for the variables and outputs of the FSM are not explicitly defined, but I provided example values that the variables and outputs can take in the comment.</p>
-
-<h3 id="setting-up-fsm-in-cyclejs">Setting up FSM in Cycle.js</h3>
-
-<p>We’ll now setup the FSM as a Cycle.js application. You can fork <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">the Stackblitz demo code</a> and start coding or set up a Cycle.js application.
-For the latter, create a folder:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir my-second-robot-program
-cd my-second-robot-program
-</code></pre></div></div>
-
-<p>Download <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/package.json"><code class="language-plaintext highlighter-rouge">package.json</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/.babelrc"><code class="language-plaintext highlighter-rouge">.babelrc</code></a>, <a href="https://github.com/mjyc/cycle-robot-drivers/tree/master/examples/tutorials/02_fsm/index.html"><code class="language-plaintext highlighter-rouge">index.html</code></a>, create an empty <code class="language-plaintext highlighter-rouge">index.js</code> file in the folder, and run <code class="language-plaintext highlighter-rouge">npm install</code> to install the required npm packages. After installing, you can run <code class="language-plaintext highlighter-rouge">npm start</code> to build and start the web application–that does nothing at this point.</p>
-
-<p>Now add the following code in <code class="language-plaintext highlighter-rouge">index.js</code>:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">xs</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream</span><span class="dl">'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span><span class="nx">runRobotProgram</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@cycle-robot-drivers/run</span><span class="dl">'</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-<span class="kd">function</span> <span class="nf">transition</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy transition function</span>
-<span class="c1">// ...</span>
-
-<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>  <span class="c1">// a dummy input function</span>
-  <span class="nx">start$</span><span class="p">,</span>
-  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
-  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
-  <span class="nx">poses$</span><span class="p">,</span>
-<span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
-    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
-    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
-  <span class="p">);</span>
-
-  <span class="kd">const</span> <span class="nx">defaultMachine</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
-    <span class="na">variables</span><span class="p">:</span> <span class="p">{</span>
-      <span class="na">sentence</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="p">};</span>
-  <span class="kd">const</span> <span class="nx">machine$</span> <span class="o">=</span> <span class="nx">input$</span><span class="p">.</span><span class="nf">fold</span><span class="p">((</span><span class="nx">machine</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nf">transition</span><span class="p">(</span>
-    <span class="nx">machine</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">variables</span><span class="p">,</span> <span class="nx">input</span>
-  <span class="p">),</span> <span class="nx">defaultMachine</span><span class="p">);</span>
-
-  <span class="kd">const</span> <span class="nx">sinks</span> <span class="o">=</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nx">sinks</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nf">runRobotProgram</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>If you run the application, it should load a robot face that still does nothing on your browser.</p>
-
-<p>The most important thing to notice here is that we divide the <code class="language-plaintext highlighter-rouge">main</code> function into three functions; <code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, and <code class="language-plaintext highlighter-rouge">output</code>. The <code class="language-plaintext highlighter-rouge">input</code> function takes incoming streams in <code class="language-plaintext highlighter-rouge">sources</code> and returns a stream that emits the FSM’s input values. We then use the <a href="https://github.com/staltz/xstream#fold"><code class="language-plaintext highlighter-rouge">fold</code></a> xstream operator on the returned stream (<code class="language-plaintext highlighter-rouge">$input</code>) to trigger the FSM’s <code class="language-plaintext highlighter-rouge">transition</code> function. Note that the <code class="language-plaintext highlighter-rouge">fold</code> operator is like <code class="language-plaintext highlighter-rouge">Array.prototype.reduce</code> for streams; it takes</p>
-
-<ol>
-  <li>an accumulator function that takes an emitted value (e.g., an FSM input value, <code class="language-plaintext highlighter-rouge">input</code>) and a previous output of the accumulator function (e.g., the latest FSM status, <code class="language-plaintext highlighter-rouge">machine</code>) or a seed value and</li>
-  <li>an initial output of the accumulator function (e.g., the initial FSM status, <code class="language-plaintext highlighter-rouge">defaultMachine</code>).</li>
-</ol>
-
-<p>Finally, the <code class="language-plaintext highlighter-rouge">output</code> function takes the stream that emits FSM status (<code class="language-plaintext highlighter-rouge">$machine</code>) and returns outgoing streams.</p>
-
-<h3 id="input-transition-and-output">Input, transition, and output</h3>
-
-<p>Let’s implement the three functions.
-First, update the dummy <code class="language-plaintext highlighter-rouge">input</code> function to:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">YES</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yes</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">NO</span><span class="p">:</span> <span class="dl">'</span><span class="s1">no</span><span class="dl">'</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
-  <span class="nx">start$</span><span class="p">,</span>
-  <span class="nx">speechRecognitionActionResult$</span><span class="p">,</span>
-  <span class="nx">speechSynthesisActionResult$</span><span class="p">,</span>
-  <span class="nx">poses$</span><span class="p">,</span>
-<span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span>
-    <span class="nx">start$</span><span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">}),</span>
-    <span class="nx">speechRecognitionActionResult$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
-        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
-        <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">||</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">===</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
-      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">({</span>
-        <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">,</span>
-        <span class="na">value</span><span class="p">:</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
-      <span class="p">})),</span>
-    <span class="nx">speechSynthesisActionResult$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">}),</span>
-    <span class="nx">speechRecognitionActionResult$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span>
-        <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="dl">'</span><span class="s1">SUCCEEDED</span><span class="dl">'</span>
-        <span class="o">||</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span> <span class="o">&amp;&amp;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">result</span> <span class="o">!==</span> <span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">)</span>
-      <span class="p">).</span><span class="nf">mapTo</span><span class="p">({</span><span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">}),</span>
-    <span class="nx">poses$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span>
-        <span class="nx">poses</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
-        <span class="o">&amp;&amp;</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
-      <span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="nx">poses</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="kd">const</span> <span class="nx">nose</span> <span class="o">=</span> <span class="nx">poses</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">keypoints</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">kpt</span> <span class="o">=&gt;</span> <span class="nx">kpt</span><span class="p">.</span><span class="nx">part</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">nose</span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="k">return</span> <span class="p">{</span>
-          <span class="na">type</span><span class="p">:</span> <span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">,</span>
-          <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
-            <span class="na">x</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span> <span class="o">/</span> <span class="mi">640</span><span class="p">,</span>  <span class="c1">// max value of position.x is 640</span>
-            <span class="na">y</span><span class="p">:</span> <span class="nx">nose</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span> <span class="o">/</span> <span class="mi">480</span><span class="p">,</span>  <span class="c1">// max value of position.y is 480</span>
-          <span class="p">},</span>
-        <span class="p">};</span>
-      <span class="p">}),</span>
-  <span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">// ...</span>
-</code></pre></div></div>
-
-<p>Try testing whether the <code class="language-plaintext highlighter-rouge">input</code> function is behaving properly. For example, you can attach the <a href="https://github.com/staltz/xstream#addListener"><code class="language-plaintext highlighter-rouge">addListener</code></a> xstream operator to the returned <code class="language-plaintext highlighter-rouge">$input</code> stream and return some outgoing streams from the <code class="language-plaintext highlighter-rouge">output</code> function.
-Like this:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="k">import</span> <span class="nx">delay</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">xstream/extra/delay</span><span class="dl">'</span>
-<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello world!</span><span class="dl">'</span><span class="p">).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
-    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">of</span><span class="p">({}).</span><span class="nf">compose</span><span class="p">(</span><span class="nf">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
-    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">xs</span><span class="p">.</span><span class="nf">never</span><span class="p">(),</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">input$</span> <span class="o">=</span> <span class="nf">input</span><span class="p">(</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">load</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">result</span><span class="p">,</span>
-    <span class="nx">sources</span><span class="p">.</span><span class="nx">PoseDetection</span><span class="p">.</span><span class="nx">poses</span><span class="p">,</span>
-  <span class="p">);</span>
-  <span class="nx">input$</span><span class="p">.</span><span class="nf">addListener</span><span class="p">({</span><span class="na">next</span><span class="p">:</span> <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">input</span><span class="dl">'</span><span class="p">,</span> <span class="nx">value</span><span class="p">)})</span>
-<span class="c1">// ...</span>
-</code></pre></div></div>
-
-<p>Do you see the expected outputs on your browser console? You should see many inputs with the <code class="language-plaintext highlighter-rouge">DETECTED_FACE</code> type if the robot is detecting a person.</p>
-
-<p>Let’s now remove the dummy <code class="language-plaintext highlighter-rouge">transition</code> function and create a new one:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">State</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">InputType</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-<span class="c1">// // Remove the dummy transition function</span>
-<span class="c1">// function transition(state, variables, input) {  // a dummy transition function</span>
-<span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">Response</span> <span class="o">=</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-<span class="kd">function</span> <span class="nf">input</span><span class="p">(</span>
-<span class="c1">// ...</span>
-
-<span class="kd">function</span> <span class="nf">createTransition</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">Sentence</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">CAREER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Is it important that you reach your full career potential?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">ONLINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Can you see yourself working online?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">FAMILY</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you have to be near my family/friends/pets?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">TRIPS</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think short trips are awesome?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">HOME</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you want to have a home and nice things?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">ROUTINE</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you think a routine gives your life structure?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">JOB</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Do you need a secure job and a stable income?</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">VACATIONER</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a vacationer!</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">EXPAT</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are an expat!</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">NOMAD</span><span class="p">:</span> <span class="dl">'</span><span class="s1">You are a nomad!</span><span class="dl">'</span><span class="p">,</span>
-  <span class="p">};</span>
-
-  <span class="kd">const</span> <span class="nx">flowchart</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">FAMILY</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">TRIPS</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">HOME</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">ROUTINE</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">Sentence</span><span class="p">.</span><span class="nx">JOB</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">YES</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">ONLINE</span><span class="p">,</span>
-      <span class="p">[</span><span class="nx">Response</span><span class="p">.</span><span class="nx">NO</span><span class="p">]:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span><span class="p">,</span>
-    <span class="p">},</span>
-  <span class="p">};</span>
-
-  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
-  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
-  <span class="c1">//   FSM status; {state, variable, outputs}</span>
-  <span class="c1">// this transitionTable is a dictionary of dictionaries and returns a function</span>
-  <span class="c1">//   that takes previous "variables" and "inputValue" and returns a current</span>
-  <span class="c1">//   FSM status; {state, variable, outputs}</span>
-  <span class="kd">const</span> <span class="nx">transitionTable</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">START</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
-        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
-        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">},</span>
-        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">CAREER</span><span class="p">}},</span>
-      <span class="p">}),</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">SAY_DONE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span>
-          <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">VACATIONER</span>
-          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">EXPAT</span>
-          <span class="o">&amp;&amp;</span> <span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span> <span class="o">!==</span> <span class="nx">Sentence</span><span class="p">.</span><span class="nx">NOMAD</span>
-        <span class="p">)</span> <span class="p">?</span> <span class="p">{</span>  <span class="c1">// SAY_DONE</span>
-          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
-          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
-          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
-        <span class="p">}</span> <span class="p">:</span> <span class="p">{</span>  <span class="c1">// QUIZ_DONE</span>
-          <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">PEND</span><span class="p">,</span>
-          <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
-          <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">done</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
-        <span class="p">},</span>
-    <span class="p">},</span>
-    <span class="p">[</span><span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">]:</span> <span class="p">{</span>
-      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">VALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
-        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">SAY</span><span class="p">,</span>
-        <span class="na">variables</span><span class="p">:</span> <span class="p">{</span><span class="na">sentence</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">]},</span>
-        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
-          <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="p">{</span>
-            <span class="na">goal</span><span class="p">:</span> <span class="nx">flowchart</span><span class="p">[</span><span class="nx">prevVariables</span><span class="p">.</span><span class="nx">sentence</span><span class="p">][</span><span class="nx">prevInputValue</span><span class="p">],</span>
-          <span class="p">},</span>
-          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
-            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
-            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
-              <span class="na">leftEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-              <span class="na">rightEye</span><span class="p">:</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="na">y</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">},</span>
-            <span class="p">},</span>
-          <span class="p">}},</span>
-        <span class="p">},</span>
-      <span class="p">}),</span>
-      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">INVALID_RESPONSE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
-        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
-        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
-        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span><span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{}}},</span>
-      <span class="p">}),</span>
-      <span class="p">[</span><span class="nx">InputType</span><span class="p">.</span><span class="nx">DETECTED_FACE</span><span class="p">]:</span> <span class="p">(</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInputValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">({</span>
-        <span class="na">state</span><span class="p">:</span> <span class="nx">State</span><span class="p">.</span><span class="nx">LISTEN</span><span class="p">,</span>
-        <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span>
-        <span class="na">outputs</span><span class="p">:</span> <span class="p">{</span>
-          <span class="na">TabletFace</span><span class="p">:</span> <span class="p">{</span><span class="na">goal</span><span class="p">:</span> <span class="p">{</span>
-            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">SET_STATE</span><span class="dl">'</span><span class="p">,</span>
-            <span class="na">value</span><span class="p">:</span> <span class="p">{</span>
-              <span class="na">leftEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
-              <span class="na">rightEye</span><span class="p">:</span> <span class="nx">prevInputValue</span><span class="p">,</span>
-            <span class="p">},</span>
-          <span class="p">}},</span>
-        <span class="p">}</span>
-      <span class="p">}),</span>
-    <span class="p">},</span>
-  <span class="p">};</span>
-
-  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">);</span>
-    <span class="c1">// excuse me for abusing ternary</span>
-    <span class="k">return</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">]</span>
-      <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
-      <span class="p">:</span> <span class="o">!</span><span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span>
-        <span class="p">?</span> <span class="p">{</span><span class="na">state</span><span class="p">:</span> <span class="nx">prevState</span><span class="p">,</span> <span class="na">variables</span><span class="p">:</span> <span class="nx">prevVariables</span><span class="p">,</span> <span class="na">outputs</span><span class="p">:</span> <span class="kc">null</span><span class="p">}</span>
-        <span class="p">:</span> <span class="nx">transitionTable</span><span class="p">[</span><span class="nx">prevState</span><span class="p">][</span><span class="nx">prevInput</span><span class="p">.</span><span class="nx">type</span><span class="p">](</span><span class="nx">prevVariables</span><span class="p">,</span> <span class="nx">prevInput</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
-
-<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// a dummy output function</span>
-<span class="c1">// ...</span>
-</code></pre></div></div>
-
-<p>Here we define and return the FSM’s transition function inside the <code class="language-plaintext highlighter-rouge">createTransition</code> function.</p>
-
-<p>Finally update the dummy <code class="language-plaintext highlighter-rouge">output</code> function to:</p>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
-<span class="kd">const</span> <span class="nx">transition</span> <span class="o">=</span> <span class="nf">createTransition</span><span class="p">();</span>
-
-<span class="kd">function</span> <span class="nf">output</span><span class="p">(</span><span class="nx">machine$</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">outputs$</span> <span class="o">=</span> <span class="nx">machine$</span>
-    <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">machine</span> <span class="o">=&gt;</span> <span class="nx">machine</span><span class="p">.</span><span class="nx">outputs</span><span class="p">);</span>
-  <span class="k">return</span> <span class="p">{</span>
-    <span class="na">SpeechSynthesisAction</span><span class="p">:</span> <span class="nx">outputs$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechSynthesisAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
-    <span class="na">SpeechRecognitionAction</span><span class="p">:</span> <span class="nx">outputs$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">SpeechRecognitionAction</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
-    <span class="na">TabletFace</span><span class="p">:</span> <span class="nx">outputs$</span>
-      <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">outputs</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="nx">outputs</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">output</span> <span class="o">=&gt;</span> <span class="nx">output</span><span class="p">.</span><span class="nx">TabletFace</span><span class="p">.</span><span class="nx">goal</span><span class="p">),</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="kd">function</span> <span class="nf">main</span><span class="p">(</span><span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">// ...</span>
-</code></pre></div></div>
-
-<p>Try running the application and test whether it behaves as we defined in the FSM.</p>
-
-<p>You just implemented a social robot program as an FSM!</p>
-
-<h4 id="relation-to-the-model-view-intent-pattern">Relation to the Model-View-Intent pattern</h4>
-
-<p>The FSM pattern is an application of the <a href="https://cycle.js.org/model-view-intent.html">Model-View-Intent (MVI) pattern</a>, an <a href="https://cycle.js.org/model-view-intent.html#model-view-intent-what-mvc-is-really-about">adaptation of Model-View-Controller in reactive programming</a>, where “intent” is <code class="language-plaintext highlighter-rouge">input</code>, “model” is <code class="language-plaintext highlighter-rouge">FSM status</code>, and “view” is <code class="language-plaintext highlighter-rouge">output</code>. In addition to the MVI pattern, the FSM pattern additionally requires a specific structure for the “model”/<code class="language-plaintext highlighter-rouge">FSM status</code> and the “update”/<code class="language-plaintext highlighter-rouge">transition</code>.</p>
-
-<h2 id="updating-the-travel-personality-quiz-fsm">Updating the “travel personality quiz” FSM</h2>
-
-<p>The true power of the FSM pattern is its maintainability. The crux of the FSM pattern is dividing the <code class="language-plaintext highlighter-rouge">main</code> function into the three functions that have separate concerns:</p>
-
-<ul>
-  <li>the <code class="language-plaintext highlighter-rouge">input</code> function that focuses on turning incoming streams into “input” that the FSM can work with and</li>
-  <li>the <code class="language-plaintext highlighter-rouge">transition</code> function implements the FSM’s transition function.</li>
-  <li>the <code class="language-plaintext highlighter-rouge">output</code> function that maps the outputs returned from <code class="language-plaintext highlighter-rouge">transition</code> into the outgoing streams (<code class="language-plaintext highlighter-rouge">sinks</code> in Cycle.js) to make side effects, e.g., trigger actions.</li>
-</ul>
-
-<p>This separation allows programmers to only update the portion of code in the two functions when they need to make the program more complex.</p>
-
-<p>For example, if we were to implement the rest of additional behaviors mentioned in the <a href="making-travel-personality-quiz-program-more-complex">Making “travel personality quiz” program more complex</a> section, we’ll need to first update the FSM to reflect the new desired behavior, e.g.:</p>
-
-<p><img src="https://thepracticaldev.s3.amazonaws.com/i/st5hzvob4hq22pbrsb78.png" alt="travel_personality_quiz_fsm_final" /></p>
-
-<p>and update the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions accordingly. Checkout the <a href="https://stackblitz.com/edit/cycle-robot-drivers-tutorials-02-fsm">complete code</a> to see how I updated the <code class="language-plaintext highlighter-rouge">input</code> and <code class="language-plaintext highlighter-rouge">transition</code> functions to implement the remaining additional behaviors.</p>
-
-<p>The biggest challenge for using FSM is defining FSM. If you are using the FSM pattern and having problems with it, double check the current definition of your state machine. For example, look for the redundant states or input types that make updating the transition function cumbersome (merge them into one state with variables), or look for state or input type that is not being used as intended for (add new necessary states or input types). Another point to check is, making sure your FSM is taking reactive programming approach, e.g., make sure the three functions (<code class="language-plaintext highlighter-rouge">input</code>, <code class="language-plaintext highlighter-rouge">transition</code>, <code class="language-plaintext highlighter-rouge">output</code>) are as pure as possible. Defining effective FSM is art, but I believe using FSMs in reactive programming greatly helps the programmers to better organize their programs.</p>
-
-<p>Thank you for reading! I hope I got you interested in using FSMs in Cycle.js. Let me know if something isn’t clear, and I’d be happy to chat.</p>
-
-<p><em>My name is Mike Chung. I’m a <a href="https://homes.cs.washington.edu/~mjyc/">graduate student</a> interested in the field of human-robot interaction and machine learning. You can reach me on <a href="https://twitter.com/mjyc_">Twitter</a> and on <a href="https://github.com/mjyc">GitHub</a>.</em></p>]]></content><author><name></name></author><summary type="html"><![CDATA[Note: Check out other posts on programming a social robot using Cycle.js too: Programming a social robot using Cycle.js Implementing a finite state machine in Cycle.js]]></summary></entry></feed>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[I don’t like robots that tell jokes. Humor is a complex concept and I don’t think humans fully understand how humor works. So trying to make robots say something funny feels wrong. I don’t like robots that dance. The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it. But we make them tell jokes or dance again, again, again, again, and again.]]></summary></entry></feed>
