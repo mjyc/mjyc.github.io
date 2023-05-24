@@ -97,6 +97,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/**
+ * Posts
+ */
+
 .post-title {
   @include relative-font-size(2.375);
 
@@ -104,6 +108,26 @@ h1, h2, h3, h4, h5, h6 {
     @include relative-font-size(2.376);
   }
 }
+
+/**
+ * Figures
+ */
+figure {
+  text-align: center;
+}
+
+figure > img {
+  display: inline;
+}
+
+figcaption {
+  font-size: $small-font-size;
+  color: rgb(117, 117, 117);
+
+  a {
+    color: rgb(117, 117, 117);
+  }
+} 
 
 /**
  * Bibliography
