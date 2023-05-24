@@ -11,14 +11,11 @@
     {% endif %}
     <br>
     <span class="authors">{%for author in entry.author_array%}{%if forloop.last%} and {%elsif forloop.first%}{%else%}, {%endif%}{{author.first}} {{author.last}}{%endfor%}</span>
+    <br>In <i>{{ venue }}</i>, {{ entry.year }}
     <br>
-    In <i>{{ venue }}</i>, {{ entry.year }}
-    <br>
-
     {% capture poster_link %}{{ site.scholar.repository }}/{{ entry.key }}_poster.pdf{% endcapture %}
     {% capture slides_link %}{{ site.scholar.repository }}/{{ entry.key }}_slides.pdf{% endcapture %}
     {% capture supp_link %}{{ site.scholar.repository }}/{{ entry.key }}_supp.pdf{% endcapture %}
-
     {% for file in site.static_files %}{% if file.path == poster_link %}
       <a href="{{ site.baseurl }}{{ poster_link }}">[poster]</a>
       {% break %}
