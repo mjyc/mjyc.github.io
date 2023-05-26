@@ -3,21 +3,31 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>In Search of Grammars of Robot Applications | Michael Jae-Yoon Chung</title>
+<title>In Search of the Grammar of Robot Applications | Michael Jae-Yoon Chung</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="In Search of Grammars of Robot Applications" />
+<meta property="og:title" content="In Search of the Grammar of Robot Applications" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/2021/12/29/search.html" />
-<meta property="og:url" content="http://localhost:4000/2021/12/29/search.html" />
+<meta name="description" content="A painting of John Coltrane" />
+<meta property="og:description" content="A painting of John Coltrane" />
+<link rel="canonical" href="/2021/12/29/search.html" />
+<meta property="og:url" content="/2021/12/29/search.html" />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-12-29T08:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="In Search of Grammars of Robot Applications" />
+<meta property="twitter:title" content="In Search of the Grammar of Robot Applications" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-12-29T08:00:00+00:00","datePublished":"2021-12-29T08:00:00+00:00","headline":"In Search of Grammars of Robot Applications","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/12/29/search.html"},"url":"http://localhost:4000/2021/12/29/search.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-12-29T08:00:00+00:00","datePublished":"2021-12-29T08:00:00+00:00","description":"A painting of John Coltrane","headline":"In Search of the Grammar of Robot Applications","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/12/29/search.html"},"url":"/2021/12/29/search.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Jae-Yoon Chung" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-NZ4FX6FCL4');
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro" />
 </head>
 <body><header class="site-header" role="banner">
@@ -40,14 +50,17 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">In Search of Grammars of Robot Applications</h1>
+    <h1 class="post-title p-name" itemprop="name headline">In Search of the Grammar of Robot Applications</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2021-12-29T08:00:00+00:00" itemprop="datePublished">Dec 29, 2021
       </time></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p style="text-align: center"><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="70%" /></p>
+    <figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="480px" />
+  <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
+</figure>
 
 <p>I’ve been thinking about ways to make robot application programming easy[^1].
 Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.</p>
@@ -55,10 +68,15 @@ Here are my insights on the challenges in programming robot applications and my 
 <h2 id="challenges-with-using-existing-robot-behavior-representations">Challenges with using existing robot behavior representations</h2>
 
 <p>In the past, I viewed a robot application as an application program that executes a (high-level) robot behavior.
-The two most popular representations for implementing robot behaviors were (and still are) <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite-state machine</a> (FSM) and <a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)">behavior tree</a> (BT).
+The two most popular representations for implementing robot behaviors were (and still are) <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine</a> (FSM) and <a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)">behavior tree</a> (BT).
 Thus, programming robot applications usually meant programming FSMs or BTs.
 In theory, FSMs or BTs are straightforward to program.
 They have well-defined semantics (e.g., mathematical definitions), which makes them predictable and reasonable, and they natively support composition, enabling the creation of complex behaviors by reusing simpler ones.</p>
+
+<figure>
+  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="360px" />
+  <figcaption>An FSM consists of <a href="http://wiki.ros.org/pr2_plugs_actions">pr2_plugs_actions</a></figcaption>
+</figure>
 
 <p>Programming robot applications with FSMs or BTs wasn’t so easy in practice.
 The FSM and BT implementations I’ve met in the wild lacked clear semantics or gradually lost them over time, making them difficult to work with.
@@ -72,20 +90,28 @@ The most significant challenge I’ve faced was the maintenance of modules.
 Driven by the composability of FSMs or BTs, developers often created intermediate FSM states or BT nodes (referred to as “modules”) to represent simple skills or patterns.
 While developers intended these modules to be reusable, without proper planning, it was all too easy to end up with numerous modules that hindered the creation of complex behaviors.</p>
 
+<figure>
+  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" width="480px" />
+  <figcaption>A screenshot of <a href="https://github.com/BehaviorTree/BehaviorTree.CPP">BehaviorTree.CPP</a> editor</figcaption>
+</figure>
+
 <p>In most robotics (software) companies, the abovementioned challenges  weren’t insurmountable.
 Given the utmost importance of maintaining robust robot applications, companies could readily allocate ample resources to ensure the predictability and composability of FSMs and BTs.
 This could be achieved through extensive discussions, refactoring, testing, and more.</p>
 
-<p style="text-align: center"><img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="420px" /></p>
-
 <p>FSMs and BTs have been serving the robotics community well, and likely, they will continue to do so, and yet, I didn’t think using them was the future.
-My primary concern with using FSMs and BTs was that they tend to nudge developers to view the robot as a solitary and central entity when determining the main flow of the application program (see the diagram above).
+My primary concern with using FSMs and BTs was that they tend to nudge developers to view the robot as a solitary and central entity when determining the main flow of the application program.
 In the RaaS companies I worked at, robot applications almost always involved multiple robots, such as fleets of indoor mobile robots or lines of robot manipulators.
 Even when the application focused on the behavior of a single robot, the underlying system was a distributed one comprising robotics services (e.g., perception, control) and external services (e.g., user interface, scheduler).
 Consequently, application developers needed to think in terms of multiple robots or services and their interactions.
 In such a context, it made more sense to regard a robot application as a program that implements the orchestration logic of a distributed system.</p>
 
 <h2 id="inspirations-from-non-robotics-communities">Inspirations from non-robotics communities</h2>
+
+<figure>
+  <img src="https://cycle.js.org/img/actuators-senses.svg" width="240px" />
+  <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
+</figure>
 
 <p>When reactive programming was making a buzz in the WebDev community, I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
 I loved how Cycle.js’ language-agnostic core concepts, like <a href="https://dl.acm.org/doi/pdf/10.1145/258948.258973">functional reactive programming paradigm</a> and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adaptors architecture</a>, seemed to be transferrable to robot application programming.
@@ -98,27 +124,36 @@ There were some initial successes.
 It delivered on simplifying authoring complex interactive programs and testing such programs.
 However, I eventually faced major challenges.
 State management in Cycle.js-like frameworks was awkward, especially when it came to composing finite state machines, e.g., requiring techniques that are hard to get right, like <a href="https://speakerdeck.com/p4checo/reactive-state-machines-using-feedback-loops">creating circular dependencies between streams</a>, which was a showstopper because the creating FSMs must be well-supported for the robotics community.
-Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, long-running/rare process crashes, and subtle performance regressions.
+Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, rare process crashes, and subtle performance regressions.
 Given such experiences, I felt the strong need for a higher-level abstraction[^3] that allows developers to work directly in the application space without worrying about system-level problems.</p>
 
+<figure>
+  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
+  <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
+</figure>
 <p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
-The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing on robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>).
+The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^4].
 I liked what I found, but it wasn’t immediately apparent how to apply these findings to the domain of robot application programming.
 At the time (2017~2018), DevOps tools were primarily tailored to specific environments (e.g., the cloud) and technologies (e.g., containers) that were foreign to robotics systems.
-Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing.
+Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^5].
 I hope to catch up and revisit the adoption in a future post.</p>
 
-<p>Perhaps the biggest inspiration came from the <a href="https://wiki.c2.com/?TheGrammarOfGraphics">grammar of graphics</a>.
+<figure>
+  <img src="https://github.com/vega/vega-lite/blob/main/site/static/teaser.png?raw=true" />
+  <figcaption><a href="https://vega.github.io/vega-lite/">Vega-lite</a>, a grammar for rapid data visualization</figcaption>
+</figure>
+
+<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^6].
 The graphics of grammar offered a concise and structured way to build and explore a large space of data visualization quickly.
 There are three core layers of the graphics of grammar:</p>
 
 <ol>
   <li><em>Data</em> is a data frame containing one or more variables. Fundamentally, data represents categorizable inputs to a visualization system.</li>
-  <li><em>Aesthetic</em> defines a mapping one or more variables to one or more visual elements. Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
+  <li><em>Aesthetic</em> defines the mappings of one or more variables to one or more visual elements. Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
   <li><em>Geometry</em> decides the type or shape of the visual elements. Fundamentally, Geometry gives precise meanings to the mapped entities.</li>
 </ol>
 
-<p>We can apply the fundamental structure to the robot application programming domain, for example:</p>
+<p>We can apply the fundamental structure to the robot application programming domain and build the “grammar of robot applications,” for example:</p>
 
 <ol>
   <li><em>Robot layout</em> defines the physical arrangement of robots and other structures, for example, a layout of a manufacturing line and robot cells.</li>
@@ -126,22 +161,37 @@ There are three core layers of the graphics of grammar:</p>
   <li><em>Task detailing</em> defines details of the assigned tasks, possibly even the interaction of multiple robots and devices.</li>
 </ol>
 
-<p>It’s a rudimentary idea, but one can imagine defining a grammar or <a href="https://vega.github.io/vega-lite/">declarative specification</a> that can express the space of particular robot applications, e.g., the space of manufacturing line applications or the space of indoor delivery applications.
+<p>It’s a rudimentary idea–I don’t know how exactly this grammar will address distributed robotics systems problems like unresponsive services, rare process crashes, and subtle performance regressions.
+But one could imagine defining such a grammar or declarative specification that can express the space of particular robot applications, e.g., the space of manufacturing line applications or the space of indoor delivery applications.
 Then, the task of developers or solution engineers would be to write a configuration that precisely describes a particular application in mind.
 Construction of such a grammar will be nontrivial.
 It will require deep understanding and careful organization of the application that will require collaboration with domain experts per application domain.
 However, I believe this is the direction that can accelerate the adoption of intelligent robotics services in the target industry.</p>
 
+<p><em>(Update 2023/04/01)</em> There’s been a lot of hype on how ChatGPT–or Large Language Model (LLM)-driven programming synthesis, more generally–will take away programming jobs.
+While I don’t fully agree with such hype[^7], I do think ChatGPT will change programming significantly[^8].
+What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
+However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
+As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
+Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
+
 <h2 id="closing-note">Closing note</h2>
 
-<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form because I likely won’t have time to work on it.
+<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form because I wanted those who work in the related fields to think beyond the existing ways.
 But this post wasn’t just about that.
-I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities.
-I hope this post inspired readers to consider taking cross-over approaches to tackle their hard (robotics) problems, if makes sense.</p>
+I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches when their hard (robotics) problems–if makes sense.</p>
 
 <p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares a series of incomplete projects that didn’t fit.
-<br />[^2] For more insights, checkout <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
-<br />[^3] To this end, I’ve tried <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">creating a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">applying program synthesis</a>.</p>
+<br />[^2] For more insights, check out <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
+<br />[^3] To this end, I’ve tried <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">creating a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">applying program synthesis</a>.
+<br />[^4] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
+</a> and <a href="https://youtu.be/f5EpcWp0THw">What is GitOps, How GitOps works and Why it’s so useful
+</a>
+<br />[^5] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> gives some ideas.
+<br />[^6] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
+<br />[^7] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
+</a> by Amy Ko.
+<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.</p>
 
   </div><a class="u-url" href="/2021/12/29/search.html" hidden></a>
 </article>
