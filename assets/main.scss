@@ -5,8 +5,11 @@ $base-font-family: "Source Sans Pro", sans-serif !default;
 $base-font-size: 16px !default;
 $base-line-height: 1.5;
 
-$brand-color: steelblue !default;
+$brand-color: deepskyblue !default;
 $background-color: white !default;
+$site-title-color: #424242;
+$text-color-light: #828282;
+$highlight-color: #ffff0b;
 
 $content-width: 715px !default;
 
@@ -14,14 +17,18 @@ $content-width: 715px !default;
 
 html {
   -webkit-font-smoothing: antialiased;
+  ::selection {
+    background: $highlight-color;
+  }
 }
 
 a {
-  color: black;
+  color: $text-color;
   text-decoration: underline;
+  text-decoration-color: $brand-color;
 
   &:visited {
-    color: black;
+    color: $text-color;
   }
 
   &:hover {
@@ -34,12 +41,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Libre Baskerville", serif;
 }
 
+/**
+ * Site header
+ */
 .site-header {
   border-top: 0px;
   border-bottom: 0px;
   min-height: $spacing-unit * 1.865;
   line-height: $base-line-height * $base-font-size * 2.25;
 
+  // Positioning context for the mobile navigation icon
   position: relative;
 
   .wrapper {
@@ -47,20 +58,40 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   a {
-    color: #424242;
+    color: $site-title-color;
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      color: $brand-color;
     }
   }
 
   a.site-title,
   &:hover {
-    color: #424242;
+    color: $site-title-color;
     text-decoration: none;
   }
 }
+
+/**
+ * Figures
+ */
+ figure {
+  text-align: center;
+}
+
+figure > img {
+  display: inline;
+}
+
+figcaption {
+  font-size: $small-font-size;
+  color: $text-color-light;
+
+  a {
+    color: $text-color-light;
+  }
+} 
 
 /**
  * Home
@@ -94,40 +125,52 @@ h1, h2, h3, h4, h5, h6 {
 
   a {
     text-decoration: none;
+
+    &:hover {
+      color: $text-color;
+      text-decoration: underline;
+      text-decoration-color: $brand-color;
+    }
   }
 }
 
 /**
  * Posts
  */
-
 .post-title {
   @include relative-font-size(2.375);
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.376);
   }
+
+  line-height: 1.2;
+}
+
+.post-content {
+  a {
+    text-decoration-color: $text-color;
+
+    &:hover {
+      color: $text-color;
+    }
+  }
+}
+
+.post-meta {
+  color: $text-color-light;
 }
 
 /**
- * Figures
+ * Research
  */
-figure {
-  text-align: center;
-}
-
-figure > img {
-  display: inline;
-}
-
-figcaption {
-  font-size: $small-font-size;
-  color: rgb(117, 117, 117);
-
-  a {
-    color: rgb(117, 117, 117);
+ a.bib-tag {
+  color: $text-color;
+  text-decoration: none;
+  &:hover {
+    color: $brand-color;
   }
-} 
+}
 
 /**
  * Bibliography

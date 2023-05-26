@@ -11,34 +11,31 @@
     {% endif %}
     <br>
     <span class="authors">{%for author in entry.author_array%}{%if forloop.last%} and {%elsif forloop.first%}{%else%}, {%endif%}{{author.first}} {{author.last}}{%endfor%}</span>
+    <br>In <i>{{ venue }}</i>, {{ entry.year }}
     <br>
-    In <i>{{ venue }}</i>, {{ entry.year }}
-    <br>
-
     {% capture poster_link %}{{ site.scholar.repository }}/{{ entry.key }}_poster.pdf{% endcapture %}
     {% capture slides_link %}{{ site.scholar.repository }}/{{ entry.key }}_slides.pdf{% endcapture %}
     {% capture supp_link %}{{ site.scholar.repository }}/{{ entry.key }}_supp.pdf{% endcapture %}
-
     {% for file in site.static_files %}{% if file.path == poster_link %}
-      <a href="{{ site.baseurl }}{{ poster_link }}">[poster]</a>
+      <a class="bib-tag" href="{{ site.baseurl }}{{ poster_link }}">[poster]</a>
       {% break %}
     {% endif %}{% endfor %}
     {% for file in site.static_files %}{% if file.path == slides_link %}
-      <a href="{{ site.baseurl }}{{ slides_link }}">[slides]</a>
+      <a class="bib-tag" href="{{ site.baseurl }}{{ slides_link }}">[slides]</a>
       {% break %}
     {% endif %}{% endfor %}
     {% for file in site.static_files %}{% if file.path == supp_link %}
-      <a href="{{ site.baseurl }}{{ supp_link }}">[supp.]</a>
+      <a class="bib-tag" href="{{ site.baseurl }}{{ supp_link }}">[supp.]</a>
       {% break %}
     {% endif %}{% endfor %}
     {% if entry.techreport %}
-      <a href="{{ entry.techreport }}">[tech.report]</a>
+      <a class="bib-tag" href="{{ entry.techreport }}">[tech.report]</a>
     {% endif %}
     {% if entry.video %}
-      <a href="{{ entry.video }}">[video]</a>
+      <a class="bib-tag" href="{{ entry.video }}">[video]</a>
     {% endif %}
     {% if entry.details %}
-      <a href="{{ entry.details }}">[details]</a>
+      <a class="bib-tag" href="{{ entry.details }}">[details]</a>
     {% endif %}
   </div>
 {% else %}
