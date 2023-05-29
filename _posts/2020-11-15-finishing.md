@@ -28,8 +28,6 @@ Gradually, I started delaying seemingly more important tasks such as polishing r
 In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
 To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare _a_ plan for the worst outcomes.
 
-[^1] This trick was somewhat inspired by [GIST Planning](https://www.productplan.com/glossary/gist-planning/) and [Startup Engineering](https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf).
-<br>[^2] [The Eisenhower matrix](https://www.google.com/search?q=Eisenhower+Matrix&tbm=isch) is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn't trivial and hence had a similar problem.
 
 ## Minimal viable product
 
@@ -45,6 +43,7 @@ To address this problem, I spent more time on (1) understanding the evaluation m
 After clearly defining the evaluation metrics for the MVP, I found using them to efficiently execute something to the completion super helpful, esp., towards the end when I'm tired.
 <!-- Another small trick I used was holding my breath and split once without looking back. -->
 
+
 ## Managing attention
 
 After having countless sleepless nights and physically demanding days, I've realized the most expensive resource was my attention and not the time.
@@ -58,8 +57,6 @@ These tasks require deeply exploring many ideas with caution to make a big dent 
 I used times with a medium level of attention for execution tasks; I used to do execution tasks in the protected hours but with well-thought-out approaches, execution tasks didn't require as much attention as the core problem-solving tasks.
 Finally, everything else, emailing and scheduling, resolving meeting topics, writing down new problem-solving approaches were done on foot, e.g., while watching my son at the park.
 
-[^3] Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.<br>
-[^4] I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.
 
 ## Closing thoughts
 
@@ -71,6 +68,8 @@ Time to time, I ask myself--was it all worth it?
 As much as I try rewiring my brain to reply with "yes" to that question, I cannot bring back the times I missed with my family and I'll always feel the guilt of not being around much (physically or mentally) when my son needed me the most.
 Yet, I'm working on this blog post while watching my son at a playground.
 
+
+<br>
 ### Acknowledgments
 
 I consciously and unconsciously picked up the habits of other parents who I closely worked with and had much more responsibility than me like my grad school advisor [Maya Cakmak](https://homes.cs.washington.edu/~mcakmak/), and my past team leader [Christian Fritz](http://chfritz.github.io/).
@@ -82,3 +81,12 @@ I decided to write this blog post when I discovered the existence of similar blo
 
 Last but not least, I have to disclose that I relied a lot on my wife who sacrificed her time for watching our son.
 This note might change the perspective/legitimacy of all tricks I mentioned above.
+
+
+<br>
+<hr>
+
+[^1] This trick was somewhat inspired by [GIST Planning](https://www.productplan.com/glossary/gist-planning/) and [Startup Engineering](https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf).
+<br>[^2] [The Eisenhower matrix](https://www.google.com/search?q=Eisenhower+Matrix&tbm=isch) is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn't trivial and hence had a similar problem.
+<br>[^3] Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.
+<br>[^4] I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.

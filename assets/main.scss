@@ -87,10 +87,10 @@ figure > img {
 figcaption {
   font-size: $small-font-size;
   color: $text-color-light;
-  text-decoration-color: $text-color-light;
 
   a {
     color: $text-color-light;
+    text-decoration-color: $text-color-light !important;
   }
 } 
 

@@ -26,7 +26,7 @@ Often existing dev-ops tools are unfit for the robotics system development purpo
 
 Although the list above is based on a small number of interviews and my personal experience, I hope it to be used as a starting point for brainstorming for solutions. Please let me know if you see missing themes or any comments!
 
-### Misc.
+### Miscellaneous
 
 - _Sep, 2021. ["How to Build Good Software"](https://www.csc.gov.sg/articles/how-to-build-good-software) - "Why Bad Software Happens to Good People" section felt relevant._
 - _Apr, 2021. Found more related papers!_
