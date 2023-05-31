@@ -921,6 +921,7 @@ figcaption {
 }
 figcaption a {
   color: #828282;
+  text-decoration-color: #828282 !important;
 }
 
 /**

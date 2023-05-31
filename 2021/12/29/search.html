@@ -27,7 +27,8 @@
 
     gtag('config', 'G-NZ4FX6FCL4');
 </script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
+<link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro" />
 </head>
 <body><header class="site-header" role="banner">
@@ -62,7 +63,10 @@
   <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
 </figure>
 
-<p>I’ve been thinking about ways to make robot application programming easy[^1].
+<p>I’ve been searching for ways to make robot application programming easy[^1].
+In this post, I share</p>
+
+<p>[^1].
 Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.</p>
 
 <h2 id="challenges-with-using-existing-robot-behavior-representations">Challenges with using existing robot behavior representations</h2>
@@ -83,7 +87,7 @@ The FSM and BT implementations I’ve met in the wild lacked clear semantics or 
 Frequently, I came across ill-defined transition functions that made it challenging to determine the triggers and conditions for transitions.
 I often found side-effect-causing code snippets scattered across multiple states, used to force transitions or trigger actions instead of properly extending the transition function.
 As a result, the FSMs became unpredictable and difficult to test.
-Regarding BTs[^2], I encountered subtleties specific to the implementation or programming language, e.g., in how the execution logic handles the “tick,” or misuses of BT features, e.g., abusing blackboard, that invariably led to complications.</p>
+Regarding BTs, I encountered subtleties specific to the implementation or programming language, e.g., in how the execution logic handles the “tick,” or misuses of BT features, e.g., abusing blackboard, that invariably led to complications[^2].</p>
 
 <p>Creating complex behaviors wasn’t as easy as it appeared to be.
 The most significant challenge I’ve faced was the maintenance of modules.
@@ -113,7 +117,7 @@ In such a context, it made more sense to regard a robot application as a program
   <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
 </figure>
 
-<p>When reactive programming was making a buzz in the WebDev community, I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
+<p>When reactive programming was making a buzz in the WebDev community[^3], I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
 I loved how Cycle.js’ language-agnostic core concepts, like <a href="https://dl.acm.org/doi/pdf/10.1145/258948.258973">functional reactive programming paradigm</a> and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adaptors architecture</a>, seemed to be transferrable to robot application programming.
 I could imagine robot applications with complex interruption signals, e.g., consisting of external and internal signals like user input and system error signals, or more generally complex interaction flows, could be concisely expressed in a functional reactive programming paradigm.
 By following ports and adaptors architecture, Cycle.js enforces a separation of side-effect-making code from the application logic, and it made testing a breeze, especially with <a href="https://rxjs.dev/guide/testing/marble-testing">test tooling</a> that often came with reactive stream libraries like <a href="https://reactivex.io/">ReactiveX</a>.
@@ -125,17 +129,17 @@ It delivered on simplifying authoring complex interactive programs and testing s
 However, I eventually faced major challenges.
 State management in Cycle.js-like frameworks was awkward, especially when it came to composing finite state machines, e.g., requiring techniques that are hard to get right, like <a href="https://speakerdeck.com/p4checo/reactive-state-machines-using-feedback-loops">creating circular dependencies between streams</a>, which was a showstopper because the creating FSMs must be well-supported for the robotics community.
 Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, rare process crashes, and subtle performance regressions.
-Given such experiences, I felt the strong need for a higher-level abstraction[^3] that allows developers to work directly in the application space without worrying about system-level problems.</p>
+Given such experiences, I felt the strong need for a higher-level abstraction[^4] that allows developers to work directly in the application space without worrying about system-level problems.</p>
 
 <figure>
   <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
   <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 <p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
-The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^4].
+The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^5].
 I liked what I found, but it wasn’t immediately apparent how to apply these findings to the domain of robot application programming.
 At the time (2017~2018), DevOps tools were primarily tailored to specific environments (e.g., the cloud) and technologies (e.g., containers) that were foreign to robotics systems.
-Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^5].
+Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^6].
 I hope to catch up and revisit the adoption in a future post.</p>
 
 <figure>
@@ -143,7 +147,7 @@ I hope to catch up and revisit the adoption in a future post.</p>
   <figcaption><a href="https://vega.github.io/vega-lite/">Vega-lite</a>, a grammar for rapid data visualization</figcaption>
 </figure>
 
-<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^6].
+<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^7].
 The graphics of grammar offered a concise and structured way to build and explore a large space of data visualization quickly.
 There are three core layers of the graphics of grammar:</p>
 
@@ -169,29 +173,40 @@ It will require deep understanding and careful organization of the application t
 However, I believe this is the direction that can accelerate the adoption of intelligent robotics services in the target industry.</p>
 
 <p><em>(Update 2023/04/01)</em> There’s been a lot of hype on how ChatGPT–or Large Language Model (LLM)-driven programming synthesis, more generally–will take away programming jobs.
-While I don’t fully agree with such hype[^7], I do think ChatGPT will change programming significantly[^8].
+While I don’t fully agree with such hype[^8], I do think ChatGPT will change programming significantly[^9].
 What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
 However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
 As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
 Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
 
-<h2 id="closing-note">Closing note</h2>
+<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^10] in the last ~5 years.
+Like LLMSynth and GSpec, No-code also shares the goal of simplifying programming and takes a more similar approach to GSpec (than that of LLMSynth), e.g., NoCode tools or visual programming interfaces are designed and built manually (and likely not involve machine learning).
+The main difference is the level of expressivity.
+Because of their focus on visual programming, No-Code tools tend to expose a subset of programming interfaces or high-level abstractions to a visual programming interface, resulting in a lower output program space than that of GSpec.
+It’s possible for a No-Code tool can expose a high-level grammar, but I haven’t seen tools like that except <a href="https://www.tableau.com/">Tableau</a>.</p>
 
-<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form because I wanted those who work in the related fields to think beyond the existing ways.
+<h2 id="closing-notes">Closing notes</h2>
+
+<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form to encourage readers to consider designing a grammar/DSL/declarative specification approach when building their next robot programming tool.
 But this post wasn’t just about that.
 I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches when their hard (robotics) problems–if makes sense.</p>
 
-<p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares a series of incomplete projects that didn’t fit.
-<br />[^2] For more insights, check out <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
-<br />[^3] To this end, I’ve tried <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">creating a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">applying program synthesis</a>.
-<br />[^4] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
+<p><br /></p>
+<hr />
+
+<p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares my explorations regarding developer tools that didn’t make into my thesis.
+<br />[^2] For more insights, see <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
+<br />[^3] To this end, I prototyped <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">a program synthesizer</a>.
+<br />[^4] <a href="https://youtu.be/Uo3cL4nrGOk">JavaScript isn’t everyone’s favorite</a>, but I agree that the <a href="https://twitter.com/swyx/status/1505547960808972295">frontend tooling built in JavaScript offers amazing developer experience</a>.
+<br />[^5] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
 </a> and <a href="https://youtu.be/f5EpcWp0THw">What is GitOps, How GitOps works and Why it’s so useful
 </a>
-<br />[^5] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> gives some ideas.
-<br />[^6] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
-<br />[^7] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
+<br />[^6] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> provides some ideas.
+<br />[^7] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
+<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
-<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.</p>
+<br />[^9] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>
 
   </div><a class="u-url" href="/2021/12/29/search.html" hidden></a>
 </article>
