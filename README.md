@@ -1,6 +1,6 @@
 # mywebsite
 
-My website.
+Mike Chung's website. Live at: https://mjyc.github.io/
 
 ## Getting started
 

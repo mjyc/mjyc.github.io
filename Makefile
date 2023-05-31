@@ -17,7 +17,7 @@ s serve:
 
 build:
 	JEKYLL_ENV=production bundle exec jekyll build
-	rm _site/Makefile
+	rm _site/Makefile _site/README.md
 
 deploy:
 	git checkout master
