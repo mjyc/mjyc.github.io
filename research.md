@@ -10,6 +10,10 @@ Here is my [recorded dissertation](https://youtu.be/pTml6yEIjcw) and [CV]({{ sit
 My research in graduate school was on human-robot interaction.
 I particularly enjoyed thinking about programming systems for robots in human environments; I drew inspirations from programming languages, web development, product design, and startup communities.
 
+## Media Coverage & Talks
+
+{% bibliography -f media --query @* %}
+
 ## Workshop Papers and Posters
 
 {% bibliography -f workshop --query @* %}
@@ -17,7 +21,3 @@ I particularly enjoyed thinking about programming systems for robots in human en
 ## Conference Papers
 
 {% bibliography --query @* %}
-
-## Media Coverage & Talks
-
-{% bibliography -f media --query @* %}
