@@ -15,6 +15,8 @@ You can see what I've been listening to lately on [last.fm](https://www.last.fm/
 <br>
 ## Latest
 
+<span class="post-meta"> Mar, 2023. </span> [Last day at Intrinsic](https://techcrunch.com/2023/01/12/alphabet-robotics-division-intrinsic-hit-with-layoffs), helping out [Transitive](https://transitiverobotics.com/), and searching for something new.
+
 <span class="post-meta"> May, 2022. </span> [Vicarious was acquired by Intrinsic](https://intrinsic.ai/blog/posts/mission-momentum/), joining Intrinsic.
 
 <span class="post-meta"> Mar, 2022. </span> I participated in HRI2022 by presenting at [PD/EUP workshop](https://docs.google.com/presentation/d/1Pj6yk4kCb3S0QA4fL_8844rAh8SlnImpqlu77GsuFmY), [LSI workshop](https://docs.google.com/presentation/d/1VY1IZ9D-hrjn-D8cvgSOFIlG6jCh_YCMxolmh0IQ_ak), and [late breaking-report session](https://docs.google.com/presentation/d/17DFNEXr3Cyxmhqu-StMijUuZso3m7UCVf4czjuANBU4).
