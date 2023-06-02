@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-06-02T00:01:01+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">In Search of the Grammar of Robot Applications</title><link href="http://localhost:4000/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of the Grammar of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>http://localhost:4000/2021/12/29/search</id><content type="html" xml:base="http://localhost:4000/2021/12/29/search.html"><![CDATA[<figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="480px" />
+  <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
+</figure>
+
+<p>I’ve been searching for ways to make robot application programming easy[^1].
+Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.</p>
+
+<h2 id="challenges-with-using-existing-robot-behavior-representations">Challenges with using existing robot behavior representations</h2>
+
+<p>In the past, I viewed a robot application as an application program that executes a (high-level) robot behavior.
+The two most popular representations for implementing robot behaviors were (and still are) <a href="https://en.wikipedia.org/wiki/Finite-state_machine">finite state machine</a> (FSM) and <a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)">behavior tree</a> (BT).
+Thus, programming robot applications usually meant programming FSMs or BTs.
+In theory, FSMs or BTs are straightforward to program.
+They have well-defined semantics (e.g., mathematical definitions), which makes them predictable and reasonable, and they natively support composition, enabling the creation of complex behaviors by reusing simpler ones.</p>
+
+<figure>
+  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="360px" />
+  <figcaption>An FSM consists of <a href="http://wiki.ros.org/pr2_plugs_actions">pr2_plugs_actions</a></figcaption>
+</figure>
+
+<p>Programming robot applications with FSMs or BTs wasn’t so easy in practice.
+The FSM and BT implementations I’ve met in the wild lacked clear semantics or gradually lost them over time, making them difficult to work with.
+Frequently, I came across ill-defined transition functions that made it challenging to determine the triggers and conditions for transitions.
+I often found side-effect-causing code snippets scattered across multiple states, used to force transitions or trigger actions instead of properly extending the transition function.
+As a result, the FSMs became unpredictable and difficult to test.
+Regarding BTs, I encountered subtleties specific to the implementation or programming language, e.g., in how the execution logic handles the “tick,” or misuses of BT features, e.g., abusing blackboard, that invariably led to complications[^2].</p>
+
+<p>Creating complex behaviors wasn’t as easy as it appeared to be.
+The most significant challenge I’ve faced was the maintenance of modules.
+Driven by the composability of FSMs or BTs, developers often created intermediate FSM states or BT nodes (referred to as “modules”) to represent simple skills or patterns.
+While developers intended these modules to be reusable, without proper planning, it was all too easy to end up with numerous modules that hindered the creation of complex behaviors.</p>
+
+<figure>
+  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" width="480px" />
+  <figcaption>A screenshot of <a href="https://github.com/BehaviorTree/BehaviorTree.CPP">BehaviorTree.CPP</a> editor</figcaption>
+</figure>
+
+<p>In most robotics (software) companies, the abovementioned challenges  weren’t insurmountable.
+Given the utmost importance of maintaining robust robot applications, companies could readily allocate ample resources to ensure the predictability and composability of FSMs and BTs.
+This could be achieved through extensive discussions, refactoring, testing, and more.</p>
+
+<p>FSMs and BTs have been serving the robotics community well, and likely, they will continue to do so, and yet, I didn’t think using them was the future.
+My primary concern with using FSMs and BTs was that they tend to nudge developers to view the robot as a solitary and central entity when determining the main flow of the application program.
+In the RaaS companies I worked at, robot applications almost always involved multiple robots, such as fleets of indoor mobile robots or lines of robot manipulators.
+Even when the application focused on the behavior of a single robot, the underlying system was a distributed one comprising robotics services (e.g., perception, control) and external services (e.g., user interface, scheduler).
+Consequently, application developers needed to think in terms of multiple robots or services and their interactions.
+In such a context, it made more sense to regard a robot application as a program that implements the orchestration logic of a distributed system.</p>
+
+<h2 id="inspirations-from-non-robotics-communities">Inspirations from non-robotics communities</h2>
+
+<figure>
+  <img src="https://cycle.js.org/img/actuators-senses.svg" width="240px" />
+  <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
+</figure>
+
+<p>When reactive programming was making a buzz in the WebDev community[^3], I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
+I loved how Cycle.js’ language-agnostic core concepts, like <a href="https://dl.acm.org/doi/pdf/10.1145/258948.258973">functional reactive programming paradigm</a> and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adaptors architecture</a>, seemed to be transferrable to robot application programming.
+I could imagine robot applications with complex interruption signals, e.g., consisting of external and internal signals like user input and system error signals, or more generally complex interaction flows, could be concisely expressed in a functional reactive programming paradigm.
+By following ports and adaptors architecture, Cycle.js enforces a separation of side-effect-making code from the application logic, and it made testing a breeze, especially with <a href="https://rxjs.dev/guide/testing/marble-testing">test tooling</a> that often came with reactive stream libraries like <a href="https://reactivex.io/">ReactiveX</a>.
+It seemed that testing robot applications could benefit from such tooling as well.</p>
+
+<p>Charmed by the initial impressions, I experimented with applying the core concepts from Cycle.js directly to robot application programming.
+There were some initial successes.
+It delivered on simplifying authoring complex interactive programs and testing such programs.
+However, I eventually faced major challenges.
+State management in Cycle.js-like frameworks was awkward, especially when it came to composing finite state machines, e.g., requiring techniques that are hard to get right, like <a href="https://speakerdeck.com/p4checo/reactive-state-machines-using-feedback-loops">creating circular dependencies between streams</a>, which was a showstopper because the creating FSMs must be well-supported for the robotics community.
+Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, rare process crashes, and subtle performance regressions.
+Given such experiences, I felt the strong need for a higher-level abstraction[^4] that allows developers to work directly in the application space without worrying about system-level problems.</p>
+
+<figure>
+  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
+  <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
+</figure>
+<p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
+The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^5].
+I liked what I found, but it wasn’t immediately apparent how to apply these findings to the domain of robot application programming.
+At the time (2017~2018), DevOps tools were primarily tailored to specific environments (e.g., the cloud) and technologies (e.g., containers) that were foreign to robotics systems.
+Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^6].
+I hope to catch up and revisit the adoption in a future post.</p>
+
+<figure>
+  <img src="https://github.com/vega/vega-lite/blob/main/site/static/teaser.png?raw=true" />
+  <figcaption><a href="https://vega.github.io/vega-lite/">Vega-lite</a>, a grammar for rapid data visualization</figcaption>
+</figure>
+
+<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^7].
+The graphics of grammar offered a concise and structured way to build and explore a large space of data visualization quickly.
+There are three core layers of the graphics of grammar:</p>
+
+<ol>
+  <li><em>Data</em> is a data frame containing one or more variables. Fundamentally, data represents categorizable inputs to a visualization system.</li>
+  <li><em>Aesthetic</em> defines the mappings of one or more variables to one or more visual elements. Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
+  <li><em>Geometry</em> decides the type or shape of the visual elements. Fundamentally, Geometry gives precise meanings to the mapped entities.</li>
+</ol>
+
+<p>We can apply the fundamental structure to the robot application programming domain and build the “grammar of robot applications,” for example:</p>
+
+<ol>
+  <li><em>Robot layout</em> defines the physical arrangement of robots and other structures, for example, a layout of a manufacturing line and robot cells.</li>
+  <li><em>Task mapping</em> defines how robots and devices map to particular tasks, e.g., insertion, inspection, etc.</li>
+  <li><em>Task detailing</em> defines details of the assigned tasks, possibly even the interaction of multiple robots and devices.</li>
+</ol>
+
+<p>It’s a rudimentary idea–I don’t know how exactly this grammar will address distributed robotics systems problems like unresponsive services, rare process crashes, and subtle performance regressions.
+But one could imagine defining such a grammar or declarative specification that can express the space of particular robot applications, e.g., the space of manufacturing line applications or the space of indoor delivery applications.
+Then, the task of developers or solution engineers would be to write a configuration that precisely describes a particular application in mind.
+Construction of such a grammar will be nontrivial.
+It will require deep understanding and careful organization of the application that will require collaboration with domain experts per application domain.
+However, I believe this is the direction that can accelerate the adoption of intelligent robotics services in the target industry.</p>
+
+<p><em>(Update 2023/04/01)</em> There’s been a lot of hype on how ChatGPT–or Large Language Model (LLM)-driven programming synthesis, more generally–will take away programming jobs.
+While I don’t fully agree with such hype[^8], I do think ChatGPT will change programming significantly[^9].
+What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
+However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
+As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
+Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
+
+<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^10] in the last ~5 years.
+Like LLMSynth and GSpec, No-code also shares the goal of simplifying programming and takes a more similar approach to GSpec (than that of LLMSynth), e.g., NoCode tools or visual programming interfaces are designed and built manually (and likely not involve machine learning).
+The main difference is the level of expressivity.
+Because of their focus on visual programming, No-Code tools tend to expose a subset of programming interfaces or high-level abstractions to a visual programming interface, resulting in a lower output program space than that of GSpec.
+It’s possible for a No-Code tool can expose a high-level grammar, but I haven’t seen tools like that except <a href="https://www.tableau.com/">Tableau</a>.</p>
+
+<h2 id="closing-notes">Closing notes</h2>
+
+<p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form to encourage readers to consider designing a grammar/DSL/declarative specification approach when building their next robot programming tool.
+But this post wasn’t just about that.
+I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches when their hard (robotics) problems–if makes sense.</p>
+
+<p><br /></p>
+<hr />
+
+<p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares my explorations regarding developer tools that didn’t make into my thesis.
+<br />[^2] For more insights, see <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
+<br />[^3] To this end, I prototyped <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">a program synthesizer</a>.
+<br />[^4] <a href="https://youtu.be/Uo3cL4nrGOk">JavaScript isn’t everyone’s favorite</a>, but I agree that the <a href="https://twitter.com/swyx/status/1505547960808972295">frontend tooling built in JavaScript offers amazing developer experience</a>.
+<br />[^5] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
+</a> and <a href="https://youtu.be/f5EpcWp0THw">What is GitOps, How GitOps works and Why it’s so useful
+</a>
+<br />[^6] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> provides some ideas.
+<br />[^7] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
+<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
+</a> by Amy Ko.
+<br />[^9] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Testing robotics systems</title><link href="http://localhost:4000/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>http://localhost:4000/2020/12/16/testing</id><content type="html" xml:base="http://localhost:4000/2020/12/16/testing.html"><![CDATA[<p>Testing robotics systems is hard.
+Based on my experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS involving fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty are as follows:</p>
+<ol>
+  <li><em>Edge cases and corner cases in production environments.</em></li>
+  <li><em>The difficulty of using simulation.</em></li>
+  <li><em>Challenges with adopting automation.</em></li>
+</ol>
+
+<p>To address some of these challenges, I’ve developed the following strategies:</p>
+<ol>
+  <li><em>Looking for loose/implicit contracts.</em></li>
+  <li><em>Tracking interface and service boundaries.</em></li>
+  <li><em>(Re)designing with automation in mind.</em></li>
+</ol>
+
+<p>Let’s dive deeper into these[^1].</p>
+
+<h2 id="why-is-testing-robotics-systems-hard">Why is testing robotics systems hard?</h2>
+
+<p>In production, I’ve encountered various edge cases and corner cases:</p>
+
+<ul>
+  <li><em>Unexpected peak load condition/usage pattern.</em>
+  It is common for multiple (custom) software, such as core robotics, monitoring, and infra-related software, to run in parallel.
+  Unexpected high demands can adversarially impact your program, e.g., by consuming all of the available resources.
+  Anticipating and recreating such situations is challenging, especially when dealing with (custom) software at all levels, including firmware and system software.</li>
+  <li><em>Edge cases for robotics algorithms.</em>
+  Input spaces for robotics algorithms, such as perception, control, and motion planning, are vast and challenging to effectively cover for edge cases; there is always a specific layout that causes navigation failures or a particular scene with specific objects that leads to grasping failures.
+  Characterizing such instances is difficult and algorithm-dependent, which complicates the testing setup.</li>
+  <li><em>Rare hardware issues.</em>
+  Rare hardware issues that are not (directly) detectable are the worst, such as a small damage in the robot cell structure that requires adjusting the collision map.
+  Anticipating them requires input from domain experts (mechanical or firmware engineers who may not be easily accessible and speak different jargons), and reproducing them often requires changing interfaces, which can be expensive (becomes yet another layer to maintain).</li>
+  <li><em>Subtle regression.</em>
+  The complexity of robotics systems makes it challenging to establish a robust <a href="https://katalon.com/resources-center/blog/regression-testing">regression testing</a> pipeline.
+  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a> is difficult and hence elusive bugs slip back into the production code.
+  Performance regressions are particularly challenging, as they are subtle and require expensive measures such as repeated end-to-end tests and delicate statistical methods to detect.</li>
+</ul>
+
+<p>Using simulation for testing robotics systems effectively is not as easy as it seems.</p>
+
+<ul>
+  <li><em>Inadequate usage.</em>
+  I find that simulation testing is most useful for end-to-end testing of robot applications.
+  However, I often encounter test cases that would benefit from using other tools and techniques (e.g., for efficiency).
+  All too frequently, I come across test cases for robot behaviors (e.g., implemented in finite state machine or behavior tree) that use simulation, making the test cases much more expensive than they need to be.
+  In such cases, using alternatives like <a href="https://martinfowler.com/bliki/TestDouble.html">fake</a> or <a href="https://www.educative.io/answers/what-is-model-based-testing">model-based testing</a>[^2] would be much more efficient, as they can be used to only “simulate” the directly relevant modules[^3].
+  This often stems from organizational issues, such as unclear boundaries between teams that result in poorly defined interfaces and testing strategies or more typical insufficient allocation of time for testing/addressing technical debts (e.g., in favor of prioritizing other deliverables).</li>
+  <li><em>Generating test cases.</em>
+  Even with simulation libraries that provide high-level interfaces for building scenarios, creating effective test scenarios is challenging.
+  Creating a single simulated environment for end-to-end testing alone is laborious enough, so diversifying the test scenarios (e.g., to cover extreme cases) becomes a nice-to-have[^4].
+  There are commercial products that address this issue (e.g., <a href="https://aws.amazon.com/blogs/aws/aws-announces-worldforge-in-aws-robomaker/">AWS RoboMaker WorldForge</a>), but they are not easy for smaller organizations to integrate due to reasons such as integration cost, vendor lock-in, etc.</li>
+  <li><em>Expressing specifications.</em>
+  Specifications for many robotics programs, e.g., those involving perception, motion planning, and behaviors, are difficult to express due to their spatiotemporal nature.
+  This leads to verbose and unorganized (e.g., containing duplicates) test code, which makes it difficult to maintain and scale.</li>
+  <li><em>Managing infrastructure.</em>
+  I haven’t met a single person who loves managing simulation testing infrastructure, e.g., for continuous integration.
+  Simulation test code is expensive to run, requires special hardware such as GPUs, and is difficult to optimize and move around (e.g., in cloud environments).
+  This leads to a poor developer experience and can even result in the disabling of simulation testing.</li>
+</ul>
+
+<p>Automating robotics software testing is still hard.</p>
+
+<ul>
+  <li><em>Challenges with automating build and deployment.</em>
+  Here are tech talks and a blog post that shed light on this topic:
+    <ul>
+      <li><a href="https://youtu.be/fjfFe98LTm8">“Building Self Driving Cars with Bazel”</a> from Cruise, BazelCon 2019 - shares Cruise’s experiences with building and testing robotics software at scale</li>
+      <li><a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics - summarizes the typical challenges with deploying robotics software</li>
+      <li><a href="https://youtu.be/JNV9CkARh_g">“Physical continuous integration on real robots”</a> from Fetch, ROSCon 2016 - shares Fetch’s experience with setting up and using a physical continuous integration pipeline</li>
+      <li>ROS (2) docs on Build (tools): <a href="http://wiki.ros.org/catkin/conceptual_overview">catkin/conceptual_overview</a>, <a href="https://design.ros2.org/articles/build_tool.html">A universal build tool</a>, <a href="https://docs.ros.org/en/iron/Concepts/About-Build-System.html">About the build system</a></li>
+      <li>ROS (2) docs on Deployment (tools): <a href="https://docs.ros.org/en/iron/Tutorials/Advanced/Security/Deployment-Guidelines.html">Deployment Guidelines</a>, <a href="http://wiki.ros.org/bloom">bloom</a></li>
+    </ul>
+  </li>
+  <li><em>No standard.</em>
+  Automating the testing of software requires agreements among engineering teams on build, deployment, and test models.
+  Given how robotics brings multiple communities together, such as research (e.g., computer vision, robotics), web development (e.g., frontend, backend), DevOps, embedded, etc., reaching such an agreement, or even discussing ideas (e.g., due to different backgrounds), is difficult.
+  While the Robot-Operating System (ROS) and the communities around it have made significant progress in this regard, the lack of standards still seems to be a significant problem in organizations.</li>
+</ul>
+
+<h2 id="what-do-we-do">What do we do?</h2>
+
+<p>Here are my strategies.</p>
+
+<h3 id="unit-and-property-based-testing">Unit and property-based testing</h3>
+
+<p>Robotics systems often consist of layers of application programming interfaces (APIs).
+While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
+For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
+The testing approach of algorithmically generating data is interesting because it allows <a href="https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237">property-based testing</a>, i.e., generating test cases[^1][^2].
+This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in <a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a>.
+The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.</p>
+
+<p>[^1] inspired by model-based UI testing frameworks <br />
+[^2] Zhoulai Fu and Francisco Martinez Lasaca gave a talk “Experiences with Fuzz Testing ROS Component” that covered a similar approach “fuzz testing” and shared <a href="https://ros2-fuzzer.readthedocs.io/en/latest/">their code</a></p>
+
+<h3 id="sequential-property-based-testing">Sequential property-based testing</h3>
+
+<p>Many robotics algorithms work with sequential data.
+For example, think of state estimation, control, motion planning algorithms.
+Out of the box, property-based testing tools do not provide creating sequential data.
+So the first step to testing time-dependent algorithm is updating property-based testing tools to be able to generate sequential random data.
+Creating a sequential sampler that does not dependent on the outputs of testing algorithms is easy (e.g., inputs for state estimation algorithms) but otherwise, one requires to create reactive environments using existing tools like combinators.
+At this point, basically one requires to build a tiny simulation environment.
+While this sounds daunting, it’s actually not thanks to many existing physics simulation libraries and game programming design patterns (e.g., entity-component systems, etc.).</p>
+
+<p>The second problem is verifying test cases over time.
+For example, one might want to check whether the outputs of a state estimation algorithm ever return <code class="language-plaintext highlighter-rouge">null</code> or test if a motion planning algorithm ever returns an invalid pose.
+I like to use <a href="https://en.wikipedia.org/wiki/Linear_temporal_logic">linear temporal logic (LTL)</a> to verify such temporal properties due to the LTL’s simplicity.
+There are some subtleties of using LTLs with property-based testing tools and I’ll elaborate on those in the future (if I find more time).</p>
+
+<h3 id="physical-integration-testing">Physical integration testing</h3>
+
+<p>Like everything robotics, one must test programs with the real robots in real world at some point.
+One approach is integrating continuous integration testing with real robots.
+There was <a href="https://roscon.ros.org/2016/presentations/PhysicalContinuousIntegrationSlides.pdf">a great talk</a> about this topic from fetch regarding this topic.
+<a href="https://youtu.be/SzHw2PIEIKQ">A more recent talk about AWS Robomaker</a> also touches on this topic, too.</p>
+
+<h2 id="closing-meme">Closing meme</h2>
+
+<p>Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.</p>
+
+<figure>
+  <img src="https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png" />
+  <figcaption>source: https://github.com/dominictarr/push-streams-talk</figcaption>
+</figure>
+
+<p><br /></p>
+<hr />
+
+<p>[^1] The identified challenges and my strategies may not work well in other settings, such as testing in robotics companies that are much smaller (i.e., &lt; 10 employees) or much bigger (i.e., &gt; 1000 employees), or involving a different product, such as an autonomous vehicle-based ride-hailing service or an autonomous-based inspection service.
+<br />[^2] For code examples, see <a href="https://hypothesis.readthedocs.io/en/latest/stateful.html">Stateful testing</a> (Python) or <a href="https://medium.com/criteo-engineering/detecting-the-unexpected-in-web-ui-fuzzing-1f3822c8a3a5">Detecting the unexpected in (Web) UI</a> (JavaScript).
+<br />[^3] <a href="https://martinfowler.com/">Martin Fowler</a> makes a similar point in <a href="https://martinfowler.com/bliki/IntegrationTest.html">IntegrationTest</a> (see “Using this combination of …”) and discusses a related issue in <a href="https://martinfowler.com/articles/2021-test-shapes.html">On the Diverse And Fantastical Shapes of Testing</a>, which is related to my point in the following sentence above (“This often stems …”).
+<br />[^4] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">“Scenic: a language for scenario specification and scene generation”</a>.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Testing robotics systems is hard. Based on my experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS involving fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty are as follows: Edge cases and corner cases in production environments. The difficulty of using simulation. Challenges with adopting automation.]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="http://localhost:4000/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>http://localhost:4000/2020/11/30/finishing</id><content type="html" xml:base="http://localhost:4000/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
+As much as I was euphoric about my son’s arrival, reality hit me hard.
+I was not ready.
+It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.</p>
+
+<h2 id="buying-time">Buying time</h2>
+
+<p>Time became one of the scarcest resources.
+The first thing I did to buy more time for research was saying “no” to social activities, meetings with no clear goal, not-so-related review requests, side projects, system upgrades, etc. as most parents do.
+I decided what activities/projects/commitments to say no to based on my gut feeling.
+One big problem with this approach was that I couldn’t tell if I missed interesting and important opportunities that are unforeseeable from the day I said “no”.
+I started to explicitly allocate time for explorations and update my goals/plans frequently to adjust my plans based on findings from the explorations[^1].
+Doing this became easier as I became more aware of my own work/research velocity, which I gained slowly by rigorously tracking my time usage and goals for each week/month/year.</p>
+
+<p>I still felt like there wasn’t enough time for work hence the second thing I tried was securing money, e.g., by asking family members and applying for financial aids available via my department or university.
+I did not know about any financial support opportunities but learned about them as time goes on by talking to a few other graduate student parents that I didn’t know the existence of prior to becoming a dad.</p>
+
+<p>The final trick I learned was delaying tasks[^2].
+Delaying tasks is a great trick because often delayed tasks disappear completely due to priority changes.
+In the beginning, I delayed tasks that I felt very comfortable delaying, e.g., polishing plots before submitting a paper or renaming variable names in codebase while setting up experiments.
+Gradually, I started delaying seemingly more important tasks such as polishing related work sections or optimizing infrastructure/refactoring codebases (for initial submissions) essentially to verify get feedback on the more important content earlier, e.g., the main research direction.
+In practice, the most difficult part was knowing what kind of tasks are okay (or not okay) to delay on at first sight; sometimes delaying seemingly not-so-important tasks comes back after becoming a much bigger task.
+To mitigate this risk, I started to put some time to identify the worst consequences of delaying a certain task and prepare <em>a</em> plan for the worst outcomes.</p>
+
+<h2 id="minimal-viable-product">Minimal viable product</h2>
+
+<p>After trying to buy as much time as possible for about a year or so, I made the following observations:</p>
+
+<ol>
+  <li>achieving the last 10~20% takes as much more effort as achieving the first 80~90%</li>
+  <li>re-visiting/working on something always takes much more time than the initial take</li>
+  <li>there is a huge difference between having something finished vs. not, e.g., at least you get a chance to receive feedback</li>
+</ol>
+
+<p>These observations made me want to always shoot for the minimal viable product (MVP).
+In the past, I tended to overshoot because I didn’t understand the evaluation criteria well and hence wanted to be “safe” by achieving an arbitrary high quality, which was an extremely expensive approach because of 1. and 3. (sometimes I gave up when a task became too big).
+To address this problem, I spent more time on (1) understanding the evaluation metrics well, and (2) prototyping early to feel out the requirements in the context.
+After clearly defining the evaluation metrics for the MVP, I found using them to efficiently execute something to the completion super helpful, esp., towards the end when I’m tired.
+<!-- Another small trick I used was holding my breath and split once without looking back. --></p>
+
+<h2 id="managing-attention">Managing attention</h2>
+
+<p>After having countless sleepless nights and physically demanding days, I’ve realized the most expensive resource was my attention and not the time.
+The quality of my attention was not only dependent on my physiological conditions but also my surrounding environment, e.g., the amount of natural light, my team’s mood, etc.
+With everything going on, I usually only had about 2hrs of the peak attention per day; 4hrs if lucky.</p>
+
+<p>To best use this time, I identified the most likely time of the day that I have the best attention and protect that time slot for the most important tasks.
+Whenever I face a big task, I would start breaking it down and think about different approaches while I’m away from the desk, e.g., while commuting, picking up or dropping off my son, etc.
+Usually, the most important tasks such as core algorithm/system design, initial draft writing, big meeting/presentation, etc. reveal themselves[^3].
+These tasks require deeply exploring many ideas with caution to make a big dent towards a knotty problem[^4], so I used my protected time to only work on these tasks.
+I used times with a medium level of attention for execution tasks; I used to do execution tasks in the protected hours but with well-thought-out approaches, execution tasks didn’t require as much attention as the core problem-solving tasks.
+Finally, everything else, emailing and scheduling, resolving meeting topics, writing down new problem-solving approaches were done on foot, e.g., while watching my son at the park.</p>
+
+<h2 id="closing-thoughts">Closing thoughts</h2>
+
+<p>Even after trying all the different tricks, I still missed countless deadlines and took countless bullets of consequences.
+When I felt like I hit my limits, the only thing I could do was changing my mentality.
+I accepted my limit, lowered bars for myself, thought about the meaning of what I’m desperately chasing after in the grand skim of things, and try to enjoy the process more.</p>
+
+<p>Time to time, I ask myself–was it all worth it?
+As much as I try rewiring my brain to reply with “yes” to that question, I cannot bring back the times I missed with my family and I’ll always feel the guilt of not being around much (physically or mentally) when my son needed me the most.
+Yet, I’m working on this blog post while watching my son at a playground.</p>
+
+<p><br /></p>
+<h3 id="acknowledgments">Acknowledgments</h3>
+
+<p>I consciously and unconsciously picked up the habits of other parents who I closely worked with and had much more responsibility than me like my grad school advisor <a href="https://homes.cs.washington.edu/~mcakmak/">Maya Cakmak</a>, and my past team leader <a href="http://chfritz.github.io/">Christian Fritz</a>.</p>
+
+<p>I decided to write this blog post when I discovered the existence of similar blog posts from authors I respect:</p>
+<ul>
+  <li><a href="https://medium.com/bits-and-behavior/how-i-sometimes-achieve-academic-work-life-balance-4bbfc1769820">“How I (sometimes) achieve academic work life balance”</a> by Amy Ko</li>
+  <li><a href="https://raymondcheng.net/thoughts/time-management.html">“Time Management”</a> by Raymond Cheng</li>
+  <li><a href="https://maxwellforbes.com/posts/appropriate-quality">“Appropriate Quality”</a> by Maxwell Forbes</li>
+</ul>
+
+<p>Last but not least, I have to disclose that I relied a lot on my wife who sacrificed her time for watching our son.
+This note might change the perspective/legitimacy of all tricks I mentioned above.</p>
+
+<p><br /></p>
+<hr />
+
+<p>[^1] This trick was somewhat inspired by <a href="https://www.productplan.com/glossary/gist-planning/">GIST Planning</a> and <a href="https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf">Startup Engineering</a>.
+<br />[^2] <a href="https://www.google.com/search?q=Eisenhower+Matrix&amp;tbm=isch">The Eisenhower matrix</a> is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.
+<br />[^3] Often, combined smaller tasks such as a task decomposition task combined with an execution task also required my full attention.
+<br />[^4] I consider these tasks as combinatorial optimization problems and try to act like well-known algorithms such as branch and bound or iterative deepening when exploring paths to solutions.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[I was a graduate student when my son was born. As much as I was euphoric about my son’s arrival, reality hit me hard. I was not ready. It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.]]></summary></entry><entry><title type="html">Job Searching for an Industry Position after Graduate School</title><link href="http://localhost:4000/2020/11/15/job.html" rel="alternate" type="text/html" title="Job Searching for an Industry Position after Graduate School" /><published>2020-11-15T08:00:00+00:00</published><updated>2020-11-15T08:00:00+00:00</updated><id>http://localhost:4000/2020/11/15/job</id><content type="html" xml:base="http://localhost:4000/2020/11/15/job.html"><![CDATA[<p>Earlier this year, I started to look for a job and one of my friends recommended <a href="https://bharathpbhat.github.io/2020/09/19/laid-off-now-what.html">this post</a> written by <a href="https://twitter.com/bharathpbhat">Bharath</a>, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days.
+The blog post was amazing.
+I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school.
+In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.</p>
+
+<h2 id="on-identifying-which-rolecompany-to-apply">On identifying which role/company to apply</h2>
+
+<p>For a fresh-out-of-school, human-robot interaction researcher with some experience in software engineering work in the industry, the biggest challenge was people didn’t know what was I good at or what I wanted to do.
+A part of it was due to the nature of the human-robot interaction or robotics research field that has a wide range of subfields.
+Another part of it was me; I had the roles I wanted to take in mind but I was not sure whether I will be good at it so the companies will hire me for the role.
+One of my mentors recommended <a href="https://medium.com/thrive-global/ikigai-the-japanese-secret-to-a-long-and-happy-life-might-just-help-you-live-a-more-fulfilling-9871d01992b7">ikigai</a> for career-related decision making and it helped me take the first pass on identifying which companies to apply.
+After that, I decided to apply to a wide range of roles (e.g., Software Development Engineer, Applied Researcher, Product Engineer, etc.) across a wide range of companies (e.g., ~5 people startups to BigCos) to find the right role by interacting with companies.</p>
+
+<p>I started by following “The Process” in the “Reach out to everyone” section in Bharath’s blog.
+I made a list of companies, reached out to people related to a target company, iterated those two steps until I had a list of ~20 companies that would talk to me.
+I reached out to over 50 people–seniors, juniors, friends, friends of the family, any who would talk to me about a role similar to the ones I identified earlier.
+The reaching out process was laborious and sometimes humiliating but it was extremely important in retrospect as it turns out some very interesting roles that were not public were found this way.</p>
+
+<p>Sometimes the “speaking with a hiring manager” step naturally happened and I’ve used Bharath’s notes for preparing myself for those meetings.
+Whenever I get to talk to a hiring manager or an employee at the team I want to join, I tried to ask as many questions as possible about the role, e.g., a list of selected questions from related articles like <a href="https://www.indeed.com/career-advice/interviewing/questions-to-ask-a-company">this</a> and <a href="https://angel.co/blog/30-questions-to-ask-before-joining-a-startup">this</a> to really visualize what I would be doing in my 1st year and after.
+I also asked some questions about the interview process and interview tips to tailor my preparation to a particular company, if needed.
+For example, smaller companies’ interviews were less structured while big companies’ interviews’ were highly structured, e.g., for Amazon, see <a href="https://www.amazon.jobs/en/landing_pages/in-person-interview">this</a>.
+After talking to a hiring manager, I was able to gauge 1. how interested the company was in hiring me and 2. what they were looking for (e.g., robotics application building, robotics user interface design, evaluating interactive robot systems, etc).
+I was also able to feel out whether I have the experiences and skills they were looking for.
+This was extremely useful for narrowing down the list because I was able to ask myself how much effort do I want to put in trying to convince a company why they need me or how quickly I can learn the missing skills.
+After this step, the number of companies in my list reduced to ~10.
+I followed up with a recruiter or hiring manager to start the first step of the interview process, which usually was a coding interview.</p>
+
+<h2 id="preparing-for-coding-interviews">Preparing for coding interviews</h2>
+
+<p>Coding interviews always scare me.
+Following Bharath’s process, I started solving a couple of <a href="https://leetcode.com/">leetcode</a> problems every week, was <a href="https://youtu.be/GbyXxUDVeAo?t=105">being very selective with which leetcode problems to work on</a>, and <a href="https://medium.com/hackernoon/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed#9cb9">studied patterns</a> and <a href="https://twitter.com/sunilc_/status/1304722881503395840">categories</a> of coding problems to identify my weakest patterns and categories.
+Even after such preparation, I choked during the first couple of coding interviews but was much more comfortable in later coding interviews.
+For my coding interviews, most companies used a shared coding platform like <a href="https://coderpad.io/">CoderPad</a> and others asked me to share my desktop screen to see how I code in my own environment; some, usually smaller companies, gave me “homework” or a tiny project to work on.
+I liked live-coding interviews with a shared coding platform because it saved my time the most.</p>
+
+<h2 id="preparing-for-system-design-interviews">Preparing for system design interviews</h2>
+
+<p>Bharath said system design interviews were his favorite.
+For me, system design interviews were the most difficult.
+First, the existing system design interview guidelines (like <a href="https://github.com/donnemartin/system-design-primer">this</a> (free) and <a href="https://www.educative.io/courses/grokking-the-system-design-interview">this</a> (paid)) were not tailored to the robotics problems, and second, I’ve learned that system design interview experiences varied a lot across the companies.
+I also had a hard time finding a friend or peer who would act as an interviewer to help me with the preparation.
+I started by <a href="https://docs.google.com/document/d/14ePsRiubmrbnK3Pm2ETaA9PYNDun24l8XgGR44ILyC4/edit?usp=sharing">creating robotics system design questions</a> based on existing <a href="https://github.com/donnemartin/system-design-primer#system-design-interview-questions-with-solutions">example system design questions with solutions</a>.
+Here are other questions I’ve considered:</p>
+
+<ul>
+  <li>Design an object detector for a mobile manipulator robot for pick-up tasks</li>
+  <li>Design a collaborative robot manipulator for an assembly task</li>
+  <li>Design a teleoperation interface for a mobile robot</li>
+</ul>
+
+<p>However, based on my interview experiences, some system design questions I’ve asked required having good intuitions on robotics (or robotics perception or motion planning) algorithms to be able to discuss the trade-offs of using different approaches and practical implications for building robotics systems.
+Or an ability to map the questions that seem not-so-related to a robotics problem to a robotics system design problem and discuss the approaches and trade-offs or related issues the interviewers are looking for.
+Based on post-interview feedback, the interviewers seemed to look for the interviewee’s ability to clearly <em>communicate</em> to gather requirements, identify a problem, propose multiple approaches, discuss trade-offs, and making calculated decisions–ideally while demonstrating experiences in related, industry-standard tools and frameworks.</p>
+
+<!-- TODO: list more example questions -->
+
+<h2 id="preparing-for-core-concept-interviews">Preparing for core concept interviews</h2>
+
+<p>For me, a very few interviews involved asking about core (robotics) concepts; probably because I only made/pursued a very few research positions.
+Here I followed Bharath’s process and created a <a href="https://docs.google.com/document/d/1q3_Vu2BdXFafyGuRM4I1HHtWo-Gd041rvC04FytmG9U/edit?usp=sharing">basic ML &amp; robotics concepts list for myself</a>.
+For each algorithm, I asked the following four questions:</p>
+
+<ul>
+  <li>What is it?</li>
+  <li>How does it work? (time/space complexity?)</li>
+  <li>When do you use it?</li>
+  <li>What are the limitations? Practical considerations?</li>
+  <li>Anything else? (personal experiences and findings, etc.)</li>
+</ul>
+
+<h2 id="preparing-for-behavioral-interviews">Preparing for behavioral interviews</h2>
+
+<p>Bharath’s notes helped prepare behavioral interviews.
+One strategy I like to emphasize is tailoring stories for an interviewer or company.
+Tell stories about technical success stories to engineers, research success stories to researchers, leadership success stories to managers.</p>
+
+<h2 id="closing-notes">Closing notes</h2>
+
+<p>I want to re-emphasize the importance of sourcing many interview opportunities.
+My peers recommended doing this as one may not know whether a role is interesting until talking to people in the team (i.e., reading job descriptions are not enough).
+Another important factor in hindsight is timing.
+I considered job searching in May and June and I could not get any interviews.
+I got lucky and was able to delay the search for about 2 months and there were a day and night difference.
+Timing is something one may not have control over, but if you do, talk to many people (and use other resources) to see how many opportunities are/will be there in your job search time frame.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Earlier this year, I started to look for a job and one of my friends recommended this post written by Bharath, a former Uber ML engineer who also had to find a job earlier-er this year but in a much more stressful situation, i.e., within 60 days. The blog post was amazing. I basically followed the author’s process with some adjustments for myself, a human-robot interaction researcher who just finished grad school. In this post, I’ll talk about my job search experience and my adopted process based on Bharath’s process.]]></summary></entry><entry><title type="html">Understanding Challenges with Large Robotics System Development</title><link href="http://localhost:4000/2020/03/07/understanding.html" rel="alternate" type="text/html" title="Understanding Challenges with Large Robotics System Development" /><published>2020-03-07T08:00:00+00:00</published><updated>2020-03-07T08:00:00+00:00</updated><id>http://localhost:4000/2020/03/07/understanding</id><content type="html" xml:base="http://localhost:4000/2020/03/07/understanding.html"><![CDATA[<p><em>Originally posted on <a href="https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md">GitLab</a></em></p>
+
+<p>Robotics system development is hard. To understand causes for the robotics system development challenges, I interviewed a few robotics engineers who have been involved in large robotics projects and identified the following themes.</p>
+
+<h2 id="there-arent-many-performant-off-the-shelve-tools">There aren’t many performant off-the-shelve tools</h2>
+
+<p>As the field of robotics is not matured, it is not easy to find performance libraries for perception, manipulation, human-robot interaction that fits your needs. Many existing off-the-shelve code is research code and hence requires expert knowledge, e.g., a user needs to see through undocumented assumptions and limitations. Essentially, identifying whether they will be useful for your problem is an art of itself.</p>
+
+<h2 id="there-arent-many-generalist-robotics-systems-engineers">There aren’t many generalist robotics systems engineers</h2>
+
+<p>Although more robotics educational materials are becoming available, there are not many engineers who can design and implement large robotics systems. Many robotics engineers often focuses on one subfield of robotics engineering such as computer vision or control but does not have much experience with working with the whole system. On the other hands, good systems engineers are often lacks the robotics knowledge and treats robotics libraries as black boxes.</p>
+
+<h2 id="gathering-system-requirements-or-software-specifications-is-not-trivial">Gathering system requirements or software specifications is not trivial</h2>
+
+<p>A robotic system that interact with physical world is complicated and consequences of using such system in real world is hard to predict. This makes the gathering of system requirements or software specifications challenging. Therefore the system specifications are often underspecified which yields brittle or over-prepared systems.</p>
+
+<h2 id="maintenance-and-testing-are-challenging">Maintenance and testing are challenging</h2>
+
+<p>Often existing dev-ops tools are unfit for the robotics system development purposes. For example, robotics data collection, analysis, and visualization are different from those of web services. Testing is especially challenging since setting up a real-world testing environment is not trivial, e.g., a clean “reset” of the real robot testing environment is near impossible or time-consuming. Also, the simulators that are supposed to help with testing do not serve their purpose because of the gap between simulation and reality.</p>
+
+<p>Although the list above is based on a small number of interviews and my personal experience, I hope it to be used as a starting point for brainstorming for solutions. Please let me know if you see missing themes or any comments!</p>
+
+<h3 id="miscellaneous">Miscellaneous</h3>
+
+<ul>
+  <li><em>Sep, 2021. <a href="https://www.csc.gov.sg/articles/how-to-build-good-software">“How to Build Good Software”</a> - “Why Bad Software Happens to Good People” section felt relevant.</em></li>
+  <li><em>Apr, 2021. Found more related papers!</em>
+    <ul>
+      <li><em><a href="https://arxiv.org/ftp/arxiv/papers/2010/2010.14537.pdf">“State of the Practice and Guidelines for ROS-based System”</a></em></li>
+      <li><em><a href="https://arxiv.org/pdf/2004.07368.pdf">“A Study on the Challenges of Using Robotics Simulators for Testing”</a></em></li>
+    </ul>
+  </li>
+  <li><em>While I was writing this post, I learned about this excellent paper <a href="https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf">“State of the Practice and Guidelines for ROS-based System”</a> and discussions about the paper in <a href="https://discourse.ros.org/t/guidelines-on-how-to-architect-ros-based-systems/12641">the ROS Discourse</a>. The paper is focused on <a href="https://www.ros.org/">ROS</a> yet the high-level goals of it seem similar.</em></li>
+  <li><em>The study notes this article is based on are available in <a href="https://github.com/mjyc/robosysdev-notes">github</a> and <a href="https://gitlab.com/mjyc/robosysdev-notes">gitlab</a> repos</em></li>
+  <li><em>Thank you! to all those who participated in my interview studies</em></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry><entry><title type="html">Getting started with robotics: Just do it!</title><link href="http://localhost:4000/2019/12/15/getting.html" rel="alternate" type="text/html" title="Getting started with robotics: Just do it!" /><published>2019-12-15T08:00:00+00:00</published><updated>2019-12-15T08:00:00+00:00</updated><id>http://localhost:4000/2019/12/15/getting</id><content type="html" xml:base="http://localhost:4000/2019/12/15/getting.html"><![CDATA[<p>Getting started with robotics is confusing.
+Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it.
+For example, google searching “getting started with robotics” gives me the following top three results:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=uw-4K9joFL8">How To Start With Robotics? - YouTube</a></li>
+  <li><a href="http://robotsforroboticists.com/getting-started-kids-adults/">Robotics for Kids (and Adults) – Getting Started and How to Progress</a></li>
+  <li><a href="https://robots.ieee.org/learn/getting-started/">Getting Started in Robotics - ROBOTS: Your Guide to the World of Robotics</a></li>
+</ul>
+
+<p>They talk about learning skills related to the fields of mechanical engineering, electrical engineering, and computer science.
+At first, it just felt overwhelming.
+Reading each of them slowly again, they were great tutorials especially because they all shared one great message–“learn by doing projects” (<a href="https://www.amazon.com/Robotics-Project-Based-Approach-Lakshmi-Prayaga-ebook/dp/B00PG922M4">there was even a book named with a similar spirit</a>).</p>
+
+<p>I 100% agree with the message, I think people should learn robotics by doing projects.
+In fact, I recently shared <a href="https://github.com/mjyc/awesome-robotics-projects">my curated list of opensource (and other) robotics projects</a> for those who are interested in building robots.
+Because I’m a programmer by training, one additional suggestion I like to add is “start by working with a simulator”.
+Working with hardware is fun but it can be extremely time-consuming so by working with a simulator first you can feel out the robot and identify potential problems early.
+Projects like <a href="https://mushr.io/">MuSHR</a> and <a href="https://hackaday.io/project/164992-bobble-bot">bobble-bot</a> are great because they provide robot simulators as well as detailed instructions for building robots.
+<a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a> is another great entry point for learning about robotics algorithms.
+The repository contains provide tiny, simple environments for testing the algorithms which are great for learning purposes.
+Here is a list of <a href="https://www.ros.org/">ROS</a>-based simulators that I’ve curated in <a href="https://rds.theconstructsim.com/r/mchung/">ROS Development studio</a>, <a href="https://www.theconstructsim.com/rds-ros-development-studio/">a cloud service</a> that allows you to work on ROS projects in a browser.
+In a similar spirit, I encourage using a single board computer such as <a href="https://www.raspberrypi.org/">Raspberry Pi</a> or <a href="https://developer.nvidia.com/embedded/learn/tutorials">NVIDIA Jetson products</a> instead of using a microcontroller like <a href="https://www.arduino.cc/">Arduino</a>.
+Programming a microcontroller can be fun and it can allow you to develop a solution that is highly tailored to your use case, but for learning purposes, it can become a rabbit hole that prevents you from completing the project you started.
+However, if your goal is learning mechanical or electrical engineering my advice (rather opinions) is not for you.</p>
+
+<p>Finally, I believe getting involved with robotics communities is effective for learning.
+The below list could be good entry points for learning about software-focused robotics</p>
+
+<ul>
+  <li><a href="https://github.com/topics/robotics">github repos with #robotics tag</a></li>
+  <li><a href="https://discourse.ros.org/">ROS discourse</a></li>
+  <li><a href="https://foxglove.dev/blog">Foxglove blog</a></li>
+  <li><a href="https://picknik.ai/blog/">PICKNIK blog</a></li>
+  <li><a href="https://developer.nvidia.com/blog/tag/isaac-sim/">Isaac Sim Technical Blog</a></li>
+  <li><a href="https://www.duckietown.org/research/ai-driving-olympics">The AI Driving Olympics (AI-DO)</a></li>
+  <li><a href="https://www.balena.io/blog">Balena blog</a> - they provide less robotics and more IoT-centric contents</li>
+  <li><a href="https://getcruise.com/news">Cruise news</a></li>
+  <li><a href="https://github.com/mjyc/awesome-robotics-system-design">Awesome Robotics System Design</a> - where I keep interesting software-focused robotics stuff</li>
+</ul>
+
+<p>the list below for learning about electronics-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.sparkfun.com/news">sparkfun news</a></li>
+  <li><a href="https://blog.adafruit.com/">adafruit blog posts</a></li>
+</ul>
+
+<p>and the list below for learning about hardware-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.instructables.com/">instructables</a></li>
+  <li><a href="https://hackaday.com/">hackaday</a></li>
+  <li><a href="https://www.hackster.io/">hackster.io</a></li>
+  <li><a href="https://www.onshape.com/en/blog/">onshape blog</a> - <a href="https://hackaday.com/2021/02/28/onshape-to-robot-models-made-easier/">roboticsts love it</a></li>
+</ul>
+
+<p>This may be a bit off topic, but since people relate “robotics” with AI/ML computer science research, it might be fun to skim robotics-related papers in open paper review and curated paper list websites:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/">https://arxiv.org/</a></li>
+  <li><a href="https://openreview.net/">https://openreview.net/</a></li>
+  <li><a href="https://paperswithcode.com/">https://paperswithcode.com/</a> - one note: not all researchers are great coders/documenters.</li>
+  <li><a href="http://bohg.cs.stanford.edu/list/">http://bohg.cs.stanford.edu/list/</a></li>
+</ul>
+
+<p>Talking about skimming, it might be inspiring to skim the class materials from <a href="https://courses.cs.washington.edu/courses/cse478/20wi/">CSE 478: Autonomous Robotics</a>.
+Unlike many other class materials, their class slides provide application examples of introduced concepts with an open-source autonomous mobile robot platform <a href="https://mushr.io/">MUSHR</a>.</p>
+
+<p><strong>WARNING</strong> Reading papers and learning class materials can become yet another rabbit hole.
+There are endless interesting papers (on surface) or concepts (from class slides) and they can distract you from finishing your project.
+What happens is that because you feel achievement/growth and you get temped to keep learning.
+Being able to focus on the track and learn only necessary skills (and taking the project to the finish line–and defining the finish line) is a huge challenge/probably the most important skill to learn.</p>
+
+<p>With that said, go explore project ideas, check out robotics communities and start your project!
+I believe now is the time to learn about robotics and I hope this blurb can be helpful to aspiring roboticists.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Getting started with robotics is confusing. Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it. For example, google searching “getting started with robotics” gives me the following top three results:]]></summary></entry><entry><title type="html">Consumer Robots are Dead, Long Live DIY Robots!</title><link href="http://localhost:4000/2019/06/23/social.html" rel="alternate" type="text/html" title="Consumer Robots are Dead, Long Live DIY Robots!" /><published>2019-06-23T08:00:00+00:00</published><updated>2019-06-23T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/23/social</id><content type="html" xml:base="http://localhost:4000/2019/06/23/social.html"><![CDATA[<p>In the span of a year, we have witnessed the death of major consumer robot companies.
+What went wrong?
+Guy Hoffman, a robotics expert, <a href="https://spectrum.ieee.org/anki-jibo-and-kuri-what-we-can-learn-from-social-robotics-failures">provides a comprehensive summary</a> of possible reasons for the demise of the companies.
+To me, the problem was good old over-promise and under-deliver.
+I mean, just look at <a href="https://youtu.be/H0h20jRA5M0">this commercial</a> and look at <a href="https://youtu.be/xmntMiJ5zKs">a real robot</a>.
+But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind?
+I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few.
+Most of these robots are physically more capable than humans  and even emotionally as capable as humans[^1].
+After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like <a href="https://youtu.be/H0h20jRA5M0">this</a> and we get <a href="https://youtu.be/xmntMiJ5zKs">this</a>[^2].
+But I digress.</p>
+
+<p>Of course not all consumer robots are dead.
+We still have iRobot’s Roomba and Amazon’s Echo/Alexa–if you consider a voice-agent compatible smart speaker a robot.
+But for some reason, they don’t feel like a robot.
+I nearly gave up on trying to define what the “robot” is and advocating for <a href="https://twitter.com/mjyc_/status/1300898349529182208">not calling anything a “robot”</a>, partially to stop that cultural image of the “robot” mentioned earlier.
+But that didn’t work, e.g., I couldn’t stop using the word “robot”.
+So I made peace with considering a physical device (e.g., a mobile robot or robot manipulator) that is capable of complex sensing (e.g., computer vision), complex control (e.g., motion planning), and adaptation (e.g., machine learning) a “robot”.
+For example, I wouldn’t call industrial manipulators that pick things up from and place things in known locations but I would call a mobile rover that recognizes street signs and avoids pedestrians crossing a road a robot.</p>
+
+<p>Okay, so where do we go from here?
+Will we have a “robot” that we can use at home? what will it look like? what will it do?
+It’s likely that a big tech company will build something, but I say the time is now for rolling our sleeves up and building home robots ourselves!
+It might be difficult but I think it is possible.
+First, we need hardware.
+We can buy a kit like a TurtleBot or get an open hardware design from one of the Hackaday blog posts or design one from scratch on onshape, if you can.
+Second, we’ll need to add electronics.
+We can buy a Raspberry Pi or a super fancy GPU or TPU board from <a href="https://developer.nvidia.com/embedded/jetson-nano">NVidia</a> or <a href="https://coral.ai">Google</a>.
+I can’t work with microcontrollers but don’t let me stop you.
+Finally, software.
+There are opensource softwares like ROS, Nvidia Isaac, Apex Autoware, etc.</p>
+
+<p>What should we build?[^3]
+That’s a great question.
+My approach is reviewing my hobbies and asking how can I use robotics capabilities to make them more interesting.
+This usually boils down to adding capabilities like mobility, manipulability, or computer vision to existing things. I tried to build interactive or mobile decorations like interactive lights (e.g., changing ceiling light colors based on locations of detected people) and mobile pots (e.g., moving to different locations at different times).
+Another approach is starting from the problem, e.g., by asking what problem can I solve with robotics capabilities?
+This approach usually gets blocked by the current limitations of the robotics tech, but some people do come with clear solutions (e.g., limiting the scope of the problem, involving humans, etc.) to make progress.</p>
+
+<p>Honestly though, it isn’t easy to build homemade robots and making them actually useful is near-impossible for a hobbyist.
+Although robotics technology is advancing quickly, there are limitations that makes them not as reliable for real world use cases and hardware devices (e.g., high-quality motors) are still pretty expensive.
+So why did I suggest to build your own robot?
+I wanted the robot lovers to acknowledge the fact that we are building home robots because we just love doing so[^4] and you shouldn’t be discouraged by recent fallings of the robot companies.
+Long live DIY robots!</p>
+
+<p><br /></p>
+<h3 id="updates">Updates</h3>
+
+<ul>
+  <li>2023/05/06 Recently, I heard that <a href="https://techcrunch.com/2023/05/01/neato-robotics-is-being-shut-down-after-18-years/">Neato Robotics was shutting down</a>. Unlike other shutdown news (e.g., <a href="https://www.theverge.com/2023/2/24/23613214/everyday-robots-google-alphabet-shut-down">Everyday Robots shutdown</a>), this news was particularly shocking because I thought robot vacuums sell. Couple other observations since the first draft of this post: (1) new consumer/home robots were announced, e.g., <a href="https://labradorsystems.com/">Labrador</a>, <a href="https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other">Amazon Astro</a>, and <a href="https://www.tiktok.com/@arina.bloom/video/7221590486514027818">Matician Matic</a>, (2) there are many open-source or DIY autonomous RC car projects (e.g., <a href="https://f1tenth.org/">F1TENTH</a>, <a href="https://www.duckietown.org/">Duckiebot</a>, <a href="https://www.diyrobocars.com/">DIY Robocars</a>, <a href="https://aws.amazon.com/deepracer/">DeepRacer</a>, <a href="https://mushr.io/">MuSHR</a>, <a href="https://racecar.mit.edu/">MIT Racecar</a>) appeared, and (3) humanoid robot companies raised $$$, e.g., <a href="https://agilityrobotics.com/news/2022/future-robotics">Agility Robotics</a> and <a href="https://www.figure.ai/">Figure AI</a>.</li>
+</ul>
+
+<p><br /></p>
+<hr />
+
+<p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.
+<br />[^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
+<br />[^3] Also checkout <a href="https://generalrobots.substack.com/p/how-to-pick-a-problem">How to Pick a Problem</a>
+<br />[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Please help me building a cloud visual SLAM system for cellphones</title><link href="http://localhost:4000/2019/06/09/please.html" rel="alternate" type="text/html" title="Please help me building a cloud visual SLAM system for cellphones" /><published>2019-06-09T08:00:00+00:00</published><updated>2019-06-09T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/09/please</id><content type="html" xml:base="http://localhost:4000/2019/06/09/please.html"><![CDATA[<p><em>Originally published on <a href="https://dev.to/mjyc/please-help-me-building-a-cloud-visual-slam-system-for-cellphones-ine">Dev Community</a></em></p>
+
+<p>Hello hackers, tinkers, webdevs, sysdevs, roboticists, and all coders! I’ve been excited about <a href="https://en.wikipedia.org/wiki/Cloud_robotics">cloud robotics</a>, a field of robotics that utilizes the power of cloud computing, and want to share the excitement with you and suggest a project we can potentially work together. The project that I’m thinking of is “cellphone visual SLAMing”. The idea is to run a visual SLAM system on cloud so mobile devices like a cellphone can build 3D maps by simply uploading camera data to the cloud.</p>
+
+<p>Here are the steps I’m thinking:</p>
+
+<ol>
+  <li>Try creating a 3D map using <a href="https://github.com/raulmur/ORB_SLAM2">ORB_SLAM2</a> and desktop camera images.
+The main goal of this step is to get comfortable with a visual SLAM library and feel out the limitations.</li>
+  <li>Try creating 3D maps using ORB*SLAM2 running on a desktop and cellphone camera images.
+ORB_SLAM2 supports <a href="https://www.ros.org/">ROS</a>. So one can easily capture device camera images using <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">HTML5’s <code class="language-plaintext highlighter-rouge">MediaDevices.getUserMedia()</code></a>, turn them into ROS image messages, and publish them using <a href="https://github.com/RobotWebTools/roslibjs">roslibjs</a> so ORB_SLAM2 can use the images collected from a remote device.</li>
+  <li>Run the ORB_SLAM2 to cloud.
+I have not tried it, but it seems like it is fairly easy to <a href="https://docs.docker.com/samples/library/ros/">containerize a ROS package and deploy it on cloud</a>.</li>
+</ol>
+
+<p>That’s it! Are you interested in trying this idea out? If you have experiences with visual SLAM and have suggestions? Let me know, I’d love to hear your thoughts.</p>
+
+<p><br /></p>
+<h3 id="updates">Updates</h3>
+
+<ul>
+  <li><em>2021/01/02</em> I have moved on as I don’t get to spend time on tinkering but still think this is a fun project to try one day.</li>
+  <li><em>2020/11/23</em> <a href="https://fyusion.com/">Fyusion</a> and <a href="https://canvas.io/">CANVAS</a> seem to provide products with related technologies.</li>
+  <li><em>2020/05/02</em> It seems like <a href="github.com/izhengfan/se2lam">se2lam</a> could be used instead of ORB_SLAM2.</li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Originally published on Dev Community]]></summary></entry><entry><title type="html">Collaborating with Undergraduate Students as a Graduate Student in Research</title><link href="http://localhost:4000/2019/06/04/collaborating.html" rel="alternate" type="text/html" title="Collaborating with Undergraduate Students as a Graduate Student in Research" /><published>2019-06-04T08:00:00+00:00</published><updated>2019-06-04T08:00:00+00:00</updated><id>http://localhost:4000/2019/06/04/collaborating</id><content type="html" xml:base="http://localhost:4000/2019/06/04/collaborating.html"><![CDATA[<p>Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [<a href="https://homes.cs.washington.edu/~mernst/advice/undergrad-research.html">1</a>,<a href="https://www.cs.cornell.edu/~asampson/blog/undergrads.html">2</a>], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.</p>
+
+<h4 id="step-1-identify-your-goal">Step 1: Identify your goal.</h4>
+
+<p>First, you should clearly understand what do <em>you</em> want to get out by working with undergraduate students.
+Do you need some help on finishing up a small portion of your research project?
+Are you excited about your research topic and do you want to have someone else take a look at unexplored ideas?
+Do you want to accelerate the growth of your field by outreaching to undergraduate students?
+Whatever your goal is, you want to be clear about it so you can prepare an appropriate interview and collaboration strategies.</p>
+
+<p>Note that goals can be updated over time.
+Personally, I like to set my initial goal as getting help on a concrete and small subset of my project, then update the goal to help the student to become a researcher–if and only if such goal seems mutually beneficial.</p>
+
+<h4 id="step-15-find-a-student">Step 1.5: Find a student.</h4>
+
+<p>The easiest approach is doing nothing.
+In a University setting, motivated undergraduate students will email your advisor or you to get involved in a research project and you should be wanting to work with those motivated students.
+The obvious pro of this approach is that you don’t need to do anything.
+The downside is that you cannot control the timing and sometimes even the project topic you’ll be collaborating on.
+For example, your advisor may email you to work with a student who comes with their own funding and research topic over the summer.</p>
+
+<p>The second easiest approach is attending “undergraduate research fair” type events hosted by your department or University.
+This approach gives you more control in timing and the collaboration project topic but requires you to put some effort on preparing materials for the fair and more importantly, I found meeting a suitable or talented student hit-or-miss.</p>
+
+<p>The final approach is asking around.
+If you can elaborate kind of students you are looking for clearly, your peers or advisors can be helpful in finding a suitable student for you.
+Compare to the “attending research fairs” approach, this approach can help you find “the student” you are looking but with a low probability of actually finding one.</p>
+
+<p>I tend to take both the first and third approaches.
+The downside of the two approaches are having no control in the timing but if you have multiple projects going at different stages all the time, you always have a project to collaborate with, so timing becomes less of an issue than finding a talented, passion-sharing student.</p>
+
+<p>Finding a student requires you to have an interview strategy.
+For this topic, I highly recommend checking out Michael Ernst’s <a href="https://homes.cs.washington.edu/~mernst/advice/interviewing-undergraduates.html">“Tips for interviewing undergraduates for research”</a>.</p>
+
+<h4 id="step-2-identify-your-students-goal">Step 2: Identify your student’s goal.</h4>
+
+<p>Understanding your student’s goal is as important as understanding your own goal for a healthy collaboration relationship.</p>
+
+<p>From my experience, the most common motivation of the undergraduate students I’ve work with was getting exposed to robotics research.
+For the older students who are closer to graduate, they were also motivated by expanding their skill sets to make themselves more attractive to the companies they want to apply to.
+There were also some students who wanted to publish an academic paper before they apply to a graduate school to strengthen their application.</p>
+
+<p>I found that it is difficult to identify undergraduate students’ internal motivations from interviews alone.
+Most students do not fully understand what their own goals are or interests since they are not fully aware of what they really want or simply because they had not had much experience with robotics research.
+Therefore I like to plan the first collaboration project with a student as a “getting to know each other” project.
+However, if you don’t have time, e.g., working on a short term project, you will need to rely on your intuition on identifying students’ motivations.</p>
+
+<h4 id="step-3-start-collaborating">Step 3: Start collaborating.</h4>
+
+<p>Your collaboration strategies should be dependent on your and your student’s goals and the agreed collaboration duration.</p>
+
+<p>In general, I like to take a goal-driven collaboration strategy.
+For example, I set the goals for students and myself for a certain duration and work towards those goals while helping each other.
+This approach particularly worked well for me because by not giving them step-by-step instructions, the students show their original approaches for achieving the assigned project goals as well as their personality.
+The approach also allows me to see whether they can learn from demonstrations.
+Because we are collaborating, they see what I do to solve complex problems (or the problems that are unfamiliar to them) and give them chance to immediate my approach–if it makes sense.
+I focus on demonstrating high-level problem-solving strategies like clearly identifying underspecified goals, breaking down complex goals, and managing one’s time and attention span.
+Interestingly, over the years of trying out the goal-driven collaboration, I’ve learned a lot from the students as well.
+Many students I met had less experience with the field of robotics, however, some of them were just truly gifted human beings and I could learn a lot from their original way of handling the small research projects give to them.</p>
+
+<p>Sometimes, students are not ready to collaborate at all but you still want to or need to work with them.
+In such a case, I give them a small-scoped, independent project and observe what they do.
+I ask the following questions to myself to decide whether I want to work with the student for a longer-term:</p>
+
+<ul>
+  <li>Can they communicate?</li>
+  <li>Can they learn?</li>
+  <li>Can they apply the technical skill sets they claimed to have?</li>
+  <li>Do they find research interesting?</li>
+</ul>
+
+<p>How do you know your student is making progress?
+Look at what they do.
+They will demonstrate that they have learned the required skill by applying them properly.
+They will demonstrate that they are excited about the project by spending time on it over the weekend and by proactive contacting you to show what they have done.</p>
+
+<p>Regardless of taking the goal-driven collaboration approach or the giving independent project approach and because my goal for collaborating with students is getting them involved into the world of research, i.e., finding future peers, I like to give them a snapshot of the graduate student lifestyle by encouraging to participate in lab meetings, research seminars and discussions with peers.
+I also encourage them to present the potential impact of the collaboration project in their own words and encourage them to present their work as much as possible–at their class, lab meetings, or even at local meetups.
+If they don’t have much time to do research work, I encourage them to use the research project for their graduation requirements, e.g., a project for a project-oriented senior class or senior thesis.</p>
+
+<h4 id="step-4-say-goodbye">Step 4: Say goodbye.</h4>
+
+<p>Most times, students leave the project in less than six months; some graduate, move on to another project, or simply stop working on it.
+What about when things are going well?
+How do you know when to stop collaborating?
+Eventually, when to part away with your student will become obvious.
+They will naturally work more independently and even start identifying their own agendas and work towards them, e.g., by working with your advisor directly.
+That would be time to stop considering them as an “undergraduate” researcher and treat them like a peer researcher.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [1,2], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.]]></summary></entry><entry><title type="html">I hate robots that tell jokes</title><link href="http://localhost:4000/2019/03/11/hate.html" rel="alternate" type="text/html" title="I hate robots that tell jokes" /><published>2019-03-11T08:00:00+00:00</published><updated>2019-03-11T08:00:00+00:00</updated><id>http://localhost:4000/2019/03/11/hate</id><content type="html" xml:base="http://localhost:4000/2019/03/11/hate.html"><![CDATA[<p>I don’t like <a href="https://www.youtube.com/watch?v=kWlL4KjIP4M">robots that tell jokes</a>.
+Humor is a complex concept and I don’t think <a href="https://www.theatlantic.com/magazine/archive/2018/03/funny-how/550910/">humans fully understand how humor works</a>.
+So trying to make robots say something funny feels wrong.
+I don’t like <a href="https://www.youtube.com/watch?v=E1DuJQL8spY">robots that dance</a>.
+The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it.
+But we make them tell jokes or dance <a href="https://www.youtube.com/watch?v=poh5zSsd1rE&amp;t=3s">again</a>, <a href="https://www.youtube.com/watch?v=am1csALyEzE">again</a>, <a href="https://www.youtube.com/watch?v=r2SDVQCzQoA">again</a>, <a href="https://www.youtube.com/watch?v=LiTGaacQ7Og">again</a>, and <a href="https://www.youtube.com/watch?v=kHBcVlqpvZ8&amp;t=1s">again</a>.</p>
+
+<p>Why?</p>
+
+<p><br /></p>
+<h3 id="updates">Updates</h3>
+
+<ul>
+  <li><em>2021/01/06</em> I found <a href="https://jessicarajko.medium.com/dancing-robots-are-not-about-dance-waiving-goodbye-to-2020-and-popular-exploitations-of-dance-961f57d3ee4c">“These Dancing Robots Are Not About Dance: waiving goodbye to 2020 and popular exploitations”</a> by Jessica Rajko. It helped me understand where my hatred is coming from.</li>
+  <li><em>2021/01/03</em> There was (yet another) robot dancing <a href="https://www.youtube.com/watch?v=fn3KWM1kuAw">video</a> posted from Boston Dynamics. I was amazed at Boston Dynamics’ technical achievement but something still bothered me.</li>
+  <li><em>2019/11/30</em> Then there are portrait drawing robots [<a href="https://www.youtube.com/watch?v=gG_pzgfeESs">1</a><a href="https://www.youtube.com/watch?v=IKx49hjHDGc">2</a>], which we humans have been building since <a href="https://en.wikipedia.org/wiki/">1768</a>.</li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[I don’t like robots that tell jokes. Humor is a complex concept and I don’t think humans fully understand how humor works. So trying to make robots say something funny feels wrong. I don’t like robots that dance. The robots are not as agile as we humans and every time I see dancing robots, they look like they don’t want to dance but were forced to do it. But we make them tell jokes or dance again, again, again, again, and again.]]></summary></entry></feed>
