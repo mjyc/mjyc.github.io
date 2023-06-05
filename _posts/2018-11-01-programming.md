@@ -2,6 +2,7 @@
 layout: post
 title: "Programming a social robot using Cycle.js"
 date: 2018-11-01 00:00:00 -0800
+tags: ["#tutorial", "#programming"]
 ---
 
 > **Note:** Check out other posts on programming a social robot using Cycle.js too:
