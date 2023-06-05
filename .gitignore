@@ -1,7 +1,6 @@
-_site
-.sass-cache
-.jekyll-metadata
 .bundle
+.devcontainer
+.jekyll-metadata
+.sass-cache
+_site
 vendor
-
-tmp.txt
