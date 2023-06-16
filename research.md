@@ -4,7 +4,7 @@ title: research
 permalink: /research/
 ---
 
-I graduated from the University of Washington in 2020.
+I received my Ph.D. from [University of Washington](https://www.cs.washington.edu/).
 Here is my [recorded dissertation](https://youtu.be/pTml6yEIjcw) and [CV]({{ site.baseurl }}/assets/pdfs/Curriculum%20Vitae%20-%20Michael%20Jae-Yoon%20Chung.pdf).
 
 My research in graduate school was on human-robot interaction.
