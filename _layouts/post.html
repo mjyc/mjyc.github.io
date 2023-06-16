@@ -24,13 +24,13 @@ layout: default
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
+    {%- if site.utterances.repo and page.comments -%}
+      {% include utterances.html -%}
+    {%- endif -%}
   </div>
 
   {%- if site.disqus.shortname -%}
     {%- include disqus_comments.html -%}
-  {%- endif -%}
-  {%- if site.utterances.repo -%}
-    {% include utterances.html -%}
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>

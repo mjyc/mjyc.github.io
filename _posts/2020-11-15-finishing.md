@@ -85,7 +85,8 @@ This note might change the perspective/legitimacy of all tricks I mentioned abov
 
 
 <br>
-<hr>
+
+#### Footnotes
 
 [^1] This trick was somewhat inspired by [GIST Planning](https://www.productplan.com/glossary/gist-planning/) and [Startup Engineering](https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf).
 <br>[^2] [The Eisenhower matrix](https://www.google.com/search?q=Eisenhower+Matrix&tbm=isch) is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn't trivial and hence had a similar problem.
