@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-05T20:13:07+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><subtitle></subtitle><entry><title type="html">(upcoming) Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="(upcoming) Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-17T20:18:53+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">(upcoming) Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="(upcoming) Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<blockquote>
   <p>This post is in work-in-progress.
 Please check back for updates!</p>
 </blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#software-engineering" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">(upcoming) Transferring HRI research skills++ to the industry/Getting started at work</title><link href="/2022/05/30/transferring.html" rel="alternate" type="text/html" title="(upcoming) Transferring HRI research skills++ to the industry/Getting started at work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transferring</id><content type="html" xml:base="/2022/05/30/transferring.html"><![CDATA[<blockquote>
@@ -132,14 +132,24 @@ It’s possible for a No-Code tool can expose a high-level grammar, but I haven�
 
 <p>I wrote this post to share the idea that I’m excited about–the grammar of robot applications–in its very early form to encourage readers to consider designing a grammar/DSL/declarative specification approach when building their next robot programming tool.
 But this post wasn’t just about that.
-I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches when their hard (robotics) problems–if makes sense.</p>
+I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches–if makes sense.</p>
+
+<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+
+<ul>
+  <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
+  <li>Do you have any robotics (application) problems that would benefit from introducing a DSL?</li>
+</ul>
+
+<p>I’d love to hear your thoughts.</p>
 
 <p><br /></p>
-<hr />
+
+<h4 id="footnotes">Footnotes</h4>
 
 <p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares my explorations regarding developer tools that didn’t make into my thesis.
 <br />[^2] For more insights, see <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
-<br />[^3] To this end, I prototyped <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">a higher-level DSL</a> and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">a program synthesizer</a>.
+<br />[^3] To this end, I prototyped <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">a higher-level DSL</a> (or an <a href="https://martinfowler.com/dsl.html">external DSL</a>) and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">a program synthesizer</a>.
 <br />[^4] <a href="https://youtu.be/Uo3cL4nrGOk">JavaScript isn’t everyone’s favorite</a>, but I agree that the <a href="https://twitter.com/swyx/status/1505547960808972295">frontend tooling built in JavaScript offers amazing developer experience</a>.
 <br />[^5] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
 </a> and <a href="https://youtu.be/f5EpcWp0THw">What is GitOps, How GitOps works and Why it’s so useful
@@ -149,27 +159,26 @@ I shared my observations on the challenges associated with robot application pro
 <br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
 <br />[^9] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
-<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><category term="#research" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Testing robotics systems</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<figure>
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><category term="#research" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Testing robotics systems in fast-paced startups</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems in fast-paced startups" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<figure>
   <img src="https://live.staticflickr.com/195/506281600_a68f821d33_c.jpg" width="480px" />
   <figcaption>Starcraft II, Photo by <a href="https://www.flickr.com/photos/tirrell/">Zach Tirrell</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 
 <p>Testing robotics systems is hard.
-Based on my experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS involving fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty are as follows:</p>
+Based on my limited experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS using fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty were as follows:</p>
+
 <ol>
   <li><em>Edge cases and corner cases in production environments.</em></li>
   <li><em>The difficulty of using simulation.</em></li>
   <li><em>Challenges with adopting automation.</em></li>
 </ol>
 
-<p>To address some of these challenges, I’ve developed the following strategies:</p>
-<ol>
-  <li><em>Looking for loose/implicit contracts.</em></li>
-  <li><em>Tracking interface and service boundaries.</em></li>
-  <li><em>(Re)designing with automation in mind.</em></li>
-</ol>
+<p>To address some of these challenges, I’ve developed the following approaches[^1]:</p>
 
-<p>Let’s dive deeper into these[^1].</p>
+<ol>
+  <li><em>Prioritization framework for creating tests.</em></li>
+  <li><em>Procedure for identifying what to test.</em></li>
+</ol>
 
 <h2 id="why-is-testing-robotics-systems-hard">Why is testing robotics systems hard?</h2>
 
@@ -185,10 +194,10 @@ Based on my experience working at startups with fewer than 200 employees and few
   Characterizing such instances is difficult and algorithm-dependent, which complicates the testing setup.</li>
   <li><em>Rare hardware issues.</em>
   Rare hardware issues that are not (directly) detectable are the worst, such as a small damage in the robot cell structure that requires adjusting the collision map.
-  Anticipating them requires input from domain experts (mechanical or firmware engineers who may not be easily accessible and speak different jargons), and reproducing them often requires changing interfaces, which can be expensive (becomes yet another layer to maintain).</li>
+  Anticipating such issues requires input from domain experts (e.g., mechanical or firmware engineers), who may not be easily accessible and speak different jargons and reproducing them often requires changing interfaces, which can be expensive (e.g., it becomes yet another layer to maintain).</li>
   <li><em>Subtle regression.</em>
   The complexity of robotics systems makes it challenging to establish a robust <a href="https://katalon.com/resources-center/blog/regression-testing">regression testing</a> pipeline.
-  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a> is difficult and hence elusive bugs slip back into the production code.
+  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a>[^2] is difficult and hence elusive bugs slip back into the production code.
   Performance regressions are particularly challenging, as they are subtle and require expensive measures such as repeated end-to-end tests and delicate statistical methods to detect.</li>
 </ul>
 
@@ -199,12 +208,12 @@ Based on my experience working at startups with fewer than 200 employees and few
   I find that simulation testing is most useful for end-to-end testing of robot applications.
   However, I often encounter test cases that would benefit from using other tools and techniques (e.g., for efficiency).
   All too frequently, I come across test cases for robot behaviors (e.g., implemented in finite state machine or behavior tree) that use simulation, making the test cases much more expensive than they need to be.
-  In such cases, using alternatives like <a href="https://martinfowler.com/bliki/TestDouble.html">fake</a> or <a href="https://www.educative.io/answers/what-is-model-based-testing">model-based testing</a>[^2] would be much more efficient, as they can be used to only “simulate” the directly relevant modules[^3].
-  This often stems from organizational issues, such as unclear boundaries between teams that result in poorly defined interfaces and testing strategies or more typical insufficient allocation of time for testing/addressing technical debts (e.g., in favor of prioritizing other deliverables).</li>
+  In such cases, using alternatives like <a href="https://martinfowler.com/bliki/TestDouble.html">fake</a> or <a href="https://www.educative.io/answers/what-is-model-based-testing">model-based testing</a>[^3] would be much more efficient, as they can be used to only “simulate” the directly relevant modules[^4].
+  This often stems from organizational issues, such as unclear boundaries between teams that result in poorly defined interfaces and testing strategies[^5] or more typical insufficient allocation of time for testing/addressing technical debts (e.g., in favor of prioritizing other deliverables).</li>
   <li><em>Generating test cases.</em>
   Even with simulation libraries that provide high-level interfaces for building scenarios, creating effective test scenarios is challenging.
-  Creating a single simulated environment for end-to-end testing alone is laborious enough, so diversifying the test scenarios (e.g., to cover extreme cases) becomes a nice-to-have[^4].
-  There are commercial products that address this issue (e.g., <a href="https://aws.amazon.com/blogs/aws/aws-announces-worldforge-in-aws-robomaker/">AWS RoboMaker WorldForge</a>), but they are not easy for smaller organizations to integrate due to reasons such as integration cost, vendor lock-in, etc.</li>
+  Creating a single simulated environment for end-to-end testing alone is laborious enough, so diversifying the test scenarios (e.g., to cover extreme cases) becomes a nice-to-have[^6].
+  There are commercial products that address this issue (e.g., <a href="https://aws.amazon.com/blogs/aws/aws-announces-worldforge-in-aws-robomaker/">AWS RoboMaker WorldForge</a>), but they are not easy for smaller organizations (i.e., startups) to integrate due to reasons such as integration cost, vendor lock-in, etc.</li>
   <li><em>Expressing specifications.</em>
   Specifications for many robotics programs, e.g., those involving perception, motion planning, and behaviors, are difficult to express due to their spatiotemporal nature.
   This leads to verbose and unorganized (e.g., containing duplicates) test code, which makes it difficult to maintain and scale.</li>
@@ -233,65 +242,83 @@ Based on my experience working at startups with fewer than 200 employees and few
   While the Robot-Operating System (ROS) and the communities around it have made significant progress in this regard, the lack of standards still seems to be a significant problem in organizations.</li>
 </ul>
 
-<h2 id="what-do-we-do">What do we do?</h2>
+<h2 id="where-to-start">Where to start</h2>
 
-<blockquote>
-  <p>The remainder of this post is a work in progress.
-Please check back for updates!</p>
-</blockquote>
-
-<p>Here are my strategies.</p>
-
-<h3 id="unit-and-property-based-testing">Unit and property-based testing</h3>
-
-<p>Robotics systems often consist of layers of application programming interfaces (APIs).
-While it is difficult to test the lowest-level API like a ROS hardware driver, but everything above can be tested by simulating responses from a lower-layer API using any unit testing framework such as unittest (python), jest (javascript), gtest (C++).
-For example, one could test perception algorithms like tabletop pose detector by simulating input images or point clouds via previously stored data (e.g., benchmark data) or algorithmically generated data.
-The testing approach of algorithmically generating data is interesting because it allows <a href="https://medium.com/criteo-labs/introduction-to-property-based-testing-f5236229d237">property-based testing</a>, i.e., generating test cases[^1][^2].
-This requires designing (simple) environment generation algorithms but one could simply use existing algorithms like the ones available in <a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a>.
-The key ideas are (1) testing small and independent layers of APIs using (2) algorithmically generated inputs that one could also easily compute expected outputs.</p>
-
-<p>[^1] inspired by model-based UI testing frameworks <br />
-[^2] Zhoulai Fu and Francisco Martinez Lasaca gave a talk “Experiences with Fuzz Testing ROS Component” that covered a similar approach “fuzz testing” and shared <a href="https://ros2-fuzzer.readthedocs.io/en/latest/">their code</a></p>
-
-<h3 id="sequential-property-based-testing">Sequential property-based testing</h3>
-
-<p>Many robotics algorithms work with sequential data.
-For example, think of state estimation, control, motion planning algorithms.
-Out of the box, property-based testing tools do not provide creating sequential data.
-So the first step to testing time-dependent algorithm is updating property-based testing tools to be able to generate sequential random data.
-Creating a sequential sampler that does not dependent on the outputs of testing algorithms is easy (e.g., inputs for state estimation algorithms) but otherwise, one requires to create reactive environments using existing tools like combinators.
-At this point, basically one requires to build a tiny simulation environment.
-While this sounds daunting, it’s actually not thanks to many existing physics simulation libraries and game programming design patterns (e.g., entity-component systems, etc.).</p>
-
-<p>The second problem is verifying test cases over time.
-For example, one might want to check whether the outputs of a state estimation algorithm ever return <code class="language-plaintext highlighter-rouge">null</code> or test if a motion planning algorithm ever returns an invalid pose.
-I like to use <a href="https://en.wikipedia.org/wiki/Linear_temporal_logic">linear temporal logic (LTL)</a> to verify such temporal properties due to the LTL’s simplicity.
-There are some subtleties of using LTLs with property-based testing tools and I’ll elaborate on those in the future (if I find more time).</p>
-
-<h3 id="physical-integration-testing">Physical integration testing</h3>
-
-<p>Like everything robotics, one must test programs with the real robots in real world at some point.
-One approach is integrating continuous integration testing with real robots.
-There was <a href="https://roscon.ros.org/2016/presentations/PhysicalContinuousIntegrationSlides.pdf">a great talk</a> about this topic from fetch regarding this topic.
-<a href="https://youtu.be/SzHw2PIEIKQ">A more recent talk about AWS Robomaker</a> also touches on this topic, too.</p>
-
-<h2 id="closing-meme">Closing meme</h2>
-
-<p>Testing is important but being ultra-selective about which code to add to a repository is also important because maintenance is hard.</p>
+<p>In fast-paced robotics startups that build complex systems, creating comprehensive test suites that cover all major failure scenarios is impossible.
+To produce high-impact tests within the time budget, I use my adopted <a href="https://www.eisenhower.me/eisenhower-matrix/">Eisenhower Matrix</a> to prioritize a list of failure scenarios by first categorizing (potential) failure scenarios according to their (expected) frequency and risk.</p>
 
 <figure>
-  <img src="https://raw.githubusercontent.com/dominictarr/push-streams-talk/master/meme.png" />
-  <figcaption>source: https://github.com/dominictarr/push-streams-talk</figcaption>
+  <img src="/assets/imgs/mcmatrix.png" width="480px" />
 </figure>
 
-<p><br /></p>
-<hr />
+<ol>
+  <li><em>First Quadrant (upper left): frequent and high-risk.</em>
+ In Quadrant 1 (Q1), I place failure scenarios that need to be covered immediately, e.g., that I hear all the time from internal communication channels, such as introducing breaking changes to APIs and dependencies.</li>
+  <li><em>Second Quadrant (upper right): frequent and medium-risk.</em>
+ In Quadrant 2 (Q2), I place failure scenarios that occur frequently but allow continued operations with short downtime like unreliable hardware or unresponsive user interface issues with well-established alerts and recovery procedures.</li>
+  <li><em>Third Quadrant (lower left): infrequent and high-risk.</em>
+ In Quadrant 3 (Q3), I place failure scenarios that occur rarely but causes significant disruption in operations such as core robotics component failure scenario or unexpected peak usage pattern.</li>
+  <li><em>Fourth Quadrant (lower right): infrequent and medium-risk.</em>
+ In Quadrant 4 (Q4), I place failure scenarios that occur relatively infrequently and allow continued operations.</li>
+</ol>
 
-<p>[^1] The identified challenges and my strategies may not work well in other settings, such as testing in robotics companies that are much smaller (i.e., &lt; 10 employees) or much bigger (i.e., &gt; 1000 employees), or involving a different product, such as an autonomous vehicle-based ride-hailing service or an autonomous-based inspection service.
-<br />[^2] For code examples, see <a href="https://hypothesis.readthedocs.io/en/latest/stateful.html">Stateful testing</a> (Python) or <a href="https://medium.com/criteo-engineering/detecting-the-unexpected-in-web-ui-fuzzing-1f3822c8a3a5">Detecting the unexpected in (Web) UI</a> (JavaScript).
-<br />[^3] <a href="https://martinfowler.com/">Martin Fowler</a> makes a similar point in <a href="https://martinfowler.com/bliki/IntegrationTest.html">IntegrationTest</a> (see “Using this combination of …”) and discusses a related issue in <a href="https://martinfowler.com/articles/2021-test-shapes.html">On the Diverse And Fantastical Shapes of Testing</a>, which is related to my point in the following sentence above (“This often stems …”).
-<br />[^4] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">“Scenic: a language for scenario specification and scene generation”</a>.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[Starcraft II, Photo by Zach Tirrell on flickr]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
+<p>The placement of example failure scenarios in quadrants will differ across companies.
+For instance, depending on the maturity of the robot product/prototype or the amount of time invested by the engineering team in designing the system, an unreliable hardware failure scenario may belong in Q1 (e.g., if it is causing multiple issues) or a robotics algorithms failure scenario may belong in Q2 (e.g., if the failure is not catastrophic or easily recoverable).
+In general, I create or improve tests for one quadrant at a time, in increasing order.
+After working on tests for Q1, I move on to tests for Q2 before addressing those for Q3.
+This is because creating tests for Q3 requires a significant time investment, for example, to ensure the reproducibility of the failure.
+Usually, there is no time available to work on tests for Q4.
+But adjustments should be made to meet company-specific requirements and constraints.</p>
+
+<p>So far, I have assumed that the failure scenarios to test are known; however, this is usually not the case.
+To determine what to test, I follow these steps:</p>
+
+<ol>
+  <li><em>Gain access to internal alerts, dashboards, and logs.</em>
+ Investigating recently reported problems or analyzing the latest trends using monitoring tools[^8] is the easiest way to identify high-risk failure scenarios.
+ If monitoring tools are not set up (e.g., in smaller companies), I get involved in operations work, which is another way to uncover potential high-value tests to create.</li>
+  <li><em>Identify interface and service boundaries.</em>
+ Understanding how software components interact with each other provides insights into potential integration failures and their impact.
+ I start by looking for internal documentation with system diagrams (or examining the codebase and creating them if such diagrams don’t exist) and ask questions such as: which interactions must not fail? which interactions are changing frequently?
+ Such exercises reveal missing must-have contract tests or high-impact opportunities to improve integration tests.</li>
+  <li><em>Identify implicit dependencies.</em>
+ I consider edge cases such as low resources, unexpected hardware states, or unseen inputs to robotics algorithms (e.g., those that crash applications) as unmet runtime dependencies.
+ Taking this view nudges me to specify these not-well-understood requirements for keeping the system (or “implicit dependencies”) well-behaving as explicitly and clearly as possible.
+ Once defined, such requirements can be used to create extreme failure scenarios to test.</li>
+</ol>
+
+<h2 id="closing-notes">Closing notes</h2>
+
+<p>In this post, I listed the challenges of testing robotics systems in fast-paced startups and shared my approaches to getting started with testing work.
+However, my approaches don’t address the challenges of using simulations and adopting automation because I still need more insights.
+I plan to update them down the road.</p>
+
+<p>In the meantime, let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+
+<ul>
+  <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
+  <li>Do you have any test-related war stories or effective testing strategies you’d like to share?</li>
+</ul>
+
+<p>I’d love to hear your thoughts.</p>
+
+<p><br /></p>
+
+<h4 id="significant-revisions">Significant Revisions</h4>
+
+<ul>
+  <li><em>2022/05/28</em>: Rewrote the whole post</li>
+</ul>
+
+<h4 id="footnotes">Footnotes</h4>
+
+<p>[^1] The identified challenges and my approaches may not generalize to other settings, such as testing in robotics companies that are much smaller (i.e., &lt; 10 employees) or much bigger (i.e., &gt; 1000 employees), or involving a different product, such as an autonomous vehicle-based ride-hailing service or an autonomous-based inspection service. For example, I don’t have much experience with testing robotics systems that make heavy use of <a href="https://getcruise.com/news/blog/2020/cruises-continuous-learning-machine-predicts-the-unpredictable-on-san/">machine learning</a> or <a href="https://docs.ros.org/en/iron/index.html">real-time programming</a>.
+<br />[^2] See also <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">The Rise of Test Impact Analysis</a> by Martin Fowler.
+<br />[^3] For code examples, see <a href="https://hypothesis.readthedocs.io/en/latest/stateful.html">Stateful testing</a> (Python) or <a href="https://medium.com/criteo-engineering/detecting-the-unexpected-in-web-ui-fuzzing-1f3822c8a3a5">Detecting the unexpected in (Web) UI</a> (JavaScript).
+<br />[^4] Check out <a href="https://martinfowler.com/bliki/IntegrationTest.html">IntegrationTest</a> by Martin Fowler for related discussion, e.g., about narrow and broad integration tests.
+<br />[^5] Check out <a href="https://martinfowler.com/articles/2021-test-shapes.html">On the Diverse And Fantastical Shapes of Testing</a> (at least the last paragarph starting with “If you’re paying my careful prose …”) by Martin Fowler for related discussion.
+<br />[^6] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">“Scenic: a language for scenario specification and scene generation”</a>.
+<br />[^7] See also <a href="https://twitter.com/GergelyOrosz/status/1665340939529773057">this twit thread</a> from Gergely Orosz.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[Starcraft II, Photo by Zach Tirrell on flickr]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
 As much as I was euphoric about my son’s arrival, reality hit me hard.
 I was not ready.
 It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.</p>
@@ -370,7 +397,8 @@ Yet, I’m working on this blog post while watching my son at a playground.</p>
 This note might change the perspective/legitimacy of all tricks I mentioned above.</p>
 
 <p><br /></p>
-<hr />
+
+<h4 id="footnotes">Footnotes</h4>
 
 <p>[^1] This trick was somewhat inspired by <a href="https://www.productplan.com/glossary/gist-planning/">GIST Planning</a> and <a href="https://spark-public.s3.amazonaws.com/startup/lecture_slides/lecture5-market-wireframing-design.pdf">Startup Engineering</a>.
 <br />[^2] <a href="https://www.google.com/search?q=Eisenhower+Matrix&amp;tbm=isch">The Eisenhower matrix</a> is a great task prioritization technique, however, in my experience, applying the technique in practice, specifically, classifying tasks clearly into one of 4 slots, wasn’t trivial and hence had a similar problem.
@@ -481,7 +509,9 @@ Timing is something one may not have control over, but if you do, talk to many p
 
 <p>Although the list above is based on a small number of interviews and my personal experience, I hope it to be used as a starting point for brainstorming for solutions. Please let me know if you see missing themes or any comments!</p>
 
-<h3 id="miscellaneous">Miscellaneous</h3>
+<p><br /></p>
+
+<h4 id="miscellaneous">Miscellaneous</h4>
 
 <ul>
   <li><em>Sep, 2021. <a href="https://www.csc.gov.sg/articles/how-to-build-good-software">“How to Build Good Software”</a> - “Why Bad Software Happens to Good People” section felt relevant.</em></li>
@@ -614,14 +644,14 @@ I wanted the robot lovers to acknowledge the fact that we are building home robo
 Long live DIY robots!</p>
 
 <p><br /></p>
-<h3 id="updates">Updates</h3>
+
+<h4 id="updates">Updates</h4>
 
 <ul>
-  <li>2023/05/06 Recently, I heard that <a href="https://techcrunch.com/2023/05/01/neato-robotics-is-being-shut-down-after-18-years/">Neato Robotics was shutting down</a>. Unlike other shutdown news (e.g., <a href="https://www.theverge.com/2023/2/24/23613214/everyday-robots-google-alphabet-shut-down">Everyday Robots shutdown</a>), this news was particularly shocking because I thought robot vacuums sell. Couple other observations since the first draft of this post: (1) new consumer/home robots were announced, e.g., <a href="https://labradorsystems.com/">Labrador</a>, <a href="https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other">Amazon Astro</a>, and <a href="https://www.tiktok.com/@arina.bloom/video/7221590486514027818">Matician Matic</a>, (2) there are many open-source or DIY autonomous RC car projects (e.g., <a href="https://f1tenth.org/">F1TENTH</a>, <a href="https://www.duckietown.org/">Duckiebot</a>, <a href="https://www.diyrobocars.com/">DIY Robocars</a>, <a href="https://aws.amazon.com/deepracer/">DeepRacer</a>, <a href="https://mushr.io/">MuSHR</a>, <a href="https://racecar.mit.edu/">MIT Racecar</a>) appeared, and (3) humanoid robot companies raised $$$, e.g., <a href="https://agilityrobotics.com/news/2022/future-robotics">Agility Robotics</a> and <a href="https://www.figure.ai/">Figure AI</a>.</li>
+  <li><em>2023/05/06</em> Recently, I heard that <a href="https://techcrunch.com/2023/05/01/neato-robotics-is-being-shut-down-after-18-years/">Neato Robotics was shutting down</a>. Unlike other shutdown news (e.g., <a href="https://www.theverge.com/2023/2/24/23613214/everyday-robots-google-alphabet-shut-down">Everyday Robots shutdown</a>), this news was particularly shocking because I thought robot vacuums sell. Couple other observations since the first draft of this post: (1) new consumer/home robots were announced, e.g., <a href="https://labradorsystems.com/">Labrador</a>, <a href="https://www.aboutamazon.com/news/devices/meet-astro-a-home-robot-unlike-any-other">Amazon Astro</a>, and <a href="https://www.tiktok.com/@arina.bloom/video/7221590486514027818">Matician Matic</a>, (2) there are many open-source or DIY autonomous RC car projects (e.g., <a href="https://f1tenth.org/">F1TENTH</a>, <a href="https://www.duckietown.org/">Duckiebot</a>, <a href="https://www.diyrobocars.com/">DIY Robocars</a>, <a href="https://aws.amazon.com/deepracer/">DeepRacer</a>, <a href="https://mushr.io/">MuSHR</a>, <a href="https://racecar.mit.edu/">MIT Racecar</a>) appeared, and (3) humanoid robot companies raised $$$, e.g., <a href="https://agilityrobotics.com/news/2022/future-robotics">Agility Robotics</a> and <a href="https://www.figure.ai/">Figure AI</a>.</li>
 </ul>
 
-<p><br /></p>
-<hr />
+<h4 id="footnotes">Footnotes</h4>
 
 <p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.
 <br />[^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
@@ -644,7 +674,8 @@ I have not tried it, but it seems like it is fairly easy to <a href="https://doc
 <p>That’s it! Are you interested in trying this idea out? If you have experiences with visual SLAM and have suggestions? Let me know, I’d love to hear your thoughts.</p>
 
 <p><br /></p>
-<h3 id="updates">Updates</h3>
+
+<h4 id="updates">Updates</h4>
 
 <ul>
   <li><em>2021/01/02</em> I have moved on as I don’t get to spend time on tinkering but still think this is a fun project to try one day.</li>
