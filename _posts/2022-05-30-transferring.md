@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Transferring HRI research skills to the industry"
+title: "Transferring HRI research skills to the industry/Getting started with work"
 date: 2022-05-30 00:00:00 -0800
 updated: 2023-06-03 00:00:00 -0800
 tags: ["#research"]
+comments: true
 ---
 
 <figure>
@@ -11,9 +12,9 @@ tags: ["#research"]
   <figcaption>A self driving car</figcaption>
 </figure>
 
-<!-- ## Part 1 -->
+## Part 1
 
-[My research](/research) in graduate school was on human-robot interaction (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw).
+[My research](/research) in graduate school was on [human-robot interaction](https://homes.cs.washington.edu/~todorov/courses/cseP590/07_HRI.pdf) (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw).
 Unlike other research fields like robotic perception or motion planning & control, companies did not know what HRI was and weren't sure how I could fit into their organization or which role I could take.
 I realized that my colleagues who also focused on HRI had similar problems.
 
@@ -73,12 +74,50 @@ After spending some time in a couple of robotics startups and observing my colle
     The related roles I've seen are usually focused on technical HRI research, such as working on new algorithms or computational methods supporting human-robot interaction.
 
 I wish [Leila Takayama's HRI2022 keynote talk](https://dl.acm.org/doi/10.5555/3523760.3523762) is available somewhere.
-She shares great advices on this topic in her keynote talk.
-Another blog post I like is [How to Work in Robotics When You're Not a Roboticist](https://foxglove.dev/blog/how-to-work-in-robotics-when-youre-not-a-roboticist) from [foxglove](https://foxglove.dev/), a robot data infra & visualization company.
-It gives another perspective on how to find a role you might like.
+She shares great advice on this topic in her keynote talk.
+Another blog post I like is [How to Work in Robotics When You're Not a Roboticist](https://foxglove.dev/blog/how-to-work-in-robotics-when-youre-not-a-roboticist) from [foxglove](https://foxglove.dev/), a robot data infrastructure and visualization company.
+It offers another perspective on how to find a role you might like.
+(WARNING: shameless self-advertisement) Finally, check out [awesome-hri-papers-for-industry](https://github.com/mjyc/awesome-hri-papers-for-industry).
+I believe the HRI papers in the awesome list demonstrate that HRI skills are transferrable to the industry.
 
 
-<!-- ## Part 2 -->
+## Part 2
+
+I did not do internship at tech companies when I was undergraduate, so I didn't know what it was like to work at a tech company.
+Here are things I picked up over the years.
+
+I realized what I wanted were:
+
+1. Working on high-impact problems
+1. Working effectively with my team / making each other more productive
+
+Here are the steps I used:
+1. understand the organization.
+    Which team is in charge of what?
+    How do teams work together?
+    Understanding the org structure allowed me to focus on essential tasks.
+1. Understand how decisions are being made.
+    Who decide what I work on daily? What influence such decisions makers? How does decision making across organization structure?
+    <!-- Who are the stakeholders? what's the path?--Who is deciding what I work on daily, who makes/part takes decision on that, etc. -->
+    Understanding this help me to communicate with right people to collect information or get feedback on idea.
+1. Understand the company's business model
+    How do they make money?
+    Which teams are core to the (current and future) business model?
+
+Couple techniques to ...
+    
+
+## Lastly
+
+Let me know what your thoughts in below the comments section!
+
+- Was this post (not) useful for you? Which part was especially (not) useful?
+- Do you have any insights on the topics discussed here? Any insights you strongly (dis)agree?
+- Anything else?
+
+I'd love to know.
+
+
 
 
 <br>
