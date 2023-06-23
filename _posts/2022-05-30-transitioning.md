@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Transferring HRI research skills to the industry/Getting started with work"
+title: "Transitioning from HRI research to the industry/Getting started with work"
 date: 2022-05-30 00:00:00 -0800
 updated: 2023-06-03 00:00:00 -0800
-tags: ["#research"]
+tags: ["#productivity", "#gradschool"]
 comments: true
 ---
 
