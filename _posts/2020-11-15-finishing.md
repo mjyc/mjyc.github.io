@@ -2,7 +2,7 @@
 layout: post
 title: "Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient"
 date: 2020-11-30 00:00:00 -0800
-tags: ["#gradschool"]
+tags: ["#gradschool", "#dadlife"]
 ---
 
 I was a graduate student when my son was born.
