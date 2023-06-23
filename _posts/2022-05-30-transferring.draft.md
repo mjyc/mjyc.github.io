@@ -2,6 +2,18 @@
 published: false
 ---
 
+## Lastly
+
+Let me know what your thoughts in below the comments section!
+
+- Was this post (not) useful for you? Which part was especially (not) useful?
+- Do you have any insights on the topics discussed here? Any insights you strongly (dis)agree?
+- Anything else?
+
+I'd love to know.
+
+---
+
 - _Product manager._
     This is interesting one.
     Product manager is not a product designer, they are in charge of the whole process of product development
