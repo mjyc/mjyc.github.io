@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "(upcoming) Robo-Observability"
+title: "Robo-Observability"
 date: 2023-04-21 00:00:00 -0800
 tags: ["#placeholder", "#software-engineering"]
 ---
