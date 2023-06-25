@@ -75,7 +75,9 @@ After spending some time in a couple of robotics startups and observing my colle
     The related roles I've seen are usually focused on technical HRI research, such as working on new algorithms or computational methods supporting human-robot interaction.
 
 I wish [Leila Takayama's HRI2022 keynote talk](https://dl.acm.org/doi/10.5555/3523760.3523762) is available somewhere.
-She shares great advice on this topic in her keynote talk.
+She shared great advice on this topic in her keynote talk.
+Actually, checkout her [LinkedIn post history](https://twitter.com/leilatakayama/status/1550605257192853507).
+You will find relevant job postings.
 Another blog post I like is [How to Work in Robotics When You're Not a Roboticist](https://foxglove.dev/blog/how-to-work-in-robotics-when-youre-not-a-roboticist) from [foxglove](https://foxglove.dev/), a robot data infrastructure and visualization company.
 It offers another perspective on how to find a role you might like.
 Finally, check out my [awesome-hri-papers-for-industry](https://github.com/mjyc/awesome-hri-papers-for-industry), which showcases HRI papers that demonstrate relevant research for the industry.
