@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Functional Listening and its Generalizations: Towards Controllable Productivity"
+title: "Functional Listening"
 date: 2021-11-24 00:00:00 -0800
 tags: ["#placeholder", "#productivity"]
 ---
