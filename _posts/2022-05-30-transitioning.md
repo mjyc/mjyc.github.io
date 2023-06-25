@@ -100,13 +100,11 @@ To achieve these goals, here are the latest steps I follow:
    Ask questions such as: Which team is in charge of what?
    How do teams work together?
    Understanding the org structure helps me focus on critical tasks for myself and my team, and become a better team player.
-
 2. **Understand how decisions are made.**
    Ask questions such as: Who are the decision makers?
    Who are the other stakeholders?
    In larger organizations, I want to know who creates my daily tasks and how.
    Understanding the decision-making process helps me talk to the right person when pitching a project/initiative, seeking feedback, finding help, or when I disagree with certain tasks.
-
 3. **Understand the company's business model.**
    Ask questions such as: How does my company (plan to) make money?
    How do each team create business value?
