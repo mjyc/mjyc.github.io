@@ -4,15 +4,17 @@ title: about
 ---
 
 Hello, I'm Mike.
-I build tools for programming or operating robots.
+I build tools for robot programming and operating.
 Check out my [resume]({{ site.baseurl }}/assets/pdfs/Resume - Michael Jae-Yoon Chung.pdf).
 
 You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) or [Twitter](https://twitter.com/mjyc_).
 I try to share my code on [GitHub](https://github.com/mjyc).
-I sometimes post my dev notes and ideas on [DEV](https://dev.to/mjyc).
+I sometimes share my thoughts on [blog](/blog) and dev notes on [DEV](https://dev.to/mjyc).
 You can see what I've been listening to lately on [last.fm](https://www.last.fm/user/mikechung).
 
+
 <br>
+
 ## Latest
 
 <span class="post-meta"> Mar, 2023. </span> [Last day at Intrinsic](https://techcrunch.com/2023/01/12/alphabet-robotics-division-intrinsic-hit-with-layoffs), helping out [Transitive](https://transitiverobotics.com/), and searching for something new.
