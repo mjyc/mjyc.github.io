@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-25T18:07:14+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-26T21:36:04+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<blockquote>
   <p>This post is in work-in-progress.
 Please check back for updates!</p>
 </blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#software-engineering" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
@@ -293,11 +293,7 @@ I shared my observations on the challenges associated with robot application pro
 <br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
 <br />[^9] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
-<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/kid.html" rel="alternate" type="text/html" title="Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/kid</id><content type="html" xml:base="/2021/11/27/kid.html"><![CDATA[<blockquote>
-  <p>This post is in work-in-progress.</p>
-
-  <p>Please check back for updates!</p>
-</blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#dadlife" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/lessons.html" rel="alternate" type="text/html" title="Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/lessons</id><content type="html" xml:base="/2021/11/27/lessons.html"><![CDATA[<blockquote>
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Software Engineering Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/software.html" rel="alternate" type="text/html" title="Software Engineering Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/software</id><content type="html" xml:base="/2021/11/27/software.html"><![CDATA[<blockquote>
   <p>This post is in work-in-progress.<br />
 Please check back for updates!</p>
 </blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#dadlife" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Functional Listening</title><link href="/2021/11/24/functional.html" rel="alternate" type="text/html" title="Functional Listening" /><published>2021-11-24T08:00:00+00:00</published><updated>2021-11-24T08:00:00+00:00</updated><id>/2021/11/24/functional</id><content type="html" xml:base="/2021/11/24/functional.html"><![CDATA[<blockquote>
@@ -668,4 +664,79 @@ Timing is something one may not have control over, but if you do, talk to many p
   <li><em>While I was writing this post, I learned about this excellent paper <a href="https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf">“State of the Practice and Guidelines for ROS-based System”</a> and discussions about the paper in <a href="https://discourse.ros.org/t/guidelines-on-how-to-architect-ros-based-systems/12641">the ROS Discourse</a>. The paper is focused on <a href="https://www.ros.org/">ROS</a> yet the high-level goals of it seem similar.</em></li>
   <li><em>The study notes this article is based on are available in <a href="https://github.com/mjyc/robosysdev-notes">github</a> and <a href="https://gitlab.com/mjyc/robosysdev-notes">gitlab</a> repos</em></li>
   <li><em>Thank you! to all those who participated in my interview studies</em></li>
-</ul>]]></content><author><name></name></author><category term="#short" /><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry></feed>
+</ul>]]></content><author><name></name></author><category term="#short" /><summary type="html"><![CDATA[Originally posted on GitLab]]></summary></entry><entry><title type="html">Getting started with robotics: Just do it!</title><link href="/2019/12/15/getting.html" rel="alternate" type="text/html" title="Getting started with robotics: Just do it!" /><published>2019-12-15T08:00:00+00:00</published><updated>2019-12-15T08:00:00+00:00</updated><id>/2019/12/15/getting</id><content type="html" xml:base="/2019/12/15/getting.html"><![CDATA[<p>Getting started with robotics is confusing.
+Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it.
+For example, google searching “getting started with robotics” gives me the following top three results:</p>
+
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=uw-4K9joFL8">How To Start With Robotics? - YouTube</a></li>
+  <li><a href="http://robotsforroboticists.com/getting-started-kids-adults/">Robotics for Kids (and Adults) – Getting Started and How to Progress</a></li>
+  <li><a href="https://robots.ieee.org/learn/getting-started/">Getting Started in Robotics - ROBOTS: Your Guide to the World of Robotics</a></li>
+</ul>
+
+<p>They talk about learning skills related to the fields of mechanical engineering, electrical engineering, and computer science.
+At first, it just felt overwhelming.
+Reading each of them slowly again, they were great tutorials especially because they all shared one great message–“learn by doing projects” (<a href="https://www.amazon.com/Robotics-Project-Based-Approach-Lakshmi-Prayaga-ebook/dp/B00PG922M4">there was even a book named with a similar spirit</a>).</p>
+
+<p>I 100% agree with the message, I think people should learn robotics by doing projects.
+In fact, I recently shared <a href="https://github.com/mjyc/awesome-robotics-projects">my curated list of opensource (and other) robotics projects</a> for those who are interested in building robots.
+Because I’m a programmer by training, one additional suggestion I like to add is “start by working with a simulator”.
+Working with hardware is fun but it can be extremely time-consuming so by working with a simulator first you can feel out the robot and identify potential problems early.
+Projects like <a href="https://mushr.io/">MuSHR</a> and <a href="https://hackaday.io/project/164992-bobble-bot">bobble-bot</a> are great because they provide robot simulators as well as detailed instructions for building robots.
+<a href="https://atsushisakai.github.io/PythonRobotics/">PythonRobotics</a> is another great entry point for learning about robotics algorithms.
+The repository contains provide tiny, simple environments for testing the algorithms which are great for learning purposes.
+Here is a list of <a href="https://www.ros.org/">ROS</a>-based simulators that I’ve curated in <a href="https://rds.theconstructsim.com/r/mchung/">ROS Development studio</a>, <a href="https://www.theconstructsim.com/rds-ros-development-studio/">a cloud service</a> that allows you to work on ROS projects in a browser.
+In a similar spirit, I encourage using a single board computer such as <a href="https://www.raspberrypi.org/">Raspberry Pi</a> or <a href="https://developer.nvidia.com/embedded/learn/tutorials">NVIDIA Jetson products</a> instead of using a microcontroller like <a href="https://www.arduino.cc/">Arduino</a>.
+Programming a microcontroller can be fun and it can allow you to develop a solution that is highly tailored to your use case, but for learning purposes, it can become a rabbit hole that prevents you from completing the project you started.
+However, if your goal is learning mechanical or electrical engineering my advice (rather opinions) is not for you.</p>
+
+<p>Finally, I believe getting involved with robotics communities is effective for learning.
+The below list could be good entry points for learning about software-focused robotics</p>
+
+<ul>
+  <li><a href="https://github.com/topics/robotics">github repos with #robotics tag</a></li>
+  <li><a href="https://discourse.ros.org/">ROS discourse</a></li>
+  <li><a href="https://foxglove.dev/blog">Foxglove blog</a></li>
+  <li><a href="https://picknik.ai/blog/">PICKNIK blog</a></li>
+  <li><a href="https://developer.nvidia.com/blog/tag/isaac-sim/">Isaac Sim Technical Blog</a></li>
+  <li><a href="https://www.duckietown.org/research/ai-driving-olympics">The AI Driving Olympics (AI-DO)</a></li>
+  <li><a href="https://www.balena.io/blog">Balena blog</a> - they provide less robotics and more IoT-centric contents</li>
+  <li><a href="https://getcruise.com/news">Cruise news</a></li>
+  <li><a href="https://github.com/mjyc/awesome-robotics-system-design">Awesome Robotics System Design</a> - where I keep interesting software-focused robotics stuff</li>
+</ul>
+
+<p>the list below for learning about electronics-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.sparkfun.com/news">sparkfun news</a></li>
+  <li><a href="https://blog.adafruit.com/">adafruit blog posts</a></li>
+</ul>
+
+<p>and the list below for learning about hardware-focused robotics</p>
+
+<ul>
+  <li><a href="https://www.instructables.com/">instructables</a></li>
+  <li><a href="https://hackaday.com/">hackaday</a></li>
+  <li><a href="https://www.hackster.io/">hackster.io</a></li>
+  <li><a href="https://www.onshape.com/en/blog/">onshape blog</a> - <a href="https://hackaday.com/2021/02/28/onshape-to-robot-models-made-easier/">roboticsts love it</a></li>
+</ul>
+
+<p>This may be a bit off topic, but since people relate “robotics” with AI/ML computer science research, it might be fun to skim robotics-related papers in open paper review and curated paper list websites:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/">https://arxiv.org/</a></li>
+  <li><a href="https://openreview.net/">https://openreview.net/</a></li>
+  <li><a href="https://paperswithcode.com/">https://paperswithcode.com/</a> - one note: not all researchers are great coders/documenters.</li>
+  <li><a href="http://bohg.cs.stanford.edu/list/">http://bohg.cs.stanford.edu/list/</a></li>
+</ul>
+
+<p>Talking about skimming, it might be inspiring to skim the class materials from <a href="https://courses.cs.washington.edu/courses/cse478/20wi/">CSE 478: Autonomous Robotics</a>.
+Unlike many other class materials, their class slides provide application examples of introduced concepts with an open-source autonomous mobile robot platform <a href="https://mushr.io/">MUSHR</a>.</p>
+
+<p><strong>WARNING</strong> Reading papers and learning class materials can become yet another rabbit hole.
+There are endless interesting papers (on surface) or concepts (from class slides) and they can distract you from finishing your project.
+What happens is that because you feel achievement/growth and you get temped to keep learning.
+Being able to focus on the track and learn only necessary skills (and taking the project to the finish line–and defining the finish line) is a huge challenge/probably the most important skill to learn.</p>
+
+<p>With that said, go explore project ideas, check out robotics communities and start your project!
+I believe now is the time to learn about robotics and I hope this blurb can be helpful to aspiring roboticists.</p>]]></content><author><name></name></author><category term="#short" /><summary type="html"><![CDATA[Getting started with robotics is confusing. Robotics is an interdisciplinary field and people think of many different things when they are trying to learn about it. For example, google searching “getting started with robotics” gives me the following top three results:]]></summary></entry></feed>
