@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Robo-Observability"
+title: "(WIP) Robo-Observability"
 date: 2023-04-21 00:00:00 -0800
 tags: ["#software-engineering"]
 ---
@@ -41,6 +41,7 @@ Here are my suggestions:
 > This section is in work-in-progress.\
 > Please check back for updates!
 
-## Conclusion
+## Closing Notes
 
-Observability is important and more people are discussing about it, more companies are getting formed around it.
+Observability is crucial for debugging and monitoring robotics systems.
+Ensuring observability of a robotics system at scale requires not only careful design and nontrivial implementation work on tooling but also the establishment of conventions and practices that are agreed upon and adhered to by multiple teams.
