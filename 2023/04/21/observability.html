@@ -3,19 +3,19 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Robo-Observability | Michael Jae-Yoon Chung</title>
+<title>(WIP) Robo-Observability | Michael Jae-Yoon Chung</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Robo-Observability" />
+<meta property="og:title" content="(WIP) Robo-Observability" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This post is in work-in-progress. Please check back for updates!" />
-<meta property="og:description" content="This post is in work-in-progress. Please check back for updates!" />
+<meta name="description" content="I care about observability in the context of debugging and monitoring robotics systems." />
+<meta property="og:description" content="I care about observability in the context of debugging and monitoring robotics systems." />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-04-21T08:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Robo-Observability" />
+<meta property="twitter:title" content="(WIP) Robo-Observability" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-04-21T08:00:00+00:00","datePublished":"2023-04-21T08:00:00+00:00","description":"This post is in work-in-progress. Please check back for updates!","headline":"Robo-Observability","mainEntityOfPage":{"@type":"WebPage","@id":"/2023/04/21/observability.html"},"url":"/2023/04/21/observability.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-04-21T08:00:00+00:00","datePublished":"2023-04-21T08:00:00+00:00","description":"I care about observability in the context of debugging and monitoring robotics systems.","headline":"(WIP) Robo-Observability","mainEntityOfPage":{"@type":"WebPage","@id":"/2023/04/21/observability.html"},"url":"/2023/04/21/observability.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
 <script>
@@ -49,17 +49,65 @@
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Robo-Observability</h1>
+    <h1 class="post-title p-name" itemprop="name headline">(WIP) Robo-Observability</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2023-04-21T08:00:00+00:00" itemprop="datePublished">Posted on Apr 21, 2023
       </time></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <blockquote>
-  <p>This post is in work-in-progress.
+    <p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+
+<h2 id="logs">Logs</h2>
+
+<p>Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
+When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
+Three aspects in particular stood out to me:</p>
+
+<ol>
+  <li><em>Structured logs</em> made logs machine-parsable and version controllable, eliminating the need for regex gymnastics.
+ This greatly facilitated the development of user-facing tools like interactive data visualizers.</li>
+  <li><em>Centralized logs</em> helped bring together all relevant information for users.</li>
+  <li><em>Log visualization tools</em> allowed users to effortlessly navigate and process large amounts of log data.</li>
+</ol>
+
+<p>During the adoption of these aspects, I observed the following challenges faced by organizations:</p>
+
+<ol>
+  <li><em>Large and complex codebases</em> made it difficult and laborious to structure logs consistently across diverse subsystems.</li>
+  <li><em>Large data volumes</em> posed challenges in centralizing data. Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.</li>
+  <li><em>Non-textual data</em> made the utilization of existing log management and visualization tools more difficult.</li>
+</ol>
+
+<p>Here are my suggestions:</p>
+
+<ol>
+  <li>
+    <p>Start structuring logs by adding metadata such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
+Doing so should spark discussions about standardizing the data structure and tooling for logs.
+Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.</p>
+  </li>
+  <li>
+    <p>While aiming to standardize the metadata structure and tooling to simplify the consumption process, log data types and data channels carrying logs should be treated differently and separately to optimize performance in terms of transportation, visualization, and so on.</p>
+  </li>
+  <li>
+    <p>Invest in adopting or even building data visualization tools.
+“A picture is worth a thousand words.”
+Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.</p>
+  </li>
+</ol>
+
+<h2 id="metrics">Metrics</h2>
+
+<blockquote>
+  <p>This section is in work-in-progress.<br />
 Please check back for updates!</p>
 </blockquote>
+
+<h2 id="closing-notes">Closing Notes</h2>
+
+<p>Observability is crucial for debugging and monitoring robotics systems.
+Building scalable observability tools not only requires careful design and substantial implementation work but also necessitates agreement on and adherence to conventions across multiple teams.</p>
 </div><a class="u-url" href="/2023/04/21/observability.html" hidden></a>
 </article>
 

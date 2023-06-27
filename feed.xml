@@ -1,7 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-26T21:37:01+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<blockquote>
-  <p>This post is in work-in-progress.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-27T23:14:04+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">(WIP) Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="(WIP) Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+
+<h2 id="logs">Logs</h2>
+
+<p>Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
+When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
+Three aspects in particular stood out to me:</p>
+
+<ol>
+  <li><em>Structured logs</em> made logs machine-parsable and version controllable, eliminating the need for regex gymnastics.
+ This greatly facilitated the development of user-facing tools like interactive data visualizers.</li>
+  <li><em>Centralized logs</em> helped bring together all relevant information for users.</li>
+  <li><em>Log visualization tools</em> allowed users to effortlessly navigate and process large amounts of log data.</li>
+</ol>
+
+<p>During the adoption of these aspects, I observed the following challenges faced by organizations:</p>
+
+<ol>
+  <li><em>Large and complex codebases</em> made it difficult and laborious to structure logs consistently across diverse subsystems.</li>
+  <li><em>Large data volumes</em> posed challenges in centralizing data. Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.</li>
+  <li><em>Non-textual data</em> made the utilization of existing log management and visualization tools more difficult.</li>
+</ol>
+
+<p>Here are my suggestions:</p>
+
+<ol>
+  <li>
+    <p>Start structuring logs by adding metadata such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
+Doing so should spark discussions about standardizing the data structure and tooling for logs.
+Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.</p>
+  </li>
+  <li>
+    <p>While aiming to standardize the metadata structure and tooling to simplify the consumption process, log data types and data channels carrying logs should be treated differently and separately to optimize performance in terms of transportation, visualization, and so on.</p>
+  </li>
+  <li>
+    <p>Invest in adopting or even building data visualization tools.
+“A picture is worth a thousand words.”
+Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.</p>
+  </li>
+</ol>
+
+<h2 id="metrics">Metrics</h2>
+
+<blockquote>
+  <p>This section is in work-in-progress.<br />
 Please check back for updates!</p>
-</blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#software-engineering" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
+</blockquote>
+
+<h2 id="closing-notes">Closing Notes</h2>
+
+<p>Observability is crucial for debugging and monitoring robotics systems.
+Building scalable observability tools not only requires careful design and substantial implementation work but also necessitates agreement on and adherence to conventions across multiple teams.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
   <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" width="480px" />
   <figcaption>A self driving car</figcaption>
 </figure>
