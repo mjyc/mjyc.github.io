@@ -41,6 +41,9 @@ Here are my suggestions:
 > This section is in work-in-progress.\
 > Please check back for updates!
 
+The typical metrics I've seen in robotics companies are (1) metrics indictaing resources utilization and (2) customer focused domain specific metrics.
+<!-- outside of  -->
+
 ## Closing Notes
 
 Observability is crucial for debugging and monitoring robotics systems.
