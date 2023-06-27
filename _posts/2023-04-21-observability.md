@@ -6,37 +6,41 @@ tags: ["#software-engineering"]
 ---
 
 I care about observability in the context of debugging and monitoring robotics systems.
-<!-- Here are some issues I've faced before with logs and metrics and some insights I have on on this topic. -->
 
 ## Logs
 
 Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
-When I started using log management tools from cloud or distributed systems community like Splunk and Elasticsearch, I was pleasantly surprised by their amazing developer experience (DX).
-The following three aspects stood out to me:
+When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
+Three aspects in particular stood out to me:
 
-1. _Structured logs_ made logs machine-parsable/consumable (no more regex gymnastics) and version controllable, both of which helped building user-facing tools on top, like an interactive data visualizer.
-1. _Centralized logs_ helped with bringing all relevant information to users.
-1. _Log visualization tools_ helped users to effortlessly navigate and digest huge log data.
+1. _Structured logs_ made logs machine-parsable and version controllable, eliminating the need for regex gymnastics.
+    This greatly facilitated the development of user-facing tools like interactive data visualizers.
+2. _Centralized logs_ helped bring together all relevant information for users.
+3. _Log visualization tools_ allowed users to effortlessly navigate and process large amounts of log data.
 
-I observed following challenges when organizations tried adopting such aspects:
+During the adoption of these aspects, I observed the following challenges faced by organizations:
 
-1. _Large and complex codebase_ made structuring logs in a consistent manner across multiple difficult and laborious.
-1. _Large data_ made centralizing data difficult. Robotics companies--even the ones involving non-autonomous vehicles--generate petabyte scale of data. Doing anything with such data is too hard.
-1. _Non-textual data_ made difficult to use existing tools difficult to use.
+1. _Large and complex codebases_ made it difficult and laborious to structure logs consistently across diverse subsystems.
+2. _Large data volumes_ posed challenges in centralizing data. Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.
+3. _Non-textual data_ made the utilization of existing log management and visualization tools more difficult.
 
-Here are my insights:
+Here are my suggestions:
 
-1. Start structructring log by adding meta data. Robot id, customer id, etc. 
-Once some structure is there, discuss with teams to improve it.
-Also already structured part.
-1. Treat different datatypes (e.g., ROS topics) as separately. This helps moving data easier as one can 
-1. Invest in adopting or building browser-based visualization tools.[^1] "A picture is worth a thousand words." you will need visual data. <!-- and RVIZ won't -->
+1. Start structuring logs by adding metadata such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
+   Doing so should spark discussions about standardizing the data structure and tooling for logs.
+   Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.
+
+2. While aiming to standardize the metadata structure and tooling to simplify the consumption process, log data types and data channels carrying logs should be treated differently and separately to optimize performance in terms of transportation, visualization, and so on.
+
+3. Invest in adopting or even building data visualization tools.
+   "A picture is worth a thousand words."
+   Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.
+
+## Metrics
+
+> This section is in work-in-progress.\
+> Please check back for updates!
 
 ## Conclusion
 
 Observability is important and more people are discussing about it, more companies are getting formed around it.
-
-
-### Footnotes
-
-[^1]

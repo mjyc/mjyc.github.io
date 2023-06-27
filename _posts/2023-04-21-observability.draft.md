@@ -5,8 +5,24 @@ published: false
 2023/06/27
 ---
 ```
+, such as Splunk and Elasticsearch, 
 TODOs:
 1. Add my own story demonstrating the challenging of debugging by going through logs.
+
+
+Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
+When I started using log management tools from the cloud/distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
+Three aspects in particular stood out to me:
+
+1. _Structured logs_ made logs machine-parsable and version controllable, eliminating the need for regex gymnastics. This greatly facilitated the development of user-facing tools like interactive data visualizers.
+2. _Centralized logs_ helped bring together all relevant information for users.
+3. _Log visualization tools_ allowed users to effortlessly navigate and process vast amounts of log data.
+
+During the adoption of these aspects, I observed the following challenges faced by organizations:
+
+1. _Large and complex codebases_ made it difficult and laborious to structure logs consistently across multiple systems.
+2. _Large data volumes_ posed challenges in centralizing data. Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.
+3. _Non-textual data_ made the utilization of existing tools more difficult.
 ```
 
 ```
