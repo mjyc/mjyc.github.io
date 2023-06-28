@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-27T23:14:04+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">(WIP) Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="(WIP) Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-28T17:22:14+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
-<p>Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
-When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
+<p>Debugging (e.g., ROS-based) robotics systems by digging through logs hasn’t been fun for me.
+To investigate a bug report, I first SSH into a robot, look through multiple log files from multiple teams’ software, and once I find relevant logs and data (e.g., camera images), I start downloading them to my local dev machine and wait for 10~20 minutes (at best).
+Only after that, I could dive deep into them to understand the reported issue.
+I’m describing my ~worst experience, but debugging (and monitoring, too) robotics systems has always been painful for one or two reasons I just mentioned.</p>
+
+<p>When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
 Three aspects in particular stood out to me:</p>
 
 <ol>
   <li><em>Structured logs</em> made logs machine-parsable and version controllable, eliminating the need for regex gymnastics.
- This greatly facilitated the development of user-facing tools like interactive data visualizers.</li>
+This greatly facilitated the development of user-facing tools like interactive data visualizers.</li>
   <li><em>Centralized logs</em> helped bring together all relevant information for users.</li>
   <li><em>Log visualization tools</em> allowed users to effortlessly navigate and process large amounts of log data.</li>
 </ol>
@@ -17,39 +21,57 @@ Three aspects in particular stood out to me:</p>
 
 <ol>
   <li><em>Large and complex codebases</em> made it difficult and laborious to structure logs consistently across diverse subsystems.</li>
-  <li><em>Large data volumes</em> posed challenges in centralizing data. Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.</li>
-  <li><em>Non-textual data</em> made the utilization of existing log management and visualization tools more difficult.</li>
+  <li><em>Large data volumes</em> posed challenges in centralizing data.
+Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.</li>
+  <li><em>Non-textual logs</em> made the utilization of existing log management and visualization tools more difficult.</li>
 </ol>
 
 <p>Here are my suggestions:</p>
-
 <ol>
-  <li>
-    <p>Start structuring logs by adding metadata such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
+  <li>Start structuring logs by adding metadata such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
 Doing so should spark discussions about standardizing the data structure and tooling for logs.
-Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.</p>
-  </li>
-  <li>
-    <p>While aiming to standardize the metadata structure and tooling to simplify the consumption process, log data types and data channels carrying logs should be treated differently and separately to optimize performance in terms of transportation, visualization, and so on.</p>
-  </li>
-  <li>
-    <p>Invest in adopting or even building data visualization tools.
+Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.</li>
+  <li>While aiming to standardize the metadata structure and tooling to simplify the consumption process, log data types and data channels carrying logs should be treated differently and separately to optimize performance in terms of transportation, visualization, and so on.</li>
+  <li>Invest in adopting or even building data visualization tools.
 “A picture is worth a thousand words.”
-Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.</p>
-  </li>
+Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.</li>
 </ol>
 
 <h2 id="metrics">Metrics</h2>
 
-<blockquote>
-  <p>This section is in work-in-progress.<br />
-Please check back for updates!</p>
-</blockquote>
+<p>Typical metric categories I’ve seen are:</p>
+
+<ul>
+  <li><em>Customer and robot-specific metrics</em>, such as the total number of completed deliveries and the total distance traveled for an indoor delivery robot company.</li>
+  <li><em>Resource utilization and health-related metrics</em>, such as CPU, memory, and disk usage, network traffic of onboard and cloud machines.</li>
+  <li><em>Service health and availability-related metrics</em>, such as request rate/error/duration, service uptime/response time of onboard and cloud services.</li>
+</ul>
+
+<p>These metrics aren’t specific to robotics companies and are standardized (e.g., across services) for ease of consumption and operational scalability.
+However, I have found that specializing metrics for core robotics engineers (e.g., who also engage in operations work in smaller organizations) is helpful for monitoring purposes.
+Here are examples of such specialized metrics for motion control and planning:</p>
+
+<ul>
+  <li>Motion control: control frequency, number of staged controllers, response time of dependent hardware devices.</li>
+  <li>Motion planning: planning request rate, errors, and duration, distance and duration of planned motion (trajectory).</li>
+</ul>
+
+<p>Notice that these metrics are still high-level, i.e., general across different kinds of motion planning or control algorithms.
+There are also robotics algorithm-specific metrics (e.g., the number of nodes explored for a sampling-based planner) that can be computed and tracked.
+While I do like to collect such robotics-specific metrics to gain a deeper understanding of algorithm performance, doing so requires caution, e.g., I like to ask questions such as: What’s the overhead of computing algorithm-specific metrics? How can we extract meaningful information from these metrics and avoid adding noise to the dashboard? How much maintenance work do we anticipate?</p>
 
 <h2 id="closing-notes">Closing Notes</h2>
 
-<p>Observability is crucial for debugging and monitoring robotics systems.
-Building scalable observability tools not only requires careful design and substantial implementation work but also necessitates agreement on and adherence to conventions across multiple teams.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
+<p>Observability is crucial for debugging and monitoring robotics systems at every stage of an organization.
+In small organizations, observability is a must for quickly detecting and resolving issues.
+For larger organizations, the ability to collect and process large log data from a fleet of robots effectively or monitor the health and utilization of such a fleet is a must.
+Ensuring observability of a robotics system at scale requires not only careful design and nontrivial implementation work on tooling but also the establishment of conventions and practices that are agreed upon and adhered to by multiple teams.</p>
+
+<p><br /></p>
+
+<h4 id="acknowledgements">Acknowledgements</h4>
+
+<p>I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights on observability.</p>]]></content><author><name></name></author><category term="#short" /><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
   <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" width="480px" />
   <figcaption>A self driving car</figcaption>
 </figure>
