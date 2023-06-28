@@ -2,6 +2,44 @@
 published: false
 ---
 
+2023/06/28
+---
+
+```
+In small organizations, observability is must for quickly detecting and resolving issues and for larger organizations, it not only is a must helps with monitoring and gathering insights
+```
+
+```
+<!-- While such questions apply to other metrics as well, they carry more importance when it comes to collecting robotics-algorithm specific metrics. -->
+```
+
+---
+
+```
+do we anticipate to change these algorithms? if so how often? will they add too much noise, consume bandwidth, add nontrivial maintainence work?
+
+I personally like to avoid tracking such robotics-specific metrics (or high them from dashboard at least) to keep metrics on surface high-level signals to help me set up an alerts or help me gain insights by looking at trends.
+
+I like dingging into more detailed data with different tools (with e.g., sensor data that I can make sense of).
+But this is my preference and I cam see 
+
+
+I suggest to track them with 
+I suggest to track them with care
+
+I suggest to track them judiciously, e.g., does your organization anticipate to change these algorithms? if so how often? will they add too much noise, consume bandwidth, add nontrivial maintainence work?
+```
+
+---
+
+```
+This is intentional because while there may be more algorithmic specific such as the number of nodes explored/samples generated for sampling based planner however, the selected metrics are chosen to provide high level ingishts.
+While such metrics could give even more insights but metrics are meant to get the high-level signal (and set alerts) and gain insights from seeing the trends.
+Drilling down should be done with logs.
+Some of these should be in the log.
+That call is up.
+```
+
 2023/06/27
 ---
 ```
