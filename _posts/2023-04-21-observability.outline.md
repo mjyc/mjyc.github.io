@@ -1,3 +1,8 @@
+---
+published: false
+---
+
+```
 Observability
 Intro 
 - [ ] Why observability?
@@ -30,3 +35,4 @@ Preparing for scale, I suggest
 - [ ] Start discussing Metrics in design, working with robotics teamS
 
 The difference Needs to be understood and handled—interesting area/high rewarding/important area to work on
+```

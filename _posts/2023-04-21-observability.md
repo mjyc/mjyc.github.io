@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "(WIP) Robo-Observability"
+title: "Robo-Observability"
 date: 2023-04-21 00:00:00 -0800
 tags: ["#software-engineering"]
 ---
@@ -9,7 +9,10 @@ I care about observability in the context of debugging and monitoring robotics s
 
 ## Logs
 
-Debugging (e.g., ROS-based) robotics systems by digging through logs has never been fun for me.
+Debugging (e.g., ROS-based) robotics systems by digging through logs hasn't been fun for me.
+I first needed to ssh into a robot, look through multiple log files from multiple teams' softwares or a single massive log file that all software dumped their logs to, and once finding a relevant logs and associated data (e.g., camera images), start downloading them to my local dev machine (which takes couple minutes at best) and try to debug while visualizing them somehow.
+Of course I'm describing the worst case set up, it was always challnging for one or two reasons mentioned in the story.
+
 When I started using log management tools from the distributed systems community, I was pleasantly surprised by their amazing developer experience (DX).
 Three aspects in particular stood out to me:
 
@@ -38,13 +41,27 @@ Here are my suggestions:
 
 ## Metrics
 
-> This section is in work-in-progress.\
-> Please check back for updates!
+Typical metics categories I've seen in robotics companies are:
+
+1. Customer and robot-specific metrics such as the total number of completed deliveries and the total distance traveled for an indoor delivery robot company.
+2. Resource utilization and health related metrics such as CPU mem on board and off board machines.
+3. Request rate, errors, and duration -- health of the service
+
+I've found that applying 3rd to robotics-domain specific helpful.
+
+2. Robotics 
+
+Taking an example of control,
+For example, control frequency
+control 
+
+2. 
 
 The typical metrics I've seen in robotics companies are (1) metrics indictaing resources utilization and (2) customer focused domain specific metrics.
 <!-- outside of  -->
 
 ## Closing Notes
 
-Observability is crucial for debugging and monitoring robotics systems.
+Observability is crucial for debugging and monitoring robotics systems at every stages of an organization.
+<!-- When the organization is small, there is no  -->
 Ensuring observability of a robotics system at scale requires not only careful design and nontrivial implementation work on tooling but also the establishment of conventions and practices that are agreed upon and adhered to by multiple teams.
