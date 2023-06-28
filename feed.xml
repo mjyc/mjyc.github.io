@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-28T17:22:14+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-28T19:56:19+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -60,7 +60,7 @@ Here are examples of such specialized metrics for motion control and planning:</
 There are also robotics algorithm-specific metrics (e.g., the number of nodes explored for a sampling-based planner) that can be computed and tracked.
 While I do like to collect such robotics-specific metrics to gain a deeper understanding of algorithm performance, doing so requires caution, e.g., I like to ask questions such as: What’s the overhead of computing algorithm-specific metrics? How can we extract meaningful information from these metrics and avoid adding noise to the dashboard? How much maintenance work do we anticipate?</p>
 
-<h2 id="closing-notes">Closing Notes</h2>
+<h2 id="final-thoughts">Final Thoughts</h2>
 
 <p>Observability is crucial for debugging and monitoring robotics systems at every stage of an organization.
 In small organizations, observability is a must for quickly detecting and resolving issues.
