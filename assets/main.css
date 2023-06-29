@@ -983,7 +983,49 @@ figcaption a {
 }
 
 /**
- * Research
+ * Dev Notes
+ */
+.devnotes .post-list {
+  font-family: -apple-system, "system-ui", "segoe ui", Roboto, Oxygen, Ubuntu, Cantarell, "open sans", "helvetica neue", sans-serif !important;
+}
+.devnotes .post-list h3 {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+.devnotes .post-list h3 a {
+  text-decoration: none;
+}
+
+.devnote {
+  font-family: -apple-system, "system-ui", "segoe ui", Roboto, Oxygen, Ubuntu, Cantarell, "open sans", "helvetica neue", sans-serif;
+  line-height: 1.6;
+}
+.devnote h1, .devnote h2, .devnote h3, .devnote h4, .devnote h5, .devnote h6 {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+}
+.devnote h1 {
+  font-size: 1.75em;
+}
+.devnote h1.post-title {
+  font-size: 2.375em;
+}
+.devnote h2 {
+  font-size: 1.5em;
+}
+.devnote h3 {
+  font-size: 1.25em;
+}
+.devnote h4 {
+  font-size: 1em;
+}
+.devnote h4 {
+  font-size: 0.875em;
+}
+
+/**
+ * Bibliography
  */
 a.bib-tag {
   color: #111;
@@ -993,9 +1035,6 @@ a.bib-tag:hover {
   color: deepskyblue;
 }
 
-/**
- * Bibliography
- */
 .bibliography {
   list-style: square;
 }

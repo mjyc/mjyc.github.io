@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-28T19:56:19+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-29T22:24:50+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -150,7 +150,7 @@ I realized that my colleagues who also focused on HRI had similar problems.</p>
 
 <p>I wish <a href="https://dl.acm.org/doi/10.5555/3523760.3523762">Leila Takayama’s HRI2022 keynote talk</a> is available somewhere.
 She shared great advice on this topic in her keynote talk.
-Actually, checkout her <a href="https://twitter.com/leilatakayama/status/1550605257192853507">LinkedIn post history</a>.
+Actually, checkout her <a href="https://www.linkedin.com/in/leilatakayama/recent-activity/all/">LinkedIn post history</a>.
 You will find relevant job postings.
 Another blog post I like is <a href="https://foxglove.dev/blog/how-to-work-in-robotics-when-youre-not-a-roboticist">How to Work in Robotics When You’re Not a Roboticist</a> from <a href="https://foxglove.dev/">foxglove</a>, a robot data infrastructure and visualization company.
 It offers another perspective on how to find a role you might like.
