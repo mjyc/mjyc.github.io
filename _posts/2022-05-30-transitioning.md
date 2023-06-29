@@ -76,7 +76,7 @@ After spending some time in a couple of robotics startups and observing my colle
 
 I wish [Leila Takayama's HRI2022 keynote talk](https://dl.acm.org/doi/10.5555/3523760.3523762) is available somewhere.
 She shared great advice on this topic in her keynote talk.
-Actually, checkout her [LinkedIn post history](https://twitter.com/leilatakayama/status/1550605257192853507).
+Actually, checkout her [LinkedIn post history](https://www.linkedin.com/in/leilatakayama/recent-activity/all/).
 You will find relevant job postings.
 Another blog post I like is [How to Work in Robotics When You're Not a Roboticist](https://foxglove.dev/blog/how-to-work-in-robotics-when-youre-not-a-roboticist) from [foxglove](https://foxglove.dev/), a robot data infrastructure and visualization company.
 It offers another perspective on how to find a role you might like.
