@@ -163,9 +163,9 @@ figcaption {
 }
 
 /**
- * Research
+ * Bibliography
  */
- a.bib-tag {
+a.bib-tag {
   color: $text-color;
   text-decoration: none;
   &:hover {
@@ -173,9 +173,6 @@ figcaption {
   }
 }
 
-/**
- * Bibliography
- */
 .bibliography {
   list-style: square;
 }
