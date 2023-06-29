@@ -9,7 +9,7 @@ Check out my [resume]({{ site.baseurl }}/assets/pdfs/Resume - Michael Jae-Yoon C
 
 You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) or [Twitter](https://twitter.com/mjyc_).
 I try to share my code on [GitHub](https://github.com/mjyc).
-I sometimes share my thoughts on [blog](/blog) and dev notes on [DEV](https://dev.to/mjyc).
+I sometimes share my thoughts on [blog](/blog).
 You can see what I've been listening to lately on [last.fm](https://www.last.fm/user/mikechung).
 
 

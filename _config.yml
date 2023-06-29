@@ -4,6 +4,11 @@ google_analytics: "G-NZ4FX6FCL4"
 utterances:
   repo:                "mjyc/mjyc.github.io"
 
+collections:
+  devnotes:
+    output: true
+    permalink: /devnotes/:title
+
 markdown: kramdown
 theme: minima
 plugins:
