@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Bazelifying ROS Projects with LLM's Assistance
-published: false
+published: true
 description: ""
 tags: ["#devnotes"]
 ---

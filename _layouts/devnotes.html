@@ -15,7 +15,6 @@
           {%- if site.devnotes.size > 0 -%}
           <ul class="post-list">
             {%- for post in site.devnotes -%}
-            site.title
             {% capture post-published %}{{ post.published }}{% endcapture %}
             {% if post-published == '' or post-published %}
             <li>
