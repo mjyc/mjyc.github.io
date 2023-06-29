@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: devnote
 title: Bazelifying ROS Projects with LLM's Assistance
 published: true
 description: ""
