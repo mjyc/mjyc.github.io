@@ -1,9 +1,9 @@
 ---
 layout: devnote
 title: Bazelifying ROS Projects with LLM's Assistance
-published: true
-description: ""
+date: 2023-06-25
 tags: ["#devnotes"]
+published: true
 ---
 
 ## Goals
@@ -82,13 +82,15 @@ Other Candidates Considered:
 
 - [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT):
     - A pioneer AI agent.
-    - I heard it has great documentation on what works and what doesn't, but I haven't been able to find it.
-    - There are many alternatives and variants.
+    - I have heard that it has great documentation on what works and what doesn't, but I haven't been able to find it.
+    - There are many alternatives and variants available.
 - [smol-ai/developer](https://github.com/smol-ai/developer):
     - An AI agent-like program synthesizer.
-    - There are some alternatives and variants.
+    - There are some alternatives and variants, such as GPT.
+- [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)
+    - A summary blog post on AI Agent research and demos.
 - [TheR1D/shell-gpt](https://github.com/TheR1D/shell_gpt):
-    - It's not an AI agent, but it seems very customizable.
+    - It's not an AI agent, but it seems to be highly customizable.
 
 ## Next Steps
 
