@@ -69,4 +69,4 @@ Ensuring observability of a robotics system at scale requires not only careful d
 
 #### Acknowledgements
 
-I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights on observability.
+I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights.

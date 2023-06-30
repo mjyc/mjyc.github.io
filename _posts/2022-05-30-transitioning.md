@@ -124,6 +124,15 @@ In grad school, I found a way to collaborate based on mutual excitement for a re
 However, in the workplace, people's motivations are different, and it's not always apparent what their motivations are.
 It became crucial to fully understand potential collaborators' or teammates' motivations (e.g., through social settings, small tasks, cross-team meetings, etc.) before embarking on forming a team or working together on a project.
 
+<br>
+Let me know what your thoughts!
+
+- Was this post (not) useful for you? Which part was especially (not) useful?
+- Do you have any insights on the topics discussed here? Any insights you strongly (dis)agree?
+- Anything else?
+
+I'd love to hear them.
+
 
 <br>
 
