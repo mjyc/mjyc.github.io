@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-29T22:26:56+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-06-30T18:07:21+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -71,7 +71,7 @@ Ensuring observability of a robotics system at scale requires not only careful d
 
 <h4 id="acknowledgements">Acknowledgements</h4>
 
-<p>I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights on observability.</p>]]></content><author><name></name></author><category term="#short" /><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
+<p>I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights.</p>]]></content><author><name></name></author><category term="#short" /><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
   <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" width="480px" />
   <figcaption>A self driving car</figcaption>
 </figure>
@@ -202,6 +202,17 @@ There are always suggestions for climbing the career ladder, but thinking in ter
 In grad school, I found a way to collaborate based on mutual excitement for a research topic.
 However, in the workplace, people’s motivations are different, and it’s not always apparent what their motivations are.
 It became crucial to fully understand potential collaborators’ or teammates’ motivations (e.g., through social settings, small tasks, cross-team meetings, etc.) before embarking on forming a team or working together on a project.</p>
+
+<p><br />
+Let me know what your thoughts!</p>
+
+<ul>
+  <li>Was this post (not) useful for you? Which part was especially (not) useful?</li>
+  <li>Do you have any insights on the topics discussed here? Any insights you strongly (dis)agree?</li>
+  <li>Anything else?</li>
+</ul>
+
+<p>I’d love to hear them.</p>
 
 <p><br /></p>
 
