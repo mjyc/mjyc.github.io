@@ -1,7 +1,7 @@
 ---
 layout: devnote
-title: Bazelifying ROS Projects with LLM's Assistance
-date: 2023-06-25
+title: "Bazelifying ROS Projects with LLM's Assistance"
+date: 2023-06-25 00:00:00 -0800
 tags: ["#devnotes"]
 published: true
 ---
@@ -102,6 +102,7 @@ Other Candidates Considered:
 1. [ ] Find a starting point; Couple ideas:
     1. Check out Autoware or MoveIt 2 and identify a leaf package to start converting to Bazel.
     1. Check out [mvukov/rules_ros2](https://github.com/mvukov/rules_ros2) and identify a list of challenges that the author overcame.
+        - Create a post in [Discussions - Ideas](https://github.com/mvukov/rules_ros2/discussions/categories/ideas) category to spark discussions.
 1. [ ] Assess pros and cons of AI agents:
     1. Try an AI agent to migrate a tiny ROS package to use Bazel.
     1. Search for AI agent TDD applications and try them out.
