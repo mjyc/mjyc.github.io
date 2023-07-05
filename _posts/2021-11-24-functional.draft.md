@@ -2,6 +2,51 @@
 published: false
 ---
 
+2023/07/04
+---
+
+Got into bianual beats and "Focus" and "Sleep" Genre.
+
+for a longer period of time (e.g., over 2 hours) made my ears numb
+ and slowly started listening to different noise sounds like [brown noise](), [pink noise]() and [fan noise]().
+
+
+<!-- Spotify offered lots of . -->
+I started listening to variations.
+White noise: too harsh
+Brown noise: realized the warm bass sounds. but too warm, too sleepy
+Pink noise: a bit better
+Fan noise: My friend told me this is he liked fan noise. I started listening to it, didn't like it at first, but saw it was working really well for
+
+Talking about variations, just listning to white noise made my ears numb at some point. (is it bad?)
+Then started venturing into something different.
+Nature sounds, for rain sounds, river stream sounds
+Ocean sounds for ocean sounds.
+
+Then I stumbled upon "Focus" and "Sleep" Genre.
+That really spiced things up.
+In college I used to enjoy listening to nosaj things, etc.
+There was "bit"
+I also liked listening to "post rock" music
+floating into the space.
+
+
+2023/07/04
+---
+
+One day (after a sleepless night), I found myself listening to noise sounds while I was working.
+I felt like I was in the zone.
+
+One day, I realized that I feel more focused playing noise sounds while working 
+
+After many sleepless nights with noise sound tracks on, I found myself listening to them even when I was working.
+There was something very soothing about the noise sounds.
+
+After sleepless nights (and days) with 
+There was something so soothing about listening to those noises that I kept listening to them even when I was working.
+<!-- This was beginning of obsession with noise sounds. -->
+
+
 v1
 ---
 
