@@ -54,7 +54,7 @@
       <time class="dt-published" datetime="2020-12-16T08:00:00+00:00" itemprop="datePublished">Posted on Dec 16, 2020
       </time>• <time class="dt-published" datetime="2022-05-28T08:00:00+00:00" itemprop="datePublished">Updated on May 28, 2022
         </time>
-      • <span>11 min read</span><br>
+      • <span>14 min read</span><br>
       
         <span class="post-meta">#software-engineering&nbsp</span>
       </p>
@@ -193,17 +193,77 @@ To determine what to test, I follow these steps:</p>
 <h2 id="ensuring-reliability-as-an-organization-grows">Ensuring reliability as an organization grows</h2>
 
 <blockquote>
-  <p>This section is work in progress.<br />
+  <p>This section is work-in-progress.<br />
 Please check back for updates!</p>
 </blockquote>
 
+<p>The real motivation behind testing is to ensure the reliability of products (e.g., RaaS) provided by an organization.
+To that end, I share my insights on key testing, debugging, and observability practices to employ as an organization grows.
+The practices discussed here partially address some of the unresolved challenges mentioned in the “Why is testing robotics systems hard?” section.</p>
+
+<h3 id="5-20-employees">5-20 employees</h3>
+
+<p>At this stage, startups are likely to have fewer than 10 customers who are often also their design partners, and a handful of developers who are relentlessly building (and fixing) major components of the company’s first product.
+The goal of the startups is to prove the value of their product to their (rather forgiving) customers by succeeding in basic tasks performed by robots as much as possible.
+For example, a delivery robot should navigate without colliding with obstacles, and a robot manipulator should pick and place objects without dropping them in customers’ (production) environments.</p>
+
+<p><strong>Key Practices:</strong></p>
+<ul>
+  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using GitHub Actions, GitLab CI/CD, Jenkins) with at least one <strong>end-to-end test involving a high-fidelity simulator</strong> (e.g., Gazebo) to smoke test quickly changing codebases.</li>
+  <li>Setting up <strong>internal communication channels</strong> (e.g., Slack) and investing in a reliable <strong>teleop solution</strong> (e.g., MQTT, WebRTC) for quickly responding to critical incidents.</li>
+  <li>Creating <strong>metrics and dashboards</strong> (e.g., Graphana/Prometheus) <strong>to track business-critical measures</strong> such as the number of deliveries/distance traveled, throughput/object knitted.</li>
+</ul>
+
+<h3 id="21-200-employees">21-200 employees</h3>
+
+<p>Startups at this stage start expanding their customer base and scale their operations to deploy and handle, for example, more than 100 robots.
+They have teams of developers improving the performance of core robotics algorithms to handle diverse environments of new customers, improving the overall user experience by having better onboard and/or desktop user interfaces, and an infrastructure or DevOps team to scale operations.
+Large changes become less likely, and boundaries between development teams/ownership become apparent.</p>
+
+<p><strong>Key Practices:</strong></p>
+
+<ul>
+  <li>Employing narrow integration tests and contract tests (e.g., using pytest, Googletest) with fakes and mocks and adding them to continuous integration to test the integration of components built by individual teams.</li>
+  <li>Investing in an initial version of physical continuous integration or hardware-in-the-loop tests to improve the fidelity of end-to-end testing.</li>
+  <li>Improving deployment tools, e.g., utilizing container orchestrator.</li>
+  <li>Structuring logs and setting up a log aggregator to track performance, enabling a quick check of things.</li>
+  <li>Implementing an initial version of record and replay functionality, along with some sort of data visualization to aid in debugging.</li>
+</ul>
+
+<h3 id="201-2000-employees">201-2000 employees</h3>
+
+<p><strong>Key Practices:</strong></p>
+
+<ul>
+  <li>Testing
+    <ul>
+      <li>Faster testing, e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection</li>
+      <li>Improving build time</li>
+      <li>Enhancing HIL or physical CI/CD</li>
+    </ul>
+  </li>
+  <li>Observability
+    <ul>
+      <li>Using log and data aggregators</li>
+    </ul>
+  </li>
+  <li>Debugging support
+    <ul>
+      <li>Enhancing record and replay, e.g., supporting jumping</li>
+      <li>Faster relaunch</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="beyond-2000-employees">Beyond 2000 employees</h3>
+
+<p>Some companies at this stage seem to use custom hardware to accelerate computations unique to their needs.</p>
+
 <h2 id="closing-notes">Closing notes</h2>
 
-<p>In this post, I listed the challenges of testing robotics systems in fast-paced startups and shared my techniques to getting started with testing work.
-However, my techniques don’t address the challenges of using simulations and adopting automation because I still need more insights.
-I plan to update them down the road.</p>
+<p>In this post, I have listed the challenges of testing robotics systems in fast-paced startups, shared my techniques for getting started with testing work, and provided insights on key practices for ensuring reliability as an organization grows.</p>
 
-<p>In the meantime, let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
 
 <ul>
   <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
@@ -217,7 +277,8 @@ I plan to update them down the road.</p>
 <h4 id="significant-revisions">Significant Revisions</h4>
 
 <ul>
-  <li><em>2022/05/28</em>: Rewrote the whole post</li>
+  <li><em>2023/06/</em>: Added the “Ensuring reliability as an organization grows” section</li>
+  <li><em>2023/05/28</em>: Rewrote the whole post</li>
 </ul>
 
 <h4 id="footnotes">Footnotes</h4>
