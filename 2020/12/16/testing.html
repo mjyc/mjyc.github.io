@@ -54,7 +54,7 @@
       <time class="dt-published" datetime="2020-12-16T08:00:00+00:00" itemprop="datePublished">Posted on Dec 16, 2020
       </time>• <time class="dt-published" datetime="2022-06-29T08:00:00+00:00" itemprop="datePublished">Updated on Jun 29, 2022
         </time>
-      • <span>14 min read</span><br>
+      • <span>16 min read</span><br>
       
         <span class="post-meta">#software-engineering&nbsp</span>
       </p>
@@ -67,83 +67,87 @@
 </figure>
 
 <p>Testing robotics systems is hard.
-Based on my limited experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS using fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty were as follows:</p>
+Based on my experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS using fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty were as follows:</p>
 
-<ol>
-  <li><em>Edge cases and corner cases in production environments.</em></li>
-  <li><em>The difficulty of using simulation.</em></li>
-  <li><em>Challenges with adopting automation.</em></li>
-</ol>
+<ul>
+  <li>Edge cases and corner cases in production environments.</li>
+  <li>The difficulty of using simulation.</li>
+  <li>Challenges with adopting automation.</li>
+</ul>
 
-<h2 id="why-is-testing-robotics-systems-hard">Why is testing robotics systems hard?</h2>
+<h2 id="why-is-testing-robotics-systems-hard">Why is Testing Robotics Systems Hard?</h2>
 
 <p>In <strong>production</strong>, I’ve encountered various <strong>edge cases and corner cases</strong>:</p>
 
-<ol>
+<ul>
   <li><em>Edge cases for robotics algorithms.</em>
- Input spaces for robotics algorithms, such as perception, control, and motion planning, are vast and challenging to effectively cover for edge cases; there is always a specific layout that causes navigation failures or a particular scene with specific objects that leads to grasping failures.
- Characterizing such instances is difficult and algorithm-dependent, which complicates the testing setup.</li>
+  Input spaces for robotics algorithms, such as perception, control, and motion planning, are vast and challenging to effectively cover for edge cases; there is always a specific layout that causes navigation failures or a particular scene with specific objects that leads to grasping failures.
+  Characterizing such instances is difficult and algorithm-dependent, which complicates the testing setup.</li>
   <li><em>Rare hardware issues.</em>
- Rare hardware issues that are not (directly) detectable are the worst, such as a small damage in the robot cell structure that requires adjusting the collision map.
- Anticipating such issues requires input from domain experts (e.g., mechanical or firmware engineers), who may not be easily accessible and speak different jargons and reproducing them often requires changing interfaces, which can be expensive (e.g., it becomes yet another layer to maintain).</li>
+  Rare hardware issues that are not (directly) detectable are the worst, such as a small damage in the robot cell structure that requires adjusting the collision map.
+  Anticipating such issues requires input from domain experts (e.g., mechanical or firmware engineers), who may not be easily accessible and speak different jargons and reproducing them often requires changing interfaces, which can be expensive (e.g., it becomes yet another layer to maintain).</li>
   <li><em>Subtle regression.</em>
- The complexity of robotics systems makes it challenging to establish a robust <a href="https://katalon.com/resources-center/blog/regression-testing">regression testing</a> pipeline.
- For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a>[^2] is difficult and hence elusive bugs slip back into the production code.
- Performance regressions are particularly challenging–especially ones caused by low-level concurrency issues[^3], as they are subtle and require expensive measures such as repeated end-to-end tests and delicate statistical methods to detect.</li>
+  The complexity of robotics systems makes it challenging to establish a robust <a href="https://katalon.com/resources-center/blog/regression-testing">regression testing</a> pipeline.
+  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a>[^2] is difficult and hence elusive bugs slip back into the production code.
+  Performance regressions are particularly challenging–especially ones caused by low-level concurrency issues[^3], as they are subtle and require expensive measures such as repeated end-to-end tests and delicate statistical methods to detect.</li>
   <li><em>Unexpected peak load condition/usage pattern.</em>
- It is common for multiple (custom) software, such as core robotics, monitoring, and infra-related software, to run in parallel.
- Unexpected high demands can adversarially impact your program, e.g., by consuming all of the available resources.
- Anticipating and recreating such situations is challenging, especially when dealing with (custom) software at all levels, including firmware and system software.</li>
-</ol>
+  It is common for multiple (custom) software, such as core robotics, monitoring, and infra-related software, to run in parallel.
+  Unexpected high demands can adversarially impact your program, e.g., by consuming all of the available resources.
+  Anticipating and recreating such situations is challenging, especially when dealing with (custom) software at all levels, including firmware and system software.</li>
+</ul>
 
 <p><strong>Using simulation</strong> for testing robotics systems effectively <strong>is not as easy</strong> as it seems.</p>
 
-<ol>
+<ul>
   <li><em>Inadequate usage.</em>
- I find that simulation testing is most useful for end-to-end testing of robot applications.
- However, I often encounter test cases that would benefit from using other tools and techniques (e.g., for efficiency).
- All too frequently, I come across test cases for robot behaviors (e.g., implemented in finite state machine or behavior tree) that use simulation, making the test cases much more expensive than they need to be.
- In such cases, using alternatives like <a href="https://martinfowler.com/bliki/TestDouble.html">fake</a> or <a href="https://www.educative.io/answers/what-is-model-based-testing">model-based testing</a>[^4] would be much more efficient, as they can be used to only “simulate” the directly relevant modules[^5].
- This often stems from organizational issues, such as unclear boundaries between teams that result in poorly defined interfaces and testing strategies[^6] or more typical insufficient allocation of time for testing/addressing technical debts (e.g., in favor of prioritizing other deliverables).</li>
+  I find that simulation testing is most useful for end-to-end testing of robot applications.
+  However, I often encounter test cases that would benefit from using other tools and techniques (e.g., for efficiency).
+  All too frequently, I come across test cases for robot behaviors (e.g., implemented in finite state machine or behavior tree) that use simulation, making the test cases much more expensive than they need to be.
+  In such cases, using alternatives like <a href="https://martinfowler.com/bliki/TestDouble.html">fake</a> or <a href="https://www.educative.io/answers/what-is-model-based-testing">model-based testing</a>[^4] would be much more efficient, as they can be used to only “simulate” the directly relevant modules[^5].
+  This often stems from organizational issues, such as unclear boundaries between teams that result in poorly defined interfaces and testing strategies[^6] or more typical insufficient allocation of time for testing/addressing technical debts (e.g., in favor of prioritizing other deliverables).</li>
   <li><em>Generating test cases.</em>
- Even with simulation libraries that provide high-level interfaces for building scenarios, creating effective test scenarios is challenging.
- Creating a single simulated environment for end-to-end testing alone is laborious enough, so diversifying the test scenarios (e.g., to cover extreme cases) becomes a nice-to-have[^7].
- There are commercial products that address this issue (e.g., <a href="https://aws.amazon.com/blogs/aws/aws-announces-worldforge-in-aws-robomaker/">AWS RoboMaker WorldForge</a>), but they are not easy for smaller organizations (i.e., startups) to integrate due to reasons such as integration cost, vendor lock-in, etc.</li>
+  Even with simulation libraries that provide high-level interfaces for building scenarios, creating effective test scenarios is challenging.
+  Creating a single simulated environment for end-to-end testing alone is laborious enough, so diversifying the test scenarios (e.g., to cover extreme cases) becomes a nice-to-have[^7].
+  There are commercial products that address this issue (e.g., <a href="https://aws.amazon.com/blogs/aws/aws-announces-worldforge-in-aws-robomaker/">AWS RoboMaker WorldForge</a>), but they are not easy for smaller organizations (i.e., startups) to integrate due to reasons such as integration cost, vendor lock-in, etc.</li>
   <li><em>Expressing specifications.</em>
- Specifications for many robotics programs, e.g., those involving perception, motion planning, and behaviors, are difficult to express due to their spatiotemporal nature.
- This leads to verbose and unorganized (e.g., containing duplicates) test code, which makes it difficult to maintain and scale.</li>
+  Specifications for many robotics programs, e.g., those involving perception, motion planning, and behaviors, are difficult to express due to their spatiotemporal nature.
+  This leads to verbose and unorganized (e.g., containing duplicates) test code, which makes it difficult to maintain and scale.</li>
   <li><em>Managing infrastructure.</em>
- I haven’t met a single person who loves managing simulation testing infrastructure, e.g., for continuous integration.
- Simulation test code is expensive to run, requires special hardware such as GPUs, and is difficult to optimize and move around (e.g., in cloud environments).
- This leads to a poor developer experience and can even result in the disabling of simulation testing.</li>
-</ol>
+  I haven’t met a single person who loves managing simulation testing infrastructure, e.g., for continuous integration.
+  Simulation test code is expensive to run, requires special hardware such as GPUs, and is difficult to optimize and move around (e.g., in cloud environments).
+  This leads to a poor developer experience and can even result in the disabling of simulation testing.</li>
+</ul>
 
 <p><strong>Automating</strong> robotics software <strong>testing is still hard</strong>.</p>
 
-<ol>
+<ul>
   <li><em>Challenges with automating build and deployment.</em>
- Here are tech talks and a blog post that shed light on this topic:
+  Here are tech talks and a blog post that shed light on this topic:
     <ul>
-      <li><a href="https://youtu.be/fjfFe98LTm8">“Building Self Driving Cars with Bazel”</a> from Cruise, BazelCon 2019 - shares Cruise’s experiences with building and testing robotics software at scale</li>
-      <li><a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics - summarizes the typical challenges with deploying robotics software</li>
-      <li><a href="https://youtu.be/JNV9CkARh_g">“Physical continuous integration on real robots”</a> from Fetch, ROSCon 2016 - shares Fetch’s experience with setting up and using a physical continuous integration pipeline</li>
-      <li>ROS (2) docs on Build (tools): <a href="http://wiki.ros.org/catkin/conceptual_overview">catkin/conceptual_overview</a>, <a href="https://design.ros2.org/articles/build_tool.html">A universal build tool</a>, <a href="https://docs.ros.org/en/iron/Concepts/About-Build-System.html">About the build system</a></li>
-      <li>ROS (2) docs on Deployment (tools): <a href="https://docs.ros.org/en/iron/Tutorials/Advanced/Security/Deployment-Guidelines.html">Deployment Guidelines</a>, <a href="http://wiki.ros.org/bloom">bloom</a></li>
+      <li><a href="https://picknik.ai/ros/debian/packaging/2023/02/27/packaging-ros-with-github-actions.html">Packaging ROS with GitHub Actions</a> from PICKNIK Blog, 2023.</li>
+      <li><a href="https://youtu.be/fjfFe98LTm8">Building Self Driving Cars with Bazel</a> from Cruise, BazelCon 2019 - shares Cruise’s experiences with building and testing robotics software at scale</li>
+      <li><a href="https://www.airbotics.io/blog/software-deployment-landscape">The landscape of software deployment in robotics</a> from Airbotics - summarizes the typical challenges with deploying robotics software</li>
+      <li><a href="https://youtu.be/JNV9CkARh_g">Physical continuous integration on real robots</a> from Fetch, ROSCon 2016 - shares Fetch’s experience with setting up and using a physical continuous integration pipeline</li>
     </ul>
   </li>
   <li><em>No standard.</em>
- Automating the testing of software requires agreements among engineering teams on build, deployment, and test models.
- Given how robotics brings multiple communities together, such as research (e.g., computer vision, robotics), web development (e.g., frontend, backend), DevOps, embedded, etc., reaching such an agreement, or even discussing ideas (e.g., due to different backgrounds), is difficult.
- While the Robot-Operating System (ROS) and the communities around it have made significant progress in this regard, the lack of standards still seems to be a significant problem in organizations.</li>
-</ol>
+  Automating the testing of software requires agreements among engineering teams on build, deployment, and test models.
+  Given how robotics brings multiple communities together, such as research (e.g., computer vision, robotics), web development (e.g., frontend, backend), DevOps, embedded, etc., reaching such an agreement, or even discussing ideas (e.g., due to different backgrounds), is difficult.
+  While the Robot-Operating System (ROS) and the communities around it have made significant progress in this regard, the lack of standards still seems to be a significant problem in organizations.</li>
+</ul>
 
-<h2 id="where-to-start-with-testing-general-techniques">Where to start with testing: general techniques</h2>
+<h2 id="where-to-start-with-testing-general-techniques">Where to Start with Testing: General Techniques</h2>
 
-<p>To figure out where to start with testing a robotics system, I use (1) a prioritization framework for creating tests and (2) a systematic procedure for identifying what to test.
-The techniques discussed in this section are general/not-so-technical and are mostly aimed at addressing the first type of challenges mentioned above, i.e., “edge and corner cases in a production environment.”
-<!-- TODO: write a sentence _for {something}, read the next section ..._--></p>
+<p>To figure out where to start with testing a robotics system, I use the followings:</p>
 
-<h3 id="eisenhower-matrix-for-test-prioritization">Eisenhower matrix for test prioritization</h3>
+<ul>
+  <li>Prioritization framework for creating tests.</li>
+  <li>Systematic procedure for identifying what to test.</li>
+</ul>
+
+<p>The techniques discussed in this section are general/not-so-technical and are mostly aimed at addressing the abovementioned challenges regarding “edge and corner cases in production environments”.</p>
+
+<h3 id="eisenhower-matrix-for-test-prioritization">Eisenhower Matrix for Test Prioritization</h3>
 
 <p>In robotics startups that build complex systems, creating comprehensive test suites is impossible.
 To produce high-impact tests within the time budget, I use my adapted <a href="https://www.eisenhower.me/eisenhower-matrix/">Eisenhower Matrix</a> to prioritize a list of failure scenarios by first categorizing (potential) failure scenarios according to their (expected) frequency and risk.</p>
@@ -152,16 +156,16 @@ To produce high-impact tests within the time budget, I use my adapted <a href="h
   <img src="/assets/imgs/mcmatrix.png" width="480px" />
 </figure>
 
-<ol>
-  <li><em>First Quadrant (upper left): frequent and high-risk.</em>
- In Quadrant 1 (Q1), I place failure scenarios that need to be covered immediately, e.g., that I hear all the time from internal communication channels, such as introducing breaking changes to APIs and dependencies.</li>
-  <li><em>Second Quadrant (upper right): frequent and medium-risk.</em>
- In Quadrant 2 (Q2), I place failure scenarios that occur frequently but allow continued operations with short downtime like unreliable hardware or unresponsive user interface issues with well-established alerts and recovery procedures.</li>
-  <li><em>Third Quadrant (lower left): infrequent and high-risk.</em>
- In Quadrant 3 (Q3), I place failure scenarios that occur rarely but causes significant disruption in operations such as core robotics component failure scenario or unexpected peak usage pattern.</li>
-  <li><em>Fourth Quadrant (lower right): infrequent and medium-risk.</em>
- In Quadrant 4 (Q4), I place failure scenarios that occur relatively infrequently and allow continued operations.</li>
-</ol>
+<ul>
+  <li><strong>First Quadrant (upper left): frequent and high-risk.</strong>
+  In Quadrant 1 (Q1), I place failure scenarios that need to be covered immediately, e.g., that I hear all the time from internal communication channels, such as introducing breaking changes to APIs and dependencies.</li>
+  <li><strong>Second Quadrant (upper right): frequent and medium-risk.</strong>
+  In Quadrant 2 (Q2), I place failure scenarios that occur frequently but allow continued operations with short downtime like unreliable hardware or unresponsive user interface issues with well-established alerts and recovery procedures.</li>
+  <li><strong>Third Quadrant (lower left): infrequent and high-risk.</strong>
+  In Quadrant 3 (Q3), I place failure scenarios that occur rarely but causes significant disruption in operations such as core robotics component failure scenario or unexpected peak usage pattern.</li>
+  <li><strong>Fourth Quadrant (lower right): infrequent and medium-risk.</strong>
+  In Quadrant 4 (Q4), I place failure scenarios that occur relatively infrequently and allow continued operations.</li>
+</ul>
 
 <p>The placement of example failure scenarios in quadrants will differ across companies.
 For instance, depending on the maturity of the robot product/prototype or the amount of time invested by the engineering team in designing the system, an unreliable hardware failure scenario may belong in Q1 (e.g., if it is causing multiple issues) or a robotics algorithms failure scenario may belong in Q2 (e.g., if the failure is not catastrophic or easily recoverable).
@@ -171,96 +175,92 @@ This is because creating tests for Q3 requires a significant time investment, fo
 Usually, there is no time available to work on tests for Q4.
 But adjustments should be made to meet organization-specific requirements and constraints.</p>
 
-<h3 id="test-scenario-identification-procedure">Test scenario identification procedure</h3>
+<h3 id="test-scenario-identification-procedure">Test Scenario Identification Procedure</h3>
 
 <p>So far, I have assumed that the failure scenarios to test are known; however, this is usually not the case.
 To determine what to test, I follow these steps:</p>
 
 <ol>
-  <li><em>Gain access to internal alerts, dashboards, and logs.</em>
+  <li><strong>Gain access to internal alerts, dashboards, and logs._</strong>
  Investigating recently reported problems or analyzing the latest trends using monitoring tools[^8] is the easiest way to identify high-risk failure scenarios.
  If monitoring tools are not set up (e.g., in smaller companies), I get involved in operations work, which is another way to uncover potential high-value tests to create.</li>
-  <li><em>Identify interface and service boundaries.</em>
+  <li><strong>Identify interface and service boundaries.</strong>
  Understanding how software components interact with each other provides insights into potential integration failures and their impact.
  I start by looking for internal documentation with system diagrams (or examining the codebase and creating them if such diagrams don’t exist) and ask questions such as: which interactions must not fail? which interactions are changing frequently?
  Such exercises reveal missing must-have contract tests or high-impact opportunities to improve integration tests.</li>
-  <li><em>Identify implicit dependencies.</em>
+  <li><strong>Identify implicit dependencies.</strong>
  I consider edge cases such as low resources, unexpected hardware states, or unseen inputs to robotics algorithms (e.g., those that crash applications) as unmet runtime dependencies.
  Taking this view nudges me to specify these not-well-understood requirements for keeping the system (or “implicit dependencies”) well-behaving as explicitly and clearly as possible.
  Once defined, such requirements can be used to create extreme failure scenarios to test.</li>
 </ol>
 
-<h2 id="ensuring-testability-as-a-startup-grows">Ensuring testability as a startup grows</h2>
+<h2 id="ensuring-testability-as-a-startup-grows">Ensuring Testability as a Startup Grows</h2>
 
-<blockquote>
-  <p>This section is work-in-progress.<br />
-Please check back for updates!</p>
-</blockquote>
+<p>Below, I share my insights on key practices to employ at each growth stage/funding round of robotics startups.
+The real motivation behind testing is the reliability (e.g., of the provided service), and so the shared key practices below cover related areas such as debugging and observability[^9].</p>
 
-<p>Below I share my insights on key practices to employ at each growth stage/funding round of robotics startups.
-Since the real motivation behind testing is the reliabilty (e.g., of the provided service) and so the shared key practices below covers related areas such as debugging and observability[^9].</p>
+<p>If you have experience with SaaS/web service startups, you might notice that the RaaS/robotics company size (i.e., the number of employees) at each growth stage is larger, and some key practices occur later in robotics startups.
+This is because RaaS/robotics products not only consist of a more diverse set of software components but also require additional teams like electrical/firmware engineering, mechanical engineering, and manufacturing operations.</p>
 
-<h3 id="series-a-5-20-employees">Series A: 5-20 employees</h3>
+<h3 id="series-a-5-20-employees">Series A: 5-20 Employees</h3>
 
-<p>At this stage, startups are likely to have fewer than 5 customers/design partners, and a handful of developers who are relentlessly building (and fixing) major components of the company’s first product.
+<p>At this stage, startups are likely to have fewer than 5 customers/design partners and a handful of developers who are relentlessly building (and fixing) major components of the company’s first product.
 The goal of the startups is to prove the value of their product to their (rather forgiving) customers by succeeding in basic tasks performed by robots as much as possible.
 For example, a delivery robot should navigate without colliding with obstacles, and a robot manipulator should pick and place objects without dropping them in customers’ (production) environments.</p>
 
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li>Setting up <em>continuous integration or nightly tests</em> (e.g., using GitHub Actions, GitLab CI/CD, Jenkins) with at least one <em>end-to-end test involving a high-fidelity simulator</em> (e.g., Gazebo) to smoke test quickly changing codebases.</li>
-  <li>Setting up <em>internal communication channels</em> (e.g., Slack) and investing in a reliable <em>teleop solution</em> (e.g., built on MQTT, WebRTC) for quickly responding to critical incidents.</li>
-  <li>Creating <em>metrics and dashboards</em> (e.g., using Graphana/Prometheus) <em>to track business-critical measures</em> such as the number of deliveries/distance traveled, throughput/object knitted.</li>
+  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using Jenkins, GitLab CI/CD, GitHub Actions) with <strong>end-to-end tests involving a high-fidelity simulator</strong> (e.g., Gazebo) to quickly smoke test rapidly changing codebases.</li>
+  <li>Collaborating on <strong>internal communication channels</strong> (e.g., Slack) and utilizing a (custom) <strong>teleop solution</strong> (e.g., built on MQTT, WebRTC) to quickly respond to critical incidents.</li>
+  <li>Creating <strong>metrics and dashboards to track business-critical measures</strong> (e.g., using Grafana/Prometheus) such as the number of deliveries/distance traveled, throughput/object knitted to guide all developers/employees at a high level.</li>
 </ul>
 
-<h3 id="series-b-21-200-employees">Series B: 21-200 employees</h3>
+<h3 id="series-b-21-200-employees">Series B: 21-200 Employees</h3>
 
-<p>Startups at this stage start expanding their customer base and (aim to) scale their operations to deploy and handle, for example, more than 100 robots.
-The companies now have (small) teams of developers working on enhancing the robustness of core robotics software components to handle diverse environments of new customers, providing non-beta-user-acceptable user experience (e.g., by building a proper onboard and/or desktop UIs), and/or infrastructure to scale operations.
-The robotics system powering the product becomes much more complex and to manage such a complexity, its architecture involves (e.g., becomes more modular, composable, and distributed), which establishes boundaries in results, and developer teams start relying on toolings.</p>
-
-<p><strong>Key Practices:</strong></p>
-
-<!-- (e.g., using pytest, GoogleTest) -->
-<!-- - Employing test-driven-development to test each compoennt in isolation  -->
-<!-- test component in isolation and efficiently test complex interaction, e.g., without using high-fidelity simulators. -->
-<ul>
-  <li>Employing narrow integration tests and contract tests with fakes and mocks and adding them to continuous integration to test the integration of components built by individual teams.</li>
-  <li>Investing in an initial version of physical continuous integration or hardware-in-the-loop tests to improve the fidelity of end-to-end testing.</li>
-  <li>Improving deployment tools, e.g., utilizing container orchestrator.</li>
-  <li>Structuring logs and setting up a log aggregator to track performance, enabling a quick check of things.</li>
-  <li>Implementing an initial version of record and replay functionality, along with some sort of data visualization to aid in debugging.</li>
-</ul>
-
-<h3 id="series-c-201-2000-employees">Series C: 201-2000 employees</h3>
+<p>Startups at this stage start expanding their customer base and aim to scale their operations to deploy and handle, for example, more than 100 robots.
+The companies now have (small) teams of developers working on enhancing the robustness of core robotics software components to handle diverse environments of new (and unforgiving) customers, providing a non-beta-user-acceptable user experience (e.g., by building proper onboard and/or desktop UIs), and/or infrastructure to scale operations.
+The robotics system powering the product becomes much more complex, and to manage such complexity, its architecture becomes more modular, composable, and distributed, and boundaries/ownerships occur.</p>
 
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li>Testing
-    <ul>
-      <li>Faster testing, e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection</li>
-      <li>Improving build time</li>
-      <li>Enhancing HIL or physical CI/CD</li>
-    </ul>
-  </li>
-  <li>Observability
-    <ul>
-      <li>Using log and data aggregators</li>
-    </ul>
-  </li>
-  <li>Debugging support
-    <ul>
-      <li>Enhancing record and replay, e.g., supporting jumping</li>
-      <li>Faster relaunch</li>
-    </ul>
-  </li>
+  <li>Employing <strong><a href="https://martinfowler.com/bliki/IntegrationTest.html">narrow integration tests and contract tests</a></strong> using <a href="https://martinfowler.com/bliki/TestDouble.html">test doubles</a> like fakes and spies—sometimes going as far as implementing low-fidelity simulators with them (e.g., using pytest, GoogleTest) to test each team’s evolving software component in isolation and complex interactions between such components, efficiently.</li>
+  <li>Establishing a <strong>deployment strategy with rollback support</strong> (e.g., using tools that enable infrastructure-as-code/gitops like Ansible, Docker, and Jenkins or Terraform and Kubernetes/k3s) to avoid manually applying untrackable hotfixes in fear of losing customers.
+  By the way, this practice is nontrivial to achieve for technical and cultural reasons; for more information, see <a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics.
+  Typically, adopting a deployment tooling sparks discussions like adopting cloud-native tooling <a href="https://ubuntu.com/blog/ros-docker">or not</a>, which then sparks discussions on <a href="https://discourse.ros.org/t/how-do-you-launch-your-systems/23383/16">system launching mechanisms</a>, and so on.</li>
+  <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a> in production-like environments</strong> to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
+  <li>Utilizing (custom) <strong>fleet operation solution</strong> to scale teleop-based incidence recovery (e.g., more robots to monitor/rescue per person), open up such operations to non-developers, etc.</li>
+  <li><strong>Structuring and centralizing logs</strong> (e.g., structlog, spdlog, and Loki, ELK, Splunk) to track performance across growing fleets and enable dynamically querying information for fast debugging or monitoring, e.g., with <a href="/2023/04/21/observability.html">robotics-specific metrics</a>.
+  In addition, centralizing data would be ideal; however, given the large size of robotics data, doing so requires more care and resources—which usually becomes possible to afford in the next stage.</li>
+  <li>Implementing a <strong>data record and replayer and visualizer</strong> (e.g., rosbag and RVIZ, Foxglove Studio, or custom-built ones) to enable debugging or optimizing robotics algorithms running in distributed systems.
+  By the way, building a performant data record and replayer, e.g., that works well with both real robots and simulators, is no joke; there are issues like not being able to record or replay data fast enough, doesn’t work well with simulators that run slower or faster than real-time, etc.</li>
 </ul>
 
-<h3 id="beyond-2000-employees">Beyond 2000 employees</h3>
+<h3 id="series-c-201-2000-employees">Series C: 201-2000 Employees</h3>
 
-<p>Some companies at this stage seem to use custom hardware to accelerate computations unique to their needs.</p>
+<p>-&gt; This section is a work-in-progress.<br />
+-&gt; Please check back for updates!</p>
+
+<p><strong>Key Practices:</strong></p>
+
+<ul>
+  <li>Faster testing, e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection and prioritization</li>
+  <li>More (simulation) testing, e.g., on the cloud</li>
+  <li>Faster build time, e.g., via <a href="https://bazel.build/remote/caching">remote caching</a></li>
+  <li>Scale merge workflow</li>
+  <li>Adopting programmatic orchestration in preparation for large-scale, cross-team agility, e.g., to support large-scale architectural and infrastructure changes.</li>
+  <li>Hardware-in-the-loop (HIL) testing</li>
+  <li>Enhancing data record and replayer to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, better integration with high-fidelity simulators (e.g., handling high throughput).</li>
+  <li>More simulation tooling</li>
+</ul>
+
+<h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
+
+<p>Typically, companies at this stage are not considered startups, but since robotics is an experimental technology, robotics companies are still considered startups at this stage.
+However, I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, Zoox.
+One interesting trend I’ve seen is custom hardware to accelerate computations unique to their needs, but that’s just speculation.
+I will update here after gaining more experience with companies at this stage, one day.</p>
 
 <h2 id="closing-notes">Closing notes</h2>
 
@@ -286,15 +286,16 @@ The robotics system powering the product becomes much more complex and to manage
 
 <h4 id="footnotes">Footnotes</h4>
 
-<p>[^1] The identified challenges and my approaches may not generalize to other settings, such as testing in robotics companies that are much smaller (i.e., &lt; 10 employees) or much bigger (i.e., &gt; 1000 employees), or involving a different product, such as an autonomous vehicle-based ride-hailing service or an autonomous-based inspection service. For example, I don’t have much experience with testing robotics systems that make heavy use of <a href="https://getcruise.com/news/blog/2020/cruises-continuous-learning-machine-predicts-the-unpredictable-on-san/">machine learning</a> or <a href="https://docs.ros.org/en/iron/index.html">real-time programming</a>.
+<p>[^1] The identified challenges and my approaches may not generalize to other settings, such as testing in robotics companies that are much smaller (i.e., &lt; 10 employees) or much bigger (i.e., &gt; 1000 employees), or involving a different product, such as an autonomous vehicle-based ride-hailing service or an autonomous-based inspection service.
+For example, I don’t have much experience with testing robotics systems that make heavy use of <a href="https://getcruise.com/news/blog/2020/cruises-continuous-learning-machine-predicts-the-unpredictable-on-san/">machine learning</a> or <a href="https://docs.ros.org/en/iron/index.html">real-time programming</a>.
 <br />[^2] See also <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">The Rise of Test Impact Analysis</a> by Martin Fowler.
 <br />[^3] E.g., see <a href="https://youtu.be/II8yCw5tPE0">ROSCon 2017 Vancouver Day 2 Determinism in ROS</a> and <a href="https://vimeopro.com/osrfoundation/roscon-2019/video/379127709">ROSCON 2019 MACAU: CONCURRENCY IN ROS 1 AND 2: FROM ASYNCSPINNER TO MULTITHREADEDEXECUTOR</a>.
 <br />[^4] For code examples, see <a href="https://hypothesis.readthedocs.io/en/latest/stateful.html">Stateful testing</a> (Python) or <a href="https://medium.com/criteo-engineering/detecting-the-unexpected-in-web-ui-fuzzing-1f3822c8a3a5">Detecting the unexpected in (Web) UI</a> (JavaScript).
 <br />[^5] Check out <a href="https://martinfowler.com/bliki/IntegrationTest.html">IntegrationTest</a> by Martin Fowler for related discussion, e.g., about narrow and broad integration tests.
 <br />[^6] Check out <a href="https://martinfowler.com/articles/2021-test-shapes.html">On the Diverse And Fantastical Shapes of Testing</a> (at least the last paragarph starting with “If you’re paying my careful prose …”) by Martin Fowler for related discussion.
-<br />[^7] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">“Scenic: a language for scenario specification and scene generation”</a>.
+<br />[^7] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">Scenic: a language for scenario specification and scene generation</a>.
 <br />[^8] See also <a href="https://twitter.com/GergelyOrosz/status/1665340939529773057">this twit thread</a> from Gergely Orosz.
-<br />[^9] See also my another post <a href="https://mjyc.github.io/2023/04/21/observability.html">Robo-Observability</a>.</p>
+<br />[^9] See also my another post <a href="/2023/04/21/observability.html">Robo-Observability</a>.</p>
 <br>
 <script src="https://utteranc.es/client.js"
     repo="mjyc/mjyc.github.io"
