@@ -239,20 +239,15 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="series-c-201-2000-employees">Series C: 201-2000 Employees</h3>
 
-<p>-&gt; This section is a work-in-progress.<br />
--&gt; Please check back for updates!</p>
-
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li>Faster testing, e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection and prioritization</li>
-  <li>More (simulation) testing, e.g., on the cloud</li>
-  <li>Faster build time, e.g., via <a href="https://bazel.build/remote/caching">remote caching</a></li>
-  <li>Scale merge workflow</li>
-  <li>Adopting programmatic orchestration in preparation for large-scale, cross-team agility, e.g., to support large-scale architectural and infrastructure changes.</li>
-  <li>Hardware-in-the-loop (HIL) testing</li>
-  <li>Enhancing data record and replayer to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, better integration with high-fidelity simulators (e.g., handling high throughput).</li>
-  <li>More simulation tooling</li>
+  <li><strong>Faster testing</strong> (e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
+  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a>), <strong>build promotion</strong>, and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
+  <li><strong>Adopting programmatic orchestration</strong> in preparation for large-scale (e.g., Kubernetes), cross-team agility to support large-scale architectural and infrastructure changes.</li>
+  <li><strong>Hardware-in-the-loop (HIL) testing</strong> (e.g., using Gazebo, Isaac Sim).</li>
+  <li><strong>Enhancing data record and replayer</strong> to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, and better integration with high-fidelity simulators (e.g., handling high throughput).</li>
+  <li><strong>More simulation tooling</strong> (e.g., test scenario generator).</li>
 </ul>
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
