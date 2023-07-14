@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-07-12T22:43:46+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-07-14T01:28:45+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -274,7 +274,7 @@ In such a context, it made more sense to regard a robot application as a program
   <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
 </figure>
 
-<p>When reactive programming was making a buzz in the WebDev community[^3], I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
+<p>When reactive programming was making a buzz in the WebDev community, I stumbled upon <a href="https://cycle.js.org/">Cycle.js</a> and fell in love with it immediately.
 I loved how Cycle.js’ language-agnostic core concepts, like <a href="https://dl.acm.org/doi/pdf/10.1145/258948.258973">functional reactive programming paradigm</a> and <a href="http://wiki.c2.com/?PortsAndAdaptersArchitecture">ports and adaptors architecture</a>, seemed to be transferrable to robot application programming.
 I could imagine robot applications with complex interruption signals, e.g., consisting of external and internal signals like user input and system error signals, or more generally complex interaction flows, could be concisely expressed in a functional reactive programming paradigm.
 By following ports and adaptors architecture, Cycle.js enforces a separation of side-effect-making code from the application logic, and it made testing a breeze, especially with <a href="https://rxjs.dev/guide/testing/marble-testing">test tooling</a> that often came with reactive stream libraries like <a href="https://reactivex.io/">ReactiveX</a>.
@@ -286,17 +286,17 @@ It delivered on simplifying authoring complex interactive programs and testing s
 However, I eventually faced major challenges.
 State management in Cycle.js-like frameworks was awkward, especially when it came to composing finite state machines, e.g., requiring techniques that are hard to get right, like <a href="https://speakerdeck.com/p4checo/reactive-state-machines-using-feedback-loops">creating circular dependencies between streams</a>, which was a showstopper because the creating FSMs must be well-supported for the robotics community.
 Adopting Cycle.js’ core concepts also didn’t help much with the challenges of building robust applications for distributed robotics systems, such as dealing with unresponsive services, rare process crashes, and subtle performance regressions.
-Given such experiences, I felt the strong need for a higher-level abstraction[^4] that allows developers to work directly in the application space without worrying about system-level problems.</p>
+Given such experiences, I felt the strong need for a higher-level abstraction that allows developers to work directly in the application space without worrying about system-level problems[^3].</p>
 
 <figure>
   <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
   <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 <p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
-The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^5].
+The community’s proficiency in employing the declarative approach, i.e., describing the desired state and automating the remaining steps, emphasizing robustness and resilience, was evident in tools (e.g., <a href="https://kubernetes.io/">Kubernetes</a>) and processes (e.g., <a href="https://about.gitlab.com/topics/gitops/">GitOps</a>)[^4].
 I liked what I found, but it wasn’t immediately apparent how to apply these findings to the domain of robot application programming.
 At the time (2017~2018), DevOps tools were primarily tailored to specific environments (e.g., the cloud) and technologies (e.g., containers) that were foreign to robotics systems.
-Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^6].
+Nevertheless, as DevOps is a methodology, adopting its practices in the robotics domain has been ongoing[^5].
 I hope to catch up and revisit the adoption in a future post.</p>
 
 <figure>
@@ -304,14 +304,17 @@ I hope to catch up and revisit the adoption in a future post.</p>
   <figcaption><a href="https://vega.github.io/vega-lite/">Vega-lite</a>, a grammar for rapid data visualization</figcaption>
 </figure>
 
-<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^7].
+<p>Perhaps the biggest inspiration came from <a href="https://wiki.c2.com/?TheGrammarOfGraphics">the grammar of graphics</a>[^6].
 The graphics of grammar offered a concise and structured way to build and explore a large space of data visualization quickly.
 There are three core layers of the graphics of grammar:</p>
 
 <ol>
-  <li><em>Data</em> is a data frame containing one or more variables. Fundamentally, data represents categorizable inputs to a visualization system.</li>
-  <li><em>Aesthetic</em> defines the mappings of one or more variables to one or more visual elements. Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
-  <li><em>Geometry</em> decides the type or shape of the visual elements. Fundamentally, Geometry gives precise meanings to the mapped entities.</li>
+  <li><em>Data</em> is a data frame containing one or more variables.
+Fundamentally, data represents categorizable inputs to a visualization system.</li>
+  <li><em>Aesthetic</em> defines the mappings of one or more variables to one or more visual elements.
+Fundamentally, Aesthetic maps the categorizable inputs to entities in the application space.</li>
+  <li><em>Geometry</em> decides the type or shape of the visual elements.
+Fundamentally, Geometry gives precise meanings to the mapped entities.</li>
 </ol>
 
 <p>We can apply the fundamental structure to the robot application programming domain and build the “grammar of robot applications,” for example:</p>
@@ -330,13 +333,13 @@ It will require deep understanding and careful organization of the application t
 However, I believe this is the direction that can accelerate the adoption of intelligent robotics services in the target industry.</p>
 
 <p><em>(Update 2023/04/01)</em> There’s been a lot of hype on how ChatGPT–or Large Language Model (LLM)-driven programming synthesis, more generally–will take away programming jobs.
-While I don’t fully agree with such hype[^8], I do think ChatGPT will change programming significantly[^9].
+While I don’t fully agree with such hype[^7], I do think ChatGPT will change programming significantly[^8].
 What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
 However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
 As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
 Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
 
-<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^10] in the last ~5 years.
+<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^9] in the last ~5 years.
 Like LLMSynth and GSpec, No-code also shares the goal of simplifying programming and takes a more similar approach to GSpec (than that of LLMSynth), e.g., NoCode tools or visual programming interfaces are designed and built manually (and likely not involve machine learning).
 The main difference is the level of expressivity.
 Because of their focus on visual programming (targeting non-programmer users), No-Code tools tend to expose a subset of programming interfaces or high-level abstractions to a visual programming interface, resulting in a lower output program space than that of GSpec.
@@ -364,17 +367,16 @@ I shared my observations on the challenges associated with robot application pro
 
 <p>[^1] I wrote a <a href="https://mjyc.github.io/assets/pdfs/PhD%20Thesis%20-%20Michael%20Jae-Yoon%20Chung.pdf">thesis</a> on this topic; this post shares my explorations regarding developer tools that didn’t make into my thesis.
 <br />[^2] For more insights, see <a href="http://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter09_Overcoming_Pitfalls_in_Behavior_Tree_Design.pdf">Overcoming Pitfalls in Behavior Tree Design</a>.
-<br />[^3] To this end, I prototyped <a href="https://mjyc.github.io/assets/pdfs/chung2022soboro.pdf">a higher-level DSL</a> (or an <a href="https://martinfowler.com/dsl.html">external DSL</a>) and <a href="https://mjyc.github.io/assets/pdfs/chung2022authoring.pdf">a program synthesizer</a>.
-<br />[^4] <a href="https://youtu.be/Uo3cL4nrGOk">JavaScript isn’t everyone’s favorite</a>, but I agree that the <a href="https://twitter.com/swyx/status/1505547960808972295">frontend tooling built in JavaScript offers amazing developer experience</a>.
-<br />[^5] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
+<br />[^3] Maybe something like <a href="https://wasp-lang.dev/">Wasp</a> and <a href="https://temporal.io/">Temporal</a> combined.
+<br />[^4] For gentle introductions, see <a href="https://youtu.be/VnvRFRk_51k">What is Kubernetes | Kubernetes explained in 15 mins
 </a> and <a href="https://youtu.be/f5EpcWp0THw">What is GitOps, How GitOps works and Why it’s so useful
 </a>
-<br />[^6] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> provides some ideas.
-<br />[^7] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
-<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
+<br />[^5] <a href="https://github.com/Airbotics/awesome-cloud-robotics">awesome-cloud-robotics</a> provides some ideas.
+<br />[^6] For a gentle introduction, see <a href="https://murraylax.org/rtutorials/gog.html#introduction">Introduction to the Grammar of Graphics</a>
+<br />[^7] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
-<br />[^9] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
-<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Software Engineering Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/software.html" rel="alternate" type="text/html" title="Software Engineering Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/software</id><content type="html" xml:base="/2021/11/27/software.html"><![CDATA[<blockquote>
+<br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
+<br />[^9] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Software Engineering Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/software.html" rel="alternate" type="text/html" title="Software Engineering Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/software</id><content type="html" xml:base="/2021/11/27/software.html"><![CDATA[<blockquote>
   <p>This post is in work-in-progress.<br />
 Please check back for updates!</p>
 </blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#dadlife" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Functional Listening</title><link href="/2021/11/24/functional.html" rel="alternate" type="text/html" title="Functional Listening" /><published>2021-11-24T08:00:00+00:00</published><updated>2021-11-24T08:00:00+00:00</updated><id>/2021/11/24/functional</id><content type="html" xml:base="/2021/11/24/functional.html"><![CDATA[<blockquote>
@@ -530,7 +532,7 @@ For example, a delivery robot should navigate without colliding with obstacles, 
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using Jenkins, GitLab CI/CD, GitHub Actions) with <strong>end-to-end tests involving a high-fidelity simulator</strong> (e.g., Gazebo) to quickly smoke test rapidly changing codebases.</li>
+  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using Jenkins, GitLab CI/CD, GitHub Actions, or <a href="https://picknik.ai/ros/debian/packaging/2023/02/27/packaging-ros-with-github-actions.html">Debian build farm</a>) with <strong>end-to-end tests involving a high-fidelity simulator</strong> (e.g., Gazebo) to quickly smoke test rapidly changing codebases.</li>
   <li>Collaborating on <strong>internal communication channels</strong> (e.g., Slack) and utilizing a (custom) <strong>teleop solution</strong> (e.g., built on MQTT, WebRTC) to quickly respond to critical incidents.</li>
   <li>Creating <strong>metrics and dashboards to track business-critical measures</strong> (e.g., using Grafana/Prometheus) such as the number of deliveries/distance traveled, throughput/object knitted to guide all developers/employees at a high level.</li>
 </ul>
@@ -545,10 +547,10 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <ul>
   <li>Employing <strong><a href="https://martinfowler.com/bliki/IntegrationTest.html">narrow integration tests and contract tests</a></strong> using <a href="https://martinfowler.com/bliki/TestDouble.html">test doubles</a> like fakes and spies—sometimes going as far as implementing low-fidelity simulators with them (e.g., using pytest, GoogleTest) to test each team’s evolving software component in isolation and complex interactions between such components, efficiently.</li>
-  <li>Establishing a <strong>deployment strategy with rollback support</strong> (e.g., using tools that enable infrastructure-as-code/gitops like Ansible, Docker, and Jenkins or Terraform and Kubernetes/k3s) to avoid manually applying untrackable hotfixes in fear of losing customers.
+  <li>Establishing a <strong>deployment strategy with rollback support</strong> (e.g., using tools that enable infrastructure-as-code/gitops like Ansible, Terraform and support over-the-air updates, etc.) to avoid manually applying untrackable hotfixes in fear of losing customers. <br />
   By the way, this practice is nontrivial to achieve for technical and cultural reasons; for more information, see <a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics.
   Typically, adopting a deployment tooling sparks discussions like adopting cloud-native tooling <a href="https://ubuntu.com/blog/ros-docker">or not</a>, which then sparks discussions on <a href="https://discourse.ros.org/t/how-do-you-launch-your-systems/23383/16">system launching mechanisms</a>, and so on.</li>
-  <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a> in production-like environments</strong> to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
+  <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a></strong> in a production-like environment to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
   <li>Utilizing (custom) <strong>fleet operation solution</strong> to scale teleop-based incidence recovery (e.g., more robots to monitor/rescue per person), open up such operations to non-developers, etc.</li>
   <li><strong>Structuring and centralizing logs</strong> (e.g., structlog, spdlog, and Loki, ELK, Splunk) to track performance across growing fleets and enable dynamically querying information for fast debugging or monitoring, e.g., with <a href="/2023/04/21/observability.html">robotics-specific metrics</a>.
   In addition, centralizing data would be ideal; however, given the large size of robotics data, doing so requires more care and resources—which usually becomes possible to afford in the next stage.</li>
@@ -561,9 +563,9 @@ The robotics system powering the product becomes much more complex, and to manag
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li><strong>Faster testing</strong> (e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
-  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a>), <strong>build promotion</strong>, and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
-  <li><strong>Adopting programmatic orchestration</strong> in preparation for large-scale (e.g., Kubernetes), cross-team agility to support large-scale architectural and infrastructure changes.</li>
+  <li><strong>Faster testing</strong> (e.g., by utilizing <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
+  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a> using <a href="https://discourse.ros.org/t/adding-bazel-as-an-official-alternative-build-system-for-ros2-iron/28476/19">Bazel</a>), and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
+  <li><strong>Adopting programmatic orchestration</strong> (e.g., Kubernetes Federation) in preparation for large-scale, cross-team agility to support large-scale architectural and infrastructure changes.</li>
   <li><strong>Hardware-in-the-loop (HIL) testing</strong> (e.g., using Gazebo, Isaac Sim).</li>
   <li><strong>Enhancing data record and replayer</strong> to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, and better integration with high-fidelity simulators (e.g., handling high throughput).</li>
   <li><strong>More simulation tooling</strong> (e.g., test scenario generator).</li>
@@ -571,9 +573,7 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
 
-<p>Typically, companies at this stage are not considered startups, but since robotics is an experimental technology, robotics companies are still considered startups at this stage.
-However, I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, Zoox.
-One interesting trend I’ve seen is custom hardware to accelerate computations unique to their needs, but that’s just speculation.
+<p>I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, and Zoox.
 I will update here after gaining more experience with companies at this stage, one day.</p>
 
 <h2 id="closing-notes">Closing notes</h2>
@@ -590,6 +590,10 @@ I will update here after gaining more experience with companies at this stage, o
 <p>I’d love to hear your thoughts.</p>
 
 <p><br /></p>
+
+<h4 id="acknowledgements">Acknowledgements</h4>
+
+<p>I thank all my colleagues who have engaged in conversations with me on related topics.</p>
 
 <h4 id="significant-revisions">Significant Revisions</h4>
 

@@ -211,7 +211,7 @@ For example, a delivery robot should navigate without colliding with obstacles, 
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using Jenkins, GitLab CI/CD, GitHub Actions) with <strong>end-to-end tests involving a high-fidelity simulator</strong> (e.g., Gazebo) to quickly smoke test rapidly changing codebases.</li>
+  <li>Setting up <strong>continuous integration or nightly tests</strong> (e.g., using Jenkins, GitLab CI/CD, GitHub Actions, or <a href="https://picknik.ai/ros/debian/packaging/2023/02/27/packaging-ros-with-github-actions.html">Debian build farm</a>) with <strong>end-to-end tests involving a high-fidelity simulator</strong> (e.g., Gazebo) to quickly smoke test rapidly changing codebases.</li>
   <li>Collaborating on <strong>internal communication channels</strong> (e.g., Slack) and utilizing a (custom) <strong>teleop solution</strong> (e.g., built on MQTT, WebRTC) to quickly respond to critical incidents.</li>
   <li>Creating <strong>metrics and dashboards to track business-critical measures</strong> (e.g., using Grafana/Prometheus) such as the number of deliveries/distance traveled, throughput/object knitted to guide all developers/employees at a high level.</li>
 </ul>
@@ -226,10 +226,10 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <ul>
   <li>Employing <strong><a href="https://martinfowler.com/bliki/IntegrationTest.html">narrow integration tests and contract tests</a></strong> using <a href="https://martinfowler.com/bliki/TestDouble.html">test doubles</a> like fakes and spies—sometimes going as far as implementing low-fidelity simulators with them (e.g., using pytest, GoogleTest) to test each team’s evolving software component in isolation and complex interactions between such components, efficiently.</li>
-  <li>Establishing a <strong>deployment strategy with rollback support</strong> (e.g., using tools that enable infrastructure-as-code/gitops like Ansible, Docker, and Jenkins or Terraform and Kubernetes/k3s) to avoid manually applying untrackable hotfixes in fear of losing customers.
+  <li>Establishing a <strong>deployment strategy with rollback support</strong> (e.g., using tools that enable infrastructure-as-code/gitops like Ansible, Terraform and support over-the-air updates, etc.) to avoid manually applying untrackable hotfixes in fear of losing customers. <br />
   By the way, this practice is nontrivial to achieve for technical and cultural reasons; for more information, see <a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics.
   Typically, adopting a deployment tooling sparks discussions like adopting cloud-native tooling <a href="https://ubuntu.com/blog/ros-docker">or not</a>, which then sparks discussions on <a href="https://discourse.ros.org/t/how-do-you-launch-your-systems/23383/16">system launching mechanisms</a>, and so on.</li>
-  <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a> in production-like environments</strong> to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
+  <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a></strong> in a production-like environment to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
   <li>Utilizing (custom) <strong>fleet operation solution</strong> to scale teleop-based incidence recovery (e.g., more robots to monitor/rescue per person), open up such operations to non-developers, etc.</li>
   <li><strong>Structuring and centralizing logs</strong> (e.g., structlog, spdlog, and Loki, ELK, Splunk) to track performance across growing fleets and enable dynamically querying information for fast debugging or monitoring, e.g., with <a href="/2023/04/21/observability.html">robotics-specific metrics</a>.
   In addition, centralizing data would be ideal; however, given the large size of robotics data, doing so requires more care and resources—which usually becomes possible to afford in the next stage.</li>
@@ -242,9 +242,9 @@ The robotics system powering the product becomes much more complex, and to manag
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li><strong>Faster testing</strong> (e.g., via <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">TIA</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
-  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a>), <strong>build promotion</strong>, and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
-  <li><strong>Adopting programmatic orchestration</strong> in preparation for large-scale (e.g., Kubernetes), cross-team agility to support large-scale architectural and infrastructure changes.</li>
+  <li><strong>Faster testing</strong> (e.g., by utilizing <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
+  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a> using <a href="https://discourse.ros.org/t/adding-bazel-as-an-official-alternative-build-system-for-ros2-iron/28476/19">Bazel</a>), and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
+  <li><strong>Adopting programmatic orchestration</strong> (e.g., Kubernetes Federation) in preparation for large-scale, cross-team agility to support large-scale architectural and infrastructure changes.</li>
   <li><strong>Hardware-in-the-loop (HIL) testing</strong> (e.g., using Gazebo, Isaac Sim).</li>
   <li><strong>Enhancing data record and replayer</strong> to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, and better integration with high-fidelity simulators (e.g., handling high throughput).</li>
   <li><strong>More simulation tooling</strong> (e.g., test scenario generator).</li>
@@ -252,9 +252,7 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
 
-<p>Typically, companies at this stage are not considered startups, but since robotics is an experimental technology, robotics companies are still considered startups at this stage.
-However, I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, Zoox.
-One interesting trend I’ve seen is custom hardware to accelerate computations unique to their needs, but that’s just speculation.
+<p>I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, and Zoox.
 I will update here after gaining more experience with companies at this stage, one day.</p>
 
 <h2 id="closing-notes">Closing notes</h2>
@@ -271,6 +269,10 @@ I will update here after gaining more experience with companies at this stage, o
 <p>I’d love to hear your thoughts.</p>
 
 <p><br /></p>
+
+<h4 id="acknowledgements">Acknowledgements</h4>
+
+<p>I thank all my colleagues who have engaged in conversations with me on related topics.</p>
 
 <h4 id="significant-revisions">Significant Revisions</h4>
 
