@@ -3,7 +3,6 @@ layout: devnote
 title: "Bazelifying ROS Projects with LLM's Assistance"
 date: 2023-06-25 00:00:00 -0800
 tags: ["#devnotes"]
-published: true
 ---
 
 ## Goals

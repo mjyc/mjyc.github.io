@@ -26,7 +26,7 @@ layout: default
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
-    {%- if site.utterances.repo and page.comments -%}
+    {%- if site.utterances.repo -%}
       {% include utterances.html -%}
     {%- endif -%}
   </div>

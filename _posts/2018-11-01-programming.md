@@ -456,4 +456,4 @@ Please let me know if something isn’t clear, and I’d be happy to chat about 
 * If you are a [ROS](http://www.ros.org/) user, check out my [experimental Cycle.js driver](https://github.com/mjyc/cycle-ros-example) for communicating with ROS using [roslibjs](https://github.com/RobotWebTools/roslibjs).
 * Help me improve [cycle-robot-drivers](./) library by participating in [this brief survey](https://goo.gl/forms/rdnvgk8rWrUmbtrt1)!
 
-_My name is Mike Chung. I'm a [graduate student](https://homes.cs.washington.edu/~mjyc/) interested in the field of human-robot interaction and machine learning. You can reach me on [Twitter](https://twitter.com/mjyc_) and on [GitHub](https://github.com/mjyc)._
+_My name is Mike Chung. I'm a [graduate student](https://homes.cs.washington.edu/~mjyc/) interested in the field of human-robot interaction and machine learning. You can reach me on [Twitter](https://twitter.com/mjycio) and on [GitHub](https://github.com/mjyc)._

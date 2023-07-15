@@ -7,9 +7,9 @@ Hello, I'm Mike.
 I build tools for robot programming and operating.
 Check out my [resume]({{ site.baseurl }}/assets/pdfs/Resume - Michael Jae-Yoon Chung.pdf).
 
-You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) or [Twitter](https://twitter.com/mjyc_).
+You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) or [Twitter](https://twitter.com/mjycio).
 I try to share my code on [GitHub](https://github.com/mjyc).
-I sometimes share my thoughts on [blog](/blog).
+I sometimes share my thoughts on [blog](/blog) and ideas on [devnotes](/devnotes).
 You can see what I've been listening to lately on [last.fm](https://www.last.fm/user/mikechung).
 
 

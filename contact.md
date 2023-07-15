@@ -8,7 +8,7 @@ You can find my email in my [resume]({{ site.baseurl }}/assets/pdfs/Curriculum V
 
 I sometimes hangout at
 - [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/)
-- [Twitter](https://twitter.com/mjyc_/)
+- [Twitter](https://twitter.com/mjycio/)
 - [GitHub](https://github.com/mjyc)
 - [CodeSandbox](https://codesandbox.io/u/mjyc/)
 - [last.fm](https://www.last.fm/user/mikechung)

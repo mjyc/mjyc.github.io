@@ -501,4 +501,4 @@ The biggest challenge for using FSM is defining FSM. If you are using the FSM pa
 
 Thank you for reading! I hope I got you interested in using FSMs in Cycle.js. Let me know if something isn’t clear, and I’d be happy to chat.
 
-_My name is Mike Chung. I'm a [graduate student](https://homes.cs.washington.edu/~mjyc/) interested in the field of human-robot interaction and machine learning. You can reach me on [Twitter](https://twitter.com/mjyc_) and on [GitHub](https://github.com/mjyc)._
+_My name is Mike Chung. I'm a [graduate student](https://homes.cs.washington.edu/~mjyc/) interested in the field of human-robot interaction and machine learning. You can reach me on [Twitter](https://twitter.com/mjycio) and on [GitHub](https://github.com/mjyc)._
