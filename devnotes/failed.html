@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>My failed attempt to set up an old MacbookPro as a deep learning workstation | Michael Jae-Yoon Chung</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="My failed attempt to set up an old MacbookPro as a deep learning workstation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I recently got a new laptop but didn’t want to say goodbye to my 2014 MacBookPro (10,1) yet. Then I remembered it has an NVIDIA graphics card, so I thought maybe I’ll use it for training toy deep learning models. I never train a deep learning model before." />
+<meta property="og:description" content="I recently got a new laptop but didn’t want to say goodbye to my 2014 MacBookPro (10,1) yet. Then I remembered it has an NVIDIA graphics card, so I thought maybe I’ll use it for training toy deep learning models. I never train a deep learning model before." />
+<meta property="og:site_name" content="Michael Jae-Yoon Chung" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-20T08:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="My failed attempt to set up an old MacbookPro as a deep learning workstation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-03-20T08:00:00+00:00","datePublished":"2020-03-20T08:00:00+00:00","description":"I recently got a new laptop but didn’t want to say goodbye to my 2014 MacBookPro (10,1) yet. Then I remembered it has an NVIDIA graphics card, so I thought maybe I’ll use it for training toy deep learning models. I never train a deep learning model before.","headline":"My failed attempt to set up an old MacbookPro as a deep learning workstation","mainEntityOfPage":{"@type":"WebPage","@id":"/devnotes/failed"},"url":"/devnotes/failed"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-NZ4FX6FCL4');
+</script>
+<link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro" />
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael Jae-Yoon Chung</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research/">research</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="devnote h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">My failed attempt to set up an old MacbookPro as a deep learning workstation</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-20T08:00:00+00:00" itemprop="datePublished">Posted on Mar 20, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I recently got a new laptop but didn’t want to say goodbye to my <a href="https://everymac.com/systems/apple/macbook_pro/specs/macbook-pro-core-i7-2.6-15-dual-graphics-late-2013-retina-display-specs.html">2014 MacBookPro (10,1)</a> yet. Then I remembered it has an NVIDIA graphics card, so I thought maybe I’ll use it for training toy deep learning models. I never train a deep learning model before.</p>
+
+<p>My goal was to training a <a href="https://github.com/NVIDIA/tacotron2">tacotron2</a> model. Tacotron is Google’s deep learning-based speech synthesis system. I was not able to set up my old laptop to train a tacotron2 model but found a different way to achieve my goal, i.e., using <a href="https://colab.research.google.com/">Google Colab</a>. Still, I’m sharing my journey in case someone could learn from the mistakes I made.</p>
+
+<ol>
+  <li>
+    <p>I installed Ubuntu 18.04. I searched for related documentation from <a href="https://help.ubuntu.com/community/MacBookPro">help.ubuntu.com</a> or <a href="https://wiki.ubuntu.com/MactelSupportTeam/CommunityHelpPages">wiki.ubuntu.com</a> but they seem outdated so I just googled “install ubuntu 18.04 MacBookPro and found a <a href="https://medium.com/@vincentedwardcastro/installing-ubuntu-18-04-01-lts-on-late-2013-mac-book-pro-61d20e5e6230">medium post</a>. Following the instructions on the post just worked. I also installed an NVIDIA driver via <a href="https://itsfoss.com/install-additional-drivers-ubuntu/">Software Settings</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/NVIDIA/tacotron2#setup">Training tacotron2 requires Pytorch 1.0</a>. Although <a href="https://pytorch.org/get-started/locally/">it seemed like I could install Pytorch via pip</a>, I wanted to try installing it from source to gain better control of it. So I decided to install cuda &amp; cudnn myself. It seemed like cuda 10.1 and cudnn 7.6.x are the latest pytorch compatible version of cuda and cudnn in March 2020.</p>
+  </li>
+  <li>NVIDIA’s instructions for installing <a href="https://developer.nvidia.com/cuda-10.1-download-archive-base?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=debnetwork">cuda</a> and <a href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#installlinux-deb">cudnn</a> weren’t as straightforward as I hoped them to be. After running the main cuda install command <code class="language-plaintext highlighter-rouge">sudo apt-get install cuda-10-1</code> (not <code class="language-plaintext highlighter-rouge">sudo apt-get install cuda-10</code> because I want to control the cuda version) I was seeing errors like
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ...
+   found 'diversion of /usr/lib/x86_64-linux-gnu/libGL.so.1 to /usr/lib/x86_64-linux-gnu/libGL.so.1.distrib by nvidia-340'
+ ...
+</code></pre></div>    </div>
+    <p>I found <a href="https://askubuntu.com/questions/1035409/installing-nvidia-drivers-on-18-04">a solution at stackoverflow</a> and shamelessly applied it without understanding the commands fixed the problem. I suspected the error was due to installing an NVIDIA driver at 1. but never confirmed it. I also did not understand why the solution worked, but in the interest of time, I marched forward. cudnn installation was smooth.</p>
+  </li>
+  <li>Now it was time to build Pytorch from source. Although I should be using conda, I just used <code class="language-plaintext highlighter-rouge">pip3</code> in the interest of time and started following <a href="https://github.com/pytorch/pytorch#from-source">the instructions</a>. After running the grand <code class="language-plaintext highlighter-rouge">python setup.py install</code>, I got stuck:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ...
+     /home/mjyc/.local/lib/python3.6/site-packages/torch/cuda/__init__.py:134: UserWarning:
+         Found GPU0 GeForce GT 750M which is of cuda capability 3.0.
+         PyTorch no longer supports this GPU because it is too old.
+         The minimum cuda capability that we support is 3.5.
+ ...
+</code></pre></div>    </div>
+    <p>It turns out MacBookPro 10,1’s GPU GeForce GT 750M was <a href="https://discuss.pytorch.org/t/pytorch-no-longer-supports-this-gpu-because-it-is-too-old/13803">too old for PyTorch 1.4</a> (<a href="https://discuss.pytorch.org/t/pytorch-no-longer-supports-this-gpu-because-it-is-too-old/13803/11">the latest compatible PyTorch version seems to be 0.3.1</a>). My first reaction to this error message was just buying an external GPU (eGPU). However, <a href="https://egpu.io/best-egpu-buyers-guide/">quick google search results</a> showed that the eGPU case alone costs ~$300.00! and learned that just choosing which GPU to buy <a href="https://towardsdatascience.com/maximize-your-gpu-dollars-a9133f4e546a">requires some research work</a>.</p>
+  </li>
+  <li>At this point, I realized I spent much more time and efforts and I originally budgeted so I gave up turning my old MacBookPro to a workstation and started looking for an alternative solution. I read <a href="https://www.reddit.com/r/deeplearning/comments/96pftg/is_nvidia_gtx_1050_good_enough_for_deep_learning/">a Reddit thread suggesting a cloud solution</a> and <a href="https://towardsdatascience.com/maximize-your-gpu-dollars-a9133f4e546a">looked into which service is a good starting point</a>. Seems like Google Colab is a good place to start. So I stopped my exploration here.</li>
+</ol>
+
+<p>To me, the lessons learned from this journey was <em>always focus on the end-goal instead of the mean</em>. Given my goal was to train a deep learning model, the mean to achieve the goal–using a laptop workstation or cloud–should not have mattered.</p>
+<br>
+<script src="https://utteranc.es/client.js"
+    repo="mjyc/mjyc.github.io"
+    issue-term="pathname"
+    label="comment"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+</script></div>
+
+  <a class="u-url" href="/devnotes/failed" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+  </body>
+
+</html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-07-14T01:28:45+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-07-15T01:43:43+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -337,9 +337,9 @@ While I don’t fully agree with such hype[^7], I do think ChatGPT will change p
 What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
 However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
 As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
-Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
+Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped[^9], and the cost of running incorrect problems is extremely high.</p>
 
-<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^9] in the last ~5 years.
+<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^10] in the last ~5 years.
 Like LLMSynth and GSpec, No-code also shares the goal of simplifying programming and takes a more similar approach to GSpec (than that of LLMSynth), e.g., NoCode tools or visual programming interfaces are designed and built manually (and likely not involve machine learning).
 The main difference is the level of expressivity.
 Because of their focus on visual programming (targeting non-programmer users), No-Code tools tend to expose a subset of programming interfaces or high-level abstractions to a visual programming interface, resulting in a lower output program space than that of GSpec.
@@ -352,7 +352,7 @@ Btw, No-Code tools have other issues beyond the limited expressivity, e.g., the 
 But this post wasn’t just about that.
 I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches–if makes sense.</p>
 
-<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+<p>Let me know what you think by leaving comments below or messaging me on <a href="https://www.linkedin.com/in/michaeljaeyoonchung/">LinkedIn</a> or <a href="https://twitter.com/mjycio">Twitter</a>!</p>
 
 <ul>
   <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
@@ -376,7 +376,8 @@ I shared my observations on the challenges associated with robot application pro
 <br />[^7] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
 <br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
-<br />[^9] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Software Engineering Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/software.html" rel="alternate" type="text/html" title="Software Engineering Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/software</id><content type="html" xml:base="/2021/11/27/software.html"><![CDATA[<blockquote>
+<br />[^9] Interestingly <a href="https://twitter.com/WaspLang/status/1678778263735513094">some</a> use LLMSynth and DSL (and not grammar) together and it works?
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Software Engineering Lessons Learned from Reading a Kids’ Math Book</title><link href="/2021/11/27/software.html" rel="alternate" type="text/html" title="Software Engineering Lessons Learned from Reading a Kids’ Math Book" /><published>2021-11-27T08:00:00+00:00</published><updated>2021-11-27T08:00:00+00:00</updated><id>/2021/11/27/software</id><content type="html" xml:base="/2021/11/27/software.html"><![CDATA[<blockquote>
   <p>This post is in work-in-progress.<br />
 Please check back for updates!</p>
 </blockquote>]]></content><author><name></name></author><category term="#placeholder" /><category term="#dadlife" /><summary type="html"><![CDATA[This post is in work-in-progress. Please check back for updates!]]></summary></entry><entry><title type="html">Functional Listening</title><link href="/2021/11/24/functional.html" rel="alternate" type="text/html" title="Functional Listening" /><published>2021-11-24T08:00:00+00:00</published><updated>2021-11-24T08:00:00+00:00</updated><id>/2021/11/24/functional</id><content type="html" xml:base="/2021/11/24/functional.html"><![CDATA[<blockquote>
@@ -560,15 +561,34 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="series-c-201-2000-employees">Series C: 201-2000 Employees</h3>
 
+<p>Robotics companies at this stage have experienced significant growth and have a large customer base.
+Their goal is to further scale their operations and efficiently handle a substantial number of robots, potentially exceeding 1000 units, without compromising performance.
+The company now consists of multiple teams working on various aspects of the robotics system, including core software development, user experience enhancement, infrastructure scalability, and customer support.
+Additionally, the focus expands beyond purely technical challenges to encompass broader organizational considerations, such as team structure, talent management, strategic partnerships, and market expansion.</p>
+
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li><strong>Faster testing</strong> (e.g., by utilizing <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
-  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a> using <a href="https://discourse.ros.org/t/adding-bazel-as-an-official-alternative-build-system-for-ros2-iron/28476/19">Bazel</a>), and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
-  <li><strong>Adopting programmatic orchestration</strong> (e.g., Kubernetes Federation) in preparation for large-scale, cross-team agility to support large-scale architectural and infrastructure changes.</li>
-  <li><strong>Hardware-in-the-loop (HIL) testing</strong> (e.g., using Gazebo, Isaac Sim).</li>
-  <li><strong>Enhancing data record and replayer</strong> to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, and better integration with high-fidelity simulators (e.g., handling high throughput).</li>
-  <li><strong>More simulation tooling</strong> (e.g., test scenario generator).</li>
+  <li>Implementing an <strong>advanced test automation framework</strong> that encompasses a wide range of tests, including unit, integration, performance regression, and security tests.
+  To improve testing efficiency, the company utilizes techniques such as <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a> and test selection and prioritization, which identify the most critical tests and prioritize their execution.
+  Furthermore, they leverage cloud resources to run a large number of simulation-based end-to-end tests in parallel, accelerating the testing process.</li>
+  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments.
+  This involves leveraging continuous integration and continuous deployment (CI/CD) practices, utilizing version control systems (VCS), maintaining release documentation, and employing release dashboards.
+  The company also invests in <strong>advanced deployment and orchestration</strong> tools such as Terraform, Docker, and Kubernetes to facilitate large-scale, cross-team deployment and operation of a diverse fleet, encompassing robots, peripheral devices (e.g., elevator controller, manufacturing line controller), and (web) servers.</li>
+  <li>Enhancing <strong>developer productivity</strong> through faster iteration, improved debugging and testing tooling, and ultimately aiming to enhance system reliability.
+  At this stage, companies have the resources to invest in infrastructure and pipeline improvements.
+  This includes setting up <strong>cloud development environments</strong> utilizing platforms like GitPod, Coder, and DevZero.
+  Additionally, efforts are made to <strong>speed up build times</strong> through techniques such as <a href="https://bazel.build/remote/caching">remote caching</a>.
+  <strong>Streamlining code review and merge progress</strong> is achieved using tools like Merge Queue.
+  Furthermore, <strong>specialized tooling</strong> is developed to cater to the specific needs of the company.
+  For instance, enhancing the data record and replayer to support <strong>streaming robotics data</strong> enables faster debugging by bypassing the need to download large datasets onto local development machines.
+  The data record and replayer are also optimized to handle high throughput and enable navigation between critical timestamps.
+  Integration with high-fidelity simulators is improved to facilitate seamless interaction. Another example of specialized tooling is the creation of a <strong>test scenario generator</strong>, which automates the generation of realistic test scenarios, enhancing test coverage and enabling the identification of edge cases and potential failure scenarios.</li>
+  <li>Implementing <strong>incident response and resolution workflows</strong> to minimize downtime and efficiently handle critical incidents.
+  The fleet operation tool should leverage automation, e.g., incident detection, require minimal human input for recovery, etc.
+  Also the workflow or procedure should allow each team to be responsible for the sfotware they write.</li>
+  <li>Establishing a <strong>security and compliance framework</strong> to ensure the protection of sensitive data, intellectual property, and customer privacy.
+  This includes implementing secure coding practices, conducting regular security audits, and complying with relevant industry standards and regulations.</li>
 </ul>
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
@@ -580,7 +600,7 @@ I will update here after gaining more experience with companies at this stage, o
 
 <p>In this post, I have listed the challenges of testing robotics systems in fast-paced startups, shared my techniques for getting started with testing work, and provided insights on key practices for ensuring testability as an organization grows.</p>
 
-<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+<p>Let me know what you think by leaving comments below or messaging me on <a href="https://www.linkedin.com/in/michaeljaeyoonchung/">LinkedIn</a> or <a href="https://twitter.com/mjycio">Twitter</a>!</p>
 
 <ul>
   <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>

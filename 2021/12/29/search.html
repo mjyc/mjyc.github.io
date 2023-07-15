@@ -54,7 +54,7 @@
       <time class="dt-published" datetime="2021-12-29T08:00:00+00:00" itemprop="datePublished">Posted on Dec 29, 2021
       </time>• <time class="dt-published" datetime="2023-04-01T08:00:00+00:00" itemprop="datePublished">Updated on Apr 1, 2023
         </time>
-      • <span>11 min read</span><br>
+      • <span>12 min read</span><br>
       
         <span class="post-meta">#programming&nbsp</span>
       </p>
@@ -180,9 +180,9 @@ While I don’t fully agree with such hype[^7], I do think ChatGPT will change p
 What’s interesting to me is that the goal of LLM-driven programming synthesis (LLMSynth) and a grammar-based specification (GSpec) are similar; it is to reduce the huge search space of programming and hence enable developers to concisely describe intended programs.
 However, the two take polar opposite approaches; LLMSynth takes the expensive machine learning approach (e.g., requiring lots of data and computing power), and GSpec takes the laborious design approach (e.g., requiring careful design efforts from humans).
 As a result, LLMSynth is highly capable (i.e., can do many programming tasks) but not super-precise (i.e., return incorrect programs, sometimes), and GSpec is precise but not as expressive (i.e., can’t do not-designed tasks) but always returns correct programs.
-Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped, and the cost of running incorrect problems is extremely high.</p>
+Although I do like to use ChatGPT/Bard/CoPilot, I think using grammar is better for building robot applications because the space of possible programs can be scoped[^9], and the cost of running incorrect problems is extremely high.</p>
 
-<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^9] in the last ~5 years.
+<p>What’s also interesting to me is the rise of <a href="https://en.wikipedia.org/wiki/No-code_development_platform">No-code</a>[^10] in the last ~5 years.
 Like LLMSynth and GSpec, No-code also shares the goal of simplifying programming and takes a more similar approach to GSpec (than that of LLMSynth), e.g., NoCode tools or visual programming interfaces are designed and built manually (and likely not involve machine learning).
 The main difference is the level of expressivity.
 Because of their focus on visual programming (targeting non-programmer users), No-Code tools tend to expose a subset of programming interfaces or high-level abstractions to a visual programming interface, resulting in a lower output program space than that of GSpec.
@@ -195,7 +195,7 @@ Btw, No-Code tools have other issues beyond the limited expressivity, e.g., the 
 But this post wasn’t just about that.
 I shared my observations on the challenges associated with robot application programming and things I’ve tried, e.g., applying tools and techniques from other communities, in the hope of inspiring others to consider taking cross-over approaches–if makes sense.</p>
 
-<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+<p>Let me know what you think by leaving comments below or messaging me on <a href="https://www.linkedin.com/in/michaeljaeyoonchung/">LinkedIn</a> or <a href="https://twitter.com/mjycio">Twitter</a>!</p>
 
 <ul>
   <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
@@ -219,7 +219,8 @@ I shared my observations on the challenges associated with robot application pro
 <br />[^7] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-little-81445778d957">Large language models will change programming… a little
 </a> by Amy Ko.
 <br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
-<br />[^9] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>
+<br />[^9] Interestingly <a href="https://twitter.com/WaspLang/status/1678778263735513094">some</a> use LLMSynth and DSL (and not grammar) together and it works?
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>
 <br>
 <script src="https://utteranc.es/client.js"
     repo="mjyc/mjyc.github.io"

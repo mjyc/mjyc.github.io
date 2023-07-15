@@ -54,7 +54,7 @@
       <time class="dt-published" datetime="2020-12-16T08:00:00+00:00" itemprop="datePublished">Posted on Dec 16, 2020
       </time>• <time class="dt-published" datetime="2022-06-29T08:00:00+00:00" itemprop="datePublished">Updated on Jun 29, 2022
         </time>
-      • <span>16 min read</span><br>
+      • <span>18 min read</span><br>
       
         <span class="post-meta">#software-engineering&nbsp</span>
       </p>
@@ -239,15 +239,34 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="series-c-201-2000-employees">Series C: 201-2000 Employees</h3>
 
+<p>Robotics companies at this stage have experienced significant growth and have a large customer base.
+Their goal is to further scale their operations and efficiently handle a substantial number of robots, potentially exceeding 1000 units, without compromising performance.
+The company now consists of multiple teams working on various aspects of the robotics system, including core software development, user experience enhancement, infrastructure scalability, and customer support.
+Additionally, the focus expands beyond purely technical challenges to encompass broader organizational considerations, such as team structure, talent management, strategic partnerships, and market expansion.</p>
+
 <p><strong>Key Practices:</strong></p>
 
 <ul>
-  <li><strong>Faster testing</strong> (e.g., by utilizing <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a>/test selection and prioritization) and <strong>more testing</strong> (e.g., running a large number of simulation-based end-to-end tests on the cloud).</li>
-  <li><strong>Faster build time</strong> (e.g., via <a href="https://bazel.build/remote/caching">remote caching</a> using <a href="https://discourse.ros.org/t/adding-bazel-as-an-official-alternative-build-system-for-ros2-iron/28476/19">Bazel</a>), and <strong>scalable merge workflow</strong> (e.g., using MergeQueue).</li>
-  <li><strong>Adopting programmatic orchestration</strong> (e.g., Kubernetes Federation) in preparation for large-scale, cross-team agility to support large-scale architectural and infrastructure changes.</li>
-  <li><strong>Hardware-in-the-loop (HIL) testing</strong> (e.g., using Gazebo, Isaac Sim).</li>
-  <li><strong>Enhancing data record and replayer</strong> to support streaming robotics data (e.g., instead of waiting for downloading), jumping between critical/salient timestamps, and better integration with high-fidelity simulators (e.g., handling high throughput).</li>
-  <li><strong>More simulation tooling</strong> (e.g., test scenario generator).</li>
+  <li>Implementing an <strong>advanced test automation framework</strong> that encompasses a wide range of tests, including unit, integration, performance regression, and security tests.
+  To improve testing efficiency, the company utilizes techniques such as <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a> and test selection and prioritization, which identify the most critical tests and prioritize their execution.
+  Furthermore, they leverage cloud resources to run a large number of simulation-based end-to-end tests in parallel, accelerating the testing process.</li>
+  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments.
+  This involves leveraging continuous integration and continuous deployment (CI/CD) practices, utilizing version control systems (VCS), maintaining release documentation, and employing release dashboards.
+  The company also invests in <strong>advanced deployment and orchestration</strong> tools such as Terraform, Docker, and Kubernetes to facilitate large-scale, cross-team deployment and operation of a diverse fleet, encompassing robots, peripheral devices (e.g., elevator controller, manufacturing line controller), and (web) servers.</li>
+  <li>Enhancing <strong>developer productivity</strong> through faster iteration, improved debugging and testing tooling, and ultimately aiming to enhance system reliability.
+  At this stage, companies have the resources to invest in infrastructure and pipeline improvements.
+  This includes setting up <strong>cloud development environments</strong> utilizing platforms like GitPod, Coder, and DevZero.
+  Additionally, efforts are made to <strong>speed up build times</strong> through techniques such as <a href="https://bazel.build/remote/caching">remote caching</a>.
+  <strong>Streamlining code review and merge progress</strong> is achieved using tools like Merge Queue.
+  Furthermore, <strong>specialized tooling</strong> is developed to cater to the specific needs of the company.
+  For instance, enhancing the data record and replayer to support <strong>streaming robotics data</strong> enables faster debugging by bypassing the need to download large datasets onto local development machines.
+  The data record and replayer are also optimized to handle high throughput and enable navigation between critical timestamps.
+  Integration with high-fidelity simulators is improved to facilitate seamless interaction. Another example of specialized tooling is the creation of a <strong>test scenario generator</strong>, which automates the generation of realistic test scenarios, enhancing test coverage and enabling the identification of edge cases and potential failure scenarios.</li>
+  <li>Implementing <strong>incident response and resolution workflows</strong> to minimize downtime and efficiently handle critical incidents.
+  The fleet operation tool should leverage automation, e.g., incident detection, require minimal human input for recovery, etc.
+  Also the workflow or procedure should allow each team to be responsible for the sfotware they write.</li>
+  <li>Establishing a <strong>security and compliance framework</strong> to ensure the protection of sensitive data, intellectual property, and customer privacy.
+  This includes implementing secure coding practices, conducting regular security audits, and complying with relevant industry standards and regulations.</li>
 </ul>
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
@@ -259,7 +278,7 @@ I will update here after gaining more experience with companies at this stage, o
 
 <p>In this post, I have listed the challenges of testing robotics systems in fast-paced startups, shared my techniques for getting started with testing work, and provided insights on key practices for ensuring testability as an organization grows.</p>
 
-<p>Let me know what you think by leaving comments below or messaging me on LinkedIn or Twitter!</p>
+<p>Let me know what you think by leaving comments below or messaging me on <a href="https://www.linkedin.com/in/michaeljaeyoonchung/">LinkedIn</a> or <a href="https://twitter.com/mjycio">Twitter</a>!</p>
 
 <ul>
   <li>Do my experiences/approaches resonate/align (or not resonate/align) with yours?</li>
