@@ -18,7 +18,7 @@ When I started using log management tools from the distributed systems community
 Three aspects in particular stood out to me:
 
 - _Structured logs_ made logs machine-parsable and version controllable, eliminating the need for regex gymnastics.
-   This greatly facilitated the development of user-facing tools like interactive data visualizers.
+    This greatly facilitated the development of user-facing tools like interactive data visualizers.
 - _Centralized logs_ helped bring together all relevant information for users.
 - _Log visualization tools_ allowed users to effortlessly navigate and process large amounts of log data.
 
@@ -26,17 +26,17 @@ During the adoption of these aspects, I observed the following challenges faced 
 
 - _Large and complex codebases_ made it difficult and laborious to structure logs consistently across diverse subsystems.
 - _Large data volumes_ posed challenges in centralizing data.
-   Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.
+    Even in robotics companies that deal with non-autonomous vehicles, data generation reaches petabyte scales, making it incredibly challenging to work with.
 - _Non-textual logs_ made the utilization of existing log management and visualization tools more difficult.
 
 Here are my suggestions:
 - **Start structuring logs by adding metadata**  such as robot ID and customer ID (i.e., robot and customer information) to the logs of multiple teams.
-   Doing so should spark discussions about standardizing the data structure and tooling for logs.
-   Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.
+    Doing so should spark discussions about standardizing the data structure and tooling for logs.
+    Nudge stakeholders to think in terms of logs generated from fleets instead of individual robots, and manage the lifecycle of logs independently, for example, from the software that generated them.
 - While aiming to standardize the metadata structure and tooling to simplify the consumption process, **log data types and data channels** carrying logs **should be treated differently and separately to optimize performance** in terms of transportation, visualization, and so on.
 - **Invest in** adopting or even building **data visualization tools**.
-   "A picture is worth a thousand words."
-   Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.
+    "A picture is worth a thousand words."
+    Non-textual data is essential when it comes to debugging, and each organization may have bespoke needs.
 
 ## Metrics
 
