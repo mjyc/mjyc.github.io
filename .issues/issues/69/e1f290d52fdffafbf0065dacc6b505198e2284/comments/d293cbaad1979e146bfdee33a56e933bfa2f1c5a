@@ -1,0 +1,5 @@
+NIce post on the difficulties of testing automation systems Mike! 
+
+I am curious to hear your opinion on simulating tests for hardware issues. How can this be achieved efficiently? 
+
+Indeed, the search space is unbounded. Anything can go wrong at the hardware level and potentially affect the system, or break it. Is it therefore possible for a developer, or even an AI, to create a test for everything that could go wrong? Would using HITL tests be more approprioate?
