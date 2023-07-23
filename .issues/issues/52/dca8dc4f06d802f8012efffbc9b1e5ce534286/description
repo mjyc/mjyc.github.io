@@ -1,0 +1,11 @@
+Sync posts with dev.to & medium
+
+1. Create a script (e.g., sync.sh) for creating a new markdowns (e.g., in tmp); it needs to
+    - update metadata
+    - replace variables
+    - try using chatgpt
+        - start by giving simple tasks
+        - slowly ask more complex tasks
+1. Update the script to sync
+    - dev.to articles
+    - medium articles
