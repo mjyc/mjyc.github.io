@@ -93,7 +93,8 @@ figcaption {
     text-decoration-color: $text-color-light !important;
 
     &:hover {
-      color: $text-color-light !important;
+      color: $brand-color !important;
+      text-decoration-color: $brand-color !important;
     }
   }
 } 
@@ -172,7 +173,21 @@ a.post-meta {
 
   &:hover {
     color: $text-color-light !important;
+    text-decoration: underline;
+    text-decoration-color: $text-color-light;
+  }
+}
+
+/**
+ * Tags
+ */
+.tags {
+  a {
     text-decoration: none;
+
+    &:visited {
+      color: $text-color-light;
+    }
   }
 }
 
