@@ -15,7 +15,7 @@ plugins:
   - jekyll-scholar
 header_pages:
   - index.md
-  - blog.md
+  - blog.html
   - research.md
 
 scholar:
