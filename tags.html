@@ -3,21 +3,25 @@ title: tags
 layout: default
 ---
 
-{% for tag in site.tags %}
-{% assign t = tag | first %}
-{% assign posts = tag | last %}
+<div class="tags">
 
-<h4>
-  <a name="{{t | downcase | replace:" ","-" }}"></a>
-  <a href="/tags.html#{{t | downcase | replace:" ","-" }}">{{ t | downcase }}</a>
-</h4>
+  {% for tag in site.tags %}
+  {% assign t = tag | first %}
+  {% assign posts = tag | last %}
 
-<ul>
-  {% for post in posts %}
-  {% if post.tags contains t %}
-  <li><a href="{{ post.url }}">{{ post.title }}</a> &mdash; <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_long_string: "ordinal" }}</time></li>
-  {% endif %}
+  <h4>
+    <a name="{{ t }}"></a>
+    <a href="/tags.html#{{ t }}">{{ t | downcase }}</a>
+  </h4>
+
+  <ul>
+    {% for post in posts %}
+    {% if post.tags contains t %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a> &mdash; <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_long_string: "ordinal" }}</time></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
   {% endfor %}
-</ul>
 
-{% endfor %}
+</div>
