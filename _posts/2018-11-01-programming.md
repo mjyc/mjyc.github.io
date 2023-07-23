@@ -231,8 +231,6 @@ Normally when you program a Cycle.js app, you need to [create drivers explicitly
 1. creates and sets up five action components `FacialExpressionAction`, `AudioPlayerAction`, `TwoSpeechbubblesAction`, `SpeechSynthesisAction`, `SpeechRecognitionAction` to allow programmers to use them as drivers, and
 1. calls Cycle.js run with the created drivers and actions.
 
-<!-- TODO: Add an example of manually defining a driver here -->
-
 In fact, if you are comfortable with Cycle.js, you could use Cycle.js `run` instead of `runRobotProgram` to have more control over drivers and actions. You could also create a new `runRobotProgram` function that provides drivers for your own robot that is not a tablet-face robot!
 
 Regarding the second question, check out [this page](https://cycle.js.org/drivers.html) from the Cycle.js website.
