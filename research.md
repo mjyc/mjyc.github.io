@@ -1,7 +1,6 @@
 ---
 layout: default
 title: research
-permalink: /research/
 ---
 
 I received my Ph.D. from [University of Washington](https://www.cs.washington.edu/).

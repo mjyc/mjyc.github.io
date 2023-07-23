@@ -1,7 +1,6 @@
 ---
 layout: default
 title: contact
-permalink: /contact/
 ---
 
 You can find my email in my [resume]({{ site.baseurl }}/assets/pdfs/Curriculum Vitae - Michael Jae-Yoon Chung.pdf).
