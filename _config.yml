@@ -7,7 +7,7 @@ utterances:
 collections:
   devnotes:
     output: true
-    permalink: /devnotes/:title
+    permalink: /notes/:title
 
 markdown: kramdown
 theme: minima
