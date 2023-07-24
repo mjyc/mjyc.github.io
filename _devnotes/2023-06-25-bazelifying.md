@@ -15,6 +15,7 @@ tags: ["#devnotes"]
 
 ### Expected Impact
 
+- New flexibility in changing build system that traditionally require huge effort to migrate.
 - ...
 
 ## Background Research
@@ -43,7 +44,7 @@ TODO: Briefly mention the maintenance work too. Do a back-of-envelope calculatio
 #### Existing Approaches
 
 1. Using ROS as system dependencies in Bazel.
-2. Updating ROS and all of its external dependencies to use Bazel.
+2. Updating ROS and all of its [external dependencies](https://github.com/mvukov/rules_ros2/tree/main/repositories) to use Bazel.
 
 See also: [Background and Design Decisions](https://github.com/mvukov/rules_ros#background-and-design-decisions) section in [mvukov/ruls_ros](https://github.com/mvukov/rules_ros)
 
@@ -90,6 +91,10 @@ Other Candidates Considered:
     - A summary blog post on AI Agent research and demos.
 - [TheR1D/shell-gpt](https://github.com/TheR1D/shell_gpt):
     - It's not an AI agent, but it seems to be highly customizable.
+
+They are essentially for loop around LLM APIs.
+To me, the key challenge is making them more transparent and easier to interact with for developer users.
+One idea is transforming the for loop execution into the process developers are already familiar with, e.g., PR review process, TDD-like dev flow, commenting process, etc.
 
 ## Next Steps
 
