@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Remote Robotics Development Environment" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-27T08:00:00+00:00","datePublished":"2023-06-27T08:00:00+00:00","description":"Existing tools for setting robotics devenv require too much robotics software &amp; devops knowledge.","headline":"Remote Robotics Development Environment","mainEntityOfPage":{"@type":"WebPage","@id":"/devnotes/remote"},"url":"/devnotes/remote"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-27T08:00:00+00:00","datePublished":"2023-06-27T08:00:00+00:00","description":"Existing tools for setting robotics devenv require too much robotics software &amp; devops knowledge.","headline":"Remote Robotics Development Environment","mainEntityOfPage":{"@type":"WebPage","@id":"/notes/remote"},"url":"/notes/remote"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
 <script>
@@ -41,7 +41,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research/">research</a></div>
+        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research.html">research</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -79,9 +79,14 @@
 
 <ul>
   <li>Evaluating applicability of existing remote devenv services</li>
-  <li>CI integration
+  <li>CI integration</li>
+  <li>Out-of-scope
     <ul>
-      <li>No CD: <a href="https://www.airbotics.io/">Airbotics</a> covers CD</li>
+      <li>CD
+        <ul>
+          <li>Because <a href="https://www.airbotics.io/">Airbotics</a> covers CD</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -93,7 +98,7 @@
 <ul>
   <li><a href="https://medium.com/@elliotgraebert/laptop-development-is-dead-why-remote-development-is-the-future-f92ce103fd13">Laptop development is dead: why remote development is the future</a></li>
   <li><a href="https://discourse.ros.org/t/repeatable-reproducible-and-now-accessible-ros-development-via-dev-containers/31398/1">Repeatable, Reproducible, and now Accessible! ROS Development via Dev Containers</a></li>
-  <li>Remote
+  <li>Cloud-based development environment services
     <ul>
       <li>Codespace/Dev Container</li>
       <li>DevZero</li>
@@ -103,27 +108,25 @@
   </li>
 </ul>
 
-<h3 id="cicd-on-cloud">CI/CD on Cloud</h3>
+<h3 id="ml-workflow-on-cloud">ML Workflow on Cloud</h3>
 
 <ul>
-  <li><a href="https://www.hashicorp.com/resources/nomad-ci-cd-developer-workflows-and-integrations">Nomad CI/CD Developer Workflows and Integrations</a></li>
+  <li><a href="https://www.hashicorp.com/resources/implementing-machine-learning-workflows-on-nomad">Implementing Machine Learning Workflows on Nomad</a></li>
+  <li><a href="https://www.databricks.com/product/data-lakehouse">The Databricks Lakehouse Platform - Unify your data, analytics and AI</a></li>
 </ul>
 
 <h3 id="candidate-robotics-projects">Candidate Robotics Projects</h3>
 
 <ul>
   <li>Autoware</li>
-  <li>NVIDIA Isaac</li>
+  <li>{A project using NVIDIA Isaac}</li>
 </ul>
 
-<h2 id="links">Links</h2>
-
-<h3 id="inspirations">Inspirations</h3>
+<h3 id="challenges">Challenges</h3>
 
 <ul>
-  <li><a href="https://wasp-lang.dev/">Wasp</a> - DSL/Config. lang. for building full-stack web apps</li>
-  <li><a href="https://containers.dev/">Development Containers</a></li>
-  <li><a href="https://www.nomadproject.io/">HashiCorp Nomad</a></li>
+  <li>Authentication, other admin work</li>
+  <li>Workload managenent, monitoring</li>
 </ul>
 <br>
 <script src="https://utteranc.es/client.js"
@@ -135,7 +138,7 @@
     async>
 </script></div>
 
-  <a class="u-url" href="/devnotes/remote" hidden></a>
+  <a class="u-url" href="/notes/remote" hidden></a>
 </article>
 
       </div>

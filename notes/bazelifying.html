@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Bazelifying ROS Projects with LLM’s Assistance" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-25T08:00:00+00:00","datePublished":"2023-06-25T08:00:00+00:00","description":"Goals","headline":"Bazelifying ROS Projects with LLM’s Assistance","mainEntityOfPage":{"@type":"WebPage","@id":"/devnotes/bazelifying"},"url":"/devnotes/bazelifying"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-25T08:00:00+00:00","datePublished":"2023-06-25T08:00:00+00:00","description":"Goals","headline":"Bazelifying ROS Projects with LLM’s Assistance","mainEntityOfPage":{"@type":"WebPage","@id":"/notes/bazelifying"},"url":"/notes/bazelifying"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
 <script>
@@ -41,7 +41,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research/">research</a></div>
+        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research.html">research</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -78,6 +78,7 @@
 <h3 id="expected-impact">Expected Impact</h3>
 
 <ul>
+  <li>New flexibility in changing build system that traditionally require huge effort to migrate.</li>
   <li>…</li>
 </ul>
 
@@ -124,7 +125,7 @@
 
 <ol>
   <li>Using ROS as system dependencies in Bazel.</li>
-  <li>Updating ROS and all of its external dependencies to use Bazel.</li>
+  <li>Updating ROS and all of its <a href="https://github.com/mvukov/rules_ros2/tree/main/repositories">external dependencies</a> to use Bazel.</li>
 </ol>
 
 <p>See also: <a href="https://github.com/mvukov/rules_ros#background-and-design-decisions">Background and Design Decisions</a> section in <a href="https://github.com/mvukov/rules_ros">mvukov/ruls_ros</a></p>
@@ -208,6 +209,10 @@
   </li>
 </ul>
 
+<p>They are essentially for loop around LLM APIs.
+To me, the key challenge is making them more transparent and easier to interact with for developer users.
+One idea is transforming the for loop execution into the process developers are already familiar with, e.g., PR review process, TDD-like dev flow, commenting process, etc.</p>
+
 <h2 id="next-steps">Next Steps</h2>
 
 <ol class="task-list">
@@ -260,7 +265,7 @@
     async>
 </script></div>
 
-  <a class="u-url" href="/devnotes/bazelifying" hidden></a>
+  <a class="u-url" href="/notes/bazelifying" hidden></a>
 </article>
 
       </div>
