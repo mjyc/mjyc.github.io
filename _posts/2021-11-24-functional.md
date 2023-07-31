@@ -5,32 +5,33 @@ date: 2021-11-24 00:00:00 -0800
 tags: ["#productivity", "#short"]
 ---
 
-At some point in my life, I realized that I wasn't listening to music ~~to join the revolution and change the world!~~to enjoy myself but to put my kids to asleep or to focus while I'm working.
+At some point in my life, I realized that I wasn't listening to music to join the revolution and change the world! Instead, I was listening to music to enjoy myself, put my kids to sleep, or focus while I'm working.
 This sad realization made me write this post.
 
 ## Functional Listening
 
 Like many other new parents, I was introduced to [white noise](https://open.spotify.com/playlist/37i9dQZF1DWUZ5bk6qqDSy?si=3494c78a527640a0) sounds when I was struggling to put my son to bed.
 One day after a sleepless night, I found myself listening to the white noise sounds even when I was working.
-I felt like good and focused.
+I felt good and focused.
 
 I started exploring more noise sounds to see if any of them can boost my productivity because, at some point, I felt white noise was too harsh for my ears.
-Then I found [brown noise](https://open.spotify.com/playlist/37i9dQZF1DX4hpot8sYudB?si=60a31bdb113441e1), which was much wamer and easier to my ears than the white noise, and enjoyed listening to it for awhile.
-However, after many days of listening to it for a longer period of time, it was too warm to the point where it made me feeling sleepy, esp., in Winter days with long nights.
-So I moved on to listening to [pink noise](https://open.spotify.com/playlist/37i9dQZF1DX5NgkFTxJ4Wv?si=7029f4a7ead24b4a), which felt like a great compromise between white noise and brown noise, which I still enjoy to time to time.
+Then I found [brown noise](https://open.spotify.com/playlist/37i9dQZF1DX4hpot8sYudB?si=60a31bdb113441e1), which was much warmer and easier on my ears than white noise, and I enjoyed listening to it for awhile.
+However, after many days of listening to it for a longer period of time, it became too soothing to the point where it made me feel sleepy, especially in Winter days with long nights.
+So I moved on to listening to [pink noise](https://open.spotify.com/playlist/37i9dQZF1DX5NgkFTxJ4Wv?si=7029f4a7ead24b4a), which felt like a great compromise between white noise and brown noise, and I still enjoy it from time to time.
 
-Around the similar time, my friend who is also a dad suggested me to checking out [fan noise](https://open.spotify.com/playlist/37i9dQZF1DWUm4vT7WQxcD?si=e76c28f0c6574460).
-I didn't like initially like it but it grew on me over time.
-There was something about listening to a bit more familiar sounds that kept me listening to it despite the initial dislike.
+Around the same time, my friend, who is also a dad, suggested I check out [fan noise](https://open.spotify.com/playlist/37i9dQZF1DWUm4vT7WQxcD?si=e76c28f0c6574460).
+I didn't initially like it, but it grew on me over time.
+There was something about listening to slightly more familiar sounds that kept me listening to it despite the initial dislike.
 This observation led me to explore non-synthetic noise sounds like [nature sounds](https://open.spotify.com/playlist/37i9dQZF1DX4PP3DA4J0N8?si=27f759d1d5064e9d), specifically, [ocean sounds](https://open.spotify.com/playlist/37i9dQZF1DWV90ZWj21ygB?si=2db0493068e7492f) and [rain sounds](https://open.spotify.com/playlist/37i9dQZF1DX8ymr6UES7vc?si=f00d14203b384061).
-What I really liked about listening to nature sounds was that it not only was more comfortable to listening to than synthetic noise sounds like white noise, but also listening to them put me into the certain mental state that had certain effect on me.
-For example, listening to the wave noise tricked my brain to put me into the vacation mode that helped me to relax and the heavy rain sounds took me back to the hot and humid monson season I weirdly enjoyed in South Korea when I was a kid.
+What I really liked about listening to nature sounds was that not only were they more comfortable to listen to than synthetic noise sounds like white noise, but they also put me into a certain mental state that had a specific effect on me.
+For example, listening to the wave noise tricked my brain into putting me into vacation mode, helping me relax, and the heavy rain sounds took me back to the hot and humid monsoon season I weirdly enjoyed in South Korea when I was a kid.
 
-Understanding listening to certain sounds (or music) having certain effects on me made me want to leverage such effects.
-For example, I intentionally listened to my favorite finals week music from colleage years like Nujabes like lofi-hiphop music, Bon Iver like indie folk music, and Sigur Ros post-rock music when I needed to learn something, e.g., new techniques or tools.
-I listened my favorite coding music from bachelor years like Chemical Brothers like big beats electronica or Daft Punk liks French house music when I need to pump out code, and nature sounds like ocean sounds that help me calm down/deteach from problems like when I'm responding to an incident under timre pressure.
+Understanding that listening to certain sounds (or music) can have certain effects on me made me want to leverage such effects.
+For example, I intentionally listened to my favorite finals week music from college years, like Nujabes' lo-fi hip-hop music, Bon Iver's indie folk music, and Sigur Ros' post-rock music, when I needed to learn something, like new techniques or tools.
+I listened to my favorite coding music from bachelor years, like Chemical Brothers' big beats electronica or Daft Punk's French house music, when I needed to pump out code.
+And I turned to nature sounds like ocean sounds to help me calm down and detach from problems, especially when I'm responding to an incident under time pressure.
 
-At the end, I didn't find the music that would boost my productivity--like coffee that gives me that kick--but acquired this understanding to do better control mental state, which I believe led me to be more productive in general.
+In the end, I didn't find music that would boost my productivity like coffee does with its kick, but I acquired this understanding to better control my mental state, which I believe has led me to be more productive in general.
 
 ## Generalization to Lights and Screen Color Temperature 
 
@@ -39,7 +40,8 @@ At the time, I was using a single not-so-bright yellow light bulb in my room rea
 So, I got a smart light bulb because I wanted to try a smart light build for a long time and in case I wanted to change my light's color to familar yellow.
 But it was not bright enough, and I couldn't find a brighter smart light bulb, so I got three light bulbs (horizontal scaling works!).
 
-Quickly, I realized that the bright white lights looked terrible at night times. Also, I felt too awake under those bright white lights. I programmed them using their IFTTT-like feature to change the lights throughout the day.
+Quickly, I realized that the bright white lights looked terrible at night times.
+Also, I felt too awake under those bright white lights. I programmed them using their IFTTT-like feature to change the lights throughout the day.
 
 
 During the pandamic, specifically in the winter of 2020, I've learned how sensitive I was to lighting condition of my office.
