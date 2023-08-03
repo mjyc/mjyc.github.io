@@ -1,0 +1,1 @@
+Update: Based on my initial experiments (which I skipped documenting), I suspect answer will be no.. Still, I plan to continue investigate ways dramatically reduce large dev efforts like Bazel migration, with or without LLMs.
