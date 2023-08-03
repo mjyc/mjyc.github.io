@@ -1,0 +1,9 @@
+Thanks for reading this post Jimmy!
+
+> ... simulating tests for hardware issues ...
+
+Do you mean like auto-generating test cases? That's an interesting idea. What kind of hardware issues do you want to test? To test unreliable hardware issues (e.g., bringup failure), I could imagine first modeling the hardware behavior (e.g., in simulation) somehow (e.g., by hand or ... RL?) and building some mechanism to auto-generate test cases. However, I'd imagine doing so wouldn't be cost-effective (at least in near future) in practice. A lot of work to build/maintain/improve hardware behavior models but there are always new critical failure cases to cover, i.e., there's a long tail of possible failure cases--I assume this is what you meant by "unbounded", and even if such thing exists today, it would take sometime to gain developer trusts.
+
+Instead, I've seen companies setting up stress test physical environments for testing individual hardware devices in isolation or [end-to-end testing top-level applications](https://youtu.be/JNV9CkARh_g)--which is also costly but I see some form of this in every robotics company I've seen.
+
+Regarding [HIL](https://developer.nvidia.com/blog/design-your-robot-on-hardware-in-the-loop-with-nvidia-jetson/) testing, from what I've seen they are used to create interesting scenarios to test software components on the same compute hardware as in production and not much focused on testing (e.g., sensor/actuator) hardware issues.
