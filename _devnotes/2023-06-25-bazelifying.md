@@ -2,7 +2,7 @@
 layout: devnote
 title: "Bazelifying ROS Projects with LLM's Assistance"
 date: 2023-06-25 00:00:00 -0800
-tags: ["#devnotes"]
+tags: ["#project-idea"]
 ---
 
 Large language models (LLMs) are causing stir in dev community.
