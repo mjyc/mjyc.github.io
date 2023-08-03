@@ -2,12 +2,12 @@ title: Michael Jae-Yoon Chung
 email: mjyc@cs.washington.edu
 google_analytics: "G-NZ4FX6FCL4"
 utterances:
-  repo:                "mjyc/mjyc.github.io"
+  repo: "mjyc/mjyc.github.io"
 
 collections:
   devnotes:
     output: true
-    permalink: /notes/:title
+    permalink: /notes/:title.html
 
 markdown: kramdown
 theme: minima
