@@ -923,6 +923,10 @@ figcaption a {
   color: #828282;
   text-decoration-color: #828282 !important;
 }
+figcaption a:hover {
+  color: deepskyblue !important;
+  text-decoration-color: deepskyblue !important;
+}
 
 /**
  * Home
@@ -949,10 +953,10 @@ figcaption a {
 .blog h3 {
   margin-bottom: 0;
 }
-.blog a {
+.blog a.post-link {
   text-decoration: none;
 }
-.blog a:hover {
+.blog a.post-link:hover {
   color: #111;
   text-decoration: underline;
   text-decoration-color: deepskyblue;
@@ -980,6 +984,23 @@ figcaption a {
 
 .post-meta {
   color: #828282;
+}
+
+a.post-meta {
+  color: #828282;
+  text-decoration: none;
+}
+a.post-meta:hover {
+  color: #828282 !important;
+  text-decoration: underline;
+  text-decoration-color: #828282;
+}
+
+/**
+ * Tags
+ */
+.tags a {
+  text-decoration: none;
 }
 
 /**
