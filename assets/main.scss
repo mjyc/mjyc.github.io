@@ -91,6 +91,11 @@ figcaption {
   a {
     color: $text-color-light;
     text-decoration-color: $text-color-light !important;
+
+    &:hover {
+      color: $brand-color !important;
+      text-decoration-color: $brand-color !important;
+    }
   }
 } 
 
@@ -124,7 +129,7 @@ figcaption {
     margin-bottom: 0;
   }
 
-  a {
+  a.post-link {
     text-decoration: none;
 
     &:hover {
@@ -160,6 +165,30 @@ figcaption {
 
 .post-meta {
   color: $text-color-light;
+}
+
+a.post-meta {
+  color: $text-color-light;
+  text-decoration: none;
+
+  &:hover {
+    color: $text-color-light !important;
+    text-decoration: underline;
+    text-decoration-color: $text-color-light;
+  }
+}
+
+/**
+ * Tags
+ */
+.tags {
+  a {
+    text-decoration: none;
+
+    // &:visited {
+    //   color: $text-color-light;
+    // }
+  }
 }
 
 /**
