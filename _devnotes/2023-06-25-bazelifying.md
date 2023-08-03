@@ -5,6 +5,9 @@ date: 2023-06-25 00:00:00 -0800
 tags: ["#devnotes"]
 ---
 
+Large language models (LLMs) are causing stir in dev community.
+This project investigates my burning question: _"Can I--a roboticist--leveage an LLM to significantly reduce my development time?_
+
 ## Goals
 
 - Dramatically reduce the amount of work required to migrate a ROS project to use Bazel.
