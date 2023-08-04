@@ -50,8 +50,8 @@ These metrics aren't specific to robotics companies and are standardized (e.g., 
 However, I have found that specializing metrics for core robotics engineers (e.g., who also engage in operations work in smaller organizations) is helpful for monitoring purposes.
 Here are examples of such specialized metrics for motion control and planning:
 
-- _Motion control:_ control frequency, number of staged controllers, response time of dependent hardware devices.
-- _Motion planning:_ planning request rate, errors, and duration, distance and duration of planned motion (trajectory).
+- **Motion control:** control frequency, number of staged controllers, response time of dependent hardware devices.
+- **Motion planning:** planning request rate, errors, and duration, distance and duration of planned motion (trajectory).
 
 Notice that these metrics are still high-level, i.e., general across different kinds of motion planning or control algorithms.
 There are also **robotics algorithm-specific metrics** (e.g., the number of nodes explored for a sampling-based planner) that can be computed and tracked.
