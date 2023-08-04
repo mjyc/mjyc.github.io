@@ -9,17 +9,23 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Starcraft II, Photo by Zach Tirrell on flickr" />
 <meta property="og:description" content="Starcraft II, Photo by Zach Tirrell on flickr" />
-<link rel="canonical" href="http://localhost:4000/2020/12/16/testing.html" />
-<meta property="og:url" content="http://localhost:4000/2020/12/16/testing.html" />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-12-16T08:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Testing robotics systems in fast-paced startups" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-12-16T08:00:00+00:00","datePublished":"2020-12-16T08:00:00+00:00","description":"Starcraft II, Photo by Zach Tirrell on flickr","headline":"Testing robotics systems in fast-paced startups","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/12/16/testing.html"},"url":"http://localhost:4000/2020/12/16/testing.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-12-16T08:00:00+00:00","datePublished":"2020-12-16T08:00:00+00:00","description":"Starcraft II, Photo by Zach Tirrell on flickr","headline":"Testing robotics systems in fast-paced startups","mainEntityOfPage":{"@type":"WebPage","@id":"/2020/12/16/testing.html"},"url":"/2020/12/16/testing.html"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Jae-Yoon Chung" /><link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-NZ4FX6FCL4');
+</script>
+<link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro" />
 </head>
@@ -196,7 +202,7 @@ The real motivation behind testing is the reliability (e.g., of the provided ser
 <p>If you have experience with SaaS/web service startups, you might notice that the RaaS/robotics company size (i.e., the number of employees) at each growth stage is larger, and some key practices occur later in robotics startups.
 This is because RaaS/robotics products not only consist of a more diverse set of software components but also require additional teams like electrical/firmware engineering, mechanical engineering, and manufacturing operations.</p>
 
-<h3 id="series-a-5-20-employees">Series A: 5-20 Employees</h3>
+<h3 id="5-20-employees">5-20 Employees</h3>
 
 <p>At this stage, startups are likely to have fewer than 5 customers/design partners and a handful of developers who are relentlessly building (and fixing) major components of the company’s first product.
 The goal of the startups is to prove the value of their product to their (rather forgiving) customers by succeeding in basic tasks performed by robots as much as possible.
@@ -210,7 +216,7 @@ For example, a delivery robot should navigate without colliding with obstacles, 
   <li>Creating <strong>metrics and dashboards to track business-critical measures</strong> (e.g., using Grafana/Prometheus) such as the number of deliveries/distance traveled, throughput/object knitted to guide all developers/employees at a high level.</li>
 </ul>
 
-<h3 id="series-b-21-200-employees">Series B: 21-200 Employees</h3>
+<h3 id="21-200-employees">21-200 Employees</h3>
 
 <p>Startups at this stage start expanding their customer base and aim to scale their operations to deploy and handle, for example, more than 100 robots.
 The companies now have (small) teams of developers working on enhancing the robustness of core robotics software components to handle diverse environments of new (and unforgiving) customers, providing a non-beta-user-acceptable user experience (e.g., by building proper onboard and/or desktop UIs), and/or infrastructure to scale operations.
@@ -231,7 +237,7 @@ The robotics system powering the product becomes much more complex, and to manag
   By the way, building a performant data record and replayer, e.g., that works well with both real robots and simulators, is no joke; there are issues like not being able to record or replay data fast enough, doesn’t work well with simulators that run slower or faster than real-time, etc.</li>
 </ul>
 
-<h3 id="series-c-201-2000-employees">Series C: 201-2000 Employees</h3>
+<h3 id="201-2000-employees">201-2000 Employees</h3>
 
 <p>Robotics companies at this stage have experienced significant growth and have a large customer base.
 Their goal is to further scale their operations and efficiently handle a substantial number of robots, potentially exceeding 1000 units, without compromising performance.
@@ -244,7 +250,7 @@ Additionally, the focus expands beyond purely technical challenges to encompass 
   <li>Implementing an <strong>advanced test automation framework</strong> that encompasses a wide range of tests, including unit, integration, performance regression (e.g., via hardware-in-the-loop), and security tests.
   To improve testing efficiency, the company utilizes techniques such as <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a> and test selection and prioritization, which identify the most critical tests and prioritize their execution.
   Furthermore, they leverage cloud resources to run a large number of simulation-based end-to-end tests in parallel, accelerating the testing process.</li>
-  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments.
+  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments across all teams involved in building a product.
   This involves leveraging continuous integration and continuous deployment (CI/CD) practices, utilizing version control systems (VCS), maintaining release documentation, and employing release dashboards.
   The company also invests in <strong>advanced deployment and orchestration</strong> tools such as Terraform, Docker, and Kubernetes to facilitate large-scale, cross-team deployment and operation of a diverse fleet, encompassing robots, peripheral devices (e.g., elevator controller, manufacturing line controller), and (web) servers.</li>
   <li>Enhancing <strong>developer productivity</strong> through faster iteration, improved debugging and testing tooling, and ultimately aiming to enhance system reliability.
@@ -285,7 +291,7 @@ I will update here after gaining more experience with companies at this stage, o
 
 <h4 id="acknowledgements">Acknowledgements</h4>
 
-<p>I thank Rastislav Komara, Dhiraj Goel, Michael J. Declerck, Doug Blinn, and Jeongseok Lee for sharing their experiences and insights.
+<p>I thank Rastislav Komara, Dhiraj Goel, Michael J. Declerck, and Doug Blinn for sharing their experiences and insights.
 I also thank Jihoon Lee, Christian Fritz, and Jimmy Baraglia for their feedback.</p>
 
 <p>all my colleagues who have engaged in conversations with me on related topics.</p>
