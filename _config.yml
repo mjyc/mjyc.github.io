@@ -14,8 +14,8 @@ theme: minima
 plugins:
   - jekyll-scholar
 header_pages:
-  - index.md
   - blog.html
+  - devnotes.html
   - research.md
 
 scholar:
