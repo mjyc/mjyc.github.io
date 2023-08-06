@@ -11,6 +11,7 @@ You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) 
 I try to share my code on [GitHub](https://github.com/mjyc).
 I sometimes share my thoughts on [blog](/blog) and ideas on [notes](/notes).
 You can see what I've been listening to lately on [last.fm](https://www.last.fm/user/mikechung).
+In graduate school, I worked on human-robot interaction [research](/research).
 
 
 <br>
