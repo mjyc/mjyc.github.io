@@ -948,21 +948,6 @@ figcaption a:hover {
 }
 
 /**
- * Blog
- */
-.blog h3 {
-  margin-bottom: 0;
-}
-.blog a.post-link {
-  text-decoration: none;
-}
-.blog a.post-link:hover {
-  color: #111;
-  text-decoration: underline;
-  text-decoration-color: deepskyblue;
-}
-
-/**
  * Posts
  */
 .post-title {
@@ -996,6 +981,28 @@ a.post-meta:hover {
   text-decoration-color: #828282;
 }
 
+h3.post-item-title {
+  margin-bottom: 0;
+}
+
+a.post-link {
+  text-decoration: none;
+}
+a.post-link:hover {
+  color: #111;
+  text-decoration: underline;
+  text-decoration-color: deepskyblue;
+}
+
+.post-link-home {
+  text-decoration: none;
+}
+.post-link-home:hover {
+  color: #111;
+  text-decoration: underline;
+  text-decoration-color: deepskyblue;
+}
+
 /**
  * Tags
  */
@@ -1006,12 +1013,7 @@ a.post-meta:hover {
 /**
  * Dev Notes
  */
-.devnotes .post-list {
-  font-family: -apple-system, "system-ui", "segoe ui", Roboto, Oxygen, Ubuntu, Cantarell, "open sans", "helvetica neue", sans-serif !important;
-}
 .devnotes .post-list h3 {
-  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 700;
   margin-bottom: 0px;
 }
 .devnotes .post-list h3 a {
@@ -1019,18 +1021,13 @@ a.post-meta:hover {
 }
 
 .devnote {
-  font-family: -apple-system, "system-ui", "segoe ui", Roboto, Oxygen, Ubuntu, Cantarell, "open sans", "helvetica neue", sans-serif;
   line-height: 1.6;
-}
-.devnote h1, .devnote h2, .devnote h3, .devnote h4, .devnote h5, .devnote h6 {
-  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-weight: 700;
 }
 .devnote h1 {
   font-size: 1.75em;
 }
 .devnote h1.post-title {
-  font-size: 2.375em;
+  font-size: 2em;
 }
 .devnote h2 {
   font-size: 1.5em;

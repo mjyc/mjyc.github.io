@@ -41,7 +41,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research.html">research</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/notes/">notes</a><a class="page-link" href="/research.html">research</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -51,19 +51,20 @@
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">git-issue: an offline-friendly project management tool with potential</h1>
     <p class="post-meta">
-      <time class="dt-published" datetime="2020-03-20T08:00:00+00:00" itemprop="datePublished">Posted on Mar 20, 2020
+      <time class="dt-published" datetime="2020-03-20T08:00:00+00:00" itemprop="datePublished">
+        Posted on Mar 20, 2020
       </time></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <h4 id="background">Background</h4>
+    <h3 id="background">Background</h3>
 
 <p>Before COVID-19, I’ve been reviewing issues on a bus to work. My team used gitlab, so without a stable internet connection on a bus, I wasn’t able to concentrate. I started look for an offline friendly issue management tool and narrowed the contenders to (i) <a href="https://github.com/dspinellis/git-issue">git-issue</a> and (ii) <a href="https://github.com/MichaelMure/git-bug">git-bug</a>.</p>
 
 <p>I decided to give a shot at <a href="https://github.com/dspinellis/git-issue">git-issue</a> because I liked its simplicity. My first impression of git-issue was basically an issue manager powered by git. It provided command-line tools for basic issue management like creating, editing, removing, listing issues and comments and also had additional features like logging time estimates/spent and setting milestones.
 It was written in shell script.</p>
 
-<h4 id="the-pros-and-cons-list">The Pros and Cons List</h4>
+<h3 id="the-pros-and-cons-list">The Pros and Cons List</h3>
 
 <p>After 2 weeks of using it here is my pros and cons list.</p>
 
@@ -82,7 +83,7 @@ It was written in shell script.</p>
   <li>written in shell script so hard to read &amp; debug the src code</li>
 </ul>
 
-<h4 id="my-honest-opinion">My Honest Opinion</h4>
+<h3 id="my-honest-opinion">My Honest Opinion</h3>
 
 <p>My initial motivation was doing project management when I have don’t have access to the internet, e.g., on a bus. I couldn’t replace my existing workflow–I used to use <a href="https://about.gitlab.com/stages-devops-lifecycle/issueboard/">GitLab’s issue board</a>–because there were <a href="https://docs.gitlab.com/ee/user/project/issues/">tons of project management features GitLab provided</a> that I didn’t realize I was dependent on. For example, I wanted</p>
 
@@ -96,7 +97,7 @@ It was written in shell script.</p>
 
 <p>I ended up mostly using git-issue when I know when exactly what to do, e.g., comment on a specific issue. While I still think it has a lot of potentials, for now, it has not replaced my goto tool, the gitlab issues/board pages on the browser.</p>
 
-<h4 id="misc">Misc.</h4>
+<h3 id="misc">Misc.</h3>
 
 <ul>
   <li>git-issue <a href="https://gist.github.com/mjyc/b33ea80309161328716e59f665dc595f">helper scripts for fuzzy searching issues (and editing)</a></li>

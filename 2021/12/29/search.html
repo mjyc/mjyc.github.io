@@ -7,15 +7,15 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="In Search of the Grammar of Robot Applications" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A painting of John Coltrane" />
-<meta property="og:description" content="A painting of John Coltrane" />
+<meta name="description" content="I’ve been searching for ways to make robot application programming easy[^1]. Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process." />
+<meta property="og:description" content="I’ve been searching for ways to make robot application programming easy[^1]. Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process." />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-12-29T08:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="In Search of the Grammar of Robot Applications" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-12-29T08:00:00+00:00","datePublished":"2021-12-29T08:00:00+00:00","description":"A painting of John Coltrane","headline":"In Search of the Grammar of Robot Applications","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/12/29/search.html"},"url":"/2021/12/29/search.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-12-29T08:00:00+00:00","datePublished":"2021-12-29T08:00:00+00:00","description":"I’ve been searching for ways to make robot application programming easy[^1]. Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.","headline":"In Search of the Grammar of Robot Applications","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/12/29/search.html"},"url":"/2021/12/29/search.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
 <script>
@@ -41,7 +41,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/">about</a><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/research.html">research</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/notes/">notes</a><a class="page-link" href="/research.html">research</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -51,8 +51,10 @@
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">In Search of the Grammar of Robot Applications</h1>
     <p class="post-meta">
-      <time class="dt-published" datetime="2021-12-29T08:00:00+00:00" itemprop="datePublished">Posted on Dec 29, 2021
-      </time>• <time class="dt-published" datetime="2023-04-01T08:00:00+00:00" itemprop="datePublished">Updated on Apr 1, 2023
+      <time class="dt-published" datetime="2021-12-29T08:00:00+00:00" itemprop="datePublished">
+        Posted on Dec 29, 2021
+      </time>• <time class="dt-published" datetime="2023-04-01T08:00:00+00:00" itemprop="datePublished">
+          Updated on Apr 1, 2023
         </time>
       • <span>12 min read</span><br>
       
@@ -62,7 +64,7 @@
 
   <div class="post-content e-content" itemprop="articleBody">
     <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="480px" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" />
   <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
 </figure>
 
@@ -78,7 +80,7 @@ In theory, FSMs or BTs are straightforward to program.
 They have well-defined semantics (e.g., mathematical definitions), which makes them predictable and reasonable, and they natively support composition, enabling the creation of complex behaviors by reusing simpler ones.</p>
 
 <figure>
-  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="360px" />
+  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="480px" />
   <figcaption>An FSM consists of <a href="http://wiki.ros.org/pr2_plugs_actions">pr2_plugs_actions</a></figcaption>
 </figure>
 
@@ -95,7 +97,7 @@ Driven by the composability of FSMs or BTs, developers often created intermediat
 While developers intended these modules to be reusable, without proper planning, it was all too easy to end up with numerous modules that hindered the creation of complex behaviors.</p>
 
 <figure>
-  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" width="480px" />
+  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" />
   <figcaption>A screenshot of <a href="https://github.com/BehaviorTree/BehaviorTree.CPP">BehaviorTree.CPP</a> editor</figcaption>
 </figure>
 
@@ -113,7 +115,7 @@ In such a context, it made more sense to regard a robot application as a program
 <h2 id="inspirations-from-non-robotics-communities">Inspirations from non-robotics communities</h2>
 
 <figure>
-  <img src="https://cycle.js.org/img/actuators-senses.svg" width="240px" />
+  <img src="https://cycle.js.org/img/actuators-senses.svg" width="360px" />
   <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
 </figure>
 
@@ -132,7 +134,7 @@ Adopting Cycle.js’ core concepts also didn’t help much with the challenges o
 Given such experiences, I felt the strong need for a higher-level abstraction that allows developers to work directly in the application space without worrying about system-level problems[^3].</p>
 
 <figure>
-  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
+  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="480px" />
   <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 <p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
