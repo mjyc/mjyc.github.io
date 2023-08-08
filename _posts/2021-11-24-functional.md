@@ -8,6 +8,7 @@ tags: ["#productivity"]
 At some point in my life, I realized that I wasn't listening to music ~~to join the revolution and change the world!~~to enjoy myself but to put my kids to sleep or to focus while I'm working.
 This sad realization made me write this post.
 
+
 ## Sounds
 
 Like many other new parents, I was introduced to [white noise](https://open.spotify.com/playlist/37i9dQZF1DWUZ5bk6qqDSy?si=3494c78a527640a0) sounds when I was struggling to put my son to bed.
@@ -30,6 +31,7 @@ Understanding that listening to certain sounds (or music) can have certain effec
 For example, I intentionally listened to my favorite finals week music from my college years, like [Nujabes](https://open.spotify.com/artist/3Rq3YOF9YG9YfCWD4D56RZ?si=BDrveOO-SRigUDmRDtaeDg)-like lo-fi hip-hop music, [Bon Iver](https://open.spotify.com/artist/4LEiUm1SRbFMgfqnQTwUbQ?si=mDOsZUMbTQWJe_3lD0DDvw)-like indie folk music, and [Sigur Ros](https://open.spotify.com/artist/6UUrUCIZtQeOf8tC0WuzRy?si=nm0FY61iTNiNWB3im-vgQA)-like post-rock music, when I needed to learn new techniques or tools.
 When I needed to pump out code, I listened to my favorite coding music from my bachelor years, like [Daft Punk](https://open.spotify.com/artist/4tZwfgrHOc3mvqYlEYSvVi?si=AnprvdiGRRKh7DL3-Na_MA)'s French house music or [Chemical Brothers](https://open.spotify.com/artist/1GhPHrq36VKCY3ucVaZCfo?si=HhSfDdriSBKYXEYT5e9zNg)' big beats music.
 I turned to nature sounds like ocean sounds to help me calm down and detach from problems, especially when I'm responding to an incident under time pressure.
+
 
 ## Lights
 
@@ -95,6 +97,35 @@ I even applied the same idea to control [dynamic wallpaper](https://github.com/a
 For some time, I played with synchronizing such changes across the room lights, screen display, and wallpaper but screen color temperature and wallpaper rules didn't stick.
 I ended up just using the default nightshift mode (i.e., on/off on sunset/sunrise) because changing the screen display color temperature was too subtle to give me the kick.
 As for the dynamic background, I often missed the changing background because I usually maximize my IDE or terminal window.
+
+
+## Productivity
+
+My exploration of trying to understand the effects of various kinds of lights on myself reminded me of human-computer interaction (HCI) research papers investigating the possibility of behavior change via technologies (disclosure: I only read their abstracts):
+
+- [The design of eco-feedback technology](https://www.researchgate.net/publication/221515000_The_design_of_eco-feedback_technology)
+- [Theory-Driven Design Strategies for Technologies that Support Behavior Change in Everyday Life](https://www.researchgate.net/publication/221514889_Theory-driven_design_strategies_for_technologies_that_support_behavior_change_in_everyday_life)
+- [Personality and Persuasive Technology: An Exploratory Study on Health-Promoting Mobile Applications](https://www.researchgate.net/profile/Julie-Kientz/publication/220962690_Personality_and_Persuasive_Technology_An_Exploratory_Study_on_Health-Promoting_Mobile_Applications/links/0deec5191b0d334f93000000/Personality-and-Persuasive-Technology-An-Exploratory-Study-on-Health-Promoting-Mobile-Applications.pdf)
+- [Heuristic evaluation of ambient displays](http://cs4760.csl.mtu.edu/2022/resources/HE2.pdf)
+
+Then I thought, can we take a computational approach to figure out the optimal environment (e.g., sounds/lights sequence/placements) for productivity?
+For example, if we have an accurate model of how certain environments like sounds or lights affect our productivity, we could find an optimal sequence and placement of sounds and lights that maximizes our productivity!
+Building such an accurate model would be difficult, but maybe we can take a [quantified-self](https://quantifiedself.com/) approach to collect data and augment it with data from smart home devices?
+
+But then I asked myself: Do I really want to go this route? Would it truly boost my productivity?
+
+### Self-Control via Environment Control
+
+The goal of this entire journey was to improve my productivity, and what I discovered was not just about coffee but rather about self-control.
+This realization stemmed from the following observations:
+
+- Certain things put me into certain moods ("Sound").
+- Environmental cues act as triggers ("Lights").
+
+And thinking about how to leverage these observations.
+Expanding to different modalities ("Screen Color Temperature, Dynamic Wallpaper") taught me how to avoid distractions and stay focused on my goals.
+One thing I've learned from daydreaming about the computational approach to boosting my productivity ("Idea") is that, as a first step, I could try to internally learn my productivity model by paying more attention to how my mind responds to various environments (let's meditate people!).
+Only then can I leverage such a model (understanding) by changing environments.
 
 
 <br>
