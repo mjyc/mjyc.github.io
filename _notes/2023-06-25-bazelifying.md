@@ -1,12 +1,12 @@
 ---
 layout: note
-title: "Bazelifying ROS Projects with LLM's Assistance"
+title: "Bazelifying ROS projects with LLM's assistance"
 date: 2023-06-25 00:00:00 -0800
 tags: ["#projectidea"]
 ---
 
 Large language models (LLMs) are causing stir in dev community.
-This project investigates my burning question: _"Can I--a roboticist--leveage an LLM to significantly reduce my development time?_
+This project idea investigates my burning question: _"Can I (a roboticist) leverage an LLM to significantly reduce my development time?_
 
 ## Goals
 

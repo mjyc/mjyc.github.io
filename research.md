@@ -9,6 +9,9 @@ Here is my [thesis]({{ site.baseurl }}/assets/pdfs/PhD%20Thesis%20-%20Michael%20
 My research in graduate school was on human-robot interaction.
 I particularly enjoyed thinking about programming systems for robots in human environments; I drew inspirations from programming languages, web development, product design, and startup communities.
 
+
+<br>
+
 ## Media Coverage & Talks
 
 {% bibliography -f media --query @* %}
