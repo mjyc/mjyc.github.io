@@ -1,5 +1,5 @@
 ---
-layout: devnote
+layout: note
 title: "Installed ROS Lunar on macOS Mojave! But..."
 date: 2020-03-17 00:00:00 -0800
 tags: ["#random"]
