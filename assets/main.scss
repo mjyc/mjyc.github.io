@@ -122,25 +122,6 @@ figcaption {
 }
 
 /**
- * Blog
- */
-.blog {
-  h3 {
-    margin-bottom: 0;
-  }
-
-  a.post-link {
-    text-decoration: none;
-
-    &:hover {
-      color: $text-color;
-      text-decoration: underline;
-      text-decoration-color: $brand-color;
-    }
-  }
-}
-
-/**
  * Posts
  */
 .post-title {
@@ -177,6 +158,31 @@ a.post-meta {
     text-decoration-color: $text-color-light;
   }
 }
+
+h3.post-item-title {
+  margin-bottom: 0;
+}
+
+a.post-link {
+  text-decoration: none;
+
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+    text-decoration-color: $brand-color;
+  }
+}
+
+.post-link-home {
+  text-decoration: none;
+
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+    text-decoration-color: $brand-color;
+  }
+}
+
 
 /**
  * Tags
