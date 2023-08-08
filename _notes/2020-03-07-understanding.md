@@ -2,7 +2,7 @@
 layout: post
 title: "Understanding Challenges with Large Robotics System Development"
 date: 2020-03-07 00:00:00 -0800
-tags: ["#short"]
+tags: ["#rant"]
 ---
 
 _Originally posted on [GitLab](https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md)_
