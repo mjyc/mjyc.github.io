@@ -41,6 +41,29 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Libre Baskerville", serif;
 }
 
+figure {
+  text-align: center;
+}
+
+figure > img {
+  display: inline;
+}
+
+figcaption {
+  font-size: $small-font-size;
+  color: $text-color-light;
+
+  a {
+    color: $text-color-light;
+    text-decoration-color: $text-color-light !important;
+
+    &:hover {
+      color: $brand-color !important;
+      text-decoration-color: $brand-color !important;
+    }
+  }
+}
+
 /**
  * Site header
  */
@@ -74,50 +97,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /**
- * Figures
- */
- figure {
-  text-align: center;
-}
-
-figure > img {
-  display: inline;
-}
-
-figcaption {
-  font-size: $small-font-size;
-  color: $text-color-light;
-
-  a {
-    color: $text-color-light;
-    text-decoration-color: $text-color-light !important;
-
-    &:hover {
-      color: $brand-color !important;
-      text-decoration-color: $brand-color !important;
-    }
-  }
-} 
-
-/**
  * Home
  */
-.home {
-  .embed-container { 
-    position: relative;
-    padding-bottom: 56.25%;
-    margin-bottom: 15px;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  
-  .embed-container iframe, .embed-container object, .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+article.preview {
+  .excerpt a {
+    text-decoration-color: $text-color
   }
 }
 
@@ -146,43 +130,40 @@ figcaption {
 
 .post-meta {
   color: $text-color-light;
-}
 
-a.post-meta {
-  color: $text-color-light;
-  text-decoration: none;
-
-  &:hover {
-    color: $text-color-light !important;
-    text-decoration: underline;
-    text-decoration-color: $text-color-light;
+  a {
+    color: $text-color-light;
+    text-decoration: none;
+  
+    &:hover {
+      color: $text-color-light !important;
+      text-decoration: underline;
+      text-decoration-color: $text-color-light;
+    }
   }
-}
 
-h3.post-item-title {
-  margin-bottom: 0;
-}
-
-a.post-link {
-  text-decoration: none;
-
-  &:hover {
+  a.page-link {
     color: $text-color;
     text-decoration: underline;
     text-decoration-color: $brand-color;
+  
+    &:hover {
+      color: $brand-color !important;
+      text-decoration: underline;
+      text-decoration-color: $brand-color;
+    }
   }
 }
 
-.post-link-home {
-  text-decoration: none;
+.post-list {
+  h3 {
+    margin-bottom: 0px;
 
-  &:hover {
-    color: $text-color;
-    text-decoration: underline;
-    text-decoration-color: $brand-color;
+    a {
+      text-decoration: none;
+    }
   }
 }
-
 
 /**
  * Tags
@@ -196,18 +177,6 @@ a.post-link {
 /**
  * Notes
  */
-.notes {
-  .post-list {
-    h3 {
-      margin-bottom: 0px;
-
-      a {
-        text-decoration: none;
-      }
-    }
-  }
-}
-
 .note {
   line-height: 1.6;
 
@@ -238,18 +207,18 @@ a.post-link {
 /**
  * Bibliography
  */
-a.bib-tag {
-  color: $text-color;
-  text-decoration: none;
-  &:hover {
-    color: $brand-color;
-  }
-}
-
 .bibliography {
   list-style: square;
 }
 
 .bib {
   margin-bottom: 0.5rem;
+
+  a.bib-tag {
+    color: $text-color;
+    text-decoration: none;
+    &:hover {
+      color: $brand-color;
+    }
+  }
 }
