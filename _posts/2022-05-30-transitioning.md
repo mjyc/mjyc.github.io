@@ -8,7 +8,7 @@ comments: true
 ---
 
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" width="480px">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg">
   <figcaption>A self driving car</figcaption>
 </figure>
 
