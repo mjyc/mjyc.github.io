@@ -32,13 +32,13 @@ layout: default
 {%- endif -%}
 
 {% assign pinned_note_names = "2023-06-25-bazelifying.md, 2023-06-27-remote.md, 2023-06-29-nocode.md" | split: ", " %}
-{%- if site.devnotes.size > 0 -%}
+{%- if site.notes.size > 0 -%}
 <br>
 <article>
   <p>
     <b>PINNED NOTES</b>
   </p>
-  {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.devnotes -%}{%- if post.name == pinned_note_name -%}
+  {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.notes -%}{%- if post.name == pinned_note_name -%}
   <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
   <h3 class="post-item-title">
     <a class="post-link-home" href="{{ post.url | relative_url }}">
