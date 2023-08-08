@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Understanding Challenges with Large Robotics System Development"
+title: "Understanding challenges with large robotics system development"
 date: 2020-03-07 00:00:00 -0800
 tags: ["#rant"]
 ---
