@@ -9,9 +9,10 @@ layout: default
 {% assign pinned_post_names = "2020-12-16-testing.md, 2023-04-21-observability.md, 2021-12-21-search.md" | split: ", " %}
 {%- if site.posts.size > 0 -%}
 <br>
+<br>
 <article>
   <p>
-    <b>PINNED BLOG POSTS</b>
+    <b style="font-size: 20px">PINNED BLOG POSTS</b>
   </p>
   {%- for pinned_post_name in pinned_post_names -%}{%- for post in site.posts -%}{%- if post.name == pinned_post_name -%}
   <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
@@ -36,7 +37,7 @@ layout: default
 <br>
 <article>
   <p>
-    <b>PINNED NOTES</b>
+    <b style="font-size: 20px">PINNED NOTES</b>
   </p>
   {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.notes -%}{%- if post.name == pinned_note_name -%}
   <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>

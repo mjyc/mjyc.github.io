@@ -2,7 +2,7 @@
 layout: post
 title: "Robo-Observability"
 date: 2023-04-21 00:00:00 -0800
-tags: ["#short", "#software-engineering"]
+tags: ["#softwareengineering"]
 ---
 
 I care about observability in the context of debugging and monitoring robotics systems.
