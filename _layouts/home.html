@@ -3,7 +3,55 @@ layout: default
 ---
 
 <div class="home">
-  
   {{ content }}
-
 </div>
+
+{% assign pinned_post_names = "2020-12-16-testing.md, 2023-04-21-observability.md, 2021-12-21-search.md" | split: ", " %}
+{%- if site.posts.size > 0 -%}
+<br>
+<article>
+  <p>
+    <b>PINNED BLOG POSTS</b>
+  </p>
+  {%- for pinned_post_name in pinned_post_names -%}{%- for post in site.posts -%}{%- if post.name == pinned_post_name -%}
+  <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+  <h3 class="post-item-title">
+    <a class="post-link-home" href="{{ post.url | relative_url }}">
+      {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
+      {{ post.title | escape }}
+    </a>
+  </h3>
+  <div class="excerpt">
+    {{ post.excerpt | markdownify }}
+  </div>
+  {%- endif -%}{%- endfor -%}{%- endfor -%}
+  <div style="text-align: right">
+  <span class="post-meta">... see more in <a href="{{ site.base }}/blog/">blog</a></span>
+  </div>
+</article>
+{%- endif -%}
+
+{% assign pinned_note_names = "2023-06-25-bazelifying.md, 2023-06-27-remote.md, 2023-06-29-nocode.md" | split: ", " %}
+{%- if site.devnotes.size > 0 -%}
+<br>
+<article>
+  <p>
+    <b>PINNED NOTES</b>
+  </p>
+  {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.devnotes -%}{%- if post.name == pinned_note_name -%}
+  <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+  <h3 class="post-item-title">
+    <a class="post-link-home" href="{{ post.url | relative_url }}">
+      {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
+      {{ post.title | escape }}
+    </a>
+  </h3>
+  <div class="excerpt">
+    {{ post.excerpt | markdownify }}
+  </div>
+  {%- endif -%}{%- endfor -%}{%- endfor -%}
+  <div style="text-align: right">
+  <span class="post-meta">... see more in <a href="{{ site.base }}/notes/">notes</a></span>
+  </div>
+</article>
+{%- endif -%}
