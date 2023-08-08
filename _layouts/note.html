@@ -17,7 +17,13 @@ layout: default
           Updated on {{ page.updated | date: "%b %-d, %Y" }}
         </time>
       {%- endif -%}
+      {% assign post_words = content | number_of_words %}
+      • <span>{{ post_words | plus: 180 | divided_by:180 }} min read</span>
       {%- if page.tags.size > 0 -%}
+      <br>
+      {% for tag in page.tags %}
+        <span class="post-meta">{{ tag }}</span>&nbsp
+      {% endfor page.tags %}
       {%- endif -%}
     </p>
   </header>
