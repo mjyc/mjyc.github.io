@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-08-08T00:34:40+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-08-08T00:41:26+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -72,7 +72,7 @@ Ensuring observability of a robotics system at scale requires not only careful d
 <h4 id="acknowledgements">Acknowledgements</h4>
 
 <p>I thank Chris Palmer and Rastislav Komara for sharing their experiences and insights.</p>]]></content><author><name></name></author><category term="#short" /><category term="#software-engineering" /><summary type="html"><![CDATA[I care about observability in the context of debugging and monitoring robotics systems.]]></summary></entry><entry><title type="html">Transitioning from HRI research to the industry/Getting started with work</title><link href="/2022/05/30/transitioning.html" rel="alternate" type="text/html" title="Transitioning from HRI research to the industry/Getting started with work" /><published>2022-05-30T08:00:00+00:00</published><updated>2022-05-30T08:00:00+00:00</updated><id>/2022/05/30/transitioning</id><content type="html" xml:base="/2022/05/30/transitioning.html"><![CDATA[<figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" width="480px" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Waymo_self-driving_car_front_view.gk.jpg" />
   <figcaption>A self driving car</figcaption>
 </figure>
 
@@ -218,8 +218,8 @@ Let me know what your thoughts!</p>
 
 <h4 id="footnotes">Footnotes</h4>
 
-<p>[^1] See <a href="https://roadmap.sh/frontend">Frontend</a> and <a href="https://roadmap.sh/backend">Backend</a> developer roadmaps to find the “industry standard” tools and technologies.</p>]]></content><author><name></name></author><category term="#productivity" /><category term="#gradschool" /><summary type="html"><![CDATA[A self driving car]]></summary></entry><entry><title type="html">In Search of the Grammar of Robot Applications</title><link href="/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of the Grammar of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>/2021/12/29/search</id><content type="html" xml:base="/2021/12/29/search.html"><![CDATA[<figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" width="480px" />
+<p>[^1] See <a href="https://roadmap.sh/frontend">Frontend</a> and <a href="https://roadmap.sh/backend">Backend</a> developer roadmaps to find the “industry standard” tools and technologies.</p>]]></content><author><name></name></author><category term="#productivity" /><category term="#gradschool" /><summary type="html"><![CDATA[[My research](/research) in graduate school was on [human-robot interaction](https://homes.cs.washington.edu/~todorov/courses/cseP590/07_HRI.pdf) (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw).]]></summary></entry><entry><title type="html">In Search of the Grammar of Robot Applications</title><link href="/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of the Grammar of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>/2021/12/29/search</id><content type="html" xml:base="/2021/12/29/search.html"><![CDATA[<figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" />
   <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
 </figure>
 
@@ -235,7 +235,7 @@ In theory, FSMs or BTs are straightforward to program.
 They have well-defined semantics (e.g., mathematical definitions), which makes them predictable and reasonable, and they natively support composition, enabling the creation of complex behaviors by reusing simpler ones.</p>
 
 <figure>
-  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="360px" />
+  <img src="http://wiki.ros.org/pr2_plugs_actions?action=AttachFile&amp;do=get&amp;target=smach.png" width="480px" />
   <figcaption>An FSM consists of <a href="http://wiki.ros.org/pr2_plugs_actions">pr2_plugs_actions</a></figcaption>
 </figure>
 
@@ -252,7 +252,7 @@ Driven by the composability of FSMs or BTs, developers often created intermediat
 While developers intended these modules to be reusable, without proper planning, it was all too easy to end up with numerous modules that hindered the creation of complex behaviors.</p>
 
 <figure>
-  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" width="480px" />
+  <img src="https://github.com/BehaviorTree/BehaviorTree.CPP/raw/master/docs/groot-screenshot.png" />
   <figcaption>A screenshot of <a href="https://github.com/BehaviorTree/BehaviorTree.CPP">BehaviorTree.CPP</a> editor</figcaption>
 </figure>
 
@@ -270,7 +270,7 @@ In such a context, it made more sense to regard a robot application as a program
 <h2 id="inspirations-from-non-robotics-communities">Inspirations from non-robotics communities</h2>
 
 <figure>
-  <img src="https://cycle.js.org/img/actuators-senses.svg" width="240px" />
+  <img src="https://cycle.js.org/img/actuators-senses.svg" width="360px" />
   <figcaption><a href="https://cycle.js.org/dialogue.html">Dialogue abstraction</a>, Cycle.js</figcaption>
 </figure>
 
@@ -289,7 +289,7 @@ Adopting Cycle.js’ core concepts also didn’t help much with the challenges o
 Given such experiences, I felt the strong need for a higher-level abstraction that allows developers to work directly in the application space without worrying about system-level problems[^3].</p>
 
 <figure>
-  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="360px" />
+  <img src="https://live.staticflickr.com/3001/2925987725_f9b52f3911_z.jpg" width="480px" />
   <figcaption>Make it so! Photo by <a href="https://www.flickr.com/photos/muffy_larue/">jen.young</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 <p>Looking for new ideas, I explored tools and techniques from the DevOps community, known for their rich experiences working with (large) distributed systems.
@@ -377,7 +377,7 @@ I shared my observations on the challenges associated with robot application pro
 </a> by Amy Ko.
 <br />[^8] Check out <a href="https://medium.com/bits-and-behavior/large-language-models-will-change-programming-a-lot-5cfe13afa46c">Large language models will change programming … a lot</a> by Amy Ko.
 <br />[^9] Interestingly <a href="https://twitter.com/WaspLang/status/1678778263735513094">some</a> use LLMSynth and DSL (and not grammar) together and it works?
-<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[A painting of John Coltrane]]></summary></entry><entry><title type="html">Functional Listening and its Generalization: Towards Having Control Over Your Productivity</title><link href="/2021/11/24/functional.html" rel="alternate" type="text/html" title="Functional Listening and its Generalization: Towards Having Control Over Your Productivity" /><published>2021-11-24T08:00:00+00:00</published><updated>2021-11-24T08:00:00+00:00</updated><id>/2021/11/24/functional</id><content type="html" xml:base="/2021/11/24/functional.html"><![CDATA[<p>At some point in my life, I realized that I wasn’t listening to music <del>to join the revolution and change the world!</del>to enjoy myself but to put my kids to sleep or to focus while I’m working.
+<br />[^10] For examples, check <a href="https://www.nocode.tech/">NOCODE.TECH</a> and <a href="https://nocodelist.co/">NodeCodeList</a>.</p>]]></content><author><name></name></author><category term="#programming" /><summary type="html"><![CDATA[I've been searching for ways to make robot application programming easy[^1]. Here are my insights on the challenges in programming robot applications and my unfulfilled ideas for (dramatically) simplifying the process.]]></summary></entry><entry><title type="html">Functional Listening and its Generalization: Towards Having Control Over Your Productivity</title><link href="/2021/11/24/functional.html" rel="alternate" type="text/html" title="Functional Listening and its Generalization: Towards Having Control Over Your Productivity" /><published>2021-11-24T08:00:00+00:00</published><updated>2021-11-24T08:00:00+00:00</updated><id>/2021/11/24/functional</id><content type="html" xml:base="/2021/11/24/functional.html"><![CDATA[<p>At some point in my life, I realized that I wasn’t listening to music <del>to join the revolution and change the world!</del>to enjoy myself but to put my kids to sleep or to focus while I’m working.
 This sad realization made me write this post.</p>
 
 <h2 id="sounds">Sounds</h2>
@@ -475,7 +475,7 @@ As for the dynamic background, I often missed the changing background because I 
 
 <p>[^1] For more information on the color temperature unit Kelvin (K), see <a href="https://www.ledlightexpert.com/understanding_led_light_color_temperatures_ep_79">this article</a>.
 [^2] My gradschool labmate published a <a href="https://hcrlab.cs.washington.edu/assets/pdfs/2015/huang2015ubicomp.pdf">research paper</a> about this.</p>]]></content><author><name></name></author><category term="#productivity" /><summary type="html"><![CDATA[At some point in my life, I realized that I wasn’t listening to music to join the revolution and change the world!to enjoy myself but to put my kids to sleep or to focus while I’m working. This sad realization made me write this post.]]></summary></entry><entry><title type="html">Testing robotics systems in fast-paced startups</title><link href="/2020/12/16/testing.html" rel="alternate" type="text/html" title="Testing robotics systems in fast-paced startups" /><published>2020-12-16T08:00:00+00:00</published><updated>2020-12-16T08:00:00+00:00</updated><id>/2020/12/16/testing</id><content type="html" xml:base="/2020/12/16/testing.html"><![CDATA[<figure>
-  <img src="https://live.staticflickr.com/195/506281600_a68f821d33_c.jpg" width="480px" />
+  <img src="https://live.staticflickr.com/195/506281600_a68f821d33_c.jpg" />
   <figcaption>Starcraft II, Photo by <a href="https://www.flickr.com/photos/tirrell/">Zach Tirrell</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 
@@ -566,7 +566,7 @@ Based on my experience working at startups with fewer than 200 employees and few
 To produce high-impact tests within the time budget, I use my adapted <a href="https://www.eisenhower.me/eisenhower-matrix/">Eisenhower Matrix</a> to prioritize a list of failure scenarios by first categorizing (potential) failure scenarios according to their (expected) frequency and risk.</p>
 
 <figure>
-  <img src="/assets/imgs/mcmatrix.png" width="480px" />
+  <img src="/assets/imgs/mcmatrix.png" />
 </figure>
 
 <ul>
@@ -727,7 +727,7 @@ For example, I don’t have much experience with testing robotics systems that m
 <br />[^6] Check out <a href="https://martinfowler.com/articles/2021-test-shapes.html">On the Diverse And Fantastical Shapes of Testing</a> (at least the last paragarph starting with “If you’re paying my careful prose …”) by Martin Fowler for related discussion.
 <br />[^7] I enjoy following research papers in this space, such as those taking a grammar-based approach like <a href="https://dl.acm.org/doi/abs/10.1145/3314221.3314633">Scenic: a language for scenario specification and scene generation</a>.
 <br />[^8] See also <a href="https://twitter.com/GergelyOrosz/status/1665340939529773057">this twit thread</a> from Gergely Orosz.
-<br />[^9] See also my another post <a href="/2023/04/21/observability.html">Robo-Observability</a>.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[Starcraft II, Photo by Zach Tirrell on flickr]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
+<br />[^9] See also my another post <a href="/2023/04/21/observability.html">Robo-Observability</a>.</p>]]></content><author><name></name></author><category term="#software-engineering" /><summary type="html"><![CDATA[Testing robotics systems is hard. Based on my experience working at startups with fewer than 200 employees and fewer than 100 robots providing RaaS using fleets of indoor mobile robots or lines of robot manipulators, the main reasons for the difficulty were as follows:]]></summary></entry><entry><title type="html">Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient</title><link href="/2020/11/30/finishing.html" rel="alternate" type="text/html" title="Finishing Graduate School as a New Dad or: How I Learned to Stop Worrying and be Efficient" /><published>2020-11-30T08:00:00+00:00</published><updated>2020-11-30T08:00:00+00:00</updated><id>/2020/11/30/finishing</id><content type="html" xml:base="/2020/11/30/finishing.html"><![CDATA[<p>I was a graduate student when my son was born.
 As much as I was euphoric about my son’s arrival, reality hit me hard.
 I was not ready.
 It was brutal but I pulled through graduate school and here is s selected list of tricks I’ve learned from having been a graduate student parent.</p>

@@ -948,21 +948,6 @@ figcaption a:hover {
 }
 
 /**
- * Blog
- */
-.blog h3 {
-  margin-bottom: 0;
-}
-.blog a.post-link {
-  text-decoration: none;
-}
-.blog a.post-link:hover {
-  color: #111;
-  text-decoration: underline;
-  text-decoration-color: deepskyblue;
-}
-
-/**
  * Posts
  */
 .post-title {
@@ -994,6 +979,28 @@ a.post-meta:hover {
   color: #828282 !important;
   text-decoration: underline;
   text-decoration-color: #828282;
+}
+
+h3.post-item-title {
+  margin-bottom: 0;
+}
+
+a.post-link {
+  text-decoration: none;
+}
+a.post-link:hover {
+  color: #111;
+  text-decoration: underline;
+  text-decoration-color: deepskyblue;
+}
+
+.post-link-home {
+  text-decoration: none;
+}
+.post-link-home:hover {
+  color: #111;
+  text-decoration: underline;
+  text-decoration-color: deepskyblue;
 }
 
 /**
