@@ -71,6 +71,7 @@ Yet, I'm working on this blog post while watching my son at a playground.
 
 
 <br>
+
 ### Acknowledgments
 
 I consciously and unconsciously picked up the habits of other parents who I closely worked with and had much more responsibility than me like my grad school advisor [Maya Cakmak](https://homes.cs.washington.edu/~mcakmak/), and my past team leader [Christian Fritz](http://chfritz.github.io/).
