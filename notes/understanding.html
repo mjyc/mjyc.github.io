@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Understanding challenges with large robotics system development | Michael Jae-Yoon Chung</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Understanding challenges with large robotics system development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Originally posted on GitLab" />
+<meta property="og:description" content="Originally posted on GitLab" />
+<link rel="canonical" href="http://localhost:4000/notes/understanding.html" />
+<meta property="og:url" content="http://localhost:4000/notes/understanding.html" />
+<meta property="og:site_name" content="Michael Jae-Yoon Chung" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-07T08:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Understanding challenges with large robotics system development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-03-07T08:00:00+00:00","datePublished":"2020-03-07T08:00:00+00:00","description":"Originally posted on GitLab","headline":"Understanding challenges with large robotics system development","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/notes/understanding.html"},"url":"http://localhost:4000/notes/understanding.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Jae-Yoon Chung" /><link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Sans Pro" />
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael Jae-Yoon Chung</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/">blog</a><a class="page-link" href="/notes/">notes</a><a class="page-link" href="/research.html">research</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Understanding challenges with large robotics system development</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-07T08:00:00+00:00" itemprop="datePublished">
+        Posted on Mar 7, 2020
+      </time>
+      • <span>3 min read</span><br>
+      
+        <a class="post-meta" href="/tags.html##rant">#rant</a>&nbsp
+      </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>Originally posted on <a href="https://gitlab.com/mjyc/robosysdev-notes/-/blob/master/post.md">GitLab</a></em></p>
+
+<p>Robotics system development is hard. To understand causes for the robotics system development challenges, I interviewed a few robotics engineers who have been involved in large robotics projects and identified the following themes.</p>
+
+<h2 id="there-arent-many-performant-off-the-shelve-tools">There aren’t many performant off-the-shelve tools</h2>
+
+<p>As the field of robotics is not matured, it is not easy to find performance libraries for perception, manipulation, human-robot interaction that fits your needs. Many existing off-the-shelve code is research code and hence requires expert knowledge, e.g., a user needs to see through undocumented assumptions and limitations. Essentially, identifying whether they will be useful for your problem is an art of itself.</p>
+
+<h2 id="there-arent-many-generalist-robotics-systems-engineers">There aren’t many generalist robotics systems engineers</h2>
+
+<p>Although more robotics educational materials are becoming available, there are not many engineers who can design and implement large robotics systems. Many robotics engineers often focuses on one subfield of robotics engineering such as computer vision or control but does not have much experience with working with the whole system. On the other hands, good systems engineers are often lacks the robotics knowledge and treats robotics libraries as black boxes.</p>
+
+<h2 id="gathering-system-requirements-or-software-specifications-is-not-trivial">Gathering system requirements or software specifications is not trivial</h2>
+
+<p>A robotic system that interact with physical world is complicated and consequences of using such system in real world is hard to predict. This makes the gathering of system requirements or software specifications challenging. Therefore the system specifications are often underspecified which yields brittle or over-prepared systems.</p>
+
+<h2 id="maintenance-and-testing-are-challenging">Maintenance and testing are challenging</h2>
+
+<p>Often existing dev-ops tools are unfit for the robotics system development purposes. For example, robotics data collection, analysis, and visualization are different from those of web services. Testing is especially challenging since setting up a real-world testing environment is not trivial, e.g., a clean “reset” of the real robot testing environment is near impossible or time-consuming. Also, the simulators that are supposed to help with testing do not serve their purpose because of the gap between simulation and reality.</p>
+
+<p>Although the list above is based on a small number of interviews and my personal experience, I hope it to be used as a starting point for brainstorming for solutions. Please let me know if you see missing themes or any comments!</p>
+
+<p><br /></p>
+
+<h4 id="miscellaneous">Miscellaneous</h4>
+
+<ul>
+  <li><em>Sep, 2021. <a href="https://www.csc.gov.sg/articles/how-to-build-good-software">“How to Build Good Software”</a> - “Why Bad Software Happens to Good People” section felt relevant.</em></li>
+  <li><em>Apr, 2021. Found more related papers!</em>
+    <ul>
+      <li><em><a href="https://arxiv.org/ftp/arxiv/papers/2010/2010.14537.pdf">“State of the Practice and Guidelines for ROS-based System”</a></em></li>
+      <li><em><a href="https://arxiv.org/pdf/2004.07368.pdf">“A Study on the Challenges of Using Robotics Simulators for Testing”</a></em></li>
+    </ul>
+  </li>
+  <li><em>While I was writing this post, I learned about this excellent paper <a href="https://github.com/S2-group/icse-seip-2020-replication-package/blob/master/ICSE_SEIP_2020.pdf">“State of the Practice and Guidelines for ROS-based System”</a> and discussions about the paper in <a href="https://discourse.ros.org/t/guidelines-on-how-to-architect-ros-based-systems/12641">the ROS Discourse</a>. The paper is focused on <a href="https://www.ros.org/">ROS</a> yet the high-level goals of it seem similar.</em></li>
+  <li><em>The study notes this article is based on are available in <a href="https://github.com/mjyc/robosysdev-notes">github</a> and <a href="https://gitlab.com/mjyc/robosysdev-notes">gitlab</a> repos</em></li>
+  <li><em>Thank you! to all those who participated in my interview studies</em></li>
+</ul>
+</div><a class="u-url" href="/notes/understanding.html" hidden></a>
+</article>
+
+      </div>
+    </main>
+
+  </body>
+
+</html>

@@ -879,6 +879,27 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Libre Baskerville", serif;
 }
 
+figure {
+  text-align: center;
+}
+
+figure > img {
+  display: inline;
+}
+
+figcaption {
+  font-size: 14px;
+  color: #828282;
+}
+figcaption a {
+  color: #828282;
+  text-decoration-color: #828282 !important;
+}
+figcaption a:hover {
+  color: deepskyblue !important;
+  text-decoration-color: deepskyblue !important;
+}
+
 /**
  * Site header
  */
@@ -905,46 +926,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /**
- * Figures
- */
-figure {
-  text-align: center;
-}
-
-figure > img {
-  display: inline;
-}
-
-figcaption {
-  font-size: 14px;
-  color: #828282;
-}
-figcaption a {
-  color: #828282;
-  text-decoration-color: #828282 !important;
-}
-figcaption a:hover {
-  color: deepskyblue !important;
-  text-decoration-color: deepskyblue !important;
-}
-
-/**
  * Home
  */
-.home .embed-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  margin-bottom: 15px;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-}
-.home .embed-container iframe, .home .embed-container object, .home .embed-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+article.preview .excerpt a {
+  text-decoration-color: #111;
 }
 
 /**
@@ -970,37 +955,31 @@ figcaption a:hover {
 .post-meta {
   color: #828282;
 }
-
-a.post-meta {
+.post-meta a {
   color: #828282;
   text-decoration: none;
 }
-a.post-meta:hover {
+.post-meta a:hover {
   color: #828282 !important;
   text-decoration: underline;
   text-decoration-color: #828282;
 }
-
-h3.post-item-title {
-  margin-bottom: 0;
-}
-
-a.post-link {
-  text-decoration: none;
-}
-a.post-link:hover {
+.post-meta a.page-link {
   color: #111;
   text-decoration: underline;
   text-decoration-color: deepskyblue;
 }
-
-.post-link-home {
-  text-decoration: none;
-}
-.post-link-home:hover {
-  color: #111;
+.post-meta a.page-link:hover {
+  color: deepskyblue !important;
   text-decoration: underline;
   text-decoration-color: deepskyblue;
+}
+
+.post-list h3 {
+  margin-bottom: 0px;
+}
+.post-list h3 a {
+  text-decoration: none;
 }
 
 /**
@@ -1013,13 +992,6 @@ a.post-link:hover {
 /**
  * Notes
  */
-.notes .post-list h3 {
-  margin-bottom: 0px;
-}
-.notes .post-list h3 a {
-  text-decoration: none;
-}
-
 .note {
   line-height: 1.6;
 }
@@ -1045,20 +1017,19 @@ a.post-link:hover {
 /**
  * Bibliography
  */
-a.bib-tag {
-  color: #111;
-  text-decoration: none;
-}
-a.bib-tag:hover {
-  color: deepskyblue;
-}
-
 .bibliography {
   list-style: square;
 }
 
 .bib {
   margin-bottom: 0.5rem;
+}
+.bib a.bib-tag {
+  color: #111;
+  text-decoration: none;
+}
+.bib a.bib-tag:hover {
+  color: deepskyblue;
 }
 
 /*# sourceMappingURL=main.css.map */
