@@ -6,7 +6,8 @@ tags: ["#projectidea"]
 ---
 
 Large language models (LLMs) are causing stir in dev community.
-This project idea investigates my burning question: _"Can I (a roboticist) leverage an LLM to significantly reduce my development time?_
+This project idea investigates my burning question _"Can I (a roboticist) leverage an LLM to significantly reduce my development time?_ e.g., for a nontrivial engineering task like Bazel migration.
+
 
 ## Goals
 
@@ -20,6 +21,7 @@ This project idea investigates my burning question: _"Can I (a roboticist) lever
 
 - New flexibility in changing build system that traditionally require huge effort to migrate.
 - ...
+
 
 ## Background Research
 
@@ -98,6 +100,7 @@ Other Candidates Considered:
 They are essentially for loop around LLM APIs.
 To me, the key challenge is making them more transparent and easier to interact with for developer users.
 One idea is transforming the for loop execution into the process developers are already familiar with, e.g., PR review process, TDD-like dev flow, commenting process, etc.
+
 
 ## Next Steps
 
