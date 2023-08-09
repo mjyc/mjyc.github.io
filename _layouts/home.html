@@ -10,49 +10,53 @@ layout: default
 {%- if site.posts.size > 0 -%}
 <br>
 <br>
-<article>
+<article class="preview">
   <p>
     <b style="font-size: 20px">PINNED BLOG POSTS</b>
   </p>
-  {%- for pinned_post_name in pinned_post_names -%}{%- for post in site.posts -%}{%- if post.name == pinned_post_name -%}
-  <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-  <h3 class="post-item-title">
-    <a class="post-link-home" href="{{ post.url | relative_url }}">
-      {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
-      {{ post.title | escape }}
-    </a>
-  </h3>
-  <div class="excerpt">
-    {{ post.excerpt | markdownify }}
+  <div class="post-list">
+    {%- for pinned_post_name in pinned_post_names -%}{%- for post in site.posts -%}{%- if post.name == pinned_post_name -%}
+    <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+    <h3>
+      <a class="post-link-home" href="{{ post.url | relative_url }}">
+        {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
+        {{ post.title | escape }}
+      </a>
+    </h3>
+    <div class="excerpt">
+      {{ post.excerpt | markdownify }}
+    </div>
+    {%- endif -%}{%- endfor -%}{%- endfor -%}
   </div>
-  {%- endif -%}{%- endfor -%}{%- endfor -%}
   <div style="text-align: right">
-  <span class="post-meta">... see more in <a href="{{ site.base }}/blog/">blog</a></span>
+    <span class="post-meta">... see more in <a class="page-link" href="{{ site.base }}/blog/">blog</a></span>
   </div>
 </article>
 {%- endif -%}
 
-{% assign pinned_note_names = "2023-06-25-bazelifying.md, 2023-06-27-remote.md, 2023-06-29-nocode.md" | split: ", " %}
+{% assign pinned_note_names = "2022-03-28-design.md, 2022-01-16-ros.md, 2023-06-25-bazelifying.md" | split: ", " %}
 {%- if site.notes.size > 0 -%}
 <br>
-<article>
+<article class="preview">
   <p>
     <b style="font-size: 20px">PINNED NOTES</b>
   </p>
-  {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.notes -%}{%- if post.name == pinned_note_name -%}
-  <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-  <h3 class="post-item-title">
-    <a class="post-link-home" href="{{ post.url | relative_url }}">
-      {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
-      {{ post.title | escape }}
-    </a>
-  </h3>
-  <div class="excerpt">
-    {{ post.excerpt | markdownify }}
+  <div class="post-list">
+    {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.notes -%}{%- if post.name == pinned_note_name -%}
+    <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+    <h3 class="post-item-title">
+      <a class="post-link-home" href="{{ post.url | relative_url }}">
+        {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
+        {{ post.title | escape }}
+      </a>
+    </h3>
+    <div class="excerpt">
+      {{ post.excerpt | markdownify }}
+    </div>
+    {%- endif -%}{%- endfor -%}{%- endfor -%}
   </div>
-  {%- endif -%}{%- endfor -%}{%- endfor -%}
   <div style="text-align: right">
-  <span class="post-meta">... see more in <a href="{{ site.base }}/notes/">notes</a></span>
+    <span class="post-meta">... see more in <a class="page-link" href="{{ site.base }}/notes/">notes</a></span>
   </div>
 </article>
 {%- endif -%}
