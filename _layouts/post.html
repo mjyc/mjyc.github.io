@@ -30,8 +30,11 @@ layout: default
 
   <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
-    {%- if site.utterances.repo and page.comments -%}
-      {% include utterances.html -%}
+    {%- if site.utterances.repo -%}
+      {%- capture page-comments -%}{{ post.comments }}{%- endcapture -%}
+      {%- if page-comments == '' or page-comments -%}
+        {% include utterances.html -%}
+      {%- endif -%}
     {%- endif -%}
   </div>
 
