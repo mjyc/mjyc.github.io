@@ -2,7 +2,7 @@
 layout: note
 title: "Bazelifying ROS projects with LLM's assistance"
 date: 2023-06-25 00:00:00 -0800
-tags: ["#projectidea"]
+tags: ["#idea", "#project"]
 ---
 
 Large language models (LLMs) are causing stir in dev community.
