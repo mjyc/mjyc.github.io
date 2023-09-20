@@ -56,7 +56,7 @@
       </time>• <time class="dt-published" datetime="2023-06-29T08:00:00+00:00" itemprop="datePublished">
           Updated on Jun 29, 2023
         </time>
-      • <span>18 min read</span><br>
+      • <span>19 min read</span><br>
       
         <a class="post-meta" href="/tags.html##softwareengineering">#softwareengineering</a>&nbsp
       </p>
@@ -90,7 +90,7 @@ Based on my experience working at startups with fewer than 200 employees and few
   Anticipating such issues requires input from domain experts (e.g., mechanical or firmware engineers), who may not be easily accessible and speak different jargons and reproducing them often requires changing interfaces, which can be expensive (e.g., it becomes yet another layer to maintain).</li>
   <li><em>Subtle regression.</em>
   The complexity of robotics systems makes it challenging to establish a robust <a href="https://katalon.com/resources-center/blog/regression-testing">regression testing</a> pipeline.
-  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust <a href="https://damorimrg.github.io/practical_testing_book/testregression/selectionprio.html">test selection and prioritization</a>[^2] is difficult and hence elusive bugs slip back into the production code.
+  For example, handling low-frequency <a href="https://docs.gitlab.com/ee/development/testing_guide/flaky_tests.html">flaky tests</a>, implementing robust test selection and prioritization[^2] is difficult and hence elusive bugs slip back into the production code.
   Performance regressions are particularly challenging–especially ones caused by low-level concurrency issues[^3], as they are subtle and require expensive measures such as repeated end-to-end tests and delicate statistical methods to detect.</li>
   <li><em>Unexpected peak load condition/usage pattern.</em>
   It is common for multiple (custom) software, such as core robotics, monitoring, and infra-related software, to run in parallel.
@@ -232,18 +232,18 @@ The robotics system powering the product becomes much more complex, and to manag
   By the way, this practice is nontrivial to achieve for technical and cultural reasons; for more information, see <a href="https://www.airbotics.io/blog/software-deployment-landscape">“The landscape of software deployment in robotics”</a> from Airbotics.
   Typically, adopting a deployment tooling sparks discussions like adopting cloud-native tooling <a href="https://ubuntu.com/blog/ros-docker">or not</a>, which then sparks discussions on <a href="https://discourse.ros.org/t/how-do-you-launch-your-systems/23383/16">system launching mechanisms</a>, and so on.</li>
   <li>Implementing <strong>nightly tests on real robots</strong> in a mirror warehouse or manufacturing line or <strong><a href="https://youtu.be/JNV9CkARh**g">physical continuous integration</a></strong> in a production-like environment to prevent edge and corner cases and performance regressions in production environments as much as possible.</li>
-  <li>Utilizing (custom) <strong>fleet operation solution</strong> to scale teleop-based incidence recovery (e.g., more robots to monitor/rescue per person), open up such operations to non-developers, etc.</li>
   <li><strong>Structuring and centralizing logs</strong> (e.g., structlog, spdlog, and Loki, ELK, Splunk) to track performance across growing fleets and enable dynamically querying information for fast debugging or monitoring, e.g., with <a href="/2023/04/21/observability.html">robotics-specific metrics</a>.
   In addition, centralizing data would be ideal; however, given the large size of robotics data, doing so requires more care and resources—which usually becomes possible to afford in the next stage.</li>
   <li>Implementing a <strong>data record and replayer and visualizer</strong> (e.g., rosbag and RVIZ, Foxglove Studio, or custom-built ones) to enable debugging or optimizing robotics algorithms running in distributed systems.
   By the way, building a performant data record and replayer, e.g., that works well with both real robots and simulators, is no joke; there are issues like not being able to record or replay data fast enough, doesn’t work well with simulators that run slower or faster than real-time, etc.</li>
+  <li>Utilizing (custom) <strong>fleet operation solution</strong> to scale teleop-based incidence recovery (e.g., more robots to monitor/rescue per person), open up such operations to non-developers, etc.</li>
 </ul>
 
 <h3 id="201-2000-employees">201-2000 Employees</h3>
 
 <p>Robotics companies at this stage have experienced significant growth and have a large customer base.
 Their goal is to further scale their operations and efficiently handle a substantial number of robots, potentially exceeding 1000 units, without compromising performance.
-The company now consists of multiple teams working on various aspects of the robotics system, including core software development, user experience enhancement, infrastructure scalability, and customer support.
+The company now consists of multiple teams working on various aspects of the robotics system, including core software development, fleet management and user experience enhancement, custom hardware integration and test, infrastructure scalability, and customer support.
 Additionally, the focus expands beyond purely technical challenges to encompass broader organizational considerations, such as team structure, talent management, strategic partnerships, and market expansion.</p>
 
 <p><strong>Key Practices:</strong></p>
@@ -252,9 +252,6 @@ Additionally, the focus expands beyond purely technical challenges to encompass 
   <li>Implementing an <strong>advanced test automation framework</strong> that encompasses a wide range of tests, including unit, integration, performance regression (e.g., via hardware-in-the-loop), and security tests.
   To improve testing efficiency, the company utilizes techniques such as <a href="https://martinfowler.com/articles/rise-test-impact-analysis.html">test impact analysis</a> and test selection and prioritization, which identify the most critical tests and prioritize their execution.
   Furthermore, they leverage cloud resources to run a large number of simulation-based end-to-end tests in parallel, accelerating the testing process.</li>
-  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments across all teams involved in building a product.
-  This involves leveraging continuous integration and continuous deployment (CI/CD) practices, utilizing version control systems (VCS), maintaining release documentation, and employing release dashboards.
-  The company also invests in <strong>advanced deployment and orchestration</strong> tools such as Terraform, Docker, and Kubernetes to facilitate large-scale, cross-team deployment and operation of a diverse fleet, encompassing robots, peripheral devices (e.g., elevator controller, manufacturing line controller), and (web) servers.</li>
   <li>Enhancing <strong>developer productivity</strong> through faster iteration, improved debugging and testing tooling, and ultimately aiming to enhance system reliability.
   At this stage, companies have the resources to invest in infrastructure and pipeline improvements.
   This includes setting up <strong>cloud development environments</strong> utilizing platforms like GitPod, Coder, and DevZero.
@@ -264,6 +261,9 @@ Additionally, the focus expands beyond purely technical challenges to encompass 
   For instance, enhancing the data record and replayer to support <strong>streaming robotics data</strong> enables faster debugging by bypassing the need to download large datasets onto local development machines.
   The data record and replayer are also optimized to handle high throughput and enable navigation between critical timestamps.
   Another example of specialized tooling is the creation of a <strong>test scenario generator</strong>, which automates the generation of realistic test scenarios, enhancing test coverage and enabling the identification of edge cases and potential failure scenarios.</li>
+  <li>Establishing a <strong>formalized release management</strong> process that includes thorough testing, staging environments, and controlled deployments across all teams involved in building a product.
+  This involves standarizing continuous integration and continuous deployment (CI/CD) practices across teams, maintaining release documentation, and employing release dashboards.
+  The company also invests in <strong>advanced deployment and orchestration</strong> tools such as Terraform, Docker, and Kubernetes to facilitate large-scale, cross-team deployment and operation of a diverse fleet, encompassing robots, peripheral devices (e.g., elevator controller, manufacturing line controller), and (web) servers.</li>
   <li>Implementing <strong>incident response and resolution workflows</strong> to minimize downtime and efficiently handle critical incidents.
   The fleet operation tool should leverage automation, e.g., incident detection, require minimal human input for recovery, etc.
   Also the workflow or procedure should allow each team to be responsible for the sfotware they write.</li>
