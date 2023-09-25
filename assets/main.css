@@ -935,6 +935,14 @@ article.preview .excerpt a {
 /**
  * Posts
  */
+.post {
+  font-size: 18px;
+  line-height: 1.7505;
+}
+.post figcaption {
+  font-size: 15.96px;
+}
+
 .post-title {
   font-size: 38px;
   line-height: 1.2;
@@ -953,6 +961,7 @@ article.preview .excerpt a {
 }
 
 .post-meta {
+  font-size: 15.96px;
   color: #828282;
 }
 .post-meta a {
@@ -993,7 +1002,7 @@ article.preview .excerpt a {
  * Notes
  */
 .note {
-  line-height: 1.6;
+  line-height: 1.6005;
 }
 .note h1 {
   font-size: 1.75em;
