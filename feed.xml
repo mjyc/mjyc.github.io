@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-10-04T17:38:31+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-11-01T05:27:20+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -684,6 +684,10 @@ The robotics system powering the product becomes much more complex, and to manag
 
 <h3 id="201-2000-employees">201-2000 Employees</h3>
 
+<p>I have not been employed by a robotics company that had more than 200 employees.
+The insights in this subsection are derived from (1) my experience at a company was actively preparing for the expansion beyond 200 employees and (2) indirect experiences shared by my colleagues in the robotics field.
+In other words, please take the suggested key practices with a grain of salt.</p>
+
 <p>Robotics companies at this stage have experienced significant growth and have a large customer base.
 Their goal is to further scale their operations and efficiently handle a substantial number of robots, potentially exceeding 1000 units, without compromising performance.
 The company now consists of multiple teams working on various aspects of the robotics system, including core software development, fleet management and user experience enhancement, custom hardware integration and test, infrastructure scalability, and customer support.
@@ -716,7 +720,8 @@ Additionally, the focus expands beyond purely technical challenges to encompass 
 
 <h3 id="beyond-2000-employees">Beyond 2000 Employees</h3>
 
-<p>I don’t have any firsthand experience with companies at this size, and in fact, I only know a handful of robotics companies at this stage, such as large autonomous vehicle companies like Waymo, Cruise, Aurora, and Zoox.
+<p>I don’t have any experience with companies at this size.
+In fact, I am not even sure if any of robotics companies that I know is at this stage–maybe some of the large autonomous vehicle companies like Waymo, Cruise, Aurora, and Zoox?
 I will update here after gaining more experience with companies at this stage, one day.</p>
 
 <h2 id="closing-notes">Closing notes</h2>
