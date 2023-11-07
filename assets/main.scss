@@ -108,15 +108,6 @@ article.preview {
 /**
  * Posts
  */
-.post {
-  font-size: $base-font-size * 1.125;
-  line-height: $base-line-height * 1.167;
-
-  figcaption {
-    font-size: $small-font-size * 1.14;
-  }
-}
-
 .post-title {
   @include relative-font-size(2.375);
 
@@ -124,7 +115,7 @@ article.preview {
     @include relative-font-size(2.376);
   }
 
-  line-height: $base-line-height * 0.8;
+  line-height: 1.2;
 }
 
 .post-content {
@@ -138,7 +129,6 @@ article.preview {
 }
 
 .post-meta {
-  font-size: $small-font-size * 1.14;
   color: $text-color-light;
 
   a {
@@ -188,7 +178,7 @@ article.preview {
  * Notes
  */
 .note {
-  line-height: $base-line-height * 1.067;
+  line-height: 1.6;
 
   h1 {
     font-size: 1.75em;
