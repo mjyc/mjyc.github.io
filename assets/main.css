@@ -146,8 +146,8 @@ pre > code {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(715px - (30px * 2));
-  max-width: calc(715px - (30px * 2));
+  max-width: -webkit-calc(810px - (30px * 2));
+  max-width: calc(810px - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
@@ -155,8 +155,8 @@ pre > code {
 }
 @media screen and (max-width: 800px) {
   .wrapper {
-    max-width: -webkit-calc(715px - (30px));
-    max-width: calc(715px - (30px));
+    max-width: -webkit-calc(810px - (30px));
+    max-width: calc(810px - (30px));
     padding-right: 15px;
     padding-left: 15px;
   }
@@ -935,14 +935,6 @@ article.preview .excerpt a {
 /**
  * Posts
  */
-.post {
-  font-size: 18px;
-  line-height: 1.7505;
-}
-.post figcaption {
-  font-size: 15.96px;
-}
-
 .post-title {
   font-size: 38px;
   line-height: 1.2;
@@ -961,7 +953,6 @@ article.preview .excerpt a {
 }
 
 .post-meta {
-  font-size: 15.96px;
   color: #828282;
 }
 .post-meta a {
@@ -1002,7 +993,7 @@ article.preview .excerpt a {
  * Notes
  */
 .note {
-  line-height: 1.6005;
+  line-height: 1.6;
 }
 .note h1 {
   font-size: 1.75em;
