@@ -5,6 +5,11 @@ date: 2021-11-24 00:00:00 -0800
 tags: ["#productivity"]
 ---
 
+<figure>
+  <img src="https://live.staticflickr.com/7008/6571012801_aaf5cf54f5_k.jpg">
+  <figcaption>84., Photo by <a href="https://www.flickr.com/anacarla93/">Ana Carla Machnicki</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
+</figure>
+
 At some point in my life, I realized that I wasn't listening to music ~~to join the revolution and change the world!~~to enjoy myself but to put my kids to sleep or to focus while I'm working.
 This sad realization made me write this post.
 
