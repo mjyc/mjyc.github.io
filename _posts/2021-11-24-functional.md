@@ -7,7 +7,7 @@ tags: ["#productivity"]
 
 <figure>
   <img src="https://live.staticflickr.com/7008/6571012801_aaf5cf54f5_k.jpg">
-  <figcaption>84., Photo by <a href="https://www.flickr.com/anacarla93/">Ana Carla Machnicki</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
+  <figcaption>84.,   Photo by <a href="https://www.flickr.com/anacarla93/">Ana Carla Machnicki</a> on <a href="https://www.flickr.com/">flickr</a></figcaption>
 </figure>
 
 At some point in my life, I realized that I wasn't listening to music ~~to join the revolution and change the world!~~to enjoy myself but to put my kids to sleep or to focus while I'm working.
@@ -34,7 +34,7 @@ For example, listening to the wave noise tricked my brain into putting me into v
 
 Understanding that listening to certain sounds (or music) can have certain effects on me made me want to leverage such effects.
 For example, I intentionally listened to my favorite finals week music from my college years, like [Nujabes](https://open.spotify.com/artist/3Rq3YOF9YG9YfCWD4D56RZ?si=BDrveOO-SRigUDmRDtaeDg)-like lo-fi hip-hop music, [Bon Iver](https://open.spotify.com/artist/4LEiUm1SRbFMgfqnQTwUbQ?si=mDOsZUMbTQWJe_3lD0DDvw)-like indie folk music, and [Sigur Ros](https://open.spotify.com/artist/6UUrUCIZtQeOf8tC0WuzRy?si=nm0FY61iTNiNWB3im-vgQA)-like post-rock music, when I needed to learn new techniques or tools.
-When I needed to pump out code, I listened to my favorite coding music from my bachelor years, like [Daft Punk](https://open.spotify.com/artist/4tZwfgrHOc3mvqYlEYSvVi?si=AnprvdiGRRKh7DL3-Na_MA)'s French house music or [Chemical Brothers](https://open.spotify.com/artist/1GhPHrq36VKCY3ucVaZCfo?si=HhSfDdriSBKYXEYT5e9zNg)' big beats music.
+When I needed to pump out code, I listened to my favorite coding music from my bachelor years, like [Daft Punk](https://open.spotify.com/artist/4tZwfgrHOc3mvqYlEYSvVi?si=AnprvdiGRRKh7DL3-Na_MA)-like French house music or [Chemical Brothers](https://open.spotify.com/artist/1GhPHrq36VKCY3ucVaZCfo?si=HhSfDdriSBKYXEYT5e9zNg)-like big beats music.
 I turned to nature sounds like ocean sounds to help me calm down and detach from problems, especially when I'm responding to an incident under time pressure.
 
 
@@ -50,7 +50,7 @@ I felt like the new white lights were taking away the cozy warm feeling created 
 I also felt too awake if I worked under bright white lights in the evening and night hours, it was useful if I needed to work long hours, and it made me tired and difficult to concentrate during the day after.
 
 So I used the [IFTTT](https://ifttt.com/)-like [feature](https://support.wyze.com/hc/en-us/articles/360032409032-Using-Rules-in-the-Wyze-app) in the smart light app to adjust the light bulbs' brightness and color temperature throughout the day.
-Here is a set of rules I created:
+Here is a set of rules I created[^1]:
 
 - **6 am: set brightness to 80%, set color temperature to 50%**
 - 7 am: set brightness to 80%, set color temperature to 50%
@@ -64,8 +64,8 @@ Here is a set of rules I created:
 - 9 pm: set brightness to 100%, set color temperature to 50%
 - **12 am: set brightness to 10%, set color temperature to 1%**
 
-My smart light bulbs' brightness ranges from 0 (0%) to 800 lumens (100%), and the color temperature ranges from 2700k (0%) to 6500k (100%)[^1].
-There are redundant rules (in the non-bold font) because there was no easy way to _keep_ a certain condition (e.g., set brightness to 100%) _throughout_ a certain time period (e.g., between 10 am and 4 pm) using the IFTTT that came with the bulb[^2].
+My smart light bulbs' brightness ranges from 0 (0%) to 800 lumens (100%), and the color temperature ranges from 2700k (0%) to 6500k (100%)[^2].
+There are redundant rules (in the non-bold font) because there was no easy way to _keep_ a certain condition (e.g., set brightness to 100%) _throughout_ a certain time period (e.g., between 10 am and 4 pm) and handle _possible failures_ due to _unreliable connections_[^3] using the IFTTT-like feature that came with the bulb[^4].
 For example, if I power off my lights at 10 pm and power them back on at 9am the next day, the brightness and color temperature will stay at what they were at 10 pm last night and they won't change until the next rule kicks in, e.g., at 10 am.
 One of the ways to get around this issue was using the "[sun match](https://www.digitaltrends.com/home/wyze-bulb-white-sun-match-mode-changes-based-on-sun/)" feature that continuously adjusts the brightness and color temperatures to match that of the sun throughout the day.
 However, I liked having a set of rules that changes brightness and color temperature in a bit more discrete manner.
@@ -137,5 +137,7 @@ Only then can I leverage such a model (understanding) by changing environments.
 
 #### Footnotes
 
-[^1] For more information on the color temperature unit Kelvin (K), see [this article](https://www.ledlightexpert.com/understanding_led_light_color_temperatures_ep_79).
-[^2] My gradschool labmate published a [research paper](https://hcrlab.cs.washington.edu/assets/pdfs/2015/huang2015ubicomp.pdf) about this.
+[^1] And [here](https://gist.github.com/mjyc/ad2de6e348f8be86e335be53cfb38fe4#file-office-room-lights-yaml) is a similar set of rules in [Google Home Automation Script](https://developers.home.google.com/automations/schema?hl=en).
+<br>[^2] For more information on the color temperature unit Kelvin (K), see [this article](https://www.ledlightexpert.com/understanding_led_light_color_temperatures_ep_79).
+<br>[^3] Especially the case if you have many (e.g., > 10) devices. You more likely to likely to have some (e.g., Wi-Fi connection, etc.) issues. There are some [people](https://www.youtube.com/@HomeAutomationGuy) on internet who have done some serious home-automation projects. I'd checkout their contents for insights.
+<br>[^4] I heard some products better supprot "state-based"--as opposed to "event/trigger-based"--actions. Btw, my gradschool labmate published a [research paper](https://hcrlab.cs.washington.edu/assets/pdfs/2015/huang2015ubicomp.pdf) about a related challenge.
