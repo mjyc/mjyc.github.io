@@ -7,8 +7,8 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="Bazelifying ROS projects with LLM’s assistance" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Large language models (LLMs) are causing stir in dev community. This project idea investigates my burning question “Can I (a roboticist) leverage an LLM to significantly reduce my development time? e.g., for a nontrivial engineering task like Bazel migration." />
-<meta property="og:description" content="Large language models (LLMs) are causing stir in dev community. This project idea investigates my burning question “Can I (a roboticist) leverage an LLM to significantly reduce my development time? e.g., for a nontrivial engineering task like Bazel migration." />
+<meta name="description" content="Large language models (LLMs) are causing a stir in the dev community. This note documents a small background research and experiments I’ve done to investigate my burning question: “Can I (a roboticist) leverage an LLM to significantly reduce my development time?”" />
+<meta property="og:description" content="Large language models (LLMs) are causing a stir in the dev community. This note documents a small background research and experiments I’ve done to investigate my burning question: “Can I (a roboticist) leverage an LLM to significantly reduce my development time?”" />
 <link rel="canonical" href="http://localhost:4000/notes/bazelifying.html" />
 <meta property="og:url" content="http://localhost:4000/notes/bazelifying.html" />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Bazelifying ROS projects with LLM’s assistance" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-25T08:00:00+00:00","datePublished":"2023-06-25T08:00:00+00:00","description":"Large language models (LLMs) are causing stir in dev community. This project idea investigates my burning question “Can I (a roboticist) leverage an LLM to significantly reduce my development time? e.g., for a nontrivial engineering task like Bazel migration.","headline":"Bazelifying ROS projects with LLM’s assistance","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/notes/bazelifying.html"},"url":"http://localhost:4000/notes/bazelifying.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-25T08:00:00+00:00","datePublished":"2023-06-25T08:00:00+00:00","description":"Large language models (LLMs) are causing a stir in the dev community. This note documents a small background research and experiments I’ve done to investigate my burning question: “Can I (a roboticist) leverage an LLM to significantly reduce my development time?”","headline":"Bazelifying ROS projects with LLM’s assistance","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/notes/bazelifying.html"},"url":"http://localhost:4000/notes/bazelifying.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Jae-Yoon Chung" /><link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
@@ -57,8 +57,8 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Large language models (LLMs) are causing stir in dev community.
-This project idea investigates my burning question <em>“Can I (a roboticist) leverage an LLM to significantly reduce my development time?</em> e.g., for a nontrivial engineering task like Bazel migration.</p>
+    <p>Large language models (LLMs) are causing a stir in <a href="https://www.latent.space/p/ai-engineer">the dev community</a>.
+This note documents a small background research and experiments I’ve done to investigate my burning question: <em>“Can I (a roboticist) leverage an LLM to significantly reduce my development time?”</em></p>
 
 <h2 id="goals">Goals</h2>
 
@@ -68,13 +68,9 @@ This project idea investigates my burning question <em>“Can I (a roboticist) l
       <li>Better understand the required work: What are the required steps? What makes it so laborious?</li>
     </ul>
   </li>
-  <li>Understand the strengths and weaknesses of using LLM in a nontrivial project.
+  <li>Understand the strengths and weaknesses of using LLM in a nontrivial project, e.g.,
     <ul>
-      <li>Can it be used to dramatically improve developer velocity?
-        <ul>
-          <li>Bazel migration requires at least a few weeks of an engineering team’s time. Can it be done by a single person in a few days?</li>
-        </ul>
-      </li>
+      <li>Bazel migration project takes at least a few weeks of one entire eng. team. Can it be done by a single person in a few days?</li>
     </ul>
   </li>
 </ul>
@@ -83,7 +79,6 @@ This project idea investigates my burning question <em>“Can I (a roboticist) l
 
 <ul>
   <li>New flexibility in changing build system that traditionally require huge effort to migrate.</li>
-  <li>…</li>
 </ul>
 
 <h2 id="background-research">Background Research</h2>
@@ -116,7 +111,7 @@ This project idea investigates my burning question <em>“Can I (a roboticist) l
       <li>Cruise guys mention this in their talk and in ROS Discourse.</li>
     </ul>
   </li>
-  <li>(WIP) Something about Python.
+  <li>(WIP) Something about Python dependencies.
     <ul>
       <li>TODO: Find mvukov’s comment (in <a href="https://github.com/mvukov/rules_ros">mvukov/ruls_ros</a>, I think) that describes the challenges of specifying Python dependencies in Bazel.</li>
     </ul>
@@ -166,7 +161,6 @@ This project idea investigates my burning question <em>“Can I (a roboticist) l
 <p>Other Candidates Considered:</p>
 <ul>
   <li>Nav2</li>
-  <li>…</li>
 </ul>
 
 <h3 id="llm-powered-code-generation">LLM-Powered Code Generation</h3>
@@ -228,7 +222,6 @@ One idea is transforming the for loop execution into the process developers are 
         </ul>
       </li>
       <li>Is the maintenance work a bigger or more laborious problem?</li>
-      <li>…</li>
     </ul>
   </li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Find a starting point; Couple ideas:
