@@ -5,22 +5,20 @@ date: 2023-06-25 00:00:00 -0800
 tags: ["#idea", "#project"]
 ---
 
-Large language models (LLMs) are causing stir in dev community.
-This project idea investigates my burning question _"Can I (a roboticist) leverage an LLM to significantly reduce my development time?_ e.g., for a nontrivial engineering task like Bazel migration.
+Large language models (LLMs) are causing a stir in [the dev community](https://www.latent.space/p/ai-engineer).
+This note documents a small background research and experiments I've done to investigate my burning question: _"Can I (a roboticist) leverage an LLM to significantly reduce my development time?"_
 
 
 ## Goals
 
 - Dramatically reduce the amount of work required to migrate a ROS project to use Bazel.
     - Better understand the required work: What are the required steps? What makes it so laborious?
-- Understand the strengths and weaknesses of using LLM in a nontrivial project.
-    - Can it be used to dramatically improve developer velocity?
-        - Bazel migration requires at least a few weeks of an engineering team's time. Can it be done by a single person in a few days?
+- Understand the strengths and weaknesses of using LLM in a nontrivial project, e.g.,
+    - Bazel migration project takes at least a few weeks of one entire eng. team. Can it be done by a single person in a few days?
 
 ### Expected Impact
 
 - New flexibility in changing build system that traditionally require huge effort to migrate.
-- ...
 
 
 ## Background Research
@@ -41,7 +39,7 @@ This project idea investigates my burning question _"Can I (a roboticist) levera
 
 - Bazelifying all external dependencies.
     - Cruise guys mention this in their talk and in ROS Discourse.
-- (WIP) Something about Python.
+- (WIP) Something about Python dependencies.
     - TODO: Find mvukov's comment (in [mvukov/ruls_ros](https://github.com/mvukov/rules_ros), I think) that describes the challenges of specifying Python dependencies in Bazel.
 
 TODO: Briefly mention the maintenance work too. Do a back-of-envelope calculation for the frequency/amount of the maintenance work.
@@ -70,7 +68,6 @@ See also: [Background and Design Decisions](https://github.com/mvukov/rules_ros#
 
 Other Candidates Considered:
 - Nav2
-- ...
 
 ### LLM-Powered Code Generation
 
@@ -108,7 +105,6 @@ One idea is transforming the for loop execution into the process developers are 
     - Who cares about this?
         - Which (robotics) companies? Who are their customers?
     - Is the maintenance work a bigger or more laborious problem?
-    - ...
 1. [ ] Find a starting point; Couple ideas:
     1. Check out Autoware or MoveIt 2 and identify a leaf package to start converting to Bazel.
     1. Check out [mvukov/rules_ros2](https://github.com/mvukov/rules_ros2) and identify a list of challenges that the author overcame.
