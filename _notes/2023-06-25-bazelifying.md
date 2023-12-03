@@ -39,10 +39,8 @@ This note documents a small background research and experiments I've done to inv
 
 - Bazelifying all external dependencies.
     - Cruise guys mention this in their talk and in ROS Discourse.
-- (WIP) Something about Python dependencies.
-    - TODO: Find mvukov's comment (in [mvukov/ruls_ros](https://github.com/mvukov/rules_ros), I think) that describes the challenges of specifying Python dependencies in Bazel.
-
-TODO: Briefly mention the maintenance work too. Do a back-of-envelope calculation for the frequency/amount of the maintenance work.
+- Something about Python dependencies.
+    - Study mvukov's comment (in [mvukov/ruls_ros](https://github.com/mvukov/rules_ros), I think) that describes the challenges of specifying Python dependencies in Bazel.
 
 #### Existing Approaches
 
