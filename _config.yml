@@ -3,6 +3,7 @@ email: mjyc@cs.washington.edu
 google_analytics: "G-NZ4FX6FCL4"
 utterances:
   repo: "mjyc/mjyc.github.io"
+  theme: "preferred-color-scheme"
 
 collections:
   notes:
