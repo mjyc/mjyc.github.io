@@ -11,6 +11,10 @@ $site-title-color: #424242;
 $text-color-light: #828282;
 $highlight-color: #ffff0b;
 
+$darkmode-background-color: #000 !default;
+$darkmode-text-color: #ededed;
+$darkmode-site-title-color: white;
+
 $content-width: 810px !default;
 
 @import "minima", "minima/_syntax-highlighting";
@@ -219,6 +223,73 @@ article.preview {
     text-decoration: none;
     &:hover {
       color: $brand-color;
+    }
+  }
+}
+
+/**
+ * Dark Mode Settings
+ */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: $darkmode-text-color;
+    background-color: $darkmode-background-color;
+  }
+
+  a {
+    color: $darkmode-text-color;
+  
+    &:visited {
+      color: $darkmode-text-color;
+    }
+  }
+
+  .site-header {
+    a {
+      color: $darkmode-site-title-color;
+    }
+  
+    a.site-title,
+    &:hover {
+      color: $darkmode-site-title-color;
+    }
+  }
+
+  .site-nav {
+    .page-link {
+      color: $darkmode-text-color;
+    }
+
+    @include media-query($on-palm) {
+      background-color: $darkmode-background-color;
+    }
+  }
+
+  article.preview {
+    .excerpt a {
+      text-decoration-color: $darkmode-text-color
+    }
+  }
+  
+  .post-content {
+    a {
+      text-decoration-color: $darkmode-text-color;
+  
+      &:hover {
+        color: $darkmode-text-color;
+      }
+    }
+  }
+  
+  .post-meta { 
+    a.page-link {
+      color: $darkmode-text-color;
+    }
+  }
+
+  .bib {
+    a.bib-tag {
+      color: $darkmode-text-color;
     }
   }
 }
