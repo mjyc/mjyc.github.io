@@ -3,19 +3,19 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Getting started with programming, kind of | Michael Jae-Yoon Chung</title>
+<title>Sparking joy with Theseus, a differentiable nonlinear optimization library in Python | Michael Jae-Yoon Chung</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Getting started with programming, kind of" />
+<meta property="og:title" content="Sparking joy with Theseus, a differentiable nonlinear optimization library in Python" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A collection of links for my beginner friends" />
-<meta property="og:description" content="A collection of links for my beginner friends" />
+<meta name="description" content="DISCLAIMER: I only played with theseus for ~1 week." />
+<meta property="og:description" content="DISCLAIMER: I only played with theseus for ~1 week." />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-09-11T08:00:00+00:00" />
+<meta property="article:published_time" content="2023-12-03T08:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Getting started with programming, kind of" />
+<meta property="twitter:title" content="Sparking joy with Theseus, a differentiable nonlinear optimization library in Python" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2021-09-11T08:00:00+00:00","datePublished":"2021-09-11T08:00:00+00:00","description":"A collection of links for my beginner friends","headline":"Getting started with programming, kind of","mainEntityOfPage":{"@type":"WebPage","@id":"/notes/getting.html"},"url":"/notes/getting.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-03T08:00:00+00:00","datePublished":"2023-12-03T08:00:00+00:00","description":"DISCLAIMER: I only played with theseus for ~1 week.","headline":"Sparking joy with Theseus, a differentiable nonlinear optimization library in Python","mainEntityOfPage":{"@type":"WebPage","@id":"/notes/theseus.html"},"url":"/notes/theseus.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Michael Jae-Yoon Chung" /><script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ4FX6FCL4"></script>
 <script>
@@ -49,50 +49,33 @@
         <article class="devnote h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Getting started with programming, kind of</h1>
+    <h1 class="post-title p-name" itemprop="name headline">Sparking joy with Theseus, a differentiable nonlinear optimization library in Python</h1>
     <p class="post-meta">
-      <time class="dt-published" datetime="2021-09-11T08:00:00+00:00" itemprop="datePublished">
-        Posted on Sep 11, 2021
+      <time class="dt-published" datetime="2023-12-03T08:00:00+00:00" itemprop="datePublished">
+        Posted on Dec 3, 2023
       </time>
       • <span>1 min read</span><br>
       
         <span class="post-meta">#links</span>&nbsp
+      
+        <span class="post-meta">#project</span>&nbsp
       </p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>A collection of links for my beginner friends</p>
+    <p><em>DISCLAIMER: I only played with <a href="https://github.com/facebookresearch/theseus">theseus</a> for ~1 week.</em></p>
+
+<p>When I was just starting in gradschool, applying numerical methods to the robotics problems was scary (e.g., loop closure in SLAM, trajectory optimization for motion planning).
+I hated deriving Jacobian matrix, …</p>
+
+<p><em>I don’t care, just show me the code!</em></p>
+
+<p>Okay okay, see <a href="https://github.com/AtsushiSakai/PythonRobotics/pull/941">this PR</a>. Briefly, I thought these features made thesues joyful to use:</p>
 
 <ul>
-  <li>https://leetcode.com/problemset/all/ for coding interviews
-    <ul>
-      <li>https://youtu.be/xAxgzrj8zgU this guy shows how to meta-study for coding interviews</li>
-    </ul>
-  </li>
-  <li>https://refactoring.guru/ for refactoring &amp; reviewing design patterns
-    <ul>
-      <li>https://www.martinfowler.com/architecture/ if you want more</li>
-    </ul>
-  </li>
-  <li>https://github.com/donnemartin/system-design-primer for system design</li>
-  <li>https://dev.to/ explained stuff to me like I’m 4 years old
-    <ul>
-      <li>https://dev.to/mjyc I used to post some too!</li>
-    </ul>
-  </li>
-  <li>https://homes.cs.washington.edu/~jstn/#/teaching my grad school buddy who has amazing Git &amp; C++ beginner’s tutorials
-    <ul>
-      <li>https://girliemac.com/blog/2017/12/26/git-purr/ git purr</li>
-    </ul>
-  </li>
-  <li>https://github.com/alebcay/awesome-shell shell is awesome</li>
-  <li>https://github.com/Mayccoll/Gogh I like dracula, nord, github, night owl, dissonance/brogrammer, and broadcast
-    <ul>
-      <li>https://www.reddit.com/r/terminal_porn/ oh yeah</li>
-    </ul>
-  </li>
-  <li>https://carbon.now.sh/ if you need to share your amazing command line script</li>
-  <li>https://roadmap.sh/ cause developers need a roadmap too</li>
+  <li><em>Pytorch integration</em> brings tons of tensor utilities, autograd, and more</li>
+  <li><em>Python implementation of nonliear &amp; linear optimization algorithms</em> makes it easy to see what’s going on under the hood</li>
+  <li><em>Many robotics utility code (e.g., <a href="https://github.com/facebookresearch/theseus/tree/main/theseus/geometry">geometry</a>), application <a href="https://github.com/facebookresearch/theseus/tree/main/examples">examples</a></em></li>
 </ul>
 <br>
 <script src="https://utteranc.es/client.js"
@@ -104,7 +87,7 @@
     async>
 </script></div>
 
-  <a class="u-url" href="/notes/getting.html" hidden></a>
+  <a class="u-url" href="/notes/theseus.html" hidden></a>
 </article>
 
       </div>

@@ -1032,4 +1032,51 @@ article.preview .excerpt a {
   color: deepskyblue;
 }
 
+/**
+ * Dark Mode Settings
+ */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #ededed;
+    background-color: #000;
+  }
+  a {
+    color: #ededed;
+  }
+  a:visited {
+    color: #ededed;
+  }
+  .site-header a {
+    color: white;
+  }
+  .site-header a.site-title, .site-header:hover {
+    color: white;
+  }
+  .site-nav .page-link {
+    color: #ededed;
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 600px) {
+  .site-nav {
+    background-color: #000;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  article.preview .excerpt a {
+    text-decoration-color: #ededed;
+  }
+  .post-content a {
+    text-decoration-color: #ededed;
+  }
+  .post-content a:hover {
+    color: #ededed;
+  }
+  .post-meta a.page-link {
+    color: #ededed;
+  }
+  .bib a.bib-tag {
+    color: #ededed;
+  }
+}
+
 /*# sourceMappingURL=main.css.map */
