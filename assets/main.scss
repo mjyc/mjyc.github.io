@@ -8,12 +8,13 @@ $base-line-height: 1.5;
 $brand-color: deepskyblue !default;
 $background-color: white !default;
 $site-title-color: #424242;
-$text-color-light: #828282;
+$text-color-light: #666666;
 $highlight-color: #ffff0b;
 
 $darkmode-background-color: #000 !default;
 $darkmode-text-color: #ededed;
 $darkmode-site-title-color: white;
+$darkmode-text-color-light: #a1a1a1;
 
 $content-width: 810px !default;
 
@@ -244,6 +245,15 @@ article.preview {
     }
   }
 
+  figcaption {
+    color: $darkmode-text-color-light;
+  
+    a {
+      color: $darkmode-text-color-light;
+      text-decoration-color: $darkmode-text-color-light !important;
+    }
+  }
+
   .site-header {
     a {
       color: $darkmode-site-title-color;
@@ -282,6 +292,17 @@ article.preview {
   }
   
   .post-meta { 
+    color: $darkmode-text-color-light;
+
+    a {
+      color: $darkmode-text-color-light;
+    
+      &:hover {
+        color: $darkmode-text-color-light !important;
+        text-decoration-color: $darkmode-text-color-light;
+      }
+    }
+
     a.page-link {
       color: $darkmode-text-color;
     }
