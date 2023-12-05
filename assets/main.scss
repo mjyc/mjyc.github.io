@@ -2,8 +2,8 @@
 ---
 
 $base-font-family: "Source Sans Pro", sans-serif !default;
-$base-font-size: 16px !default;
-$base-line-height: 1.5;
+$base-font-size: 17px !default;
+$base-line-height: 1.6;
 
 $brand-color: deepskyblue !default;
 $background-color: white !default;
@@ -108,18 +108,21 @@ article.preview {
   .excerpt a {
     text-decoration-color: $text-color
   }
+
+  .post-list-heading {
+    font-size: 1.0em;
+    font-weight: bold;
+  }
+
+  .post-link {
+    font-size: 1.3em;
+  }
 }
 
 /**
  * Posts
  */
 .post-title {
-  @include relative-font-size(2.375);
-
-  @include media-query($on-laptop) {
-    @include relative-font-size(2.376);
-  }
-
   line-height: 1.2;
 }
 
@@ -178,6 +181,16 @@ article.preview {
     text-decoration: none;
   }
 }
+
+/**
+ * Blog
+ */
+.blog {
+  .post-link {
+    font-size: 1.475em;
+  }
+}
+ 
 
 /**
  * Notes

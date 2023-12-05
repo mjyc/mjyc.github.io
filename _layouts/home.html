@@ -11,14 +11,12 @@ layout: default
 <br>
 <br>
 <article class="preview">
-  <p>
-    <b style="font-size: 20px">PINNED BLOG POSTS</b>
-  </p>
+  <h2 class="post-list-heading">Pinned Blog Posts</h2>
   <div class="post-list">
     {%- for pinned_post_name in pinned_post_names -%}{%- for post in site.posts -%}{%- if post.name == pinned_post_name -%}
     <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
     <h3>
-      <a class="post-link-home" href="{{ post.url | relative_url }}">
+      <a class="post-link" href="{{ post.url | relative_url }}">
         {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
         {{ post.title | escape }}
       </a>
@@ -38,14 +36,12 @@ layout: default
 {%- if site.notes.size > 0 -%}
 <br>
 <article class="preview">
-  <p>
-    <b style="font-size: 20px">PINNED NOTES</b>
-  </p>
+  <h2 class="post-list-heading">Pinned Notes</h2>
   <div class="post-list">
     {%- for pinned_note_name in pinned_note_names -%}{%- for post in site.notes -%}{%- if post.name == pinned_note_name -%}
     <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
     <h3 class="post-item-title">
-      <a class="post-link-home" href="{{ post.url | relative_url }}">
+      <a class="post-link" href="{{ post.url | relative_url }}">
         {%- for tag in post.tags -%}{%- if tag == "#placeholder" -%}(upcoming)&nbsp;{%- endif -%}{%- endfor -%}
         {{ post.title | escape }}
       </a>
