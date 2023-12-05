@@ -9,12 +9,13 @@ $brand-color: deepskyblue !default;
 $background-color: white !default;
 $site-title-color: #424242;
 $text-color-light: #666666;
-$highlight-color: #ffff0b;
+$highlight-color: #ffce0b;
 
 $darkmode-background-color: #000 !default;
 $darkmode-text-color: #ededed;
 $darkmode-site-title-color: white;
 $darkmode-text-color-light: #a1a1a1;
+$darkmode-highlight-color: #d61c1d;
 
 $content-width: 810px !default;
 
@@ -105,17 +106,18 @@ figcaption {
  * Home
  */
 article.preview {
-  .excerpt a {
-    text-decoration-color: $text-color
-  }
-
   .post-list-heading {
-    font-size: 1.0em;
+    font-size: 1.1em;
     font-weight: bold;
+    color: $text-color-light;
   }
 
   .post-link {
     font-size: 1.3em;
+  }
+
+  .excerpt a {
+    text-decoration-color: $text-color
   }
 }
 
@@ -195,6 +197,12 @@ article.preview {
 /**
  * Notes
  */
+ .notes {
+  .post-link {
+    font-size: 1.475em;
+  }
+ }
+
 .note {
   line-height: 1.6;
 
@@ -245,6 +253,13 @@ article.preview {
  * Dark Mode Settings
  */
 @media (prefers-color-scheme: dark) {
+  html {
+    ::selection {
+      background: $darkmode-highlight-color;
+    }
+
+  }
+
   body {
     color: $darkmode-text-color;
     background-color: $darkmode-background-color;
@@ -288,7 +303,17 @@ article.preview {
     }
   }
 
+  .blog {
+    .post-link {
+      font-size: 1.475em;
+    }
+  }
+
   article.preview {
+    .post-list-heading {
+      color: $darkmode-text-color-light
+    }
+
     .excerpt a {
       text-decoration-color: $darkmode-text-color
     }
