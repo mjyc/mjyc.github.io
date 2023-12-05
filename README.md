@@ -13,4 +13,3 @@ Make sure you have Ruby `>=2.3` and [Bundler](http://bundler.io/) installed.
 ## Notes
 
 See https://stackoverflow.com/a/64901980 for Apple Silicon (M1) machines
-
