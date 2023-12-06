@@ -210,3 +210,80 @@ code {
     color: #099;
   } // Literal.Number.Integer.Long
 }
+
+/**
+ * Dark mode syntax highlighting styles
+ */
+
+@media (prefers-color-scheme: dark) {
+
+  code {
+    background: #2d2d2d; // Dark background for code blocks
+    background-color: #2d2d2d !important;
+    border: #2d2d2d;
+  }
+
+  .highlight {
+    background: #2d2d2d;
+    @extend %vertical-rhythm;
+
+    .highlighter-rouge & {
+      background: #2d2d2d;
+      border: #2d2d2d;
+    }
+
+    .c, .cm, .c1, .cs { // Comments
+      color: #6d6d6d; // Lighter gray for comments
+      font-style: italic;
+    }
+
+    .err { // Error
+      color: #ff6b68; // Bright red for errors
+      background-color: #442222;
+    }
+
+    .k, .o, .kc, .kd, .kp, .kr, .kt { // Keywords
+      color: #cc99cd; // Soft pink for keywords
+      font-weight: bold;
+    }
+
+    .gd { // Generic.Deleted
+      color: #ff6b68; // Bright red for deleted text
+      background-color: #442222;
+    }
+
+    .gi { // Generic.Inserted
+      color: #a6e22e; // Bright green for inserted text
+      background-color: #233422;
+    }
+
+    .gh, .gp, .gu, .nn, .bp { // Headings, prompts, subheadings, etc.
+      color: #999982; // Softer white for less critical info
+    }
+
+    .m, .mf, .mh, .mi, .mo, .il { // Numbers
+      color: #ae81ff; // Soft purple for numbers
+    }
+
+    .s, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { // Strings
+      color: #e6db74; // Yellow for strings
+    }
+
+    .na, .nb, .nc, .no, .ni, .ne, .nf, .nv, .vc, .vg, .vi { // Names, classes, variables
+      color: #a6e22e; // Green for names and classes
+    }
+
+    .nt { // Name.Tag
+      color: #f92672; // Pink for tags
+    }
+
+    .ow { // Operator.Word
+      color: #f92672; // Pink for operators
+    }
+
+    .w { // Text.Whitespace
+      color: #3b3b3b; // Very dark grey for whitespace
+    }
+
+  }
+}
