@@ -859,7 +859,7 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 html ::selection {
-  background: #ffff0b;
+  background: #ffce0b;
 }
 
 a {
@@ -928,15 +928,16 @@ figcaption a:hover {
 /**
  * Home
  */
-article.preview .excerpt a {
-  text-decoration-color: #111;
-}
 article.preview .post-list-heading {
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: bold;
+  color: #666666;
 }
 article.preview .post-link {
   font-size: 1.3em;
+}
+article.preview .excerpt a {
+  text-decoration-color: #111;
 }
 
 /**
@@ -1000,6 +1001,10 @@ article.preview .post-link {
 /**
  * Notes
  */
+.notes .post-link {
+  font-size: 1.475em;
+}
+
 .note {
   line-height: 1.6;
 }
@@ -1044,6 +1049,9 @@ article.preview .post-link {
  * Dark Mode Settings
  */
 @media (prefers-color-scheme: dark) {
+  html ::selection {
+    background: #d61c1d;
+  }
   body {
     color: #ededed;
     background-color: #000;
@@ -1077,6 +1085,12 @@ article.preview .post-link {
   }
 }
 @media (prefers-color-scheme: dark) {
+  .blog .post-link {
+    font-size: 1.475em;
+  }
+  article.preview .post-list-heading {
+    color: #a1a1a1;
+  }
   article.preview .excerpt a {
     text-decoration-color: #ededed;
   }

@@ -7,8 +7,8 @@
 <meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="Sparking joy with Theseus, a differentiable nonlinear optimization library in Python" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="DISCLAIMER: I only played with theseus for ~1 week." />
-<meta property="og:description" content="DISCLAIMER: I only played with theseus for ~1 week." />
+<meta name="description" content="Disclaimer: My experience with Theseus spans roughly one week." />
+<meta property="og:description" content="Disclaimer: My experience with Theseus spans roughly one week." />
 <link rel="canonical" href="http://localhost:4000/notes/theseus.html" />
 <meta property="og:url" content="http://localhost:4000/notes/theseus.html" />
 <meta property="og:site_name" content="Michael Jae-Yoon Chung" />
@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Sparking joy with Theseus, a differentiable nonlinear optimization library in Python" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-03T08:00:00+00:00","datePublished":"2023-12-03T08:00:00+00:00","description":"DISCLAIMER: I only played with theseus for ~1 week.","headline":"Sparking joy with Theseus, a differentiable nonlinear optimization library in Python","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/notes/theseus.html"},"url":"http://localhost:4000/notes/theseus.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-12-03T08:00:00+00:00","datePublished":"2023-12-03T08:00:00+00:00","description":"Disclaimer: My experience with Theseus spans roughly one week.","headline":"Sparking joy with Theseus, a differentiable nonlinear optimization library in Python","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/notes/theseus.html"},"url":"http://localhost:4000/notes/theseus.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael Jae-Yoon Chung" /><link rel="shortcut icon" type="image/png" href="/assets/imgs/favicon.svg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre Baskerville" />
@@ -48,29 +48,32 @@
       <time class="dt-published" datetime="2023-12-03T08:00:00+00:00" itemprop="datePublished">
         Posted on Dec 3, 2023
       </time>
-      • <span>1 min read</span><br>
-      
-        <span class="post-meta">#links</span>&nbsp
-      
-        <span class="post-meta">#project</span>&nbsp
-      </p>
+      • <span>2 min read</span>
+    </p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><em>DISCLAIMER: I only played with <a href="https://github.com/facebookresearch/theseus">theseus</a> for ~1 week.</em></p>
+    <p><strong>Disclaimer:</strong> My experience with <a href="https://github.com/facebookresearch/theseus">Theseus</a> spans roughly one week.</p>
 
-<p>When I was just starting in gradschool, applying numerical methods to the robotics problems was scary (e.g., loop closure in SLAM, trajectory optimization for motion planning).
-I hated deriving Jacobian matrix, …</p>
+<p>In my early grad school days, I did not enjoy implementing the optimization part of any robotics algorithms, such as loop closure in SLAM and trajectory optimization for motion planners.
+The pain deriving Jacobian matrices and checking the correctness of each update step were just … too much for me.</p>
 
-<p><em>I don’t care, just show me the code!</em></p>
+<p>Fast forward to today, and things have changed so much.
+With amazing opensource libraries like <a href="https://github.com/facebookresearch/theseus">Theseus</a> out there, applying numerical optimization methods to robotics problems has become significantly more straightforward.
+Check out this <a href="https://github.com/AtsushiSakai/PythonRobotics/pull/941">pull request (PR)</a> where I implemented an optimization-based motion planner for a link arm by making small adjustments like changing cost functions to an existing <a href="https://github.com/facebookresearch/theseus/blob/main/tutorials/04_motion_planning.ipynb">motion planning as optimization example</a>.</p>
 
-<p>Okay okay, see <a href="https://github.com/AtsushiSakai/PythonRobotics/pull/941">this PR</a>. Briefly, I thought these features made thesues joyful to use:</p>
+<p>Here’s a brief rundown of what makes Theseus a joy to work with:</p>
 
 <ul>
-  <li><em>Pytorch integration</em> brings tons of tensor utilities, autograd, and more</li>
-  <li><em>Python implementation of nonliear &amp; linear optimization algorithms</em> makes it easy to see what’s going on under the hood</li>
-  <li><em>Many robotics utility code (e.g., <a href="https://github.com/facebookresearch/theseus/tree/main/theseus/geometry">geometry</a>), application <a href="https://github.com/facebookresearch/theseus/tree/main/examples">examples</a></em></li>
+  <li><strong>Seamless Pytorch Integration:</strong> Offers a wealth of tensor utilities, autograd capabilities, and more, enhancing the library’s flexibility and ease of use.</li>
+  <li><strong>Easy-to-read Python Implementation of Nonlinear &amp; Linear Optimization Algorithms:</strong> Provides a clear view of the underlying processes, making it accessible for both learning and practical application.</li>
+  <li><strong>Practical Robotics Utility Code:</strong> Includes a variety of tools such as <a href="https://github.com/facebookresearch/theseus/tree/main/theseus/geometry">geometry</a>, along with practical application <a href="https://github.com/facebookresearch/theseus/tree/main/examples">examples</a> that showcase the library’s capabilities in real-world scenarios.</li>
 </ul>
+
+<p>Give it a try and let me know what you think!
+Is it just me or do you also find it useful?
+What other numerical optimization libraries do you like?
+I’m eager to know more about libraries and tools exist in this space.</p>
 <br>
 <script src="https://utteranc.es/client.js"
     repo="mjyc/mjyc.github.io"
