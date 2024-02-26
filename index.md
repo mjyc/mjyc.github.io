@@ -4,7 +4,7 @@ title: about
 ---
 
 Hello, I'm Mike.
-I build tools for programming robots.
+I build tools for programming or operating robots.
 Check out my [resume]({{ site.baseurl }}/assets/pdfs/Resume - Michael Jae-Yoon Chung.pdf).
 
 You can find me on [LinkedIn](https://www.linkedin.com/in/michaeljaeyoonchung/) or [Twitter](https://twitter.com/mjycio).
