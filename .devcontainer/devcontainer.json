@@ -6,8 +6,8 @@
 			"ppa": true,
 			"version": "os-provided"
 		},
-		"ghcr.io/devcontainers/features/ruby:1": {
-			"version": "latest"
+		"ghcr.io/devcontainers/features/ruby:1.1.2": {
+			"version": "3.2.2"
 		}
 	},
 	"postCreateCommand": "sudo apt-get update && sudo apt-get -y install --no-install-recommends rsync locales && sudo locale-gen en_US.UTF-8",
