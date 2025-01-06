@@ -1,87 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2024-12-28T06:00:31+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Lessons Learned from Job Searching in 2023</title><link href="/2024/12/27/lessons.html" rel="alternate" type="text/html" title="Lessons Learned from Job Searching in 2023" /><published>2024-12-27T08:00:00+00:00</published><updated>2024-12-27T08:00:00+00:00</updated><id>/2024/12/27/lessons</id><content type="html" xml:base="/2024/12/27/lessons.html"><![CDATA[<p>I was in the job market in 2023.
-It was a tough year for finding a new potision due to many tech layoffs in 2022-2023.
-I applied for senior software engineer position in various robotics and autonomous vehicles companies, focusing on applications and devtools engineer positions.
-Here are the things I’ve learned.</p>
-
-<h2 id="basics">Basics</h2>
-
-<p>First things first:</p>
-
-<ul>
-  <li>Don’t lose your job. Especially if you are in a vulnerable position, e.g., you have a young family, you are an immigrant who requires a visa, or if your current job is difficult to get, e.g., a senior position in a big tech, remote position after COVID-19, etc.</li>
-  <li>Don’t apply for positions you want. Apply for positions that you feel like you can excel at or you have done many many times.</li>
-  <li>Prepare appropriately for the level you are applying. Research the signals interviewers are expecting for each engineer level. Don’t over or undershoot it.</li>
-  <li>Choose what to include in your resume judiciously. Different wording can change the response rate. Your interview questions will depend on it.</li>
-</ul>
-
-<h2 id="interview-format">Interview Format</h2>
-
-<p>Typically, there were 4 rounds:</p>
-
-<ol>
-  <li>Recruiter</li>
-  <li>Hiring Manager</li>
-  <li>Screening Coding Interview</li>
-  <li>“On-site” Panel Interview</li>
-</ol>
-
-<p>The “on-site” panel interview usually consists of the following:</p>
-
-<ol>
-  <li>Coding interview</li>
-  <li>Sofrware or system design interview</li>
-  <li>Domain knowledge interview</li>
-  <li>Behavior interview (sometimes skipped and replaced by one more 1. or 2.)</li>
-</ol>
-
-<p>Work with recruiters to get ahead.
-Talk to them to get a sense of kind of engineer the company or team is looking for, your competition, learn more about the panel interview like its format and  panelists’ background.
-Ask good questions to show your industry experience, i.e., let them know you are already one of them, early.</p>
-
-<h2 id="coding-interview">Coding Interview</h2>
-
-<p>I felt like coding interviews became more conversational since the last time I was in the job market in 2020.
-Coding interviews usually started with a brief problem description–sometimes even without an example inputs and outputs!–written in an online text editor.
-After eliciting functional (and system) requirements and solving the problem successfully, there usually were some follow-up tasks (e.g., optimize for X, handle edge case Y, what if input size increases to Z).</p>
-
-<ul>
-  <li>Study strategically, i.e., choose practice problems that are likely to occur in your next interview. For example, if you are applying for a motion planning engineer/simulation position, choose a coding problem involving graph/data stream, etc.</li>
-  <li>Trick your mind to relax. Try to game the coding interview, or do whatever works for you to get positively engaged.</li>
-  <li>Deliver a functionally correct solution in time. Being able to deliver a (clean and) correct solution under time pressure is difficult.</li>
-  <li>Then go beyond. Demonstrate your (system) requirement elicitation/capacity estimation skills, show off your knowledge of language-specific features (iff makes sense), and present your real-world experience (e.g., by discussing practicalities, trade-offs, etc.) Be careful not to overdo this (i.e., don’t go into a one-man show), by keep checking in with the interviewer to sense what they are looking for.</li>
-</ul>
-
-<h2 id="software-and-system-design-interview">Software and System Design Interview</h2>
-
-<p>The “on-site” interviews for a robotics (autonomy) position typically included at least one software design round, focusing on code organization (OOP) and functional correctness. System design interviews that focus more on distributed systems and scale were more popular among interviews for a devops or infra position. I found that the design interviews were the most difficult to prepare for. There were many great online resources for preparing design interviews but they were not directly applicable to my interviews.</p>
-<ul>
-  <li>If you are familiar with typical robotics software/systems and their applications, try to create a set of problem and solution pairs that are likely to occur in your interview. Remember the heated design discussions from your previous organizations and check to see if architecture/patterns/trade-offs learned from the online resources are applicable to your practice problems.</li>
-  <li>The high-level design process and interview strategies are often transferrable. Learn them online and try applying them when you practice.</li>
-  <li>If possible, find a buddy to practice with, ideally, someone who has experience with conducting a design interview. Give them the problem and solution pairs you’ve come up with and ask them to conduct a design interview with those. Make sure to find a buddy who can conduct a mock interview well.</li>
-  <li>I found using ChatGPT somewhat helpful. It wasn’t great at coming up with practice problems but was good at brainstorming solutions, e.g., was useful for explaining a particular topic, discussing trade-offs, and solving well-defined problems. Don’t get too sucked into interacting with ChatGPT.</li>
-  <li>Review related, famous, and high-quality opensource projects. Review design docs, design discussions in issues. <!-- For example, when preparing for a simulation engineer position, I reviewed CARLA --></li>
-</ul>
-
-<h2 id="domain-knowledge">Domain Knowledge</h2>
-
-<p>I didn’t have time to finish this section but one note: the format of domain knowledge interview varied a lot but deeply understanding your domain seemed to help the most. Go review fundamentals and basics.</p>
-
-<h2 id="behavioral">Behavioral</h2>
-
-<p>I didn’t have time to finish this section but two notes:</p>
-
-<ul>
-  <li>Many online resources offer guidance on behavioral interviews at big tech companies. Learn the format and strategies.</li>
-  <li>Start preparing early, like at your current job by documenting (1) key leadership moments with context and (2) qualities of admired engineering and product managers. Organize these into a structured format and practice using the learned strategies.</li>
-</ul>
-
-<h2 id="links">Links</h2>
-
-<ul>
-  <li><a href="http://patrickhalina.com/posts/ml-eng-interview-guide/">ML Eng Interview Guide</a> by <a href="http://patrickhalina.com/">Patrick Halina</a></li>
-  <li>(shameless self-promotion) <a href="https://github.com/mjyc/awesome-robotics-system-design?tab=readme-ov-file#learning-resources">Awesome Robotics System Design
-</a> - Stuff I read to learn about robotics system &amp; software design and more.</li>
-</ul>]]></content><author><name></name></author><category term="#jobsearch" /><summary type="html"><![CDATA[I was in the job market in 2023. It was a tough year for finding a new potision due to many tech layoffs in 2022-2023. I applied for senior software engineer position in various robotics and autonomous vehicles companies, focusing on applications and devtools engineer positions. Here are the things I’ve learned.]]></summary></entry><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-01-06T15:22:10+00:00</updated><id>/feed.xml</id><title type="html">Michael Jae-Yoon Chung</title><entry><title type="html">Robo-Observability</title><link href="/2023/04/21/observability.html" rel="alternate" type="text/html" title="Robo-Observability" /><published>2023-04-21T08:00:00+00:00</published><updated>2023-04-21T08:00:00+00:00</updated><id>/2023/04/21/observability</id><content type="html" xml:base="/2023/04/21/observability.html"><![CDATA[<p>I care about observability in the context of debugging and monitoring robotics systems.</p>
 
 <h2 id="logs">Logs</h2>
 
@@ -301,7 +218,7 @@ Let me know what your thoughts!</p>
 
 <h4 id="footnotes">Footnotes</h4>
 
-<p>[^1] See <a href="https://roadmap.sh/frontend">Frontend</a> and <a href="https://roadmap.sh/backend">Backend</a> developer roadmaps to find the “industry standard” tools and technologies.</p>]]></content><author><name></name></author><category term="#productivity" /><category term="#gradschool" /><summary type="html"><![CDATA[[My research](/research) in graduate school was on [human-robot interaction](https://homes.cs.washington.edu/~todorov/courses/cseP590/07_HRI.pdf) (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw).]]></summary></entry><entry><title type="html">In Search of the Grammar of Robot Applications</title><link href="/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of the Grammar of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>/2021/12/29/search</id><content type="html" xml:base="/2021/12/29/search.html"><![CDATA[<figure>
+<p>[^1] See <a href="https://roadmap.sh/frontend">Frontend</a> and <a href="https://roadmap.sh/backend">Backend</a> developer roadmaps to find the “industry standard” tools and technologies.</p>]]></content><author><name></name></author><category term="#productivity" /><category term="#gradschool" /><category term="#jobsearch" /><summary type="html"><![CDATA[[My research](/research) in graduate school was on [human-robot interaction](https://homes.cs.washington.edu/~todorov/courses/cseP590/07_HRI.pdf) (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw).]]></summary></entry><entry><title type="html">In Search of the Grammar of Robot Applications</title><link href="/2021/12/29/search.html" rel="alternate" type="text/html" title="In Search of the Grammar of Robot Applications" /><published>2021-12-29T08:00:00+00:00</published><updated>2021-12-29T08:00:00+00:00</updated><id>/2021/12/29/search</id><content type="html" xml:base="/2021/12/29/search.html"><![CDATA[<figure>
   <img src="https://upload.wikimedia.org/wikipedia/commons/9/92/JOHN_COLTRANE.jpg" />
   <figcaption>A painting of <a href="https://en.wikipedia.org/wiki/John_Coltrane">John Coltrane</a></figcaption>
 </figure>
@@ -1153,4 +1070,91 @@ Long live DIY robots!</p>
 <p>[^1] I love fictions/movies like <a href="https://en.wikipedia.org/wiki/Pluto_(manga)">Pluto</a> or <a href="https://en.wikipedia.org/wiki/Her_(film)">Her</a> that questions the meaning of “human” when robots can be as capable as humans.
 <br />[^2] I keep picking on Jibo but I really wanted it to succeed and at this point, I think learning from its mistake is important for roboticists of tomorrow.
 <br />[^3] Also checkout <a href="https://generalrobots.substack.com/p/how-to-pick-a-problem">How to Pick a Problem</a>
-<br />[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><category term="#culture" /><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry></feed>
+<br />[^4] Checkout <a href="https://www.robinsloan.com/notes/home-cooked-app/">AN APP CAN BE A HOME-COOKED MEAL</a> by Robin Sloan</p>]]></content><author><name></name></author><category term="#culture" /><summary type="html"><![CDATA[In the span of a year, we have witnessed the death of major consumer robot companies. What went wrong? Guy Hoffman, a robotics expert, provides a comprehensive summary of possible reasons for the demise of the companies. To me, the problem was good old over-promise and under-deliver. I mean, just look at this commercial and look at a real robot. But I also think that there is another problem that is rooted in our culture; when you hear the word “robot”, what comes into your mind? I think about C-3PO and R2-D2 from Star Wars, The Terminator, WALL-E, Sonny from I, Robot, and Marvin from The Hitchhiker’s Guide to the Galaxy, just to name a few. Most of these robots are physically more capable than humans and even emotionally as capable as humans[^1]. After seeing such robots over and over, we expect a robot to be a super awesome friend/servant (or killing machine), and see a commercial like this and we get this[^2]. But I digress.]]></summary></entry><entry><title type="html">Collaborating with Undergraduate Students as a Graduate Student in Research</title><link href="/2019/06/04/collaborating.html" rel="alternate" type="text/html" title="Collaborating with Undergraduate Students as a Graduate Student in Research" /><published>2019-06-04T08:00:00+00:00</published><updated>2019-06-04T08:00:00+00:00</updated><id>/2019/06/04/collaborating</id><content type="html" xml:base="/2019/06/04/collaborating.html"><![CDATA[<p>Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [<a href="https://homes.cs.washington.edu/~mernst/advice/undergrad-research.html">1</a>,<a href="https://www.cs.cornell.edu/~asampson/blog/undergrads.html">2</a>], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.</p>
+
+<h4 id="step-1-identify-your-goal">Step 1: Identify your goal.</h4>
+
+<p>First, you should clearly understand what do <em>you</em> want to get out by working with undergraduate students.
+Do you need some help on finishing up a small portion of your research project?
+Are you excited about your research topic and do you want to have someone else take a look at unexplored ideas?
+Do you want to accelerate the growth of your field by outreaching to undergraduate students?
+Whatever your goal is, you want to be clear about it so you can prepare an appropriate interview and collaboration strategies.</p>
+
+<p>Note that goals can be updated over time.
+Personally, I like to set my initial goal as getting help on a concrete and small subset of my project, then update the goal to help the student to become a researcher–if and only if such goal seems mutually beneficial.</p>
+
+<h4 id="step-15-find-a-student">Step 1.5: Find a student.</h4>
+
+<p>The easiest approach is doing nothing.
+In a University setting, motivated undergraduate students will email your advisor or you to get involved in a research project and you should be wanting to work with those motivated students.
+The obvious pro of this approach is that you don’t need to do anything.
+The downside is that you cannot control the timing and sometimes even the project topic you’ll be collaborating on.
+For example, your advisor may email you to work with a student who comes with their own funding and research topic over the summer.</p>
+
+<p>The second easiest approach is attending “undergraduate research fair” type events hosted by your department or University.
+This approach gives you more control in timing and the collaboration project topic but requires you to put some effort on preparing materials for the fair and more importantly, I found meeting a suitable or talented student hit-or-miss.</p>
+
+<p>The final approach is asking around.
+If you can elaborate kind of students you are looking for clearly, your peers or advisors can be helpful in finding a suitable student for you.
+Compare to the “attending research fairs” approach, this approach can help you find “the student” you are looking but with a low probability of actually finding one.</p>
+
+<p>I tend to take both the first and third approaches.
+The downside of the two approaches are having no control in the timing but if you have multiple projects going at different stages all the time, you always have a project to collaborate with, so timing becomes less of an issue than finding a talented, passion-sharing student.</p>
+
+<p>Finding a student requires you to have an interview strategy.
+For this topic, I highly recommend checking out Michael Ernst’s <a href="https://homes.cs.washington.edu/~mernst/advice/interviewing-undergraduates.html">“Tips for interviewing undergraduates for research”</a>.</p>
+
+<h4 id="step-2-identify-your-students-goal">Step 2: Identify your student’s goal.</h4>
+
+<p>Understanding your student’s goal is as important as understanding your own goal for a healthy collaboration relationship.</p>
+
+<p>From my experience, the most common motivation of the undergraduate students I’ve work with was getting exposed to robotics research.
+For the older students who are closer to graduate, they were also motivated by expanding their skill sets to make themselves more attractive to the companies they want to apply to.
+There were also some students who wanted to publish an academic paper before they apply to a graduate school to strengthen their application.</p>
+
+<p>I found that it is difficult to identify undergraduate students’ internal motivations from interviews alone.
+Most students do not fully understand what their own goals are or interests since they are not fully aware of what they really want or simply because they had not had much experience with robotics research.
+Therefore I like to plan the first collaboration project with a student as a “getting to know each other” project.
+However, if you don’t have time, e.g., working on a short term project, you will need to rely on your intuition on identifying students’ motivations.</p>
+
+<h4 id="step-3-start-collaborating">Step 3: Start collaborating.</h4>
+
+<p>Your collaboration strategies should be dependent on your and your student’s goals and the agreed collaboration duration.</p>
+
+<p>In general, I like to take a goal-driven collaboration strategy.
+For example, I set the goals for students and myself for a certain duration and work towards those goals while helping each other.
+This approach particularly worked well for me because by not giving them step-by-step instructions, the students show their original approaches for achieving the assigned project goals as well as their personality.
+The approach also allows me to see whether they can learn from demonstrations.
+Because we are collaborating, they see what I do to solve complex problems (or the problems that are unfamiliar to them) and give them chance to immediate my approach–if it makes sense.
+I focus on demonstrating high-level problem-solving strategies like clearly identifying underspecified goals, breaking down complex goals, and managing one’s time and attention span.
+Interestingly, over the years of trying out the goal-driven collaboration, I’ve learned a lot from the students as well.
+Many students I met had less experience with the field of robotics, however, some of them were just truly gifted human beings and I could learn a lot from their original way of handling the small research projects give to them.</p>
+
+<p>Sometimes, students are not ready to collaborate at all but you still want to or need to work with them.
+In such a case, I give them a small-scoped, independent project and observe what they do.
+I ask the following questions to myself to decide whether I want to work with the student for a longer-term:</p>
+
+<ul>
+  <li>Can they communicate?</li>
+  <li>Can they learn?</li>
+  <li>Can they apply the technical skill sets they claimed to have?</li>
+  <li>Do they find research interesting?</li>
+</ul>
+
+<p>How do you know your student is making progress?
+Look at what they do.
+They will demonstrate that they have learned the required skill by applying them properly.
+They will demonstrate that they are excited about the project by spending time on it over the weekend and by proactive contacting you to show what they have done.</p>
+
+<p>Regardless of taking the goal-driven collaboration approach or the giving independent project approach and because my goal for collaborating with students is getting them involved into the world of research, i.e., finding future peers, I like to give them a snapshot of the graduate student lifestyle by encouraging to participate in lab meetings, research seminars and discussions with peers.
+I also encourage them to present the potential impact of the collaboration project in their own words and encourage them to present their work as much as possible–at their class, lab meetings, or even at local meetups.
+If they don’t have much time to do research work, I encourage them to use the research project for their graduation requirements, e.g., a project for a project-oriented senior class or senior thesis.</p>
+
+<h4 id="step-4-say-goodbye">Step 4: Say goodbye.</h4>
+
+<p>Most times, students leave the project in less than six months; some graduate, move on to another project, or simply stop working on it.
+What about when things are going well?
+How do you know when to stop collaborating?
+Eventually, when to part away with your student will become obvious.
+They will naturally work more independently and even start identifying their own agendas and work towards them, e.g., by working with your advisor directly.
+That would be time to stop considering them as an “undergraduate” researcher and treat them like a peer researcher.</p>]]></content><author><name></name></author><category term="#gradschool" /><summary type="html"><![CDATA[Although there are great blog posts on this topic of “how to work with undergraduate students” from veterans in the field [1,2], I have my own take on this topic so here I wrote down the process I came up with from working with truly amazing undergraduate students I met over my graduate school years.]]></summary></entry></feed>
