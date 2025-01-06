@@ -3,7 +3,7 @@ layout: post
 title: "Transitioning from HRI research to the industry/Getting started with work"
 date: 2022-05-30 00:00:00 -0800
 updated: 2023-06-03 00:00:00 -0800
-tags: ["#productivity", "#gradschool"]
+tags: ["#productivity", "#gradschool", "#jobsearch"]
 excerpt: "[My research](/research) in graduate school was on [human-robot interaction](https://homes.cs.washington.edu/~todorov/courses/cseP590/07_HRI.pdf) (HRI), more specifically, on [end-user robot programming](https://youtu.be/pTml6yEIjcw)."
 ---
 
