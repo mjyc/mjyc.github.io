@@ -32,6 +32,8 @@ Although the list above is based on a small number of interviews and my personal
 
 #### Miscellaneous
 
+- _Dec, 2025. ["Why Robot Companies Fail: The Top Lessons No One Wants to Learn the Hard Way"](https://sixdegreesofrobotics.substack.com/p/why-robot-companies-fail-the-top)_
+- _Feb, 2023. ["So You Want To Do Robots, Part 3: How to Escape Pilot Purgatory"](https://generalrobots.substack.com/p/so-you-want-to-do-robots-part-3-how)_
 - _Sep, 2021. ["How to Build Good Software"](https://www.csc.gov.sg/articles/how-to-build-good-software) - "Why Bad Software Happens to Good People" section felt relevant._
 - _Apr, 2021. Found more related papers!_
     - _["State of the Practice and Guidelines for ROS-based System"](https://arxiv.org/ftp/arxiv/papers/2010/2010.14537.pdf)_
